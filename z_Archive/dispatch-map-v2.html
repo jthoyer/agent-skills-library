@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prody Dispatch Map v2</title>
+
+<style>
+  :root {
+    --ground:  #EBEEEB;
+    --panel:   #F8FAF8;
+    --ink:     #16211E;
+    --muted:   #5A6A65;
+    --rule:    #C7D2CE;
+    --accent:  #0E6E5E;
+    --signal:  #9C570F;
+    --wash:    rgba(14, 110, 94, 0.055);
+    --band:    rgba(14, 110, 94, 0.04);
+
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "DejaVu Sans Mono", "Liberation Mono", monospace;
+    --serif: Charter, "Iowan Old Style", "Palatino Linotype", "Source Serif 4", "Book Antiqua", Georgia, serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:  #101614;
+      --panel:   #19211E;
+      --ink:     #E4EBE7;
+      --muted:   #91A29C;
+      --rule:    #2C3934;
+      --accent:  #55C6AE;
+      --signal:  #DFA05A;
+      --wash:    rgba(85, 198, 174, 0.07);
+      --band:    rgba(85, 198, 174, 0.05);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:  #101614;
+    --panel:   #19211E;
+    --ink:     #E4EBE7;
+    --muted:   #91A29C;
+    --rule:    #2C3934;
+    --accent:  #55C6AE;
+    --signal:  #DFA05A;
+    --wash:    rgba(85, 198, 174, 0.07);
+    --band:    rgba(85, 198, 174, 0.05);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.62;
+    margin: 0;
+    padding: 0 24px 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 52px;
+  }
+
+  /* ---- header ---- */
+
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-top: 72px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(30px, 5vw, 46px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .standfirst {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 60ch;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 28px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 12px 0;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  /* ---- sections ---- */
+
+  section { display: flex; flex-direction: column; gap: 20px; }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  p { margin: 0; max-width: 68ch; text-wrap: pretty; }
+
+  .notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+  }
+  .notes h3 {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+  .notes p { font-size: 15.5px; line-height: 1.58; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: var(--wash);
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  /* ---- figures ---- */
+
+  figure {
+    margin: 0;
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 24px 24px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .scroller { overflow-x: auto; }
+  figure svg { display: block; width: 100%; height: auto; min-width: 720px; }
+  figcaption {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--muted);
+    max-width: 78ch;
+    border-top: 1px solid var(--rule);
+    padding-top: 14px;
+  }
+  figcaption b { color: var(--ink); font-weight: 600; }
+
+  /* ---- svg primitives ---- */
+
+  .bx    { fill: var(--panel); stroke: var(--rule); stroke-width: 1; }
+  .bx-a  { fill: var(--panel); stroke: var(--accent); stroke-width: 1.5; }
+  .pn    { fill: none; stroke: var(--rule); stroke-width: 1; }
+  .pn-d  { fill: none; stroke: var(--rule); stroke-width: 1; stroke-dasharray: 5 4; }
+  .pn-t  { fill: none; stroke: var(--rule); stroke-width: 1; stroke-dasharray: 1.5 4; stroke-linecap: round; }
+  .pn-s  { fill: none; stroke: var(--signal); stroke-width: 1; stroke-dasharray: 5 4; }
+  .band  { fill: var(--band); stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 6 4; }
+
+  .ed    { fill: none; stroke: var(--ink); stroke-width: 1.2; }
+  .ed-a  { fill: none; stroke: var(--accent); stroke-width: 1.4; }
+  .ed-p  { fill: none; stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 6 4; }
+  .ed-s  { fill: none; stroke: var(--signal); stroke-width: 1.4; }
+  .bus   { fill: none; stroke: var(--accent); stroke-width: 2.2; }
+
+  .t     { font-family: var(--mono); fill: var(--ink); font-size: 13.5px; }
+  .t-big { font-family: var(--mono); fill: var(--ink); font-size: 17px; font-weight: 600; }
+  .t-sub { font-family: var(--mono); fill: var(--muted); font-size: 11px; }
+  .t-hdr { font-family: var(--mono); fill: var(--muted); font-size: 10.5px; letter-spacing: 0.13em; }
+  .t-acc { font-family: var(--mono); fill: var(--accent); font-size: 11px; }
+  .t-sig { font-family: var(--mono); fill: var(--signal); font-size: 11px; }
+  .t-stp { font-family: var(--mono); fill: var(--ink); font-size: 11.5px; }
+  .mid   { text-anchor: middle; }
+  .end   { text-anchor: end; }
+  .hair  { stroke: var(--rule); stroke-width: 1; }
+
+  /* ---- table ---- */
+
+  .tbl-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; min-width: 840px; font-size: 15px; }
+  th {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    font-weight: 600;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+  td { padding: 10px 20px; vertical-align: top; border-bottom: 1px solid var(--rule); }
+  tr:last-child td { border-bottom: none; }
+  td.who { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+  td.by  { color: var(--muted); font-size: 14px; }
+  .grp td {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--wash);
+    padding: 9px 20px;
+    font-weight: 600;
+  }
+  .hub td.who { color: var(--accent); font-weight: 600; }
+
+  /* ---- caveat ---- */
+
+  .caveat {
+    border-left: 3px solid var(--signal);
+    padding: 4px 0 4px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .caveat .tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--signal);
+  }
+  .caveat.resolved { border-left-color: var(--accent); }
+  .caveat.resolved .tag { color: var(--accent); }
+  .caveat.proposed p:not(.tag) { font-size: 15.5px; }
+
+  td.mdl {
+    font-family: var(--mono);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  td.mdl .chg { color: var(--signal); font-weight: 600; }
+  td.mdl .was { color: var(--muted); font-size: 11px; }
+
+  /* ---- status dashboard ---- */
+
+  td.rev {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+  td.ind { font-family: var(--mono); font-size: 12px; }
+  .ind .sub { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; font-family: var(--mono); }
+  table.tbl-status { table-layout: fixed; min-width: 1240px; }
+  table.tbl-status td, table.tbl-status th { overflow-wrap: break-word; }
+  .st-ind  { color: var(--accent); font-weight: 600; }
+  .st-self { color: var(--signal); }
+  .st-none { color: var(--muted); }
+  .st-pri  { color: var(--signal); font-weight: 600; }
+  td.note { font-size: 14px; color: var(--muted); }
+
+  /* ---- necessity verdict ---- */
+
+  td.vd {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .v-keep { color: var(--accent); }
+  .v-tri  { color: var(--signal); }
+  .v-ret  { color: var(--signal); }
+  tr.ret td.who { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+  table.tbl-nec { table-layout: fixed; min-width: 980px; }
+  table.tbl-nec td, table.tbl-nec th { overflow-wrap: break-word; }
+
+  footer {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; padding: 0 16px 64px; }
+    header { padding-top: 48px; }
+    .wrap { gap: 40px; }
+    figure { padding: 16px 16px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">~/.claude/agents · 11 definitions · v2</p>
+    <h1>Prody Dispatch Map</h1>
+    <p class="standfirst">How a request reaches an agent in this library — and, as of today, why nine of the twenty agents that used to be here are skills instead.</p>
+    <div class="meta">
+      <span><b>11</b> agent files</span>
+      <span><b>9</b> retired 2026-08-18</span>
+      <span><b>1</b> hub</span>
+      <span><b>1</b> pipeline</span>
+      <span><b>5</b> pipeline actors</span>
+      <span><b>7</b> opus / <b>4</b> sonnet</span>
+      <span><b>5</b> of 11 work-sample reviewed</span>
+      <span><b>7</b> of 11 independently reviewed</span>
+      <span><b>8</b> named routes go to a skill</span>
+      <span>updated <b>2026-08-18</b></span>
+    </div>
+  </header>
+
+  <section>
+    <h2>The necessity test — the principle behind every verdict below</h2>
+
+    <p><b>An agent has to earn a separate process. A skill does not.</b> A skill is instructions loaded into the current turn: no cold start, no context reload, no dispatch, and it inherits whatever tools the thread already holds. An agent is a subagent with its own context window and its own declared tool set. Everything an agent can do that a skill cannot comes from exactly one of those two differences — plus the third thing they combine to allow, which is running two of them at once.</p>
+
+    <p>So the test, applied to all twenty agents that existed this morning, is a single question:</p>
+
+    <div class="caveat resolved">
+      <p class="tag">The test</p>
+      <p><b>Does this agent&#8217;s job require something a skill structurally cannot provide?</b> Namely: <b>(1)</b> a separate context window — the work reads or generates so much that the main thread wants only the conclusion, or the work must be graded by something that never saw it produced; <b>(2)</b> an isolated tool set — the role is defined by what it <i>cannot</i> do, and in-thread that is an instruction rather than a guarantee; or <b>(3)</b> genuine concurrent dispatch, where two actors run without either anchoring on the other&#8217;s output.</p>
+      <p>If yes → <b>KEEP</b>, with the specific structural reason named. If the job is bounded, single-pass, and a skill loaded into the main thread would do it just as well → <b>RETIRE</b>, naming the skill that replaces it. Nine failed.</p>
+    </div>
+
+    <div class="notes">
+      <div>
+        <h3>Not a cost exercise</h3>
+        <p>Nothing here was retired for being long, duplicative or unloved. Every verdict cites a structural property or its absence, and the two retirements that <i>did</i> destroy a real tool guarantee say so in those words.</p>
+      </div>
+      <div>
+        <h3>Retirement is reversible; that is the point</h3>
+        <p>All nine were archived <i>unmodified</i> under <code>~/.claude/skills/_retired/</code>, each with a <code>_superseded-by.md</code> pointer and a stated reversal condition. There is no git behind <code>~/.claude</code> — the archive move is the undo, and there is only one.</p>
+      </div>
+      <div>
+        <h3>Who graded this</h3>
+        <p><code>prody</code>, embodied. The dispatch probe resolved negative, so the agent that owns the routing table also wrote the verdicts that simplify it. <b>Reduced independence</b>, recorded as such in the ledger, with an independent pass outstanding.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The finding that decided it</h2>
+
+    <div class="caveat">
+      <p class="tag">Verified on disk 2026-08-18 · corrects v1</p>
+      <p><b>Not one of the twenty agent files declares an <code>Agent</code> or <code>Task</code> tool.</b> Not <code>mc-orchestrator.md</code>. Not <code>orchestrator.md</code>. Not <code>prody.md</code>. A subagent receives exactly the tools its own <code>tools:</code> line grants, so <b>neither orchestrator could ever dispatch its own actors</b> — the concurrent Stage 2 pair (Devil&#8217;s Advocate + Subject Matter Validator) and the concurrent Stage 3 pair (Reviewer + Verifier) cannot fire from the orchestrator that is supposed to coordinate them, in any environment, ever.</p>
+      <p><b>v1 asked to have this verified rather than taken on faith, and it did not survive.</b> The previous edition concluded that &#8220;the twelve pipeline actor files earn their maintenance&#8221; and that the concurrency was &#8220;a real capability rather than a documented aspiration.&#8221; The first half of that stands in a narrower form — a restricted-tool actor <i>can</i> be dispatched as a genuine cold context, which is what the five surviving <code>mc-*</code> actors rest on. The second half does not. Dispatch was only ever observed <b>from the top level</b>, never from an orchestrator, and the tools lines explain why every dispatch probe in five weeks of this ledger came back negative. It was never the environment.</p>
+      <p><b>This is the single cheapest unfixed defect in the library.</b> Adding <code>Agent</code> to one <code>tools:</code> line turns five actor files from unusable-as-designed into usable-as-designed. It is a definition edit rather than a routing edit, so it is proposed, not applied — see below.</p>
+    </div>
+
+    <div class="caveat proposed">
+      <p class="tag">Proposed, awaiting sign-off</p>
+      <p><b>Add <code>Agent</code> to <code>mc-orchestrator.md</code>&#8217;s <code>tools:</code> line</b>, and consider the same for <code>prody.md</code>. Until then, if you want the real Reviewer/Verifier pair, dispatch both yourself from the top level in one turn and hand each the same Stage 2 Register — which is what <code>prody.md</code>&#8217;s step 4 now says.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The verdict — all twenty</h2>
+
+    <div class="tbl-scroll">
+      <table class="tbl-nec">
+        <colgroup><col style="width:210px"><col style="width:130px"><col></colgroup>
+        <thead>
+          <tr><th>Agent</th><th>Verdict</th><th>The structural reason — or the skill that replaces it</th></tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><td colspan="3">Keep — 11</td></tr>
+          <tr class="hub"><td class="who">prody</td><td class="vd v-keep">keep · on notice</td><td class="by"><b>The weakest structural case in the library, stated plainly.</b> A routing hub belongs in the thread that holds the conversation, and a skill would auto-trigger on description match where prody must be explicitly launched — the exact capability <code>agent-router</code> gave up to become prody. Kept on two <i>non-structural</i> grounds: it is the designated entry point, and <code>prompt-refiner</code> Phase 4 launches it by name, an inbound cross-library dependency recorded 2026-08-17 that a rename would silently break.</td></tr>
+          <tr><td class="who">agent-improver</td><td class="vd v-keep">keep</td><td class="by"><b>(1) Separate context window — the entire product.</b> A skill loads into the context that produced the work, which makes every review a self-review by construction. This is measured, not argued: two <code>agent-improver</code> self-checks concluded &#8220;no defect found&#8221;; the first independent pass found four HIGH defects, and six definition-only clean verdicts were overturned six-for-six once dispatch arrived.</td></tr>
+          <tr><td class="who">cody</td><td class="vd v-keep">keep</td><td class="by"><b>(1) Separate context window.</b> Implementation runs builds, serves apps, seeds data and greps the tree — thousands of lines of tool output the main thread has no use for and cannot afford. Also the most-evidenced agent here: three work samples, including an unprompted hostile <code>date:'2099-01-01'</code> boundary assertion the brief never asked for.</td></tr>
+          <tr><td class="who">code-improver</td><td class="vd v-tri">keep · on trial</td><td class="by"><b>Passes weakly on (1) and (2).</b> <code>Read, Grep, Glob</code> is a real read-only guarantee, and a directory-wide read is a real context cost. <b>The test alone would retire it:</b> it duplicates the <code>/code-review</code> built-in and has never once been routed to — all 14 ledger mentions are boundary references. Held only by a live user-signed-off trial at <b>0/3</b>. Conclude that trial; don&#8217;t let it lapse into tenure.</td></tr>
+          <tr><td class="who">watchdog</td><td class="vd v-keep">keep</td><td class="by"><b>(1), twice over.</b> Duplication is invisible from inside a single file, so the sweep must read broadly and return only findings — the classic separate-window case. And it grades work the main thread just produced, so in-thread it inherits <code>agent-improver</code>&#8217;s self-review defect, pointed at the artifact instead of the agent.</td></tr>
+          <tr><td class="who">mc-orchestrator</td><td class="vd v-keep">keep</td><td class="by"><b>(1) plus the absence of a replacement.</b> There is no <code>multi-actor-coding</code> skill — unlike research, this playbook has no canonical skill behind it. The forced sequence with a persisted intermediate (static review written down <i>before</i> anything is executed) is what a single-turn skill cannot hold. Real caught-defect evidence: a blocking <code>raceFormOpen</code> defect found against a 25/25 green suite, which an implement-then-test pass reads as done.</td></tr>
+          <tr><td class="who">mc-planner</td><td class="vd v-keep">keep</td><td class="by"><b>(2) Isolated tool set: no <code>Edit</code>, no <code>Bash</code>.</b> It structurally cannot modify existing code or run anything, which is what keeps a spec a spec. In the main thread it would inherit both and the guarantee evaporates — and a wrong spec is the one error that passes cleanly through the entire challenge stage, because Reviewer and Verifier check conformance <i>to</i> the spec.</td></tr>
+          <tr><td class="who">mc-implementer</td><td class="vd v-keep">keep</td><td class="by"><b>(1) plus a prohibition that needs a second context to mean anything.</b> Build churn belongs in its own window; and this is the one actor explicitly forbidden to declare its own work done. &#8220;You do not grade your own work&#8221; is vacuous when the grader is the same turn.</td></tr>
+          <tr><td class="who">mc-reviewer</td><td class="vd v-keep">keep</td><td class="by"><b>(2) The cleanest structural keep in the library.</b> <code>tools: Read, Grep, Glob</code>. It cannot execute the code — full stop — and &#8220;never runs it&#8221; is not a preference but the entire definition of the role, the thing that makes it a distinct check from the Verifier. In-thread that is an instruction; here it is a guarantee.</td></tr>
+          <tr><td class="who">mc-verifier</td><td class="vd v-keep">keep</td><td class="by"><b>(2) plus isolated execution, which is literally the job.</b> <code>Bash, Read, Grep, Glob</code> — with no <code>Edit</code> or <code>Write</code>, it cannot quietly edit its way to a passing run, which is the failure mode of any actor that both fixes and verifies.</td></tr>
+          <tr><td class="who">mc-integrator</td><td class="vd v-keep">keep</td><td class="by"><b>(2) plus arbitral independence.</b> No <code>Bash</code>, so it cannot substitute its own verification for the Verifier&#8217;s and must rule on the evidence it was handed. Arbitration needs a context that produced neither party&#8217;s case; in-thread it produced both.</td></tr>
+
+          <tr class="grp"><td colspan="3">Retired 2026-08-18 — 9</td></tr>
+          <tr class="ret"><td class="who">10x</td><td class="vd v-ret">retire</td><td class="by">→ <code>first-principles</code> skill (<code>issue-tree</code> when the ask is really decomposition). <b>It never once ran as a dispatched agent.</b> All three <code>10X-LOG.md</code> entries were produced by prody embodying it in the main thread — which is precisely a skill. A cold context is actively <i>worse</i> here: it cannot see the recent work the recommendation is supposed to be about. The daily throttle and the log are file conventions, not structural capabilities; both survive as prody launch-check mechanics.</td></tr>
+          <tr class="ret"><td class="who">mar-orchestrator</td><td class="vd v-ret">retire</td><td class="by">→ <code>multi-actor-research</code> skill. Its <code>tools:</code> line declares no <code>Agent</code>/<code>Task</code>, so it could never dispatch the seven actors that were its whole reason to exist. What remains is a 67-line single-thread playbook runner standing against a 584-line skill — <code>SKILL.md</code> plus <code>references/actors.md</code>, <code>escalation.md</code> and <code>stage-register.md</code> — that does the same job in more detail.</td></tr>
+          <tr class="ret"><td class="who">mar-researcher</td><td class="vd v-ret">retire</td><td class="by">→ <code>multi-actor-research</code> skill. Unrestricted tool set, so no guarantee is lost. <code>references/actors.md</code> carries the full Researcher playbook. <b>Port forward:</b> the Coverage note, and the persistence rule (write the register to a file, return the absolute path).</td></tr>
+          <tr class="ret"><td class="who">mar-evidence-auditor</td><td class="vd v-ret">retire</td><td class="by">→ <code>multi-actor-research</code> skill. Held a weak guarantee — no <code>WebSearch</code>, so it must grade against the register rather than go find new sources. Never exercised in five weeks; the skill states the same constraint as an instruction, which is what it effectively was.</td></tr>
+          <tr class="ret"><td class="who">mar-devils-advocate</td><td class="vd v-ret">retire</td><td class="by">→ <code>red-team</code> skill for the pure-attack case; <code>multi-actor-research</code> for the in-playbook version. <b>Its own file already pointed here</b> for demolition with no synthesis obligation. Unrestricted tools, so nothing structural is lost, and <code>red-team</code> is the richer instrument — four modes, domain-agnostic.</td></tr>
+          <tr class="ret"><td class="who">mar-subject-matter-validator</td><td class="vd v-ret">retire</td><td class="by">→ <code>multi-actor-research</code> skill. <b>The strongest guarantee retired, and a real loss — said plainly rather than argued away.</b> <code>Read, Grep, Glob</code> with no search at all meant it structurally had to speak from knowledge or admit it could not, which is why it was moved to opus on 2026-08-17. In-thread that becomes an instruction. It was never once run. <b>Port forward:</b> the <i>Where your knowledge runs out</i> section, verbatim.</td></tr>
+          <tr class="ret"><td class="who">mar-synthesiser</td><td class="vd v-ret">retire</td><td class="by">→ <code>multi-actor-research</code> skill. Unrestricted tools, no guarantee. Single-pass composition from artefacts already in hand is exactly the bounded work a skill does without a cold start.</td></tr>
+          <tr class="ret"><td class="who">mar-communicator</td><td class="vd v-ret">retire</td><td class="by">→ <code>scr-pyramid-communicator</code> skill (<code>scqa-framework</code> for the shorter memo). <b>Its own file already deferred to that skill</b> for the structuring method and called its own three-line rule &#8220;the fallback.&#8221; Retiring the agent simply promotes the real method to primary.</td></tr>
+          <tr class="ret"><td class="who">mar-project-manager</td><td class="vd v-ret">retire</td><td class="by">→ <code>multi-actor-research</code> skill; <code>project-management</code> for process work outside the playbook. <code>references/escalation.md</code> is the canonical protocol this file mirrored. <b>Port forward:</b> the escalation-set-is-not-closed rule and the <i>Finding as raised (verbatim)</i> column — both were hard-won and neither is in the skill.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="caveat">
+      <p class="tag">The case against this audit, argued rather than gestured at</p>
+      <p><b>Nine retirements is the largest composition change this library has made, and the agent that made it owns the routing table it simplifies.</b> Three specific objections deserve to be on the record. <b>One:</b> it overturns the 2026-08-17 decision that explicitly <i>rejected</i> retiring the eight <code>mar-*</code> files, whose own stated reversal condition — one observed skill run proving the files redundant — has <b>not</b> been met. The defence is that the earlier decision rested on symmetry (&#8220;two never-observed paths, don&#8217;t swap one for the other&#8221;) and the tools-line finding breaks it: the skill is readable from disk in any session, while the agents&#8217; distinguishing capability is unreachable from their orchestrator in every session. That is new evidence, not a re-argued preference — but a reader is entitled to weigh it themselves. <b>Two:</b> two genuine tool guarantees were destroyed, and the four <i>port forward</i> items above are obligations, not decorations; until <code>skills-librarian</code> lands them in <code>multi-actor-research/SKILL.md</code>, this audit has traded something real for something promised. <b>Three:</b> an auditor asked whether a library is too big has an obvious incentive to find that it is.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The loop</h2>
+
+    <figure>
+      <div class="scroller">
+        <svg viewBox="0 0 1160 780" role="img" aria-label="Signal-flow diagram. A request enters prody, which frames it, enumerates the library live, and routes it along a dispatch line to one of four groups: the single remaining coding pipeline, single-pass specialists, a now-expanded lane of six named skills that are loaded rather than dispatched, or built-ins. A note under prody records that no agent file declares an Agent or Task tool, so concurrency must be dispatched from prody itself. The output and its work sample return to a closing pass where agent-improver grades the agent and watchdog grades the artifact, both writing to CHANGELOG.md. A dashed return path carries that record back to prody's portfolio authority, which updates the routing table and decides which agents exist.">
+
+          <defs>
+            <marker id="d1-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,1 L9,5 L0,9 z" style="fill: var(--ink)" />
+            </marker>
+            <marker id="d1-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,1 L9,5 L0,9 z" style="fill: var(--accent)" />
+            </marker>
+          </defs>
+
+          <!-- column headers -->
+          <text class="t-hdr" x="36"  y="30">ENTRY</text>
+          <text class="t-hdr" x="246" y="30">ROUTING</text>
+          <text class="t-hdr" x="546" y="30">EXECUTION</text>
+          <text class="t-hdr" x="936" y="30">CLOSING</text>
+
+          <!-- entry -->
+          <rect class="bx" x="36" y="190" width="170" height="64" rx="3" />
+          <text class="t mid"     x="121" y="216">Request</text>
+          <text class="t-sub mid" x="121" y="236">&#8220;Launch prody&#8221;</text>
+
+          <rect class="pn-d" x="36" y="300" width="170" height="52" rx="3" />
+          <text class="t-sub mid" x="121" y="322" style="fill: var(--ink); font-size: 12px">10X-LOG.md</text>
+          <text class="t-sub mid" x="121" y="339">daily throttle</text>
+
+          <line class="ed" x1="206" y1="222" x2="238" y2="222" marker-end="url(#d1-ink)" />
+          <line class="ed" x1="206" y1="326" x2="238" y2="326" marker-end="url(#d1-ink)" stroke-dasharray="5 4" />
+
+          <!-- prody -->
+          <rect class="bx-a" x="246" y="120" width="220" height="220" rx="3" />
+          <text class="t-big mid" x="356" y="154">prody</text>
+          <line class="hair" x1="266" y1="168" x2="446" y2="168" />
+          <text class="t-stp" x="268" y="192">1 · frame — done, scope</text>
+          <text class="t-stp" x="268" y="214">2 · inventory — live grep</text>
+          <text class="t-stp" x="268" y="236">3 · route — stated reason</text>
+          <text class="t-stp" x="268" y="258">4 · dispatch or embody</text>
+          <text class="t-stp" x="268" y="280">5 · close the loop</text>
+          <line class="hair" x1="266" y1="298" x2="446" y2="298" />
+          <text class="t-sub mid" x="356" y="320">never runs a pipeline itself</text>
+
+          <!-- the tools-line finding -->
+          <rect class="pn-s" x="246" y="376" width="220" height="74" rx="3" />
+          <text class="t-sig" x="262" y="398">no agent file declares</text>
+          <text class="t-sig" x="262" y="414">Agent / Task — so any</text>
+          <text class="t-sig" x="262" y="430">concurrency dispatches</text>
+          <text class="t-sig" x="262" y="446">from HERE, not below</text>
+
+          <!-- dispatch bus -->
+          <line class="bus" x1="516" y1="104" x2="516" y2="620" />
+          <line class="ed-a" x1="466" y1="230" x2="512" y2="230" marker-end="url(#d1-acc)" />
+          <text class="t-acc mid" x="489" y="221">routes</text>
+
+          <!-- G1 pipeline -->
+          <rect class="pn" x="546" y="104" width="300" height="68" rx="3" />
+          <text class="t-hdr" x="558" y="122">PIPELINE · NO ACTOR GRADES ITSELF</text>
+          <rect class="bx" x="566" y="132" width="260" height="32" rx="2" />
+          <text class="t"     x="580" y="153">mc-orchestrator</text>
+          <text class="t-sub end" x="812" y="153">coding · 5 actors</text>
+
+          <!-- G2 single pass -->
+          <rect class="pn" x="546" y="192" width="300" height="172" rx="3" />
+          <text class="t-hdr" x="558" y="210">SINGLE PASS</text>
+          <rect class="bx" x="566" y="220" width="260" height="30" rx="2" />
+          <text class="t"     x="580" y="240">cody</text>
+          <text class="t-sub end" x="812" y="240">UI · a11y · styleguide</text>
+          <rect class="bx" x="566" y="256" width="260" height="30" rx="2" />
+          <text class="t"     x="580" y="276">code-improver</text>
+          <text class="t-sub end" x="812" y="276">read-only · on trial 0/3</text>
+          <rect class="bx" x="566" y="292" width="260" height="30" rx="2" />
+          <text class="t"     x="580" y="312">watchdog</text>
+          <text class="t-sub end" x="812" y="312">duplication · errors</text>
+          <rect class="bx" x="566" y="328" width="260" height="30" rx="2" />
+          <text class="t"     x="580" y="348">agent-improver</text>
+          <text class="t-sub end" x="812" y="348">grades the agent</text>
+
+          <!-- G3 skills -->
+          <rect class="pn-t" x="546" y="384" width="300" height="140" rx="3" />
+          <text class="t-hdr" x="558" y="402">SKILLS · LOADED, NEVER DISPATCHED</text>
+          <rect class="pn-t" x="566" y="412" width="125" height="30" rx="2" />
+          <text class="t-sub mid" x="628" y="431" style="font-size: 10px">multi-actor-research</text>
+          <rect class="pn-t" x="701" y="412" width="125" height="30" rx="2" />
+          <text class="t-sub mid" x="763" y="431" style="font-size: 10px">multi-actor-strategy</text>
+          <rect class="pn-t" x="566" y="448" width="125" height="30" rx="2" />
+          <text class="t-sub mid" x="628" y="467" style="font-size: 10px">red-team</text>
+          <rect class="pn-t" x="701" y="448" width="125" height="30" rx="2" />
+          <text class="t-sub mid" x="763" y="467" style="font-size: 10px">first-principles</text>
+          <rect class="pn-t" x="566" y="484" width="125" height="30" rx="2" />
+          <text class="t-sub mid" x="628" y="503" style="font-size: 10px">skills-librarian</text>
+          <rect class="pn-t" x="701" y="484" width="125" height="30" rx="2" />
+          <text class="t-sub mid" x="763" y="503" style="font-size: 10px">scr-pyramid</text>
+
+          <!-- G4 built-ins -->
+          <rect class="pn-d" x="546" y="544" width="300" height="76" rx="3" />
+          <text class="t-hdr" x="558" y="562">BUILT-INS · NO DEFINITION TO IMPROVE</text>
+          <rect class="bx" x="566" y="572" width="125" height="32" rx="2" />
+          <text class="t mid" x="628" y="593">Explore</text>
+          <rect class="bx" x="701" y="572" width="125" height="32" rx="2" />
+          <text class="t mid" x="763" y="593">Plan</text>
+
+          <!-- bus taps -->
+          <line class="ed-a" x1="516" y1="148" x2="542" y2="148" marker-end="url(#d1-acc)" />
+          <line class="ed-a" x1="516" y1="278" x2="542" y2="278" marker-end="url(#d1-acc)" />
+          <line class="ed-a" x1="516" y1="454" x2="542" y2="454" marker-end="url(#d1-acc)" stroke-dasharray="1.5 4" />
+          <line class="ed-a" x1="516" y1="582" x2="542" y2="582" marker-end="url(#d1-acc)" />
+
+          <!-- return to closing -->
+          <text class="t-sub mid" x="891" y="196">work sample</text>
+          <line class="ed" x1="846" y1="240" x2="891" y2="240" />
+          <line class="ed" x1="891" y1="208" x2="891" y2="274" />
+          <line class="ed" x1="891" y1="208" x2="930" y2="208" marker-end="url(#d1-ink)" />
+          <line class="ed" x1="891" y1="274" x2="930" y2="274" marker-end="url(#d1-ink)" />
+
+          <!-- closing -->
+          <rect class="pn" x="936" y="150" width="188" height="166" rx="3" />
+          <text class="t-hdr mid" x="1030" y="171">CLOSE THE LOOP</text>
+          <rect class="bx" x="950" y="182" width="160" height="54" rx="2" />
+          <text class="t mid"     x="1030" y="205" style="font-size: 12.5px">agent-improver</text>
+          <text class="t-sub mid" x="1030" y="223">grades the agent</text>
+          <rect class="bx" x="950" y="246" width="160" height="54" rx="2" />
+          <text class="t mid"     x="1030" y="269" style="font-size: 12.5px">watchdog</text>
+          <text class="t-sub mid" x="1030" y="287">grades the artifact</text>
+
+          <line class="ed" x1="1030" y1="316" x2="1030" y2="348" marker-end="url(#d1-ink)" />
+
+          <rect class="bx" x="936" y="352" width="188" height="56" rx="3" />
+          <text class="t mid"     x="1030" y="377">CHANGELOG.md</text>
+          <text class="t-sub mid" x="1030" y="395">the ledger</text>
+
+          <!-- portfolio return -->
+          <path class="ed-p" d="M1030,408 L1030,700 L852,700" marker-end="url(#d1-acc)" />
+          <text class="t-acc mid" x="948" y="690">the record</text>
+
+          <rect class="band" x="246" y="660" width="600" height="76" rx="3" />
+          <text class="t" x="266" y="688" style="font-size: 14px">prody · portfolio authority</text>
+          <text class="t-sub" x="266" y="708">adds · retires · merges agents  ·  sets agent-improver&#8217;s queue  ·  owns the routing table</text>
+          <text class="t-sub" x="266" y="725" style="fill: var(--accent)">composition only — never delivery  ·  9 retired 2026-08-18</text>
+
+          <line class="ed-p" x1="300" y1="660" x2="300" y2="470" marker-end="url(#d1-acc)" />
+          <text class="t-acc" x="312" y="560">updates the routing table</text>
+
+          <line class="ed-p" x1="700" y1="660" x2="700" y2="626" marker-end="url(#d1-acc)" />
+          <text class="t-acc" x="712" y="648">decides what exists</text>
+
+          <!-- legend -->
+          <line class="ed-a" x1="36" y1="762" x2="66" y2="762" />
+          <text class="t-sub" x="72" y="766">dispatch</text>
+          <line class="ed" x1="152" y1="762" x2="182" y2="762" />
+          <text class="t-sub" x="188" y="766">work returning</text>
+          <line class="ed-p" x1="300" y1="762" x2="330" y2="762" />
+          <text class="t-sub" x="336" y="766">portfolio</text>
+          <line class="ed-a" x1="420" y1="762" x2="450" y2="762" stroke-dasharray="1.5 4" />
+          <text class="t-sub" x="456" y="766">loaded, not dispatched</text>
+
+        </svg>
+      </div>
+      <figcaption><b>The same door; a different building behind it.</b> Two lanes changed shape today. The pipeline lane lost one of its two boxes — <code>mar-orchestrator</code> is now the <code>multi-actor-research</code> skill, and research is a rung-1 route rather than a three-rung ladder. And <b>the skills lane, which v1 drew as a single generic &#8220;a skill&#8221; tile while admitting it understated its own traffic, is now drawn out</b>: six named destinations, dotted because they are loaded into this turn rather than dispatched into a new one. The signal-coloured note under prody is the correction v1 most needs: no agent file in the library declares an <code>Agent</code>/<code>Task</code> tool, so any genuine concurrency has to be dispatched from prody&#8217;s own turn — an orchestrator cannot do it, which is why the arrows inside the pipeline below have always been sequential in practice.</figcaption>
+    </figure>
+
+    <div class="notes">
+      <div>
+        <h3>One door, with an exception</h3>
+        <p>Calling an agent by name works and skips the framing — prody&#8217;s own rule is to stay quiet when you&#8217;ve already chosen. What you skip is the closing review, which is the part that compounds.</p>
+      </div>
+      <div>
+        <h3>Climb only as far as needed</h3>
+        <p>Inline is the default rung; a single specialist is the next; the pipeline is for work that will be merged or shipped. A skill is <i>not</i> a rung on that ladder — it costs no cold start, so reaching for <code>multi-actor-research</code> is cheaper than reaching for <code>cody</code>.</p>
+      </div>
+      <div>
+        <h3>Two graders, two subjects</h3>
+        <p><code>agent-improver</code> grades the agent that did the work. <code>watchdog</code> grades the work itself for duplication and drift. Running only one leaves the other gap uncovered — and with nine agents gone, these two are most of what is left.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Skills instead of agents</h2>
+
+    <p><b>Keep these two ideas apart.</b> The table above is about <i>retirement</i> — an agent file that used to exist and no longer does. This table is about <i>request routing</i> — cases where a request has always gone to a skill rather than to any agent, whether or not an agent was ever involved. v1 documented six such cases; there are now eight. Four rows are newly <i>both</i>: the destination is the same as it was, but the agent it used to compete with has been retired, so the &#8220;not to&#8221; column now names a file in the archive rather than a live alternative.</p>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>When</th><th>Goes to</th><th>Not to</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="who" style="white-space:normal">Research feeding a strategy / investment / executive decision</td><td class="by"><code>multi-actor-research</code> skill — <b>now rung 1, not a fallback</b>. All seven actor playbooks, four stages, registers and escalation</td><td class="by"><s>mar-orchestrator</s> — retired 2026-08-18. The three-rung ladder is gone; there is one rung</td></tr>
+          <tr><td class="who" style="white-space:normal">The question is &#8220;what should we do,&#8221; not &#8220;what does the evidence say&#8221;</td><td class="by"><code>multi-actor-strategy</code> skill</td><td class="by">the research skill — wrong playbook for the question, and that was true when it was an agent too</td></tr>
+          <tr><td class="who" style="white-space:normal">Pure adversarial demolition of a claim, plan or artefact, no synthesis obligation</td><td class="by"><code>red-team</code> skill — four modes, domain-agnostic</td><td class="by"><s>mar-devils-advocate</s> — retired 2026-08-18; its own file already pointed here</td></tr>
+          <tr><td class="who" style="white-space:normal">Pure adversarial code demolition, no build obligation</td><td class="by"><code>security-review</code> skill</td><td class="by"><code>mc-orchestrator</code> — still live; the full loop ends in a merge gate you didn&#8217;t ask for</td></tr>
+          <tr><td class="who" style="white-space:normal">Auditing or curating the <b>skills</b> library at <code>~/.claude/skills</code></td><td class="by"><code>skills-librarian</code> skill — owns that library the way prody owns this one</td><td class="by">no agent here touches the skills library at all</td></tr>
+          <tr><td class="who" style="white-space:normal">A leverage or reframing idea — the once-daily launch check, or an explicit ask</td><td class="by"><code>first-principles</code> skill; <code>issue-tree</code> when the ask is really decomposition</td><td class="by"><s>10x</s> — retired 2026-08-18. The throttle and <code>10X-LOG.md</code> survive as launch-check mechanics</td></tr>
+          <tr><td class="who" style="white-space:normal">Translating a finished, evidence-graded output for a mixed or executive audience</td><td class="by"><code>scr-pyramid-communicator</code> skill; <code>scqa-framework</code> for the shorter memo</td><td class="by"><s>mar-communicator</s> — retired 2026-08-18; it already called its own method &#8220;the fallback&#8221;</td></tr>
+          <tr><td class="who" style="white-space:normal">Strategy, options appraisal, writing, communication, domain expertise, generally</td><td class="by">whichever skill fits, found in the session&#8217;s own skill listing</td><td class="by"><b>no agent</b> — wrapping one around a skill to look thorough is the wrong call</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notes">
+      <div>
+        <h3>The precedent this followed</h3>
+        <p><code>agent-router</code> was retired 2026-08-15 and archived unmodified at <code>~/.claude/skills/_retired/agent-router/SKILL.md</code>, its routing method folded into prody. Today&#8217;s nine went to the same place, the same way, each with a <code>_superseded-by.md</code> naming the replacement and the reversal condition.</p>
+      </div>
+      <div>
+        <h3>What retirement owes the skill</h3>
+        <p>Four things the retired files held and <code>multi-actor-research/SKILL.md</code> does not: register/decision-log <b>persistence</b> (the defect this ledger fixed five separate times), the SMV&#8217;s <i>Where your knowledge runs out</i>, the PM&#8217;s non-closed escalation set and <i>Finding as raised</i> column, and the Researcher&#8217;s Coverage note. Filed HIGH for <code>skills-librarian</code>. Until then this audit has traded something real for something promised.</p>
+      </div>
+      <div>
+        <h3>Filesystem is a cross-check, not proof</h3>
+        <p>Every skill named here is a local, editable file at <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code> — confirmed on disk this run, because this session showed no skill listing at all. That proves the files exist and are invocable by any session that lists skills. It does not prove <i>this</i> session could have invoked them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Inside the one remaining pipeline</h2>
+
+    <figure>
+      <div class="scroller">
+        <svg viewBox="0 0 1000 520" role="img" aria-label="Two-panel diagram. On the left, the coding pipeline's five stages in sequence with their model tiers: Planner, Implementer, a concurrent pair of Reviewer and Verifier, then Integrator, with a signal-coloured note that the concurrency cannot be dispatched by the orchestrator itself. On the right, a panel listing what each actor structurally cannot do, given its declared tool set — the evidence behind each keep verdict.">
+
+          <defs>
+            <marker id="d2-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,1 L9,5 L0,9 z" style="fill: var(--ink)" />
+            </marker>
+          </defs>
+
+          <text class="t-hdr" x="40"  y="28">MC-ORCHESTRATOR · CODING · THE ONLY PIPELINE LEFT</text>
+          <text class="t-hdr" x="560" y="28">WHY EACH ACTOR SURVIVED THE TEST</text>
+
+          <line class="hair" x1="520" y1="14" x2="520" y2="500" stroke-dasharray="3 5" />
+
+          <!-- LEFT: the pipeline -->
+          <rect class="bx" x="40" y="58" width="440" height="40" rx="2" />
+          <text class="t"     x="56" y="83">mc-planner</text>
+          <text class="t-sub end" x="392" y="83">testable spec</text>
+          <text class="t-sub end" x="466" y="83">opus</text>
+          <line class="ed" x1="260" y1="98" x2="260" y2="116" marker-end="url(#d2-ink)" />
+
+          <rect class="bx" x="40" y="118" width="440" height="40" rx="2" />
+          <text class="t"     x="56" y="143">mc-implementer</text>
+          <text class="t-sub end" x="392" y="143">code to spec</text>
+          <text class="t-sub end" x="466" y="143">sonnet</text>
+          <line class="ed" x1="260" y1="158" x2="260" y2="180" marker-end="url(#d2-ink)" />
+
+          <rect class="pn-s" x="40" y="182" width="440" height="112" rx="3" />
+          <text class="t-sig" x="52" y="200">CONCURRENT BY DESIGN — SEQUENTIAL AS WIRED</text>
+          <rect class="bx" x="52" y="210" width="206" height="46" rx="2" />
+          <text class="t"         x="64" y="230" style="font-size: 12.5px">mc-reviewer</text>
+          <text class="t-sub end" x="246" y="230">opus</text>
+          <text class="t-sub mid" x="155" y="247">reads, never runs</text>
+          <rect class="bx" x="262" y="210" width="206" height="46" rx="2" />
+          <text class="t"         x="274" y="230" style="font-size: 12.5px">mc-verifier</text>
+          <text class="t-sub end" x="456" y="230">sonnet</text>
+          <text class="t-sub mid" x="365" y="247">runs, reports</text>
+          <text class="t-sig" x="52" y="278">orchestrator holds no Agent tool — dispatch this pair from prody</text>
+          <line class="ed" x1="260" y1="294" x2="260" y2="316" marker-end="url(#d2-ink)" />
+
+          <rect class="bx" x="40" y="318" width="440" height="40" rx="2" />
+          <text class="t"     x="56" y="343">mc-integrator</text>
+          <text class="t-sub end" x="392" y="343">merge gate</text>
+          <text class="t-sub end" x="466" y="343">opus</text>
+          <line class="ed" x1="260" y1="358" x2="260" y2="380" marker-end="url(#d2-ink)" />
+
+          <rect class="pn-t" x="40" y="382" width="440" height="40" rx="2" />
+          <text class="t-sub" x="56" y="407" style="font-size: 12px">diff · PR · four persisted stage registers</text>
+
+          <text class="t-sig" x="40" y="452">Challenge lands on an artifact that already exists.</text>
+          <text class="t-sub" x="40" y="472">Grades: Verified · Parity-reviewed · Implemented, unverified · Asserted done</text>
+          <text class="t-sub" x="40" y="492">Anti-anchoring substitute: write the static review down BEFORE executing anything.</text>
+
+          <!-- RIGHT: tool guarantees -->
+          <rect class="pn" x="560" y="46" width="400" height="290" rx="3" />
+
+          <text class="t" x="576" y="76" style="font-size: 12.5px">mc-planner</text>
+          <text class="t-sub" x="576" y="94">no Edit, no Bash — cannot touch existing code</text>
+          <line class="hair" x1="576" y1="106" x2="944" y2="106" />
+
+          <text class="t" x="576" y="130" style="font-size: 12.5px">mc-implementer</text>
+          <text class="t-sub" x="576" y="148">the one actor forbidden to grade itself</text>
+          <line class="hair" x1="576" y1="160" x2="944" y2="160" />
+
+          <text class="t" x="576" y="184" style="font-size: 12.5px">mc-reviewer</text>
+          <text class="t-sub" x="576" y="202">Read · Grep · Glob only — cannot execute, ever</text>
+          <line class="hair" x1="576" y1="214" x2="944" y2="214" />
+
+          <text class="t" x="576" y="238" style="font-size: 12.5px">mc-verifier</text>
+          <text class="t-sub" x="576" y="256">no Edit, no Write — cannot edit its way to green</text>
+          <line class="hair" x1="576" y1="268" x2="944" y2="268" />
+
+          <text class="t" x="576" y="292" style="font-size: 12.5px">mc-integrator</text>
+          <text class="t-sub" x="576" y="310">no Bash — cannot substitute its own verification</text>
+
+          <text class="t-acc" x="560" y="372">Each line is a tools: field, not a promise in prose.</text>
+          <text class="t-sub" x="560" y="392">That is the whole difference between an agent and a skill</text>
+          <text class="t-sub" x="560" y="410">here: in the main thread every one of these becomes an</text>
+          <text class="t-sub" x="560" y="428">instruction the thread already holds the tools to break.</text>
+
+          <text class="t-sig" x="560" y="466">No multi-actor-coding skill exists.</text>
+          <text class="t-sub" x="560" y="486">Unlike research, this playbook has no canonical skill</text>
+          <text class="t-sub" x="560" y="504">to fall back to — which is half of why it survived.</text>
+
+        </svg>
+      </div>
+      <figcaption><b>The adversarial pattern now exists in one place, and the right-hand panel is why.</b> v1 drew this figure twice, side by side, to show the same pattern pointed at two different moments — coding attacks an artifact that already exists, research attacks the evidence before a word is written. The research half is now the <code>multi-actor-research</code> skill, so what replaces it here is the evidence behind the verdict: <b>five tool-scoping facts, each read off a <code>tools:</code> line rather than argued from a mandate.</b> Those five lines are the necessity test&#8217;s criterion (2) in its purest form. The signal-coloured band on Stage 3 is the honest correction: the pair is concurrent by design and sequential as wired, so the load-bearing instruction is <code>mc-orchestrator</code>&#8217;s anti-anchoring rule — write the review down before you run anything — rather than the concurrency it names. That rule demonstrably works: the <code>raceFormOpen</code> defect was found against a green suite by a reviewer who had not yet seen it pass.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Which model each agent runs on</h2>
+
+    <p><b>The tier tracks what the agent produces that nothing downstream checks.</b> Not seniority, not how important the agent feels. If a later actor grades the work against something fixed — a spec, a rubric, a test suite — the work is bounded and <code>sonnet</code> is the right call. If the agent&#8217;s output <i>becomes</i> the thing everything else is measured against, or if it arbitrates between other agents, an error there is invisible to every check that follows, and that is what <code>opus</code> is for.</p>
+
+    <p>The ratio barely moved through the retirement — <b>7 of 11 on opus, against 14 of 20 before</b> — which is itself a finding. Nine agents left and the library is still two-thirds checkers and arbiters, because <b>what was retired was the research pipeline, not the reasoning-heavy work.</b> That work did not disappear; it moved into skills, where it runs at whatever tier the main thread is on. <b>That is a real cost of this audit and it belongs on the record:</b> a skill cannot carry a model tier. Four opus judgements — the Evidence Auditor&#8217;s grading, the Devil&#8217;s Advocate&#8217;s attack, the SMV&#8217;s reality check, the PM&#8217;s arbitration — were each raised to opus on 2026-08-17 on the argument that nothing downstream could check them, and are now instructions in a skill that inherits the caller&#8217;s tier.</p>
+
+    <div class="notes">
+      <div>
+        <h3>opus — nothing checks it</h3>
+        <p>Framing, arbitration at impasse, adversarial static reading, composition, and any grading pass. The hub, the orchestrator, both graders, and the three <code>mc-*</code> actors holding decision or spec rights.</p>
+      </div>
+      <div>
+        <h3>sonnet — a downstream actor checks it</h3>
+        <p>Implementation against an approved spec (<code>cody</code>, <code>mc-implementer</code>), execution and reporting (<code>mc-verifier</code>), and read-only passes that cannot edit (<code>code-improver</code>).</p>
+      </div>
+      <div>
+        <h3>The tier a skill cannot hold</h3>
+        <p>Run <code>multi-actor-research</code> from a session you care about, on the model you&#8217;d have given the Evidence Auditor. This is the one thing the retired files did that no instruction replaces, and the honest mitigation is to notice it rather than to pretend it away.</p>
+      </div>
+    </div>
+
+    <div class="caveat resolved">
+      <p class="tag">Zero open model-tier proposals · 4 of the 5 tier changes made 2026-08-17 were retired with their agents</p>
+      <p><b>All five sonnet&#8594;opus changes applied on 2026-08-17 held up; four of the five files are now archived.</b> <code>mar-researcher</code>, <code>mar-subject-matter-validator</code> and <code>mar-project-manager</code> went to <code>~/.claude/skills/_retired/</code> today carrying the tier they had been raised to the day before. That is not wasted work — the <i>arguments</i> are what survive, and each one is a statement about which judgements nothing downstream can check, which is exactly the thing to preserve when running the skill.</p>
+      <p><b><code>mc-integrator</code> and <code>mc-planner</code> are the two that remain live.</b> <code>mc-planner</code>&#8217;s is still the one tier change in the library resting on its original, never-independently-verified reasoning — applied on direct sign-off rather than a verification pass. Two of the other four arguments were found partly wrong on disk under exactly that scrutiny. It is still worth the check on <code>mc-planner</code>&#8217;s next work sample.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Call reference</h2>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>Agent</th><th>Model</th><th>Called by</th><th>Returns</th></tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><td colspan="4">Hub</td></tr>
+          <tr class="hub"><td class="who">prody</td><td class="mdl">opus</td><td class="by">you — &#8220;Launch prody&#8221;</td><td>PM brief, routed work, closing review, portfolio findings</td></tr>
+
+          <tr class="grp"><td colspan="4">Single pass</td></tr>
+          <tr><td class="who">cody</td><td class="mdl">sonnet</td><td class="by">prody, or you</td><td>Implementation with a WCAG 2.1 AA check and a styleguide update</td></tr>
+          <tr><td class="who">code-improver</td><td class="mdl">sonnet</td><td class="by">prody, or you</td><td>Improvement list with before/after — cannot edit files. <b>On trial, 0/3</b></td></tr>
+          <tr><td class="who">watchdog</td><td class="mdl">opus</td><td class="by">prody, or you</td><td>Duplication and error findings <i>across</i> recent work, not one diff</td></tr>
+          <tr><td class="who">agent-improver</td><td class="mdl">opus</td><td class="by">prody, closing the loop</td><td>Scored review plus a dated <code>CHANGELOG.md</code> entry</td></tr>
+
+          <tr class="grp"><td colspan="4">Coding pipeline</td></tr>
+          <tr><td class="who">mc-orchestrator</td><td class="mdl">opus</td><td class="by">prody, or you</td><td>Verified diff with spec, findings, run output, decision log</td></tr>
+          <tr><td class="who">mc-planner</td><td class="mdl">opus</td><td class="by">mc-orchestrator</td><td>Testable spec: acceptance criteria, non-goals, scope</td></tr>
+          <tr><td class="who">mc-implementer</td><td class="mdl">sonnet</td><td class="by">mc-orchestrator</td><td>Code to spec; never declares its own work done</td></tr>
+          <tr><td class="who">mc-reviewer</td><td class="mdl">opus</td><td class="by">mc-orchestrator, stage 3 — <b>or prody, for real concurrency</b></td><td>Ranked static defects with a per-AC coverage close; never executes</td></tr>
+          <tr><td class="who">mc-verifier</td><td class="mdl">sonnet</td><td class="by">mc-orchestrator, stage 3 — <b>or prody, for real concurrency</b></td><td>What was actually run, pass/fail per criterion</td></tr>
+          <tr><td class="who">mc-integrator</td><td class="mdl">opus</td><td class="by">mc-orchestrator</td><td>Merge gate, conflict arbitration, PR description</td></tr>
+
+          <tr class="grp"><td colspan="4">Built-ins — no file, nothing to improve</td></tr>
+          <tr><td class="who">Explore · Plan</td><td class="mdl">n/a</td><td class="by">prody, or you</td><td>Search conclusions / implementation plan. A bad result here is a routing defect, so the fix goes in prody&#8217;s table</td></tr>
+
+          <tr class="grp"><td colspan="4">Retired — archived at ~/.claude/skills/_retired/</td></tr>
+          <tr><td class="who">agent-router</td><td class="mdl">n/a</td><td class="by">retired 2026-08-15</td><td>Routing method folded into <code>prody</code></td></tr>
+          <tr><td class="who">10x</td><td class="mdl">n/a</td><td class="by">retired 2026-08-18</td><td>&#8594; <code>first-principles</code> skill, run by prody&#8217;s launch check</td></tr>
+          <tr><td class="who">mar-* &#215; 8</td><td class="mdl">n/a</td><td class="by">retired 2026-08-18</td><td>&#8594; <code>multi-actor-research</code> skill (+ <code>red-team</code>, <code>scr-pyramid-communicator</code>, <code>multi-actor-strategy</code>)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Status dashboard — usage &amp; iteration</h2>
+
+    <p>Every row is reconstructed from <code>CHANGELOG.md</code>, the <code>agent-improver</code> ledger — not from memory. <b>Rev.</b> counts distinct dated entries that touched that file. <b>Work sample</b> is whether the agent has ever been graded against real, dispatched output rather than its definition alone. <b>The proportions improved sharply today, and not by doing any reviews:</b> 5 of 11 have a work sample where it was 5 of 20, and 7 of 11 are independently reviewed where it was 10 of 20 — because <b>every agent retired was one that had never produced an artefact</b>. That is the ratio moving for an honest reason, but it is worth naming that no agent got better this morning; the denominator got smaller.</p>
+
+    <div class="meta">
+      <span><b>11</b> dispatch addresses</span>
+      <span><b>5</b> have a work-sample review</span>
+      <span><b>6</b> definition-only or never reviewed</span>
+      <span><b>7</b> of 11 independently reviewed</span>
+      <span><b>4</b> never independently reviewed</span>
+      <span><b>0</b> model-tier proposals pending</span>
+      <span><b>1</b> HIGH fix proposed, unapplied</span>
+    </div>
+
+    <div class="tbl-scroll">
+      <table class="tbl-status">
+        <colgroup>
+          <col style="width:190px"><col style="width:80px"><col style="width:50px">
+          <col style="width:90px"><col style="width:180px"><col style="width:90px"><col>
+        </colgroup>
+        <thead>
+          <tr><th>Agent</th><th>Model</th><th>Rev.</th><th>Work sample</th><th>Independent review</th><th>Last touched</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><td colspan="7">Hub</td></tr>
+          <tr class="hub">
+            <td class="who">prody</td><td class="mdl">opus</td><td class="rev">9</td>
+            <td>Yes &#183; 2</td>
+            <td class="ind"><span class="st-ind">independent &#183; 2026-08-17</span><span class="sub">2 independent, rest self-graded</span></td>
+            <td class="by">2026-08-18</td>
+            <td class="note">Routing table rewritten for the nine retirements; ladder, dispatch brief and the &#8220;twelve actors earn their keep&#8221; claim all corrected. <span class="st-pri">Today&#8217;s pass was a self-review by the agent that made the edits</span> — independent <code>agent-improver</code> run outstanding, HIGH.</td>
+          </tr>
+
+          <tr class="grp"><td colspan="7">Single pass</td></tr>
+          <tr>
+            <td class="who">cody</td><td class="mdl">sonnet</td><td class="rev">5</td>
+            <td>Yes &#183; 3</td>
+            <td class="ind"><span class="st-ind">independent &#183; 2026-08-17</span><span class="sub">1 independent, 3 self-graded</span></td>
+            <td class="by">2026-08-17</td>
+            <td class="note">The most-exercised agent in the library. Independent pass found its a11y rigor lived in the target project&#8217;s styleguide, not in <code>cody.md</code>. 2 HIGH fixes applied.</td>
+          </tr>
+          <tr>
+            <td class="who">code-improver</td><td class="mdl">sonnet</td><td class="rev">3</td>
+            <td>No</td>
+            <td class="ind"><span class="st-none">not yet</span><span class="sub">agent-improver, fresh dispatch</span></td>
+            <td class="by">2026-08-17</td>
+            <td class="note"><span class="st-pri">Top retirement candidate.</span> The necessity test alone would retire it; held by a user-signed-off trial at 0/3. Never routed to in 14 ledger mentions. Conclude the trial.</td>
+          </tr>
+          <tr>
+            <td class="who">watchdog</td><td class="mdl">opus</td><td class="rev">2</td>
+            <td>No</td>
+            <td class="ind"><span class="st-none">not yet</span><span class="sub">agent-improver, fresh dispatch</span></td>
+            <td class="by">2026-08-16</td>
+            <td class="note"><span class="st-pri">Queue position 1.</span> Named next-audit target in three consecutive portfolio entries and still unreviewed. Now one of only two graders in the library.</td>
+          </tr>
+          <tr>
+            <td class="who">agent-improver</td><td class="mdl">opus</td><td class="rev">4</td>
+            <td>No <span class="st-self">(of its own output)</span></td>
+            <td class="ind"><span class="st-ind">independent &#183; 2026-08-17</span><span class="sub">first ever, not self-check</span></td>
+            <td class="by">2026-08-17</td>
+            <td class="note">Its first non-self-check found its own ledger contradicting its own &#8220;newest first&#8221; rule for five runs. Open: entry verbosity — the 2026-08-17 entries still run 2&#8211;4&#215; the 250-word target.</td>
+          </tr>
+
+          <tr class="grp"><td colspan="7">Coding pipeline</td></tr>
+          <tr>
+            <td class="who">mc-orchestrator</td><td class="mdl">opus</td><td class="rev">5</td>
+            <td>Yes &#183; 3</td>
+            <td class="ind"><span class="st-ind">independent &#183; 2026-08-17</span><span class="sub">1 independent, 3 self-graded</span></td>
+            <td class="by">2026-08-17</td>
+            <td class="note">Best-evidenced agent here. <span class="st-pri">Open HIGH:</span> its <code>tools:</code> line declares no <code>Agent</code>, so the Stage 3 concurrency it coordinates has never been able to fire. One-line fix, proposed 2026-08-18.</td>
+          </tr>
+          <tr>
+            <td class="who">mc-planner</td><td class="mdl">opus</td><td class="rev">5</td>
+            <td>Yes &#183; 1</td>
+            <td class="ind"><span class="st-ind">independent &#183; 2026-08-17</span><span class="sub">1 independent, 1 self-graded</span></td>
+            <td class="by">2026-08-17</td>
+            <td class="note">Independent pass found its <code>Write</code> fix had landed unscoped. Its opus tier is the one in the library still resting on unverified original reasoning — check on the next work sample.</td>
+          </tr>
+          <tr>
+            <td class="who">mc-implementer</td><td class="mdl">sonnet</td><td class="rev">2</td>
+            <td>No</td>
+            <td class="ind"><span class="st-none">not yet</span><span class="sub">agent-improver, fresh dispatch</span></td>
+            <td class="by">2026-08-17</td>
+            <td class="note"><span class="st-pri">Queue position 2.</span> Writes and executes code; never independently reviewed. Gained two of cody&#8217;s build-time disciplines 2026-08-17, unverified since.</td>
+          </tr>
+          <tr>
+            <td class="who">mc-reviewer</td><td class="mdl">opus</td><td class="rev">3</td>
+            <td>Yes &#183; 1</td>
+            <td class="ind"><span class="st-ind">independent &#183; 2026-08-17</span><span class="sub">1 independent, 1 self-graded</span></td>
+            <td class="by">2026-08-17</td>
+            <td class="note">Independent pass reproduced the exact gap live in a missed Stage 1 risk item. Holds the library&#8217;s cleanest tool guarantee: <code>Read, Grep, Glob</code>.</td>
+          </tr>
+          <tr>
+            <td class="who">mc-verifier</td><td class="mdl">sonnet</td><td class="rev">1</td>
+            <td>No</td>
+            <td class="ind"><span class="st-none">not yet</span><span class="sub">agent-improver, fresh dispatch</span></td>
+            <td class="by">2026-08-15</td>
+            <td class="note"><span class="st-pri">Queue position 3.</span> The only actor that executes code, rev:1, never reviewed since creation.</td>
+          </tr>
+          <tr>
+            <td class="who">mc-integrator</td><td class="mdl">opus</td><td class="rev">2</td>
+            <td>No</td>
+            <td class="ind"><span class="st-ind">independent &#183; 2026-08-17</span><span class="sub">first review of any kind</span></td>
+            <td class="by">2026-08-17</td>
+            <td class="note">Independent pass found its tier proposal half-wrong on disk and applied the change anyway on a better argument. 4 HIGH fixes applied.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="caveat">
+      <p class="tag">The improvement queue, in order — read this before the next audit</p>
+      <p><b>(1) <code>watchdog</code></b> — named as a next-audit target in three consecutive portfolio entries and still never independently reviewed; now one of only two graders in an 11-agent library, so its blast radius went up while its review count stayed at zero. <b>(2) <code>mc-implementer</code></b> and <b>(3) <code>mc-verifier</code></b> — the two actors that actually write and execute code, both never independently reviewed, and <code>mc-implementer</code> carries an unverified 2026-08-17 discipline transfer. <b>(4) <code>code-improver</code></b> — not a review so much as a decision: conclude the 0/3 trial. <b>(5) <code>prody</code></b> — an independent pass on today&#8217;s diff, which is a self-review as it stands.</p>
+      <p><b>This list is only real if it is handed over.</b> <code>agent-improver</code> contains no instruction to read it — that was found on 2026-08-17 and is still true. So whoever dispatches the next library audit pastes this paragraph into the brief verbatim and says it is the queue, not a suggestion.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The arrows, revisited</h2>
+    <div class="caveat">
+      <p class="tag">v1 said &#8220;settled 2026-08-16&#8221; · half of it was wrong</p>
+      <p><b>What v1 got right, and this edition keeps:</b> independent dispatch genuinely executes. A dispatched <code>agent-improver</code> reviewed prody&#8217;s portfolio section and reported, unprompted, that it could see no conversation prior to its brief — then found eight problems, two confirmed by measurement. Cold contexts are real, they produce judgements a self-review does not, and six definition-only &#8220;no defect found&#8221; verdicts were overturned six-for-six once one arrived. That is the foundation the five surviving <code>mc-*</code> actors stand on.</p>
+      <p><b>What v1 got wrong:</b> it concluded from that single observation that &#8220;the twelve pipeline actor files earn their maintenance&#8221; and that the concurrency in its second diagram was &#8220;a real capability rather than a documented aspiration.&#8221; The observed dispatch came <b>from the top level</b>. No orchestrator has ever dispatched anything, and — verified this run, in one grep — none of them ever could, because not one agent file in the library declares an <code>Agent</code>/<code>Task</code> tool. The concurrency was a documented aspiration after all. v1 asked its reader to check this rather than take it on faith; that instruction was the most valuable line in the document.</p>
+      <p><b>The general lesson, which is bigger than this finding.</b> This library spent five weeks treating dispatch reachability as an environmental mystery — probing for it, writing three paragraphs about it, issuing two corrections, and stamping the question &#8220;settled&#8221; twice in opposite directions — when the answer was one <code>grep '^tools:'</code> away in its own files. <b>Frontmatter is the ground truth for every capability claim made anywhere in this library, and no review has ever checked a claim against it systematically.</b> The same one-line check would also have caught the 1,581-character description, <code>mc-planner</code>&#8217;s unscoped <code>Write</code>, and <code>mar-orchestrator</code>&#8217;s inherited <code>*</code> tools — four findings that each cost a full independent review to surface. Extending prody&#8217;s step-2 inventory grep from <code>name:</code> alone to <code>name: · tools: · model: · description length · filename-vs-name</code> converts this library&#8217;s most expensive class of finding into a free one, at every launch.</p>
+    </div>
+  </section>
+
+  <footer>Necessity audit run 2026-08-18 against the 20 agent definitions on disk, the 46-skill library at <code>~/.claude/skills</code>, and <code>CHANGELOG.md</code> · dispatch probe resolved-negative, no Agent/Task tool in session, so every verdict here was embodied by <code>prody</code> rather than delegated — <b>reduced independence</b> · v1 preserved unmodified at <code>dispatch-map.html</code> as the record of the library at 20 · names shown are frontmatter <code>name:</code> values, which are the dispatch address — filenames differ</footer>
+
+</div>
+</body>
+</html>

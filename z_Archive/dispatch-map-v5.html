@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CPO Dispatch Map v5</title>
+
+<style>
+  :root {
+    --ground:  #EBEEEB;
+    --panel:   #F8FAF8;
+    --ink:     #16211E;
+    --muted:   #5A6A65;
+    --rule:    #C7D2CE;
+    --accent:  #0E6E5E;
+    --signal:  #9C570F;
+    --wash:    rgba(14, 110, 94, 0.055);
+    --band:    rgba(14, 110, 94, 0.04);
+
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "DejaVu Sans Mono", "Liberation Mono", monospace;
+    --serif: Charter, "Iowan Old Style", "Palatino Linotype", "Source Serif 4", "Book Antiqua", Georgia, serif;
+  }
+
+  /* Light mode forced. No system-theme switch — data-theme="dark" is an explicit opt-in only. */
+  :root[data-theme="dark"] {
+    --ground:  #101614;
+    --panel:   #19211E;
+    --ink:     #E4EBE7;
+    --muted:   #91A29C;
+    --rule:    #2C3934;
+    --accent:  #55C6AE;
+    --signal:  #DFA05A;
+    --wash:    rgba(85, 198, 174, 0.07);
+    --band:    rgba(85, 198, 174, 0.05);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 24px 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px; }
+
+  header { display: flex; flex-direction: column; gap: 16px; padding-top: 64px; }
+  .eyebrow { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin: 0; }
+  h1 { font-family: var(--mono); font-size: clamp(28px, 4.5vw, 42px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; text-wrap: balance; margin: 0; }
+  .standfirst { font-size: 19px; line-height: 1.5; color: var(--muted); max-width: 62ch; margin: 0; text-wrap: pretty; }
+  .meta { display: flex; flex-wrap: wrap; gap: 0 26px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 12px 0; margin-top: 6px; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.05em; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  section { display: flex; flex-direction: column; gap: 16px; }
+  h2 { font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); margin: 0; padding-bottom: 9px; border-bottom: 1px solid var(--rule); }
+  h3 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; font-weight: 600; }
+
+  p { margin: 0; max-width: 68ch; text-wrap: pretty; }
+
+  ul.bul { margin: 0; padding-left: 19px; display: flex; flex-direction: column; gap: 7px; }
+  ul.bul li { font-size: 15.5px; line-height: 1.5; }
+  ul.bul.tight li { font-size: 14.5px; line-height: 1.48; }
+  ul.bul b { color: var(--ink); }
+
+  code { font-family: var(--mono); font-size: 0.87em; background: var(--wash); padding: 1px 5px; border-radius: 2px; }
+
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+
+  figure { margin: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 22px 22px 16px; display: flex; flex-direction: column; gap: 14px; }
+  .scroller { overflow-x: auto; }
+  figure svg { display: block; width: 100%; height: auto; min-width: 700px; }
+  figcaption { font-size: 13.5px; line-height: 1.5; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 12px; }
+  figcaption ul.bul { max-width: 90ch; }
+  figcaption b { color: var(--ink); font-weight: 600; }
+
+  .bx    { fill: var(--panel); stroke: var(--rule); stroke-width: 1; }
+  .bx-a  { fill: var(--panel); stroke: var(--accent); stroke-width: 1.5; }
+  .pn    { fill: none; stroke: var(--rule); stroke-width: 1; }
+  .pn-d  { fill: none; stroke: var(--rule); stroke-width: 1; stroke-dasharray: 5 4; }
+  .pn-t  { fill: none; stroke: var(--rule); stroke-width: 1; stroke-dasharray: 1.5 4; stroke-linecap: round; }
+  .band  { fill: var(--band); stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 6 4; }
+
+  .ed    { fill: none; stroke: var(--ink); stroke-width: 1.2; }
+  .ed-a  { fill: none; stroke: var(--accent); stroke-width: 1.4; }
+  .ed-p  { fill: none; stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 6 4; }
+  .bus   { fill: none; stroke: var(--accent); stroke-width: 2.2; }
+
+  .t     { font-family: var(--mono); fill: var(--ink); font-size: 13px; }
+  .t-big { font-family: var(--mono); fill: var(--ink); font-size: 16px; font-weight: 600; }
+  .t-sub { font-family: var(--mono); fill: var(--muted); font-size: 10.5px; }
+  .t-hdr { font-family: var(--mono); fill: var(--muted); font-size: 10px; letter-spacing: 0.12em; }
+  .t-acc { font-family: var(--mono); fill: var(--accent); font-size: 10.5px; }
+  .t-sig { font-family: var(--mono); fill: var(--signal); font-size: 10.5px; }
+  .mid   { text-anchor: middle; }
+  .end   { text-anchor: end; }
+  .hair  { stroke: var(--rule); stroke-width: 1; }
+
+  .tbl-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-align: left; font-weight: 600; padding: 12px 18px; border-bottom: 1px solid var(--rule); }
+  td { padding: 10px 18px; vertical-align: top; border-bottom: 1px solid var(--rule); }
+  tr:last-child td { border-bottom: none; }
+  td.who { font-family: var(--mono); font-size: 12.5px; white-space: nowrap; }
+  td ul.bul { margin: 0; padding-left: 16px; gap: 4px; }
+  td ul.bul li { font-size: 13.5px; line-height: 1.42; }
+  .grp td { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); background: var(--wash); padding: 8px 18px; font-weight: 600; }
+  .hub td.who { color: var(--accent); font-weight: 600; }
+  td.mdl { font-family: var(--mono); font-size: 11.5px; white-space: nowrap; }
+
+  .caveat { border-left: 3px solid var(--accent); padding: 2px 0 2px 20px; display: flex; flex-direction: column; gap: 6px; }
+  .caveat .tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent); }
+
+  footer { font-family: var(--mono); font-size: 11px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 14px; letter-spacing: 0.03em; }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; padding: 0 16px 64px; }
+    header { padding-top: 44px; }
+    .wrap { gap: 36px; }
+    figure { padding: 14px 14px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">~/.claude/agents · 11 agents · v5</p>
+    <h1>CPO Dispatch Map</h1>
+    <p class="standfirst">How a request finds the right agent in this library, what each agent guarantees by its tool set, and where the library routes to a skill instead of an agent.</p>
+    <div class="meta">
+      <span><b>11</b> agents</span>
+      <span><b>1</b> hub — CPO</span>
+      <span><b>1</b> pipeline — 5 actors</span>
+      <span><b>4</b> single-pass specialists</span>
+      <span><b>8</b> named routes go to a skill, not an agent</span>
+      <span><b>2</b> self-review inline before returning</span>
+      <span><b>7</b> opus / <b>4</b> sonnet</span>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted)">Renamed 2026-08-18, after v4 shipped — dispatch name only. The file is unchanged at <code>prody.md</code>.</p>
+  </header>
+
+  <section>
+    <h2>How a request gets routed</h2>
+
+    <figure>
+      <div class="scroller">
+        <svg viewBox="0 0 1100 600" role="img" aria-label="A request enters CPO, which frames the objective, enumerates the library live, and routes along a dispatch line to one of four lanes: the coding pipeline, single-pass specialist agents, skills that are loaded rather than dispatched, or built-in tools. Work and its output return to a closing step where agent-improver grades the agent and watchdog grades the artifact, both writing to a changelog. CPO separately holds portfolio authority over which agents exist.">
+
+          <defs>
+            <marker id="ar-i" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,1 L9,5 L0,9 z" style="fill: var(--ink)" />
+            </marker>
+            <marker id="ar-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,1 L9,5 L0,9 z" style="fill: var(--accent)" />
+            </marker>
+          </defs>
+
+          <text class="t-hdr" x="30"  y="26">REQUEST</text>
+          <text class="t-hdr" x="240" y="26">ROUTE</text>
+          <text class="t-hdr" x="520" y="26">EXECUTE</text>
+          <text class="t-hdr" x="900" y="26">CLOSE</text>
+
+          <rect class="bx" x="30" y="200" width="160" height="56" rx="3" />
+          <text class="t mid" x="110" y="224">Request</text>
+          <text class="t-sub mid" x="110" y="242">&#8220;Launch CPO&#8221;</text>
+          <line class="ed" x1="190" y1="228" x2="234" y2="228" marker-end="url(#ar-i)" />
+
+          <rect class="bx-a" x="240" y="90" width="220" height="256" rx="3" />
+          <text class="t-big mid" x="350" y="122">CPO</text>
+          <line class="hair" x1="260" y1="136" x2="440" y2="136" />
+          <text class="t" x="262" y="160">frame the objective</text>
+          <text class="t" x="262" y="184">enumerate agents live</text>
+          <text class="t" x="262" y="208">route, with a reason</text>
+          <text class="t" x="262" y="232">dispatch or embody</text>
+          <text class="t" x="262" y="256">close the loop after</text>
+          <line class="hair" x1="260" y1="272" x2="440" y2="272" />
+          <text class="t-acc" x="262" y="294">declares Agent — can</text>
+          <text class="t-acc" x="262" y="312">delegate, not only embody</text>
+          <text class="t-sub" x="262" y="334">never runs a pipeline itself</text>
+
+          <line class="bus" x1="500" y1="70" x2="500" y2="440" />
+          <line class="ed-a" x1="460" y1="218" x2="496" y2="218" marker-end="url(#ar-a)" />
+
+          <rect class="pn" x="520" y="70" width="290" height="60" rx="3" />
+          <text class="t-hdr" x="532" y="88">PIPELINE — NO ACTOR GRADES ITSELF</text>
+          <rect class="bx" x="532" y="96" width="266" height="26" rx="2" />
+          <text class="t" x="544" y="114">mc-orchestrator</text>
+          <text class="t-sub end" x="786" y="114">coding &#183; 5 actors</text>
+
+          <rect class="pn" x="520" y="142" width="290" height="150" rx="3" />
+          <text class="t-hdr" x="532" y="160">SINGLE-PASS AGENTS</text>
+          <rect class="bx" x="532" y="168" width="266" height="26" rx="2" />
+          <text class="t" x="544" y="186">cody</text>
+          <text class="t-sub end" x="786" y="186">UI &#183; a11y &#183; self-reviews</text>
+          <rect class="bx" x="532" y="200" width="266" height="26" rx="2" />
+          <text class="t" x="544" y="218">code-improver</text>
+          <text class="t-sub end" x="786" y="218">read-only &#183; on trial</text>
+          <rect class="bx" x="532" y="232" width="266" height="26" rx="2" />
+          <text class="t" x="544" y="250">watchdog</text>
+          <text class="t-sub end" x="786" y="250">duplication &#183; errors</text>
+          <rect class="bx" x="532" y="264" width="266" height="26" rx="2" />
+          <text class="t" x="544" y="282">agent-improver</text>
+          <text class="t-sub end" x="786" y="282">grades the agent</text>
+
+          <rect class="pn-t" x="520" y="304" width="290" height="90" rx="3" />
+          <text class="t-hdr" x="532" y="322">SKILLS — LOADED, NOT DISPATCHED</text>
+          <rect class="pn-t" x="532" y="330" width="126" height="24" rx="2" />
+          <text class="t-sub mid" x="595" y="346" style="font-size:9.5px">multi-actor-research</text>
+          <rect class="pn-t" x="666" y="330" width="126" height="24" rx="2" />
+          <text class="t-sub mid" x="729" y="346" style="font-size:9.5px">multi-actor-strategy</text>
+          <rect class="pn-t" x="532" y="360" width="126" height="24" rx="2" />
+          <text class="t-sub mid" x="595" y="376" style="font-size:9.5px">red-team</text>
+          <rect class="pn-t" x="666" y="360" width="126" height="24" rx="2" />
+          <text class="t-sub mid" x="729" y="376" style="font-size:9.5px">skills-librarian</text>
+
+          <rect class="pn-d" x="520" y="404" width="290" height="36" rx="3" />
+          <text class="t-hdr" x="532" y="426">BUILT-INS — Explore &#183; Plan</text>
+
+          <line class="ed-a" x1="500" y1="112" x2="516" y2="112" marker-end="url(#ar-a)" />
+          <line class="ed-a" x1="500" y1="215" x2="516" y2="215" marker-end="url(#ar-a)" />
+          <line class="ed-a" x1="500" y1="348" x2="516" y2="348" marker-end="url(#ar-a)" stroke-dasharray="1.5 4" />
+          <line class="ed-a" x1="500" y1="420" x2="516" y2="420" marker-end="url(#ar-a)" />
+
+          <line class="ed" x1="810" y1="220" x2="864" y2="220" />
+          <text class="t-sub" x="812" y="210">work + output</text>
+          <line class="ed" x1="864" y1="130" x2="864" y2="310" />
+          <line class="ed" x1="864" y1="130" x2="900" y2="130" marker-end="url(#ar-i)" />
+          <line class="ed" x1="864" y1="310" x2="900" y2="310" marker-end="url(#ar-i)" />
+
+          <rect class="pn" x="900" y="90" width="180" height="150" rx="3" />
+          <text class="t-hdr mid" x="990" y="110">CLOSE THE LOOP</text>
+          <rect class="bx" x="912" y="120" width="156" height="46" rx="2" />
+          <text class="t mid" x="990" y="140" style="font-size:12px">agent-improver</text>
+          <text class="t-sub mid" x="990" y="157">grades the agent</text>
+          <rect class="bx" x="912" y="176" width="156" height="46" rx="2" />
+          <text class="t mid" x="990" y="196" style="font-size:12px">watchdog</text>
+          <text class="t-sub mid" x="990" y="213">grades the artifact</text>
+
+          <line class="ed" x1="990" y1="240" x2="990" y2="264" marker-end="url(#ar-i)" />
+          <rect class="bx" x="900" y="268" width="180" height="42" rx="3" />
+          <text class="t mid" x="990" y="294">CHANGELOG.md</text>
+
+          <path class="ed-p" d="M990,310 L990,520 L750,520" marker-end="url(#ar-a)" />
+
+          <rect class="band" x="240" y="480" width="510" height="80" rx="3" />
+          <text class="t" x="258" y="508" style="font-size:13px">CPO &#183; portfolio authority</text>
+          <text class="t-sub" x="258" y="528">adds &#183; retires &#183; merges agents &#183; owns the routing table</text>
+          <text class="t-sub" x="258" y="546" style="fill: var(--accent)">composition only — never delivery</text>
+
+          <line class="ed-p" x1="290" y1="480" x2="290" y2="350" marker-end="url(#ar-a)" />
+
+          <line class="ed-a" x1="30" y1="580" x2="60" y2="580" />
+          <text class="t-sub" x="66" y="584">dispatch</text>
+          <line class="ed" x1="146" y1="580" x2="176" y2="580" />
+          <text class="t-sub" x="182" y="584">work returning</text>
+          <line class="ed-p" x1="290" y1="580" x2="320" y2="580" />
+          <text class="t-sub" x="326" y="584">portfolio record</text>
+          <line class="ed-a" x1="430" y1="580" x2="460" y2="580" stroke-dasharray="1.5 4" />
+          <text class="t-sub" x="466" y="584">loaded, not dispatched</text>
+
+        </svg>
+      </div>
+      <figcaption>
+        <ul class="bul tight">
+          <li>Calling an agent by name skips the framing — but also skips the closing review, which is the part that compounds over time.</li>
+          <li>Climb only as far as the work needs: inline first, a single specialist next, the pipeline last. A skill costs no cold start, so it's cheaper than any of the three.</li>
+          <li><code>agent-improver</code> grades the <b>agent</b>; <code>watchdog</code> grades the <b>artifact</b>. Different subjects — running one doesn't cover the other.</li>
+        </ul>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>The library</h2>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>Agent</th><th>Model</th><th>Role</th><th>What its tool set guarantees</th></tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><td colspan="4">Hub</td></tr>
+          <tr class="hub">
+            <td class="who">CPO</td><td class="mdl">opus</td>
+            <td>Routes every request; owns which agents exist</td>
+            <td><ul class="bul"><li>Declares <code>Agent</code> — can delegate, not only embody</li><li>The one agent explicitly launched by name, not auto-triggered</li></ul></td>
+          </tr>
+
+          <tr class="grp"><td colspan="4">Single-pass specialists</td></tr>
+          <tr>
+            <td class="who">cody</td><td class="mdl">sonnet</td>
+            <td>UI/frontend and general implementation</td>
+            <td><ul class="bul"><li>WCAG 2.1 AA check + styleguide update, every turn</li><li>Self-reviews its own diff against <code>code-review</code> before returning</li></ul></td>
+          </tr>
+          <tr>
+            <td class="who">code-improver</td><td class="mdl">sonnet</td>
+            <td>Read-only code quality pass</td>
+            <td><ul class="bul"><li><code>Read, Grep, Glob</code> only — structurally cannot edit</li><li>On trial: never once routed to yet</li></ul></td>
+          </tr>
+          <tr>
+            <td class="who">watchdog</td><td class="mdl">opus</td>
+            <td>Cross-work sweep for duplication and errors</td>
+            <td><ul class="bul"><li>Reads broadly, returns only findings — not a single-file review</li><li>Can verify one specific claim directly — a targeted <code>Grep</code>/<code>Glob</code>/<code>Read</code>, the same narrow check an <code>Explore</code> dispatch would do — rather than trust a work sample's own narration. No <code>Agent</code> tool grant behind it; a broader grant was proposed and blocked by the auto-mode classifier</li></ul></td>
+          </tr>
+          <tr>
+            <td class="who">agent-improver</td><td class="mdl">opus</td>
+            <td>Reviews and improves an agent's own definition</td>
+            <td><ul class="bul"><li>Runs in a context that never saw the work produced — the whole point</li><li>Same embodied-verification pattern as <code>watchdog</code>, added the same day</li></ul></td>
+          </tr>
+
+          <tr class="grp"><td colspan="4">Coding pipeline — mc-orchestrator</td></tr>
+          <tr>
+            <td class="who">mc-orchestrator</td><td class="mdl">opus</td>
+            <td>Runs the 5-stage coding playbook</td>
+            <td><ul class="bul"><li>Declares <code>Agent</code> — can dispatch its own actors, including the concurrent Reviewer/Verifier pair</li></ul></td>
+          </tr>
+          <tr>
+            <td class="who">mc-planner</td><td class="mdl">opus</td>
+            <td>Turns a request into a testable spec</td>
+            <td><ul class="bul"><li>No <code>Edit</code>, no <code>Bash</code> — cannot touch existing code</li><li>Red-teams its own draft spec before persisting it</li><li>Boundary vs. built-in <code>Plan</code> made explicit: this agent when the spec must be <b>persisted</b> and consumed downstream, <code>Plan</code> when nothing reads the answer but the transcript</li></ul></td>
+          </tr>
+          <tr>
+            <td class="who">mc-implementer</td><td class="mdl">sonnet</td>
+            <td>Builds code to the approved spec</td>
+            <td><ul class="bul"><li>The one actor explicitly forbidden to declare its own work done</li></ul></td>
+          </tr>
+          <tr>
+            <td class="who">mc-reviewer</td><td class="mdl">opus</td>
+            <td>Static review of the implementation</td>
+            <td><ul class="bul"><li><code>Read, Grep, Glob</code> only — cannot execute the code, ever</li></ul></td>
+          </tr>
+          <tr>
+            <td class="who">mc-verifier</td><td class="mdl">sonnet</td>
+            <td>Runs the code, reports what happened</td>
+            <td><ul class="bul"><li>No <code>Edit</code>/<code>Write</code> — cannot edit its way to a passing run</li></ul></td>
+          </tr>
+          <tr>
+            <td class="who">mc-integrator</td><td class="mdl">opus</td>
+            <td>Merge gate, arbitrates conflicts</td>
+            <td><ul class="bul"><li>No <code>Bash</code> — cannot substitute its own verification</li></ul></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>The coding pipeline, in sequence</h2>
+
+    <figure>
+      <div class="scroller">
+        <svg viewBox="0 0 900 400" role="img" aria-label="The coding pipeline runs Planner, then Implementer, then a concurrent pair of Reviewer and Verifier, then Integrator. Each stage's box names what its restricted tool set guarantees it cannot do.">
+          <defs>
+            <marker id="ar-i2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,1 L9,5 L0,9 z" style="fill: var(--ink)" />
+            </marker>
+          </defs>
+
+          <rect class="bx" x="40" y="30" width="560" height="42" rx="2" />
+          <text class="t" x="56" y="56">mc-planner</text>
+          <text class="t-sub end" x="480" y="56">no Edit / no Bash — cannot touch existing code</text>
+          <text class="t-sub end" x="586" y="56">opus</text>
+          <line class="ed" x1="320" y1="72" x2="320" y2="92" marker-end="url(#ar-i2)" />
+
+          <rect class="bx" x="40" y="94" width="560" height="42" rx="2" />
+          <text class="t" x="56" y="120">mc-implementer</text>
+          <text class="t-sub end" x="480" y="120">forbidden to declare its own work done</text>
+          <text class="t-sub end" x="586" y="120">sonnet</text>
+          <line class="ed" x1="320" y1="136" x2="320" y2="156" marker-end="url(#ar-i2)" />
+
+          <rect class="band" x="40" y="158" width="560" height="110" rx="3" />
+          <text class="t-acc" x="56" y="178">CONCURRENT — DISPATCHABLE DIRECTLY BY mc-orchestrator</text>
+          <rect class="bx" x="56" y="188" width="260" height="60" rx="2" />
+          <text class="t" x="70" y="210" style="font-size:12.5px">mc-reviewer</text>
+          <text class="t-sub" x="70" y="228">Read/Grep/Glob only</text>
+          <text class="t-sub" x="70" y="244">reads, never runs</text>
+          <text class="t-sub end" x="304" y="210">opus</text>
+          <rect class="bx" x="324" y="188" width="260" height="60" rx="2" />
+          <text class="t" x="338" y="210" style="font-size:12.5px">mc-verifier</text>
+          <text class="t-sub" x="338" y="228">no Edit / no Write</text>
+          <text class="t-sub" x="338" y="244">runs, reports</text>
+          <text class="t-sub end" x="572" y="210">sonnet</text>
+          <line class="ed" x1="320" y1="268" x2="320" y2="288" marker-end="url(#ar-i2)" />
+
+          <rect class="bx" x="40" y="290" width="560" height="42" rx="2" />
+          <text class="t" x="56" y="316">mc-integrator</text>
+          <text class="t-sub end" x="480" y="316">no Bash — cannot substitute its own verification</text>
+          <text class="t-sub end" x="586" y="316">opus</text>
+
+          <text class="t-sub" x="40" y="360">Output: diff &#183; PR &#183; four persisted stage registers</text>
+          <text class="t-sub" x="40" y="380">Rule that holds regardless of dispatch mode: write the static review down before executing anything.</text>
+        </svg>
+      </div>
+      <figcaption>
+        <ul class="bul tight">
+          <li>Every guarantee above is a <code>tools:</code> line, not a promise in prose — each actor structurally cannot do the thing its role depends on it not doing.</li>
+          <li><code>mc-planner</code> also red-teams its own draft spec before handing it off, closing the one gap nothing downstream used to catch: a wrong spec, since Reviewer and Verifier check code <i>against</i> the spec, never the spec itself.</li>
+        </ul>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Skills this library routes to instead of an agent</h2>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>When</th><th>Goes to</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Research feeding a strategy, investment, or executive decision</td><td class="who"><code>multi-actor-research</code></td></tr>
+          <tr><td>"What should we do", not "what does the evidence say"</td><td class="who"><code>multi-actor-strategy</code></td></tr>
+          <tr><td>Pure adversarial demolition of a claim or artefact</td><td class="who"><code>red-team</code></td></tr>
+          <tr><td>Pure adversarial code demolition, no build obligation</td><td class="who"><code>security-review</code></td></tr>
+          <tr><td>Auditing or curating <code>~/.claude/skills</code></td><td class="who"><code>skills-librarian</code></td></tr>
+          <tr><td>A leverage or reframing idea; the daily launch check</td><td class="who"><code>first-principles</code></td></tr>
+          <tr><td>Translating a finished output for a mixed/executive audience</td><td class="who"><code>scr-pyramid-communicator</code></td></tr>
+          <tr><td>Strategy, writing, communication, domain expertise generally</td><td class="who">whichever skill fits the session's listing</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Inline self-review</h2>
+    <p style="max-width:78ch">Two agents check their own output against a <i>different</i> party — a skill, never themselves — before returning it, rather than waiting for CPO's closing review after the fact:</p>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>Agent</th><th>Routes to</th><th>Closes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="who">cody</td><td class="who"><code>code-review</code> skill</td><td>The gap left by a standalone dispatch having no downstream check, unlike <code>mc-implementer</code></td></tr>
+          <tr><td class="who">mc-planner</td><td class="who"><code>red-team</code> skill</td><td>The one spec error nothing else in the pipeline catches</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ul class="bul">
+      <li>Both route to a <b>skill</b>, not an agent — holds the library's own rule that no actor grades its own work, and needs no new <code>Agent</code> tool grant.</li>
+      <li>Doesn't replace CPO's closing review: this checks the immediate output; <code>watchdog</code> and <code>agent-improver</code> check different things, on a longer cycle.</li>
+      <li>Scoped to these two only — most other agents are either already checked inside their own pipeline, or are themselves the checking mechanism.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>How the library got here</h2>
+    <p style="max-width:78ch">v4 dropped the narrative of prior versions in favor of an appendix. v5 keeps that shape and adds two entries at the end for what changed since. The decisions behind the current 11-agent shape, kept for reference:</p>
+
+    <ul class="bul">
+      <li><b>The library started at 20 agents.</b> A necessity test was applied to each: does the job require a separate context window, an isolated tool set, or genuine concurrent dispatch — something a skill loaded into the current turn structurally cannot provide? If not, the agent was retired in favor of a skill.</li>
+      <li><b>9 agents failed the test and were retired:</b> <code>10x</code> → <code>first-principles</code> skill; <code>mar-orchestrator</code>, <code>mar-researcher</code>, <code>mar-evidence-auditor</code>, <code>mar-devils-advocate</code>, <code>mar-subject-matter-validator</code>, <code>mar-synthesiser</code>, <code>mar-project-manager</code> → <code>multi-actor-research</code> skill; <code>mar-communicator</code> → <code>scr-pyramid-communicator</code> skill.</li>
+      <li><b>All nine were archived unmodified</b> at <code>~/.claude/skills/_retired/&lt;name&gt;/</code>, each with a pointer to its replacement and a stated reversal condition. There is no git behind <code>~/.claude</code>; the archive move is the undo.</li>
+      <li><b>The finding that drove the audit:</b> none of the 20 original agent files declared an <code>Agent</code>/<code>Task</code> tool, so no orchestrator could ever dispatch its own actors — concurrency that looked designed-in was never actually reachable.</li>
+      <li><b>That gap was closed for the two agents where it mattered:</b> <code>Agent</code> was added to <code>mc-orchestrator.md</code>'s and <code>prody.md</code>'s <code>tools:</code> lines, so both can now genuinely delegate rather than only embody, when a session's dispatch tool is itself reachable.</li>
+      <li><b>Inline self-review was added to two agents</b> (<code>cody</code>, <code>mc-planner</code>) — scoped down from an initial broader proposal after a wider authorized-execution dispatch was blocked by the auto-mode classifier. Each routes to a skill, never itself.</li>
+      <li><b>Two tool-guarantee losses were accepted as real, not argued away:</b> <code>mar-subject-matter-validator</code> had no search tool at all, forcing it to speak only from knowledge or admit it couldn't; <code>mar-evidence-auditor</code> had no <code>WebSearch</code>. Both constraints now live only as instructions inside the skill that replaced them.</li>
+      <li><b>Open follow-up, tracked in the Notion backlog, not here:</b> porting four things the retired research agents held — register persistence, the SMV's "where your knowledge runs out" section, the PM's escalation checklist, the Researcher's coverage note — into <code>multi-actor-research/SKILL.md</code>.</li>
+      <li><b>New in v5 — the hub's dispatch name changed from <code>prody</code> to <code>CPO</code>,</b> at direct user instruction, no further rationale given. Only the frontmatter <code>name:</code> field moved; the file stays <code>prody.md</code>, matching this library's own convention that filename and dispatch address may diverge (the retired <code>mar-orchestrator</code> lived in <code>orchestrator.md</code>). Cross-references in <code>cody.md</code> and <code>agent-improver.md</code> were updated in the same pass, along with the one inbound dependency outside this library — <code>prompt-refiner</code>'s Phase 4 execution step. v1 through v4 are left saying "prody" throughout, as point-in-time snapshots of the library when each was written.</li>
+      <li><b>New in v5 — a routing boundary and a verification pattern, added the same day as the rename.</b> <code>mc-planner</code> and built-in <code>Plan</code> had overlapped on the same trigger ("design an approach before code exists") since the library's founding; the boundary is now persistence — <code>Plan</code> when nothing downstream reads the answer, <code>mc-planner</code> when a spec must be consumed by <code>mc-implementer</code>/<code>mc-reviewer</code>/<code>mc-verifier</code>. Separately, <code>agent-improver</code> and <code>watchdog</code> gained instructions to verify one specific claim directly — a targeted <code>Grep</code>/<code>Glob</code>/<code>Read</code>, the same check an <code>Explore</code> dispatch would do — rather than trust a work sample's own narration, scoped down after adding them an <code>Agent</code> tool was blocked by the auto-mode classifier.</li>
+    </ul>
+  </section>
+
+  <footer>v5 updated 2026-08-18 — hub renamed prody &#8594; CPO (dispatch name only, file unchanged), plus the mc-planner/Plan boundary and the agent-improver/watchdog verification pattern, both added the same day &#183; light mode forced, dark tokens available only via explicit <code>data-theme="dark"</code> &#183; v1, v2, v3, v4 preserved unmodified at <code>dispatch-map.html</code>, <code>dispatch-map-v2.html</code>, <code>dispatch-map-v3.html</code>, <code>dispatch-map-v4.html</code> &#183; names shown are frontmatter <code>name:</code> values, the dispatch address — filenames differ</footer>
+
+</div>
+</body>
+</html>

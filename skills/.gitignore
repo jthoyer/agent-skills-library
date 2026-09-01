@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Per-skill claude.ai upload artifacts (rebuilt on every change, not versioned)
+*.zip
+
+# Stray nested clone of this same repo, created during setup. Not a submodule.
+/Skills-library/
