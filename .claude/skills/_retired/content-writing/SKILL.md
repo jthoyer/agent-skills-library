@@ -6,7 +6,17 @@ metadata:
   author: ClawFu
   version: 1.0.0
   mcp-server: "@clawfu/mcp-skills"
+  retired: 2026-09-03
 ---
+
+> **RETIRED 2026-09-03 — superseded by the `content-research-writer` skill.** Moved here from
+> `~/.claude/skills/content-writing/` so it no longer appears in skill discovery; content below is
+> unchanged and the move is reversible with a single `mv`. `content-research-writer` is a strict
+> superset: same Ann Handley 13 rules, same 12-step Writing GPS/TUFD, same editing checklist, same
+> headline/lead patterns — plus research/citation integration, section-by-section review,
+> icare/triathlon/PM-specific format guidance, and an explicit voice-preservation principle this
+> skill never had. Nothing here is unique — **read that skill instead.** See
+> `~/.claude/skills/CHANGELOG.md`, 2026-09-03.
 
 # Content Writing
 

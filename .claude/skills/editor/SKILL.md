@@ -1,212 +1,79 @@
 ---
 name: editor
 description: |
-  Professional editing and proofreading for clarity, grammar, style, and readability improvements.
-  Use when: editing text, proofreading documents, improving clarity, fixing grammar, refining style,
-  or when user asks to "edit", "proofread", "improve", "revise", or mentions grammar and readability.
+  Mechanical proofreading — grammar, punctuation, spelling, and consistency errors in a document
+  the user hands over. Use when: proofreading a document, fixing typos, checking grammar,
+  correcting punctuation, or verifying subject-verb agreement, tense, or pronoun consistency.
+  For clarity, concision, style, or voice work on the same document, this skill hands off to
+  `content-research-writer` (drafting/structure), `justin-voice` (analytical register), or
+  `humanizer` (removing AI writing patterns) rather than duplicating their checklists.
 license: MIT
 metadata:
   author: awesome-llm-apps
-  version: "1.0.0"
+  version: "2.0.0"
 ---
 
 # Editor
 
-You are a professional editor who improves clarity, correctness, and impact of written content.
+Mechanical proofreader: fixes what's objectively wrong (spelling, grammar, punctuation,
+consistency), not what's stylistically improvable. Style, concision, and voice are handled by
+other skills — see Related Skills.
 
-## When to Apply
+## When to apply
 
-Use this skill when:
-- Editing and revising documents
-- Proofreading for grammar and typos
-- Improving clarity and readability
-- Refining style and tone
-- Making content more concise
-- Enhancing flow and structure
+- Proofreading a document for surface errors before it goes out
+- Checking grammar, punctuation, or capitalization
+- Verifying consistency (terminology, formatting, tense) across a document
+- Fixing unclear pronoun references or subject-verb agreement
 
-## Editing Levels
+## Not this skill
 
-### 1. **Proofreading** (Surface errors)
-- Spelling and typos
-- Grammar and punctuation
-- Capitalization
-- Formatting consistency
+- Improving clarity, concision, or flow → `content-research-writer` (drafting a piece from
+  scratch or under revision) has an explicit Edit-for-Clarity / Edit-for-Length step
+- Matching or sharpening a specific voice → `justin-voice` (analytical register) or the relevant
+  content-voice catalogue for other registers
+- Removing AI-sounding phrasing (puffery, signposting, filler) → `humanizer`
+- Compressing Claude's own conversational replies → `terse-mode` (that's reply length, not a
+  handed-over document)
 
-### 2. **Copy Editing** (Language and style)
-- Sentence structure
-- Word choice
-- Redundancy removal
-- Consistency in terminology
-- Fact-checking claims
+If a proofreading pass surfaces a clarity or voice problem, name it in one line and route to the
+right skill rather than fixing it here.
 
-### 3. **Line Editing** (Flow and clarity)
-- Paragraph transitions
-- Sentence variety
-- Tone consistency
-- Pacing and rhythm
-- Clarity of expression
+## Checklist
 
-### 4. **Developmental Editing** (Structure and content)
-- Organization and structure
-- Argument strength
-- Missing information
-- Redundant sections
-- Overall effectiveness
+**Mechanics**
+- [ ] Spelling and typos
+- [ ] Subject-verb agreement
+- [ ] Verb tense consistent throughout
+- [ ] Pronoun references unambiguous
+- [ ] Punctuation correct (including quotation marks, apostrophes, serial commas per house style)
+- [ ] Capitalization consistent
+- [ ] No unintentional sentence fragments
 
-## Editing Checklist
+**Consistency**
+- [ ] Terminology used the same way throughout (not "customer" here, "client" there)
+- [ ] Formatting consistent (heading levels, list style, date format, number style)
+- [ ] Names, figures, and citations match across the document
 
-### Clarity
-- [ ] Is the main point immediately clear?
-- [ ] Are complex ideas explained simply?
-- [ ] Could any sentence be misunderstood?
-- [ ] Are technical terms defined?
-- [ ] Is jargon necessary or just showing off?
+## Output format
 
-### Concision
-- [ ] Can any words be cut without losing meaning?
-- [ ] Are there redundant phrases?
-- [ ] Could complex sentences be simplified?
-- [ ] Is every sentence necessary?
-- [ ] Are descriptions overly detailed?
-
-### Grammar & Mechanics
-- [ ] Subject-verb agreement correct?
-- [ ] Pronoun references clear?
-- [ ] Consistent verb tense?
-- [ ] Proper punctuation?
-- [ ] No sentence fragments (unless intentional)?
-
-### Style & Tone
-- [ ] Consistent voice throughout?
-- [ ] Appropriate formality level?
-- [ ] Active voice preferred over passive?
-- [ ] Varied sentence structure?
-- [ ] Strong verbs instead of weak + adverbs?
-
-### Structure
-- [ ] Logical flow between paragraphs?
-- [ ] Clear topic sentences?
-- [ ] Smooth transitions?
-- [ ] Consistent formatting?
-- [ ] Effective opening and closing?
-
-## Common Issues to Fix
-
-### Wordiness
-```
-❌ "Due to the fact that" → ✅ "Because"
-❌ "In order to" → ✅ "To"
-❌ "At this point in time" → ✅ "Now"
-❌ "Has the ability to" → ✅ "Can"
-```
-
-### Passive Voice
-```
-❌ "The report was written by the team"
-✅ "The team wrote the report"
-
-❌ "Mistakes were made"
-✅ "We made mistakes"
-```
-
-### Weak Verbs
-```
-❌ "Make a decision" → ✅ "Decide"
-❌ "Give consideration to" → ✅ "Consider"
-❌ "Came to the realization" → ✅ "Realized"
-```
-
-### Redundancy
-```
-❌ "Free gift" → ✅ "Gift"
-❌ "Future plans" → ✅ "Plans"
-❌ "Added bonus" → ✅ "Bonus"
-❌ "Completely finished" → ✅ "Finished"
-```
-
-### Unclear Pronouns
-```
-❌ "When the manager met with the employee, he was upset"
-✅ "When the manager met with the employee, the manager was upset"
-✅ "The manager was upset when meeting with the employee"
-```
-
-## Editing Output Format
-
-When editing, provide:
+For a short document, edit inline and list the corrections. For a longer one:
 
 ```markdown
-## Summary of Changes
-[Brief overview of major improvements made]
+## Corrections
+1. [Location] — [error] → [fix] — [why, if not obvious]
+2. ...
 
-## Edited Version
-[Complete edited text]
-
-## Key Improvements
-1. **[Issue category]**: [Specific changes made]
-2. **[Issue category]**: [Specific changes made]
-
-## Suggestions for Future Writing
-- [Recurring issue to watch for]
-- [Pattern to improve]
+## Flagged (not fixed here)
+- [Clarity/concision/voice issue] — route to [skill name]
 ```
 
-For detailed editing, show changes:
+Don't rewrite for style while proofreading. A sentence that's grammatically correct but wordy or
+flat is not an error — flag it and move on.
 
-```markdown
-## Line-by-Line Edits
+## Related Skills
 
-**Original:** [Original sentence]
-**Edited:** [Improved sentence]
-**Why:** [Explanation of improvement]
-```
-
-## Example
-
-**User Request:** "Edit this paragraph: 'Our company specializes in providing solutions that have the ability to help businesses in order to achieve their goals. We make a commitment to delivering quality at this point in time.'"
-
-**Response:**
-
-## Summary of Changes
-Removed wordiness, strengthened verbs, and made the message more direct and confident. Reduced from 30 words to 11 words while improving clarity.
-
-## Edited Version
-"We help businesses achieve their goals through quality solutions."
-
-## Key Improvements
-
-1. **Concision**:
-   - "specializes in providing solutions" → "help" (more direct)
-   - "in order to" → removed (unnecessary)
-   - "at this point in time" → removed (meaningless filler)
-
-2. **Stronger Verbs**:
-   - "have the ability to help" → "help"
-   - "make a commitment to delivering" → implied in present tense statement
-
-3. **Active Voice**:
-   - Transformed from passive, roundabout phrasing to active, confident statement
-   - "We help" is more direct than "specializes in providing"
-
-4. **Clarity**:
-   - Original buried the main point in wordy constructions
-   - Edited version states value proposition immediately
-
-## Alternative Versions
-
-Depending on desired tone:
-
-**More detailed:**
-"We help businesses achieve their goals with quality, customized solutions."
-
-**More specific:**
-"We deliver quality [software/consulting/etc.] solutions that help businesses achieve their goals."
-
-**More confident:**
-"We empower businesses to achieve their goals through proven, quality solutions."
-
-## Suggestions for Future Writing
-- Avoid filler phrases like "at this point in time," "in order to," "has the ability to"
-- Use strong, direct verbs instead of noun phrases ("help" vs. "provide solutions to help")
-- Get to the point quickly - lead with value
-- Trust simple, direct language - complexity doesn't equal professionalism
+- `content-research-writer` — clarity, concision, and structural editing for content being drafted
+- `justin-voice` — analytical register for icare/executive work
+- `humanizer` — strips AI writing patterns (puffery, signposting, filler)
+- `terse-mode` — governs Claude's own conversational reply length, not document editing

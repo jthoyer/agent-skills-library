@@ -5,6 +5,39 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-03 — content-writing retired (dup of content-research-writer); editor trimmed to mechanical proofreading
+
+### Retired
+- **`content-writing`** — full duplicate of `content-research-writer`. Read both in full: same Ann
+  Handley 13 rules, same 12-step Writing GPS/TUFD, same editing checklist, same headline/lead
+  patterns, near word-for-word in places. `content-research-writer` is a strict superset — it adds
+  research/citation integration, section-by-section review, icare/triathlon/PM-specific format
+  guidance, and an explicit voice-preservation principle that `content-writing` lacks. Nothing
+  unique survived in `content-writing`; nothing to merge. Archived rather than deleted, following
+  the existing `_retired/` convention this library already uses (see `agent-router`, retired
+  2026-08-15): moved to `.claude/skills/_retired/content-writing/SKILL.md` unchanged, with a
+  retirement notice prepended to the frontmatter/body and `metadata.retired` set. Git history plus
+  the archive folder is the record — the snapshot-before-editing step in "Change safety" is
+  satisfied by the git rename itself.
+
+### Updated
+- **`editor`** (v1.0.0 → v2.0.0) — trimmed to mechanical proofreading only (spelling, grammar,
+  punctuation, consistency). Removed the Concision/Wordiness/Passive Voice/Style & Tone checklists
+  and the multi-format "Alternative Versions" output — these duplicated
+  `content-research-writer`'s Edit-for-Clarity/Edit-for-Length steps, `humanizer`'s AI-pattern
+  removal, and `justin-voice`'s avoid-table almost exactly. Added an explicit "Not this skill"
+  section that routes clarity/concision/voice work to the correct skill instead of re-solving it
+  inline.
+- **`README.md`** — skill count 49 → 48; Writing category 7 → 6, `content-writing` removed from
+  the index.
+
+### Rationale
+Six skills were governing "how should this text sound/read": `justin-voice`, `humanizer`,
+`terse-mode`, `editor`, `content-writing`, `content-research-writer`. Only four answer genuinely
+distinct questions (character/register, AI-tell removal, reply length, and content drafting
+methodology). This pass reduces the set to 5 skills with clean boundaries: `justin-voice`,
+`humanizer`, `terse-mode`, `content-research-writer`, and a narrowly-scoped `editor`.
+
 ## 2026-08-31 — skills-librarian: added the claude.ai upload zip step to Change safety
 
 ### Updated

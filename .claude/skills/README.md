@@ -37,7 +37,7 @@ skill-name/
 Supporting files belong under `references/`, not beside `SKILL.md`. `SKILL.md` addresses them
 by relative path (`references/foo.md`), so a file left at the skill root will not resolve.
 
-## Skills (49)
+## Skills (48)
 
 Names below are the frontmatter `name:` field, which always matches the directory name.
 Each skill's own `description:` is the authoritative statement of when it fires — it is not
@@ -58,8 +58,8 @@ duplicated here, so that this list cannot drift out of step with it.
 **Product and customer insight (5)** — `customer-insight`, `jobs-to-be-done-jtbd`,
 `value-proposition-canvas`, `product-requirement-document`, `positioning`
 
-**Writing (7)** — `content-writing`, `content-research-writer`, `editor`, `humanizer`,
-`justin-voice`, `youtube-explainer`, `terse-mode`
+**Writing (6)** — `content-research-writer`, `editor`, `humanizer`, `justin-voice`,
+`youtube-explainer`, `terse-mode`
 
 **Business and management (3)** — `business-case-builder`, `high-output-management`,
 `project-management`
