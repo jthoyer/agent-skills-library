@@ -4,7 +4,7 @@ description: "Create ridiculously good content using Ann Handley's \"Everybody W
 license: MIT
 metadata:
   author: ClawFu
-  version: 1.0.0
+  version: 1.0.2
   mcp-server: "@clawfu/mcp-skills"
 ---
 
@@ -45,16 +45,6 @@ This skill is particularly valuable for:
 
 ---
 
-
-## What Claude Does vs What You Decide
-
-| Claude Does | You Decide |
-|-------------|------------|
-| Structures production workflow | Final creative direction |
-| Suggests technical approaches | Equipment and tool choices |
-| Creates templates and checklists | Quality standards |
-| Identifies best practices | Brand/voice decisions |
-| Generates script outlines | Final script approval |
 
 ## What This Skill Does
 
@@ -518,16 +508,14 @@ Then write for 15 minutes without stopping.
 ## Skill Boundaries
 
 ### What This Skill Does Well
-- Structuring audio production workflows
-- Providing technical guidance
-- Creating quality checklists
-- Suggesting creative approaches
+- Structuring a piece of content from goal through Ugly First Draft to a ruthless edit
+- Applying Handley's 13 writing rules and the reader-empathy questions consistently
+- Adapting the same core process across formats (blog, email, social, thought leadership)
 
 ### What This Skill Cannot Do
-- Replace audio engineering expertise
-- Make subjective creative decisions
-- Access or edit audio files directly
-- Guarantee commercial success
+- Know the reader better than you do — it structures the writing process, you supply the audience insight
+- Replace subject-matter expertise the content is meant to convey
+- Guarantee engagement or conversion — good process improves the odds, it doesn't fix a weak idea
 
 ## References
 
@@ -543,8 +531,6 @@ Then write for 15 minutes without stopping.
 
 ## Related Skills
 
-- **copy-frameworks** - AIDA, PAS, and other structural frameworks
-- **headline-formulas** - Specific headline templates and formulas
-- **email-writing** - Deeper dive into email copywriting
-- **storytelling-storybrand** - Using story structure in content
-- **seo-content-writer** - Optimizing content for search
+- **content-research-writer** - Overlaps heavily with this skill (same Everybody Writes methodology), and adds collaborative research, citation management, and section-by-section feedback on top of it — prefer that skill for anything longer than a few paragraphs or that needs sourcing. See the 2026-09-05 audit note in `CHANGELOG.md` for the merge question this raises.
+- **justin-voice** - Voice calibration once a draft exists, always stacked with `humanizer` as a final pass
+- **made-to-stick** - For a shorter, single memorable message rather than a full piece of content

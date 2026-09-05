@@ -2,7 +2,7 @@
 name: prompt-refiner
 description: Rewrites any prompt to be excellent, then executes it — with skill routing (including multi-skill stacking), intent diagnosis, audience calibration, stakes-aware ambiguity handling, and output format declaration built in. Use this skill whenever the user says "rewrite", "rewrite this prompt and run it", "improve this prompt then execute", "make this prompt better then do it", "refine then run", or any variant of wanting their prompt improved before execution. Also trigger when a prompt is clearly underspecified and would benefit from structured rewriting before Claude attempts it. Skip the full rewrite ceremony when the raw prompt is already specific, bounded, and unambiguous — state that briefly and proceed straight to execution. Always use this skill before attempting a complex task when the user has explicitly asked for prompt improvement first.
 metadata:
-  version: 1.1.8
+  version: 1.2.0
 ---
 
 # Prompt Refiner
@@ -121,10 +121,15 @@ Use this to identify which installed skill(s) to invoke during execution — sin
 |---|---|
 | Structuring a recommendation, brief, or executive message | `scr-pyramid-communicator` |
 | Strategic options appraisal or decision-making | `multi-actor-strategy` |
-| Research synthesis with evidence grading | `multi-actor-research` |
+| Research synthesis with evidence grading feeding a strategy/investment/executive decision | `multi-actor-research` |
+| A general research question with no high-stakes decision riding on it — gathering sources, synthesising across them | `deep-research` |
+| Academic literature specifically — paper analysis, methodology critique, citation formatting | `academic-researcher` |
+| Social listening — what people are currently saying about a topic, last 30 days, public sources | `recent-pulse` |
 | Stakeholder communication or difficult conversation prep | `read-the-room` |
 | Making a message memorable or narrative-driven | `made-to-stick` |
-| Writing or editing content (article, blog, narrative) | `content-research-writer` |
+| Writing or editing content (article, blog, narrative) | `content-research-writer` (overlaps `content-writing` — prefer this one; see the 2026-09-05 audit note in `CHANGELOG.md`) |
+| Resume, CV, or cover letter work | `resume-builder` |
+| Any content for Balance Triathlon Club specifically | `balance-tri-club-brand` |
 | Product requirements or feature scoping | `product-requirement-document` |
 | icare scheme analysis (NI, TMF, DDC, LC, Workers Care, CTP Care, HBCF, GL Motor, GL Asset) | relevant scheme-expert skill, **stacked with** `icare-tone-of-voice` for expression |
 | Cross-scheme or portfolio-level icare work | `icare-expert`, **stacked with** `icare-tone-of-voice` |

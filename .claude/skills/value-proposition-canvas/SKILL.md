@@ -4,7 +4,7 @@ description: "Use Osterwalder's Value Proposition Canvas to systematically achie
 license: MIT
 metadata:
   author: ClawFu
-  version: 1.0.0
+  version: 1.0.2
   mcp-server: "@clawfu/mcp-skills"
 ---
 
@@ -31,16 +31,6 @@ metadata:
 | **Experts** | Alexander Osterwalder, Yves Pigneur, Greg Bernarda, Alan Smith - Strategyzer |
 | **Core Principle** | "80% of new products fail not because they lack functionality, but because they miss the mark on what customers actually want. The VPC helps you design value propositions that match customers' jobs, pains, and gains." |
 
-
-## What Claude Does vs What You Decide
-
-| Claude Does | You Decide |
-|-------------|------------|
-| Structures video workflow | Final creative vision |
-| Suggests shot compositions | Equipment selection |
-| Creates storyboard templates | Brand aesthetics |
-| Generates script frameworks | Final approval |
-| Identifies technical requirements | Budget allocation |
 
 ## What This Skill Does
 
@@ -571,16 +561,14 @@ FIT is achieved when your pain relievers and gain creators match important custo
 ## Skill Boundaries
 
 ### What This Skill Does Well
-- Structuring video production workflows
-- Creating storyboard frameworks
-- Suggesting technical approaches
-- Providing creative direction templates
+- Structuring the customer profile (jobs/pains/gains) against the value map (products/pain relievers/gain creators)
+- Testing for fit — whether the value map actually addresses the customer profile it's paired with
+- Diagnosing why an existing offering isn't landing, by locating the mismatch
 
 ### What This Skill Cannot Do
-- Replace professional videography
-- Edit video files directly
-- Make final creative judgments
-- Guarantee audience engagement
+- Know the real customer without research — it structures the canvas, you (or `customer-insight`) supply the validated insight
+- Replace running the value proposition past actual customers
+- Guarantee product-market fit — it improves the odds of building the right thing, it doesn't test the market for you
 
 ## References
 
@@ -591,9 +579,6 @@ FIT is achieved when your pain relievers and gain creators match important custo
 
 ## Related Skills
 
-- **jobs-to-be-done** - Deep dive into understanding customer jobs
-- **positioning-dunford** - Position your value proposition in the market
-- **product-led-growth** - Build products that sell themselves
-- **landing-page-copy** - Communicate your value proposition effectively
-- **conversion-copywriting** - Write copy that converts based on pains/gains
-- **grand-slam-offers** - Create irresistible offers from your value map
+- **jobs-to-be-done-jtbd** - Deep dive into understanding customer jobs
+- **positioning** - Position your value proposition in the market
+- **customer-insight** - Combines this canvas with JTBD for full discovery-through-design work
