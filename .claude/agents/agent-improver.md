@@ -121,7 +121,30 @@ Insert at the **top** of `CHANGELOG.md` in the Agents root, under the newest-fir
 
 The `Scores` line is not decoration — it is the only field that is *comparable* across entries, and it is what turns the ledger from a diary into a measurement. Carry all seven, in order, every time, including when 6 is `not scorable`. (Of the ~37 entries written before 2026-08-17, four carried scores; `cody` has four entries and no two of them can be compared on any dimension.)
 
-**Keep entries readable, and keep the ledger readable.** Verdict is one line, not a paragraph. Optional extra fields (`Work sample:`, an evidence note, a watchdog pass) are allowed but each must earn its place — aim under 250 words total, and cut anything a future reviewer cannot act on. **Before writing, check the ledger's size: if a single `Read` of `CHANGELOG.md` comes back truncated, say so in your review.** Library-audit step 1 ("read the ledger first") and step 2 ("verify every prior fix landed") are both unexecutable on a file you can only see part of, and a run that does not notice the truncation silently loses exactly the entries step 2 is about. The repair is to move all but the two most recent entries per agent into `CHANGELOG-ARCHIVE.md` with a one-line pointer left behind — **propose it, do not do it unasked.** (2026-08-17: the file reached 371 lines / ~34.8k tokens against a 25k read cap, and the review that found this could not read its own ledger in one call.)
+### 250 words is a cap, not an aim — and it binds every entry you write, including this one
+
+You have no `Bash`. You cannot run `wc -w`, so do not pretend to; enforce the cap **structurally** instead, against your own draft, before the `Edit` lands:
+
+| Field | Budget |
+|---|---|
+| `Verdict` | **one sentence.** Not a paragraph, not a sentence with three semicolons in it |
+| `Scores` | the fixed one-line format above, never expanded into prose |
+| `Changed`, `Why`, `Expected effect`, `Follow-up` | **at most three sentences each** |
+| Optional fields (`Work sample:`, an evidence note, a watchdog pass) | **at most two, one sentence each** |
+
+That budget lands at roughly 250 words. **Adding never just adds:** a third optional field means cutting one of the first two. If any row above is breached, the entry is over — cut before you write, not after, because "I'll trim it later" has never once happened in this ledger's history.
+
+**The cap is 250 words per agent reviewed, not per heading.** This section already says *one entry per agent*; a batch entry covering three agents is three entries wearing one heading, and it gets 750. That is the only scaling — it does not license a 750-word entry about one agent. If you batch, say in the heading how many agents the entry covers, so the next reader can check the arithmetic without counting.
+
+**Know what you are being held to.** Measured on 2026-09-06 across the 19 live entries: median **575** words, longest **796**. Exactly three came in under 250 — 73, 53 and 48 words — and all three are `no defect found / no edits` stubs. So no substantive entry in this ledger's history has ever met this figure, and you should expect the cap to bite on your first draft rather than assume you are the exception. If you find it genuinely impossible for a real finding, say so in the review with the word count you landed on, and let the user move the cap — do not quietly exceed it, which is what "aim" bought for the previous month.
+
+**The cap binds entries you write; it is not a licence to retro-trim the ones you find.** Every entry older than 2026-09-06 is over it, by construction. Rewriting them would be editing the record — the one thing this ledger exists to prevent — and a past entry's length is not a defect you can fix, because you cannot re-derive what its author cut. Old bytes leave by **retention**: archive them under the rules in the ordering notice, verbatim, so the history survives in `CHANGELOG-ARCHIVE.md`. The only entry you may shorten is one you wrote in the session you are still in.
+
+**The overflow has a destination, and it is not the ledger.** Entries bloat because they inline evidence that belongs in a file. **Quote nothing you can cite.** A path (`work-samples/cos-2026-09-05.md`) or a `file:line` reference carries the same evidence at a fraction of the bytes, and a future reviewer can *open* it — which they cannot do with your paraphrase of it. Reasoning you want shown goes in the review you hand back to the user; the ledger records the conclusion and where to check it.
+
+**Why this is now a cap.** On 2026-09-06 a full retention sweep ran — seven entries archived, every remaining one load-bearing under the retention rules — and the file **still** failed to read in one call at 71,246 bytes, truncating at line 214 of 258. Retention was spent; length was the real constraint. What actually fixed it was trimming that session's own entries, which ran ~590 and ~900 words against this 250-word figure. The worst offender in the ledger was written by an `agent-improver` session, under the word "aim". Hence: cap.
+
+**Keep the ledger readable too. Before writing, check the ledger's size: if a single `Read` of `CHANGELOG.md` comes back truncated, say so in your review.** Library-audit step 1 ("read the ledger first") and step 2 ("verify every prior fix landed") are both unexecutable on a file you can only see part of, and a run that does not notice the truncation silently loses exactly the entries step 2 is about. The repair is to move all but the two most recent entries per agent into `CHANGELOG-ARCHIVE.md` with a one-line pointer left behind — **propose it, do not do it unasked.** (2026-08-17: the file reached 371 lines / ~34.8k tokens against a 25k read cap, and the review that found this could not read its own ledger in one call.)
 
 The CHANGELOG is the record that lets a future review ask: *did last month's change actually help?* Always read the prior entry for an agent before re-reviewing it, and note whether the previous fix worked.
 
