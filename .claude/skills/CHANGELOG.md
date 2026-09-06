@@ -5,6 +5,36 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-06 — `content-writing` retired on gauntlet evidence; `value-proposition-canvas` and `humanizer` trimmed under the body-length guideline
+
+### Retired
+- **`content-writing`** → archived to `_retired/content-writing/` with a `_superseded-by.md` recording the evidence. Superseded by **`content-research-writer`**, which applies the same Ann Handley methodology to the same trigger surface and adds research, citation management, section-by-section feedback, and coverage of Justin's actual projects.
+
+  Settled by the blind three-condition gauntlet the previous entry called for (three writing tasks: a club blog post, a flat newsletter opening to rescue, and a research-grounded argument piece; conditions were no-skill, `content-writing`, `content-research-writer`; a separate agent graded all nine outputs blind to condition).
+
+  | Condition | Placings (1 = best) | Average |
+  |---|---|---|
+  | `content-research-writer` | 1, 1, 2 | **1.33** |
+  | no skill at all | 3, 2, 1 | 2.00 |
+  | `content-writing` | 2, 3, 3 | 2.67 |
+
+  **`content-writing` lost to `content-research-writer` on 3 of 3 tasks, and lost to using no skill at all on 2 of 3.** Under this library's own retirement criteria, a skill that performs worse than the no-skill baseline is a retirement candidate rather than a rewrite candidate — and two skills claiming one trigger makes both fire unreliably.
+
+  **Method fix, applied after the 2026-09-05 pre-mortem gauntlet got it wrong:** position randomisation was generated to a file and the anonymised grading inputs were assembled **by script** from that file, rather than hand-pasted. The previous run's hand-assembly silently deviated from its own shuffle and put one condition in the same position twice, which weakened that result. Positions genuinely varied here (`content-writing` sat at X, X, Z; `content-research-writer` at Y, Y, X; no-skill at Z, Z, Y).
+
+  Caveat stated plainly: one sample per condition per task, three tasks, one grader. Actioned because the head-to-head was a clean 0 of 3, not because the study was large.
+
+  Also worth recording, since it cuts against the easy assumption: the grader fact-checked the citations in all three research pieces and found **none fabricated** — every reference was real and accurately represented. The no-skill condition won that task purely by being honest about which details it had not verified, which the two skill-guided conditions were not.
+
+### Updated
+- **`value-proposition-canvas`**: 584 → **139 lines**. Kept the seven-step method, the jobs/pains/gains taxonomies, the three levels of fit, the customer interview questions, and the red-flags list. Cut two ASCII-art canvas diagrams, two long generic worked examples, a blank fill-in worksheet, and most of a checkbox checklist the model can generate unprompted. Also removed a dead `sources/books/osterwalder-value-proposition-design.md` reference that resolved nowhere. v1.0.2 → v1.1.0.
+- **`humanizer`**: 559 → **177 lines**, with **nothing removed**. The 29 AI-writing patterns are real substance, so they moved to `references/patterns.md` (391 lines, with a contents block) rather than being cut, and the long worked example moved to `references/worked-example.md` (70 lines). `SKILL.md` keeps the task, voice calibration, the personality/soul guidance, a compact index of all 29 patterns, the process, and the output format. This is the split the body-length guideline actually asks for. v2.5.1 → v2.6.0.
+- **`prompt-refiner`**: routing row for content work simplified to point at `content-research-writer` alone, now that the overlap it warned about is resolved.
+
+### Still open
+- The body-length guideline item is now down to **zero live skills over ~500 lines** — `content-writing` was the third and it is retired. Longest live skill is now `ctp-care-expert` at 525, which is a scheme-expert reference file where length is the point; not flagged.
+
+
 ## 2026-09-05 — full sweep: the last ClawFu boilerplate removed, a third unrelated import family found and checked clean
 
 ### Fixed

@@ -127,7 +127,7 @@ Use this to identify which installed skill(s) to invoke during execution — sin
 | Social listening — what people are currently saying about a topic, last 30 days, public sources | `recent-pulse` |
 | Stakeholder communication or difficult conversation prep | `read-the-room` |
 | Making a message memorable or narrative-driven | `made-to-stick` |
-| Writing or editing content (article, blog, narrative) | `content-research-writer` (overlaps `content-writing` — prefer this one; see the 2026-09-05 audit note in `CHANGELOG.md`) |
+| Writing or editing content (article, blog, narrative, newsletter) | `content-research-writer` |
 | Resume, CV, or cover letter work | `resume-builder` |
 | Any content for Balance Triathlon Club specifically | `balance-tri-club-brand` |
 | Product requirements or feature scoping | `product-requirement-document` |
