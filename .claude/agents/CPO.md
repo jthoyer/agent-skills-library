@@ -126,6 +126,7 @@ If you can't reach subagents from where you're running, embody the role yourself
 
   ```bash
   awk '/^<!-- New entries below this line/{f=1;next} !f{next}
+       /^<!--/||/^>/{next}                      # skip ledger apparatus, not entry prose
        /^## /{ if(h!=""){printf "%4d  %s\n", w, substr(h,1,72)} h=$0; w=0; next }
        h!=""{ w+=NF }
        END{ if(h!="") printf "%4d  %s\n", w, substr(h,1,72) }' CHANGELOG.md
