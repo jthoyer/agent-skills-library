@@ -28,6 +28,13 @@ The improvement ledger for this agent library. Every review by `agent-improver` 
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-07 — library — portfolio (session hygiene: `/compact`/`/clear` checkpoints)
+- Verdict: **REDUCED INDEPENDENCE**; Notion backlog item run directly (`add 'compact' at regular checkpoints to agents`, P1).
+- Changed: new `~/.claude/references/session-hygiene.md` — `/compact` once a register/close-out is on disk; `/clear` for an unrelated next request. Wired into `mc-orchestrator.md`, `CPO.md`, `cos.md`, both `multi-actor-*` `references/stage-register.md` (replaces their paste-into-new-conversation path).
+- Why these five: each holds its pipeline's one continuous context; dispatched actors don't.
+- Expected: next `mc-orchestrator` run flags `/compact` after a register write. Absent ⇒ decorative.
+- **Not verified:** no work sample. Next audit target: `mc-orchestrator`.
+
 <!-- ===== 2026-09-06 retention sweep: 6 entries moved verbatim to `CHANGELOG-ARCHIVE.md`. Pointers below; the entries themselves are in the archive, date-ordered. ===== -->
 > **Moved to `CHANGELOG-ARCHIVE.md` on 2026-09-06** (top-2-per-agent, dropped to top-1 where a newer entry re-verified the older one's fixes on disk): `2026-09-04 — CPO` (CPO top-1: the 2026-09-05 launch sweep re-verified its step-2 fix on disk) · `2026-09-04 — code-improver` (code-improver top-1: the 2026-09-06 work-sample entry confirmed all six of this entry's behaviours fired) · `2026-09-01 — cody` (cody 3rd) · `2026-08-18 — mc-reviewer + mc-verifier + cody + watchdog + CPO (gstack cherry-picks)` (no agent's top-2 depended on it) · `2026-08-17 — agent-improver` (agent-improver 3rd) · `2026-08-15 — code-improver` (code-improver 3rd) · `2026-09-01 — library — portfolio (new agent: ux-designer)` (5th live `library` entry against the top-4 cap; it is a portfolio decision, not a `ux-designer` review — this ledger's own accounting has said since 2026-09-04 that `ux-designer` has zero ledger entries, so the top-2-per-agent tie-break does not hold it here).
 

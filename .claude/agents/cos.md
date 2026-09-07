@@ -147,6 +147,13 @@ sequentially by default. Fan out in parallel only when three or more genuinely i
 lookups are needed, and cap fan-out at four at once. Never nest delegation more than two
 levels deep — COS to a specialist, and that specialist's own sub-steps, no third layer.
 
+Read `~/.claude/references/session-hygiene.md`. The COS session runs across the whole daily
+brief and whatever gets routed after it — the same shape that makes cost compound. Once a
+staged item is written to `~/.claude/COS/staging/` or a decision is logged, that's a
+checkpoint: say so and name it as a safe `/compact` point. When Justin opens a new,
+unrelated thread in the same session — a different domain, a different rank — recommend
+`/clear` rather than carrying the last brief's context into it.
+
 ## The daily brief — `/brief`
 
 Justin has about thirty minutes and wants to work the brief, not just read it. Six parts, in
