@@ -49,7 +49,7 @@ Produce an improved prompt that:
 3. **Specifies the audience** — who will read or use this?
 4. **Declares the output format** — structure, length, tone (e.g., SCR brief / executive summary / PRD / narrative / bullet hierarchy)
 5. **Adds relevant constraints** — what should be included, excluded, prioritised, or avoided?
-6. **Names the skill(s) to invoke**, if applicable — a single skill, or a sequenced stack (e.g., "Apply `ni-scheme-expert` for scheme facts, `icare-tone-of-voice` for expression, then `scr-pyramid-communicator` for structure")
+6. **Names the skill(s) to invoke**, if applicable — a single skill, or a sequenced stack (e.g., "Apply `content-research-writer` to draft, `justin-voice` for voice, then `humanizer` as a final pass")
 
 ### Rewrite quality criteria
 
@@ -81,21 +81,51 @@ Name which installed skill(s) will be invoked for execution, in what order if mo
 
 ## Phase 4: Execute
 
-Execute the rewritten prompt immediately after presenting it by launching `CPO`, leveraging the skill(s) named in Phase 2/3 routing (and any further agents CPO determines the work needs) to run execution — the user has already asked you to run it, so proceed straight to execution (this does not apply to the high-stakes ambiguity case below, where a clarifying question is warranted instead).
+Execute the rewritten prompt immediately after presenting it. The user has already asked
+you to run it, so go straight to execution — the one exception is the high-stakes
+ambiguity case below, where a clarifying question comes first.
 
-**If `CPO` cannot be launched** (no Agent/Task tool in this session — a per-session fact, not a settled one), state that in one line, then run the rest of this phase yourself, following `~/.claude/agents/CPO.md`: frame the objective/success criteria/scope, apply the routed skill(s), and close the loop as below. Label this "embodied CPO" — the distinction is what every independence claim downstream rests on — and always complete the phase this way rather than dropping it when the launch fails.
+### How much machinery to bring
 
-If skill(s) are identified for execution (whether CPO was launched or embodied):
+Match the route to the work, not to the ceremony:
+
+| The rewritten prompt is... | Route |
+|---|---|
+| One piece of work that one skill covers, or none — a draft, an answer, an edit, a piece of research | Execute it yourself, applying the routed skill(s). **Do not launch CPO.** |
+| Multi-part: needs several specialists, or needs work staged, built and reviewed | Launch `CPO`, which picks the roster and any further agents, and closes its own loop |
+
+Most rewrites are the first row. Launching a product-management hub to answer one
+well-formed prompt costs a context window and buys nothing.
+
+### Applying the routed skills
+
+Either way:
+
 - Load and apply each skill in full, in the sequence named
 - Follow each skill's stage sequence, actor structure, or framework as specified
 - Run each skill's output in full
-- When stacking, treat earlier skills in the sequence as feeding content/structure to later ones (e.g., a scheme-expert skill supplies facts, a tone-of-voice skill governs expression, a communication-framework skill governs structure) — run them as a connected sequence, each building on the last
+- When stacking, treat earlier skills as feeding content or structure to later ones — a
+  domain skill supplies facts, a voice skill governs expression, a communication skill
+  governs structure. Run them as a connected sequence, each building on the last.
 
-If no specific skill applies:
-- Execute to the quality standard implied by the rewritten prompt
-- Match the output format declared in the rewrite
+If no specific skill applies, execute to the quality standard the rewritten prompt implies
+and match the output format it declares.
 
-Once execution completes, CPO closes the loop — checking whether the agent(s) or skill(s) involved need improvement logged, and whether CHANGELOG.md needs updating. This runs after every completed refinement-and-execution pass, not just skill-routed ones.
+### If you took the CPO route and CPO cannot be launched
+
+No Agent/Task tool in this session — a per-session fact, not a settled one. State that in
+one line, then run the phase yourself following `CPO.md` from the agents directory. Locate
+it with `Glob '**/agents/CPO.md'` rather than assuming a path: `~/.claude/agents/` does
+**not** exist in a cloud session. Say which path you used. Label the run "embodied CPO" —
+that distinction is what every independence claim downstream rests on — and complete the
+phase rather than dropping it because the launch failed.
+
+### Closing the loop
+
+**Only when an agent actually ran.** The `agent-improver` pass and the `CHANGELOG.md`
+entry belong to CPO's process and fire when CPO ran, launched or embodied. A rewrite you
+executed yourself produces the output and stops there — logging a ledger entry for every
+refinement pollutes the record that ledger exists to keep readable.
 
 ---
 
@@ -109,7 +139,7 @@ Calibrate to the **Stakes** assessment from Phase 1:
 
 Then proceed with the assumed interpretation.
 
-**High stakes** — (leadership-facing, restructure-related, external-facing, or otherwise costly to get wrong) surface the ambiguity instead of guessing. Use `ask_user_input_v0` to get a quick answer on the one or two things that would change the output materially. This is the one case in this skill where execution waits on the user.
+**High stakes** — (leadership-facing, restructure-related, external-facing, or otherwise costly to get wrong) surface the ambiguity instead of guessing. Use `AskUserQuestion` to get a quick answer (if that tool is absent in this surface, ask in plain text and wait) on the one or two things that would change the output materially. This is the one case in this skill where execution waits on the user.
 
 ---
 
@@ -131,8 +161,6 @@ Use this to identify which installed skill(s) to invoke during execution — sin
 | Resume, CV, or cover letter work | `resume-builder` |
 | Any content for Balance Triathlon Club specifically | `balance-tri-club-brand` |
 | Product requirements or feature scoping | `product-requirement-document` |
-| icare scheme analysis (NI, TMF, DDC, LC, Workers Care, CTP Care, HBCF, GL Motor, GL Asset) | relevant scheme-expert skill, **stacked with** `icare-tone-of-voice` for expression |
-| Cross-scheme or portfolio-level icare work | `icare-expert`, **stacked with** `icare-tone-of-voice` |
 | Business case or investment justification | `business-case-builder` |
 | Project communication, agenda, or stakeholder update | `project-management` |
 | Triathlon training, race prep, or performance | `triathlon-coach` |
@@ -157,7 +185,6 @@ Use this to identify which installed skill(s) to invoke during execution — sin
 
 Some prompt types reliably route to more than one skill. Default to these combinations rather than picking a single skill when the rewritten prompt spans more than one concern:
 
-- **icare executive output** → scheme-expert (facts) → `icare-tone-of-voice` (expression) → `scr-pyramid-communicator` (structure)
 - **Justin-authored external content** → `content-research-writer` (drafting) → `justin-voice` (voice calibration) → `humanizer` (final pass)
 - **High-stakes recommendation or pitch** → `multi-actor-strategy` (options) → `red-team` (pressure test) → `scr-pyramid-communicator` (structure)
 - **Customer/product discovery work** → `customer-insight` (jobs/pains/gains) → `positioning` (if the output needs to argue relative advantage)
@@ -190,5 +217,5 @@ Some prompt types reliably route to more than one skill. Default to these combin
 ## Related Skills
 
 - `skills-librarian` — governs the standards this skill's own structure follows
-- `scr-pyramid-communicator`, `multi-actor-strategy`, `icare-tone-of-voice` — most frequently stacked downstream skills
+- `scr-pyramid-communicator`, `multi-actor-strategy`, `justin-voice` — most frequently stacked downstream skills
 - `red-team` — pairs well when the rewritten prompt is for high-stakes content
