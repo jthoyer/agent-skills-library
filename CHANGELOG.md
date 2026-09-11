@@ -28,6 +28,14 @@ The improvement ledger for this agent library. Every review by `agent-improver` 
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-11 — library — portfolio (full roster review, 16 agents) + `CPO` + `agent-improver` + `watchdog` + `mc-integrator`
+- Verdict: **REDUCED INDEPENDENCE** — dispatch probe **resolved negative** (no `Agent`/`Task` tool, though `CPO.md` declares one); all roles embodied. Per-agent verdicts and evidence: `work-samples/library-review-2026-09-11.md`.
+- Changed: stray `</content>` stripped from all six `mc-*` files (from `41ab577`, survived four later commits editing those files and two `agent-improver` passes); `watchdog.md:30` read the ledger at the non-existent `~/.claude/agents/CHANGELOG.md`; `CPO.md` had eight hardcoded `/Users/justinhoyer/…` paths → `<library-root>`, plus a step-2 body-integrity sweep; `agent-improver.md` step 3 now greps `Next audit targets` — that handshake lived only in `CPO.md`, which is why `ux-designer` was queued first three times and reviewed zero.
+- Why: the frontmatter sweep ran clean on all 16; both real defects sat below it. Review reads reasoning, skims paths and trailing lines.
+- Expected effect: next launch sweep catches artefacts and dead paths free; next audit opens from the queue. Absent ⇒ decorative.
+- Follow-up: **no retirements or merges — no two agents overlap.** Agents aren't account-synced, so 22/26 sessions ran where the roster may not exist (run `scripts/sync-agents.sh`); short-form copy has no owner post-`content-writing`; this file at **70,295 B** is past its 67.5–71.2 KB cliff — **retention sweep proposed, urgent, not run**. `mc-*` composition deferred to 2026-10-01 on register evidence.
+- Next audit targets: `ux-designer` — only never-reviewed agent, capture a work sample first; `mc-integrator` — 25 days stale; `investigator` — definition-only twice, not wired to `review-gates.md`.
+
 ## 2026-09-07 — library — portfolio (session hygiene: `/compact`/`/clear` checkpoints)
 - Verdict: **REDUCED INDEPENDENCE**; Notion backlog item run directly (`add 'compact' at regular checkpoints to agents`, P1).
 - Changed: new `~/.claude/references/session-hygiene.md` — `/compact` once a register/close-out is on disk; `/clear` for an unrelated next request. Wired into `mc-orchestrator.md`, `CPO.md`, `cos.md`, both `multi-actor-*` `references/stage-register.md` (replaces their paste-into-new-conversation path).

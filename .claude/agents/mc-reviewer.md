@@ -44,4 +44,3 @@ Then a **coverage close**, because a findings list on its own cannot tell the In
 - **Flagged areas** — anything that didn't clear the confidence bar above: what looked off, and why it didn't rise to a finding. This is where a sub-bar hunch goes instead of being dropped or forced into the findings list.
 
 Escalate to the Integrator only if the Implementer disputes a blocking finding. Close with a five-line Handoff Note.
-</content>
