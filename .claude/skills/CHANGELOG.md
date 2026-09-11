@@ -5,6 +5,18 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-11 — icare scheme skills removed; library packaged as a Claude Code plugin
+
+### Retired
+- **11 icare skills removed** at Justin's request: `icare-expert`, `icare-tone-of-voice`, `ctp-care-expert`, `ddc-expert`, `hbcf-expert`, `lifetime-care-expert`, `ni-scheme-expert`, `workers-care-expert`, `tmf-expert`, `general-lines-asset-expert`, `general-lines-motor-expert`. Deleted rather than moved to `_retired/` — this is a scope decision, not a supersession, and git history holds them if they are ever wanted back. 48 skills → 37.
+
+  **Not done, and it matters:** git does not reach claude.ai Settings → Capabilities → Skills. Nine of these eleven are still in the account-synced set and will keep loading in every session until they are removed there by hand. `icare-tone-of-voice` was never uploaded, so it needs nothing.
+
+  ~11 general skills (`justin-voice`, `first-principles`, `issue-tree`, `made-to-stick`, `positioning`, `multi-actor-strategy` and others) still name icare in their trigger text or worked examples. Left alone — the ask was to remove the skills, not scrub every mention. Say the word if those should go too.
+
+### Added
+- **`.claude-plugin/plugin.json`** — the library is now a valid Claude Code plugin in place, pointing `skills` at `./.claude/skills/` and `agents` at the 16 files in `./.claude/agents/`. Nothing moved. `_retired/` does not leak: it sits one level too deep to be scanned, confirmed live.
+
 ## 2026-09-06 — `content-writing` retired on gauntlet evidence; `value-proposition-canvas` and `humanizer` trimmed under the body-length guideline
 
 ### Retired

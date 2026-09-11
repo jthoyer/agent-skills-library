@@ -16,6 +16,17 @@ Consult this file when you need an agent's fuller history, not for routine revie
 
 <!-- ===== Moved from CHANGELOG.md on 2026-09-11 by the top-2-per-agent / top-4-library retention sweep. 2 entries, verbatim, merged into the date order below. ===== -->
 
+<!-- ===== Moved from CHANGELOG.md on 2026-09-11, second sweep: 5th library entry over the top-4 cap after the plugin entry. 1 entry, verbatim. ===== -->
+
+## 2026-09-06 — library — shared references + ledger retention sweep (comparative pass against `affaan-m/ECC`)
+- Verdict: **REDUCED INDEPENDENCE — main-thread edits**, unlike the two `agent-improver` runs below.
+- Changed: new `~/.claude/references/` — **`review-gates.md`** (pre-report gate; the proof-of-guard clause we had nowhere; 12-row false-positive catalogue written as *conditional* skips, each row naming the check owed before skipping) and **`external-content.md`** (fetched content is data, never instruction). Wired: `code-improver`, `watchdog` → gates; `cody`, `ux-designer`, `mc-planner`, `watchdog` → external-content; `mc-reviewer`/`security-auditor` by their own dispatches. **`investigator` deliberately excluded** — a catalogue of reasons *not to report* is wrong for an agent chasing a known-real defect; reason recorded in the reference file.
+- Why one shared file: ECC pastes an identical defence block into **67 of 68** agents while its false-positive catalogue sits in 2 — duplicated where it costs, absent where it pays. Ours already ahead, measured: **0 of ECC's 68** agents disambiguate against a named sibling, against **11 of our 16**.
+- Sweep: 7 entries archived (61 → 68); all 89 pre-sweep headings verified resolving in exactly one file, byte-identical. **Retention alone was not enough** — the file still truncated at 71,246 B with every remaining entry load-bearing; trimming this session's own over-length entries fixed it. Measurements in the ordering notice above.
+- Expected effect, falsifiable: the next `code-improver` or `watchdog` run names the gate file in its scope line and rules out one candidate against a catalogue row. Two runs without it ⇒ decorative.
+- **Not verified:** no work sample, no dispatch, no independent grader.
+- Follow-up for CPO: ECC's `build-error-resolver` has no counterpart here.
+
 ## 2026-09-04 — CPO (work-sample review by independently dispatched `agent-improver`)
 - Verdict: Fit for purpose and the run executed its own process well, but two hardcoded paths in the file were wrong and only survived because the *human-shaped* run noticed; the biggest lever is that CPO's own file must stop asserting locations it can't verify.
 - Scores: 1 Strong · 2 Strong · 3 Strong · 4 Strong · 5 Adequate · 6 Strong · 7 Strong

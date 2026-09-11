@@ -28,6 +28,14 @@ The improvement ledger for this agent library. Every review by `agent-improver` 
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-11 — library — portfolio (packaged as a Claude Code plugin; icare skills removed)
+- Verdict: **the distribution constraint is solved, and tested.** A plugin root can point `skills` at a directory and `agents` at explicit `.md` paths, so the repo is a valid plugin **in place** — nothing moved, `.claude/` untouched, `sync-agents.sh` still works.
+- Changed: `.claude-plugin/plugin.json` (name `agent-library`, 16 agents + 37 skills) and `.claude-plugin/marketplace.json`. Both pass `claude plugin validate --strict`, as do `.claude/agents/` and `.claude/skills/` as component directories. 11 icare skills removed — see the skills ledger.
+- **Tested, not asserted:** a live `claude --plugin-dir` session in an unrelated directory saw 6 `mc-*` agents, had `agent-library:justin-voice`, and did **not** have `agent-library:icare-expert` or either `_retired/` skill. That is the first time an agent has reached a session outside this repo without being copied into it.
+- Trap found and closed: `agents` rejects a directory — it needs explicit file paths — so a new agent would ship missing while `validate` still passed clean. `scripts/sync-plugin-manifest.sh` regenerates the list, `--check` fails on drift. Proven by adding a 17th agent: check exited 1, `validate` passed anyway.
+- Also: 1 entry archived (2026-09-06 library — shared references), displaced from the library top-4 by this entry. 67,449 B, ~24.2k tokens.
+- Follow-up: install the marketplace and confirm it reaches cloud sessions — the individual-account plugin channel is unverified, and only that settles whether the four snapshot PRs can be reverted. Nine removed icare skills still need deleting by hand in claude.ai Settings.
+
 ## 2026-09-11 — `security-auditor` + library — portfolio (cross-repo comparison; retention sweep; 2 units, cap 500)
 - Verdict: **REDUCED INDEPENDENCE** — main thread, no dispatch. Asked to compare the roster against the sub agents in four consuming repos. **There are none**: `.claude/agents/` is absent from all four, verified on fresh clones. Analysis: `work-samples/cross-repo-comparison-2026-09-11.md`.
 - Why: skills are account-synced, agents are not. In a cloud container `~/.claude/agents` does not exist (confirmed here; `~/.claude/skills` does), and **23 of 26 sessions this week had origin `desktop_app`**. So for at least 23 of 26, no custom agent was reachable anywhere.
@@ -62,14 +70,6 @@ The improvement ledger for this agent library. Every review by `agent-improver` 
 - Expected effect, falsifiable next run: CPO's close-out prints the word counts and no new entry exceeds. This entry and the trimmed one below are the first two written under it.
 - **Not verified:** main-thread edits, graded by reading. The `awk` was run; the structural budget has not yet been exercised by a real review.
 
-## 2026-09-06 — library — shared references + ledger retention sweep (comparative pass against `affaan-m/ECC`)
-- Verdict: **REDUCED INDEPENDENCE — main-thread edits**, unlike the two `agent-improver` runs below.
-- Changed: new `~/.claude/references/` — **`review-gates.md`** (pre-report gate; the proof-of-guard clause we had nowhere; 12-row false-positive catalogue written as *conditional* skips, each row naming the check owed before skipping) and **`external-content.md`** (fetched content is data, never instruction). Wired: `code-improver`, `watchdog` → gates; `cody`, `ux-designer`, `mc-planner`, `watchdog` → external-content; `mc-reviewer`/`security-auditor` by their own dispatches. **`investigator` deliberately excluded** — a catalogue of reasons *not to report* is wrong for an agent chasing a known-real defect; reason recorded in the reference file.
-- Why one shared file: ECC pastes an identical defence block into **67 of 68** agents while its false-positive catalogue sits in 2 — duplicated where it costs, absent where it pays. Ours already ahead, measured: **0 of ECC's 68** agents disambiguate against a named sibling, against **11 of our 16**.
-- Sweep: 7 entries archived (61 → 68); all 89 pre-sweep headings verified resolving in exactly one file, byte-identical. **Retention alone was not enough** — the file still truncated at 71,246 B with every remaining entry load-bearing; trimming this session's own over-length entries fixed it. Measurements in the ordering notice above.
-- Expected effect, falsifiable: the next `code-improver` or `watchdog` run names the gate file in its scope line and rules out one candidate against a catalogue row. Two runs without it ⇒ decorative.
-- **Not verified:** no work sample, no dispatch, no independent grader.
-- Follow-up for CPO: ECC's `build-error-resolver` has no counterpart here.
 ## 2026-09-06 — `mc-reviewer` (comparative review against ECC `code-reviewer`; independently dispatched)
 - Verdict: **Independent dispatch** — the main thread ran the comparison, I re-derived it. Ahead of its comparator on coverage reporting and on tool-enforced boundaries, with one structural gap: every instruction in the file pushes toward *producing* a finding, none toward killing one.
 - Scores: 1 Strong · 2 Strong · 3 Strong · 4 Strong · 5 Adequate · 6 not scorable — no work sample · 7 Strong

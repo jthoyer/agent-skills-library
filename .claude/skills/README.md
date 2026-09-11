@@ -4,9 +4,24 @@ Source of truth for Justin's Claude skills. One folder per skill, each with a `S
 in the standard frontmatter + markdown format. Governed by the `skills-librarian` skill —
 read that before creating, merging, trimming, or retiring anything here.
 
-## Two surfaces, one repo
+## Surfaces
 
-This library serves two places that don't sync with each other automatically:
+This library serves several places, and they do not all sync with each other.
+
+- **As a plugin (preferred — covers skills *and* agents):** the repo root is a valid
+  Claude Code plugin. `.claude-plugin/plugin.json` points `skills` at `./.claude/skills/`
+  and `agents` at the files in `./.claude/agents/`; nothing was moved to make this work.
+  Test it with `claude --plugin-dir /path/to/agent-skills-library`, or install it from
+  `.claude-plugin/marketplace.json`. Plugin skills are namespaced: `/agent-library:justin-voice`.
+
+  This is the only surface that carries **agents**. Skills are account-synced and reach
+  every session on their own; agents are not, and in a cloud container `~/.claude/agents`
+  does not exist at all. Until the plugin is installed, agents reach a repo only by being
+  committed into its `.claude/agents/` (see `scripts/sync-agents.sh`).
+
+  After adding or removing an agent, run `scripts/sync-plugin-manifest.sh`. `plugin.json`
+  lists agent files explicitly — a directory fails validation — so a new agent will
+  otherwise ship missing while `claude plugin validate` still passes clean.
 
 - **Claude Code (local, interactive):** reads live from `~/.claude/skills/`. Point that
   path at a clone of this repo (clone directly there, or symlink into it). `git pull`
@@ -14,6 +29,8 @@ This library serves two places that don't sync with each other automatically:
 - **Claude Chat (claude.ai):** reads whatever's uploaded under Settings → Capabilities →
   Skills. Git does not reach that UI. After a skill changes here, re-upload the affected
   folder(s) there as a batch — weekly, or after a meaningful change, not per commit.
+  **Deletions need doing by hand too**: a skill removed from this repo keeps loading in
+  every session until it is also removed there.
 
 ## Workflow
 

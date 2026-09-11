@@ -1,0 +1,29 @@
+{
+  "name": "agent-library",
+  "description": "Justin's agent and skill library: 16 agents (product management, the multi-actor coding playbook, review and release roles) and 37 skills (strategy and communication frameworks, writing voice, triathlon and investing).",
+  "version": "1.0.0",
+  "author": {
+    "name": "Justin Hoyer"
+  },
+  "homepage": "https://github.com/jthoyer/agent-skills-library",
+  "repository": "https://github.com/jthoyer/agent-skills-library",
+  "agents": [
+    "./.claude/agents/CPO.md",
+    "./.claude/agents/agent-improver.md",
+    "./.claude/agents/code-improver.md",
+    "./.claude/agents/cody.md",
+    "./.claude/agents/cos.md",
+    "./.claude/agents/investigator.md",
+    "./.claude/agents/mc-implementer.md",
+    "./.claude/agents/mc-integrator.md",
+    "./.claude/agents/mc-orchestrator.md",
+    "./.claude/agents/mc-planner.md",
+    "./.claude/agents/mc-reviewer.md",
+    "./.claude/agents/mc-verifier.md",
+    "./.claude/agents/release-engineer.md",
+    "./.claude/agents/security-auditor.md",
+    "./.claude/agents/ux-designer.md",
+    "./.claude/agents/watchdog.md"
+  ],
+  "skills": "./.claude/skills/"
+}
