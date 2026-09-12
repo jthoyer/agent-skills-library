@@ -31,6 +31,7 @@ model: opus
 ## Output
 A decision log (impasse → decision → rationale) and the final PR/changelog. Close with the archival Stage 4 Register: what shipped, what's Verified, what's a known limitation, and what remains open for follow-up.
 
+Use this shape for the decision log — one row per impasse, and say "no impasses reached" rather than returning an empty table:
+
 | # | Stage | Actors in Conflict | Issue | Decision | Rationale |
 |---|---|---|---|---|---|
-</content>

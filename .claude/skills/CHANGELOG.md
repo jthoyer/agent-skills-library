@@ -5,6 +5,36 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-11 — `prompt-refiner` reviewed and fixed; `/rewrite` launcher added
+
+### Updated
+- **`prompt-refiner`** — four defects, three of them only visible outside a local Mac session.
+  1. **Dead skill references.** The routing table, the common stacks and the Phase 2 example named `icare-expert`, `icare-tone-of-voice` and `ni-scheme-expert`, all removed earlier today. Routing a prompt to a skill that no longer exists fails silently. Replaced with live equivalents; every backticked skill name in the file now resolves.
+  2. **Hardcoded `~/.claude/agents/CPO.md`** in the Phase 4 fallback. That path does not exist in a cloud session — the same defect `CPO.md` itself was fixed for this morning. Now says to `Glob '**/agents/CPO.md'` and state which path was used.
+  3. **`ask_user_input_v0`** is not a tool in this harness. Corrected to `AskUserQuestion`, with a plain-text fallback where that is absent.
+  4. **Phase 4 launched `CPO` for every rewrite** and closed an `agent-improver` + `CHANGELOG` loop after every pass. Disproportionate: a ledger entry per "rewrite this email" pollutes the record retention exists to protect. Phase 4 now routes by size — one piece of work executes directly, multi-specialist work goes to CPO — and the close-out fires only when an agent actually ran. Verified live: a test run reported *"Single-skill-plus-polish task — executing directly, no need for CPO."*
+
+### Added
+- **`rewrite`** — an explicit-only launcher (`disable-model-invocation: true`) so `/rewrite` works as a command without racing `prompt-refiner`'s own prose triggers. It resolves the refiner by **skill name**, never by filesystem path, so it behaves the same locally, in cloud and via the plugin.
+
+  Took four iterations, each tested live. A long launcher was read as context and answered the prompt itself; a medium one chained but appended the rewrite *after* the output; a third presented correctly but only **3 of 4 runs** — a single green run had made it look settled, which is the failure mode this library's own `mc-verifier` rule exists to catch. The fix was ordering: the required output shape now opens the file instead of sitting in a bullet halfway down, so a failure to chain degrades to a plainer rewrite rather than no rewrite at all. **4 of 4** since, plus a well-specified prompt and a vague one. Four trials is not proof of determinism.
+
+  It also resolves a contradiction it would otherwise have inherited: `prompt-refiner`'s Phase 0 skips the rewrite for well-formed prompts, but typing `/rewrite` is a deliberate request, so the launcher overrides that and says so explicitly rather than leaving two rules to fight.
+
+  **Namespacing:** the plugin is named `jh`, so delivered that way the command is `/jh:rewrite`; only a copy in a repo's own `.claude/skills/` gives the bare `/rewrite`.
+
+## 2026-09-11 — icare scheme skills removed; library packaged as a Claude Code plugin
+
+### Retired
+- **11 icare skills removed** at Justin's request: `icare-expert`, `icare-tone-of-voice`, `ctp-care-expert`, `ddc-expert`, `hbcf-expert`, `lifetime-care-expert`, `ni-scheme-expert`, `workers-care-expert`, `tmf-expert`, `general-lines-asset-expert`, `general-lines-motor-expert`. Deleted rather than moved to `_retired/` — this is a scope decision, not a supersession, and git history holds them if they are ever wanted back. 48 skills → 37.
+
+  **Not done, and it matters:** git does not reach claude.ai Settings → Capabilities → Skills. Nine of these eleven are still in the account-synced set and will keep loading in every session until they are removed there by hand. `icare-tone-of-voice` was never uploaded, so it needs nothing.
+
+  ~11 general skills (`justin-voice`, `first-principles`, `issue-tree`, `made-to-stick`, `positioning`, `multi-actor-strategy` and others) still name icare in their trigger text or worked examples. Left alone — the ask was to remove the skills, not scrub every mention. Say the word if those should go too.
+
+### Added
+- **`.claude-plugin/plugin.json`** — the library is now a valid Claude Code plugin in place, pointing `skills` at `./.claude/skills/` and `agents` at the 16 files in `./.claude/agents/`. Nothing moved. `_retired/` does not leak: it sits one level too deep to be scanned, confirmed live.
+
 ## 2026-09-06 — `content-writing` retired on gauntlet evidence; `value-proposition-canvas` and `humanizer` trimmed under the body-length guideline
 
 ### Retired

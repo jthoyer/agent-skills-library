@@ -30,4 +30,3 @@ model: sonnet
 
 ## Output
 A verification report: the baseline it ran against (commit SHA or working-tree state, per the behaviour above), what was run, exact result, and a per-acceptance-criterion verdict (Verified / Implemented, unverified / Failed — with the observed failure). Escalate to the Integrator when a failure's cause is ambiguous (real defect vs. environment/setup issue) or when Reviewer and Verifier findings conflict. Close with a five-line Handoff Note.
-</content>

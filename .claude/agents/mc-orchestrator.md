@@ -81,4 +81,3 @@ A diff/PR ready for the user, with: the spec it was built against, the Reviewer'
 
 ## Modes
 If the user wants a single actor rather than the full run, hand off to that actor's subagent (or embody it). If the user has a human team doing the work, act as Integrator and coach them through each stage's handoff.
-</content>

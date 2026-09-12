@@ -30,4 +30,3 @@ model: sonnet
 
 ## Output
 A diff plus an implementation note: what was built, what was deliberately deferred and why, and where a reviewer or verifier should look first. Close with a five-line Handoff Note.
-</content>

@@ -14,6 +14,31 @@ Consult this file when you need an agent's fuller history, not for routine revie
 
 <!-- ===== Moved from CHANGELOG.md on 2026-09-06 by the top-2-per-agent retention sweep (top-1 where a newer entry re-verified the older one's fixes on disk). 6 entries, verbatim, merged into the date order below rather than appended as a block. ===== -->
 
+<!-- ===== Moved from CHANGELOG.md on 2026-09-11 by the top-2-per-agent / top-4-library retention sweep. 2 entries, verbatim, merged into the date order below. ===== -->
+
+<!-- ===== Moved from CHANGELOG.md on 2026-09-11, second sweep: 5th library entry over the top-4 cap after the plugin entry. 1 entry, verbatim. ===== -->
+
+<!-- ===== Moved from CHANGELOG.md on 2026-09-12: 5th library entry over the top-4 cap. 1 entry, verbatim. ===== -->
+
+## 2026-09-07 — library — portfolio (session hygiene: `/compact`/`/clear` checkpoints)
+- Verdict: **REDUCED INDEPENDENCE**; Notion backlog item run directly (`add 'compact' at regular checkpoints to agents`, P1).
+- Changed: new `~/.claude/references/session-hygiene.md` — `/compact` once a register/close-out is on disk; `/clear` for an unrelated next request. Wired into `mc-orchestrator.md`, `CPO.md`, `cos.md`, both `multi-actor-*` `references/stage-register.md` (replaces their paste-into-new-conversation path).
+- Why these five: each holds its pipeline's one continuous context; dispatched actors don't.
+- Expected: next `mc-orchestrator` run flags `/compact` after a register write. Absent ⇒ decorative.
+- **Not verified:** no work sample. Next audit target: `mc-orchestrator`.
+
+<!-- ===== 2026-09-06 retention sweep: 6 entries moved verbatim to `CHANGELOG-ARCHIVE.md`. Pointers below; the entries themselves are in the archive, date-ordered. ===== -->
+> **Moved to `CHANGELOG-ARCHIVE.md` on 2026-09-06** (top-2-per-agent, dropped to top-1 where a newer entry re-verified the older one's fixes on disk): `2026-09-04 — CPO` (CPO top-1: the 2026-09-05 launch sweep re-verified its step-2 fix on disk) · `2026-09-04 — code-improver` (code-improver top-1: the 2026-09-06 work-sample entry confirmed all six of this entry's behaviours fired) · `2026-09-01 — cody` (cody 3rd) · `2026-08-18 — mc-reviewer + mc-verifier + cody + watchdog + CPO (gstack cherry-picks)` (no agent's top-2 depended on it) · `2026-08-17 — agent-improver` (agent-improver 3rd) · `2026-08-15 — code-improver` (code-improver 3rd) · `2026-09-01 — library — portfolio (new agent: ux-designer)` (5th live `library` entry against the top-4 cap; it is a portfolio decision, not a `ux-designer` review — this ledger's own accounting has said since 2026-09-04 that `ux-designer` has zero ledger entries, so the top-2-per-agent tie-break does not hold it here).
+
+## 2026-09-06 — library — shared references + ledger retention sweep (comparative pass against `affaan-m/ECC`)
+- Verdict: **REDUCED INDEPENDENCE — main-thread edits**, unlike the two `agent-improver` runs below.
+- Changed: new `~/.claude/references/` — **`review-gates.md`** (pre-report gate; the proof-of-guard clause we had nowhere; 12-row false-positive catalogue written as *conditional* skips, each row naming the check owed before skipping) and **`external-content.md`** (fetched content is data, never instruction). Wired: `code-improver`, `watchdog` → gates; `cody`, `ux-designer`, `mc-planner`, `watchdog` → external-content; `mc-reviewer`/`security-auditor` by their own dispatches. **`investigator` deliberately excluded** — a catalogue of reasons *not to report* is wrong for an agent chasing a known-real defect; reason recorded in the reference file.
+- Why one shared file: ECC pastes an identical defence block into **67 of 68** agents while its false-positive catalogue sits in 2 — duplicated where it costs, absent where it pays. Ours already ahead, measured: **0 of ECC's 68** agents disambiguate against a named sibling, against **11 of our 16**.
+- Sweep: 7 entries archived (61 → 68); all 89 pre-sweep headings verified resolving in exactly one file, byte-identical. **Retention alone was not enough** — the file still truncated at 71,246 B with every remaining entry load-bearing; trimming this session's own over-length entries fixed it. Measurements in the ordering notice above.
+- Expected effect, falsifiable: the next `code-improver` or `watchdog` run names the gate file in its scope line and rules out one candidate against a catalogue row. Two runs without it ⇒ decorative.
+- **Not verified:** no work sample, no dispatch, no independent grader.
+- Follow-up for CPO: ECC's `build-error-resolver` has no counterpart here.
+
 ## 2026-09-04 — CPO (work-sample review by independently dispatched `agent-improver`)
 - Verdict: Fit for purpose and the run executed its own process well, but two hardcoded paths in the file were wrong and only survived because the *human-shaped* run noticed; the biggest lever is that CPO's own file must stop asserting locations it can't verify.
 - Scores: 1 Strong · 2 Strong · 3 Strong · 4 Strong · 5 Adequate · 6 Strong · 7 Strong
@@ -32,6 +57,17 @@ Consult this file when you need an agent's fuller history, not for routine revie
 - Why: at ~3.2KB in a library of 5–15KB peers it was the only reviewer agent with no behaviours-to-avoid section at all. "Order by impact" with no severity vocabulary and no floor on what counts as a finding is what turns a review into a nit list — and Balance bolt, the project it is running against today, carries both `STYLEGUIDE.md` and `styleguide.html` plus a deliberately explanatory comment style a naive readability pass would try to strip.
 - Expected effect: its next report opens by naming the convention sources it read, tags every finding, and contains no "remove excessive comments" item. Falsifiable and cheap to check on the very next run.
 - Follow-up: **HIGH** — this is definition-only; grade it against the parallel Balance bolt run when that output exists, and check specifically whether the convention glob actually fires. Dim 4 (sonnet) is Adequate not Strong: severity judgement is the reasoning-heaviest thing it now does, and if reports come back mis-tiered the model is the first suspect.
+
+## 2026-09-04 — library — portfolio (dispatch probe resolved positive; `code-improver` trial at 1/3)
+- Verdict: Dispatch is reachable in this environment and was exercised for real — the `agent-improver` pass recorded below was a genuine cold subagent, not embodiment. Recording it as a per-session fact, not a settled one.
+- Decision 1 — **probe outcome, resolved-positive.** Agent tool present in the session list; one dispatch made and returned, and the delegate confirmed unprompted that it saw no prior conversation. It then edited two files on disk (`CPO.md` 33,127 → 34,441 bytes, `code-improver.md` 3,265 → 6,345 bytes) and wrote its own ledger entry. Evidence produced by: the dispatched `agent-improver`, independently — this decision is **not** reduced-independence. Reversal condition: a later session finding no Agent/Task tool, or a dispatch that errors, flips this back to negative for that session; the probe is per-session and this line does not license skipping it.
+- Decision 2 — **the `code-improver` trial is at 1/3, not lapsed.** Today's brief ("run CPO & code reviewer") is the first real routing to `code-improver` since the user-signed-off 0/3 trial opened 2026-08-17; it ran in parallel in the main session. Counting it as run 1 of 3 rather than letting the trial expire by default. Rejected: closing the trial now on zero graded output, which would retire an agent for lack of evidence CPO never went looking for. Evidence produced by: CPO (this session) reading the ledger — reduced-independence on the *count*, though the routing event itself is a fact of the brief. Reversal condition: if runs 2 and 3 produce findings `mc-reviewer` would have produced anyway, the merge case is made and the trial closes against it.
+- Changed: no routing-table edit — `code-improver` was correctly routed and did not underperform on any observed run, so the two-strikes rule that lets CPO edit the table unaided has not been triggered. Ledger and `10X-LOG.md` both written at the repo-root paths (see the new *Canonical paths* block in `CPO.md`).
+- Delivery this run: **embodied, not delegated.** CPO did the product/UX assessment of the Balance bolt sign-up flow itself rather than routing to `ux-designer` or `mc-planner` — the ask was a validation-branch decision plus a read-only gap scan under an explicit no-source-edits constraint, which is rung-0 work; climbing to a specialist would have bought a cold context reload and no independent judgement. Say so plainly rather than implying a specialist graded it.
+- Why this is one entry and not three: the probe, the trial count and the delivery-mode note are all facts about *this* run's routing, and splitting them would put three partial records where one auditable one belongs.
+- Expected effect: the next launch reads a probe result it must re-establish rather than inherit, and finds the `code-improver` trial with a live count instead of a dangling 0/3. Falsifiable: a session that reports "dispatch unreachable" without having called the tool, or a `code-improver` run after this one that is not recorded against the trial.
+- Follow-up: the parallel `code-improver` output for Balance bolt was not in CPO's context and so was **not** graded — the definition-only caveat on today's `code-improver` review is real and should be closed by re-running `agent-improver` against that output once it exists. Also open: the MED trim proposed against `CPO.md`'s historical passages, which is CPO's own call and was deliberately not self-approved this run.
+- Next audit targets: `code-improver` — reviewed definition-only today, needs the parallel Balance bolt output graded to score Dimension 6 and to settle the trial; `ux-designer` — added 2026-09-01, still zero work samples, so its 3-options-then-polish loop has never been observed; `cody` — the contrast self-verification gap found on 2026-09-01 is fixed in the definition but unverified on a fresh run.
 
 ## 2026-09-01 — library — portfolio (routing-table correction; reduced independence)
 - Decision: **`CPO.md`'s claim that "no agent file in this library declares an `Agent`/`Task` tool, `mc-orchestrator.md` included" is false and must be corrected.** `grep '^tools:' ~/.claude/agents/*.md` shows `mc-orchestrator.md` and `cos.md` both declare `Agent`, alongside `CPO.md`.
@@ -549,6 +585,13 @@ Consult this file when you need an agent's fuller history, not for routine revie
 - Changed: Added a "Boundary" section distinguishing this agent from `mc-reviewer` (spec-bound, inside the playbook) and the `/code-review` skill (project-configured tooling, inline comments, fix mode).
 - Why: Three read-only-or-review-shaped tools existed in the library (this agent, mc-reviewer, /code-review skill) with no cross-reference explaining which to reach for.
 - Expected effect: Reduces ambiguity about which review path to use. Verify next time a user asks for "a code review" without specifying which.
+- Follow-up: None.
+
+## 2026-08-15 — mc-integrator
+- Verdict: Fit for purpose. No defect found.
+- Changed: No edits.
+- Why: Explicit refusal to write/review code itself protects the separation of duties the whole playbook depends on; escalation list is concrete.
+- Expected effect: N/A. Observed performance unverified — no work sample.
 - Follow-up: None.
 
 ## 2026-07-31 — agent-improver (self-check)
