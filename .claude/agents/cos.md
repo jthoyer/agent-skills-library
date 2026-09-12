@@ -147,7 +147,7 @@ sequentially by default. Fan out in parallel only when three or more genuinely i
 lookups are needed, and cap fan-out at four at once. Never nest delegation more than two
 levels deep — COS to a specialist, and that specialist's own sub-steps, no third layer.
 
-Read `~/.claude/references/session-hygiene.md`. The COS session runs across the whole daily
+Read `.claude/references/session-hygiene.md` _(repo-relative; `Glob '**/references/session-hygiene.md'` if it isn't there — `~/.claude/` does not resolve in a cloud session)_. The COS session runs across the whole daily
 brief and whatever gets routed after it — the same shape that makes cost compound. Once a
 staged item is written to `~/.claude/COS/staging/` or a decision is logged, that's a
 checkpoint: say so and name it as a safe `/compact` point. When Justin opens a new,

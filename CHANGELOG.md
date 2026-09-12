@@ -28,6 +28,13 @@ The improvement ledger for this agent library. Every review by `agent-improver` 
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-12 — library — portfolio (cold-start artefact; 13 dead reference pointers) + `CPO` + `mc-orchestrator`
+- Verdict: "will my agents run in a new cloud session?" — **yes**, a fresh session on `CLACFridays` saw all 16 (22 types total). Getting there produced a near-miss and a real defect: `work-samples/cold-start-and-dead-references-2026-09-12.md`.
+- **The first turn of a fresh cloud session is not a measurement.** That session reported **zero** agents 11 seconds in, then all of them on the next turn, nothing changed. Second sighting tonight — the declared plugin also read `no` on run 1, loaded on run 2. Left to stand, run 1 would have published "committed agents never reach cloud": the opposite of the truth, on the day's central question. New `references/session-cold-start.md`, wired into `CPO` and `mc-orchestrator`. It does **not** soften the dispatch probe, which reads a harness tool present from turn 1.
+- **13 dead reference pointers across 12 files.** Every shared gate — `review-gates`, `external-content`, `session-hygiene` — was read from `~/.claude/references/`, absent in a cloud container. Fourth instance of the class fixed on 09-11, and the largest still open. All rewritten repo-relative.
+- **Compounding:** `sync-agents.sh` copied agents only, so the four product repos hold 16 agents and **0 references** — dead pointers to files never shipped, leaving every review-class agent there with no evidence gate. Script now copies both trees (verified: 16 + 3, then `unchanged: 19`).
+- Follow-up: those four repos need a re-sync and four PRs. **Ledger at ~69.3 KB / ~24.8k tokens against a 25k cap — under 200 tokens of margin — retention can free nothing, every over-cap entry is held by an agent's top-2.** The pre-cap backlog now has to be dealt with.
+
 ## 2026-09-12 — library — portfolio (can a personal account get the plugin into cloud?)
 - Verdict: **`plugins/synced/` stays shut, but declaration at user scope works.** Full test matrix: `work-samples/plugin-cloud-channel-2026-09-12.md`.
 - `~/.claude/settings.json` carrying `enabledPlugins: {"jh@jthoyer": true}` + `extraKnownMarketplaces` loads **all 16 agents and the skills with no `plugin install`, no populated cache and no seed dir** — `installed_plugins.json` stayed `{}` throughout. Claude Code resolves straight from the marketplace source.
