@@ -28,6 +28,14 @@ The improvement ledger for this agent library. Every review by `agent-improver` 
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-12 — library — portfolio (can a personal account get the plugin into cloud?)
+- Verdict: **`plugins/synced/` stays shut, but declaration at user scope works.** Full test matrix: `work-samples/plugin-cloud-channel-2026-09-12.md`.
+- `~/.claude/settings.json` carrying `enabledPlugins: {"jh@jthoyer": true}` + `extraKnownMarketplaces` loads **all 16 agents and the skills with no `plugin install`, no populated cache and no seed dir** — `installed_plugins.json` stayed `{}` throughout. Claude Code resolves straight from the marketplace source.
+- Project `.claude/settings.json` does **not**: four runs across a scratch dir and a real cloned repo never registered the marketplace, matching the documented folder-trust gate that a non-interactive session cannot answer. **Committing settings to the four product repos will not deliver the plugin** — their `.claude/agents/` remains the only thing that works there.
+- `plugins/synced/` is provisioned for this personal account — same bucket id as `skills/synced/`, whose suffix is the account uuid, both created in the same instant — and simply empty. Filling it is still Organization-settings distribution. Nothing here changes that.
+- Shape trap: `enabledPlugins` is an **object**, not an array. An array is accepted silently and does nothing; that cost one false negative in this run.
+- Unsettled, and why the snapshots stay: a **first-run registration lag** (the marketplace registers on run 1, the plugin loads from run 2) which a fresh cloud container would never get past, and whether `CLAUDE_CODE_PLUGIN_SEED_DIR` absorbs it. The lever to try next is an environment setup script writing user settings, with a GitHub marketplace source.
+
 ## 2026-09-11 — library — portfolio (packaged as a Claude Code plugin; icare skills removed)
 - Verdict: **the distribution constraint is solved for local sessions, and not for cloud.** A plugin root can point `skills` at a directory and `agents` at explicit `.md` paths, so the repo is a valid plugin **in place** — nothing moved, `.claude/` untouched, `sync-agents.sh` still works. Full install run: `work-samples/plugin-install-verification-2026-09-12.md`.
 - Changed: `.claude-plugin/plugin.json` (name `jh` — the namespace is typed on every plugin-delivered command) and `.claude-plugin/marketplace.json`, both passing `validate --strict`. 11 icare skills removed — see the skills ledger.
@@ -51,16 +59,6 @@ The improvement ledger for this agent library. Every review by `agent-improver` 
 - Expected effect: next launch sweep catches artefacts and dead paths free; next audit opens from the queue. Absent ⇒ decorative.
 - Follow-up: **no retirements or merges — no two agents overlap.** Agents aren't account-synced, so 22/26 sessions ran where the roster may not exist (run `scripts/sync-agents.sh`); short-form copy has no owner post-`content-writing`; this file at **70,295 B** is past its 67.5–71.2 KB cliff — **retention sweep proposed, urgent, not run**. `mc-*` composition deferred to 2026-10-01 on register evidence.
 - Next audit targets: `ux-designer` — only never-reviewed agent, capture a work sample first; `mc-integrator` — 25 days stale; `investigator` — definition-only twice, not wired to `review-gates.md`.
-
-## 2026-09-07 — library — portfolio (session hygiene: `/compact`/`/clear` checkpoints)
-- Verdict: **REDUCED INDEPENDENCE**; Notion backlog item run directly (`add 'compact' at regular checkpoints to agents`, P1).
-- Changed: new `~/.claude/references/session-hygiene.md` — `/compact` once a register/close-out is on disk; `/clear` for an unrelated next request. Wired into `mc-orchestrator.md`, `CPO.md`, `cos.md`, both `multi-actor-*` `references/stage-register.md` (replaces their paste-into-new-conversation path).
-- Why these five: each holds its pipeline's one continuous context; dispatched actors don't.
-- Expected: next `mc-orchestrator` run flags `/compact` after a register write. Absent ⇒ decorative.
-- **Not verified:** no work sample. Next audit target: `mc-orchestrator`.
-
-<!-- ===== 2026-09-06 retention sweep: 6 entries moved verbatim to `CHANGELOG-ARCHIVE.md`. Pointers below; the entries themselves are in the archive, date-ordered. ===== -->
-> **Moved to `CHANGELOG-ARCHIVE.md` on 2026-09-06** (top-2-per-agent, dropped to top-1 where a newer entry re-verified the older one's fixes on disk): `2026-09-04 — CPO` (CPO top-1: the 2026-09-05 launch sweep re-verified its step-2 fix on disk) · `2026-09-04 — code-improver` (code-improver top-1: the 2026-09-06 work-sample entry confirmed all six of this entry's behaviours fired) · `2026-09-01 — cody` (cody 3rd) · `2026-08-18 — mc-reviewer + mc-verifier + cody + watchdog + CPO (gstack cherry-picks)` (no agent's top-2 depended on it) · `2026-08-17 — agent-improver` (agent-improver 3rd) · `2026-08-15 — code-improver` (code-improver 3rd) · `2026-09-01 — library — portfolio (new agent: ux-designer)` (5th live `library` entry against the top-4 cap; it is a portfolio decision, not a `ux-designer` review — this ledger's own accounting has said since 2026-09-04 that `ux-designer` has zero ledger entries, so the top-2-per-agent tie-break does not hold it here).
 
 ## 2026-09-06 — `agent-improver` + `CPO` (the 250-word cap made enforceable; 2 agents, cap 500)
 - Verdict: The cap has existed as the word "aim" since the format was written, and **no substantive entry has ever met it**; both halves are now checkable rather than aspirational.
