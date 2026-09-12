@@ -12,7 +12,7 @@ This library serves several places, and they do not all sync with each other.
   Claude Code plugin. `.claude-plugin/plugin.json` points `skills` at `./.claude/skills/`
   and `agents` at the files in `./.claude/agents/`; nothing was moved to make this work.
   Test it with `claude --plugin-dir /path/to/agent-skills-library`, or install it from
-  `.claude-plugin/marketplace.json`. Plugin skills are namespaced: `/agent-library:justin-voice`.
+  `.claude-plugin/marketplace.json`. Plugin skills are namespaced: `/jh:justin-voice`.
 
   This is the only surface that carries **agents**. Skills are account-synced and reach
   every session on their own; agents are not, and in a cloud container `~/.claude/agents`

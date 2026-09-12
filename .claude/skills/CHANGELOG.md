@@ -17,9 +17,11 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 ### Added
 - **`rewrite`** — an explicit-only launcher (`disable-model-invocation: true`) so `/rewrite` works as a command without racing `prompt-refiner`'s own prose triggers. It resolves the refiner by **skill name**, never by filesystem path, so it behaves the same locally, in cloud and via the plugin.
 
-  Took three iterations, each tested live against `/rewrite write something about swimming`. A long launcher was read as context and answered the prompt itself; a medium one chained but appended the rewrite *after* the output. The 31-line version delegates correctly and presents the rewrite first, matching a direct `prompt-refiner` call.
+  Took four iterations, each tested live. A long launcher was read as context and answered the prompt itself; a medium one chained but appended the rewrite *after* the output; a third presented correctly but only **3 of 4 runs** — a single green run had made it look settled, which is the failure mode this library's own `mc-verifier` rule exists to catch. The fix was ordering: the required output shape now opens the file instead of sitting in a bullet halfway down, so a failure to chain degrades to a plainer rewrite rather than no rewrite at all. **4 of 4** since, plus a well-specified prompt and a vague one. Four trials is not proof of determinism.
 
-  **Namespacing:** delivered by plugin it is `/agent-library:rewrite`; only a copy in a repo's own `.claude/skills/` gives the bare `/rewrite`.
+  It also resolves a contradiction it would otherwise have inherited: `prompt-refiner`'s Phase 0 skips the rewrite for well-formed prompts, but typing `/rewrite` is a deliberate request, so the launcher overrides that and says so explicitly rather than leaving two rules to fight.
+
+  **Namespacing:** the plugin is named `jh`, so delivered that way the command is `/jh:rewrite`; only a copy in a repo's own `.claude/skills/` gives the bare `/rewrite`.
 
 ## 2026-09-11 — icare scheme skills removed; library packaged as a Claude Code plugin
 
