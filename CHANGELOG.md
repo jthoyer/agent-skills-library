@@ -62,6 +62,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-13 — `ux-designer`
+- Verdict: Fit for purpose and unusually disciplined in execution — the one real defect is a missing search capability, not a reasoning gap.
+- Scores: 1 Strong · 2 Strong · 3 Weak · 4 Adequate · 5 Strong · 6 Adequate · 7 Adequate
+- Work sample: `work-samples/ux-designer-2026-09-13.md` — first ever, cold dispatch, independent reviewer.
+- Changed: `tools:` now grants `Glob`/`Grep`; step 1 rewritten so a design system is only declared absent after a search, and so an existing styleguide is named in the step-7 `cody` handoff.
+- Why: `tools:` omitted `Glob`/`Grep` while line 36 instructed a `Glob` call and step 1 ordered a codebase search. It flagged the gap itself (§7), then declared `balancetri-app`'s `style-guide.html` — a live design-system reference with its own empty-state specimen — nonexistent, so §6's files-touched list omits it.
+- Expected effect: no future pass asserts "no design system exists" off one failed `Read`, and handoffs name the styleguide file. Falsifiable: a re-dispatch on this repo should cite `style-guide.html`.
+- Follow-up: 3 proposals awaiting sign-off — drop `Edit`; resolve step 4's self-pick-then-polish ambiguity the sample flagged itself (line 108); codify "report non-design defects, don't fix them", improvised correctly on `app.js:11`/`:125` (both real). `style-guide.html` matches no name in `cody.md:45` either — a finding for `CPO`.
+
 ## 2026-09-13 — library — portfolio (ledger split by month; retention rules retired) + `CPO` + `agent-improver` + `watchdog`
 - Verdict: **the size problem is now structural rather than managed.** `CHANGELOG.md` holds the current month only; closed months move verbatim to `changelog/YYYY-MM.md`. This resolves the 2026-09-12 follow-up ("the pre-cap backlog now has to be dealt with") without trimming a single entry.
 - Result: **69,284 → 43,957 B, ~24.8k → ~15.8k tokens, 9.2k of headroom.** `changelog/2026-08.md` (9 entries, 25.9 KB) and `changelog/2026-07.md` (1 entry, 3.1 KB) split out. Integrity: 95 headings before, 95 after, none lost or duplicated.
