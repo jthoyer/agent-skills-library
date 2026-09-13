@@ -62,6 +62,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-13 — library — portfolio (the three checks now run in CI) + `CPO`
+- Verdict: The library's fourth "right artefact, missing consumer" instance is closed — this time by a consumer that cannot forget.
+- Changed: New `.github/workflows/checks.yml` runs all three checks on every push and pull request. New `scripts/check-frontmatter.sh` extracts `CPO`'s inline frontmatter sweep into a script that exits non-zero, with `--list` preserving the inventory table CPO reads. `CPO.md` step 2 now calls both scripts instead of carrying two bash blocks; three passages that described the inlined versions were rewritten.
+- Why: All three checks were free, all three caught real defects, and all three fired only if a human remembered to launch CPO first. The repo had no `.github/workflows/` at all. A check that needs someone to remember it inherits exactly the failure mode it was built to remove — which is how four dead pointers shipped this week past readers looking straight at them.
+- Expected effect: A dead pointer, a stale plugin manifest or an undispatchable agent fails the commit instead of shipping. Verified: workflow YAML parses, all three steps run clean exactly as CI invokes them; one decoy per defect class injected into `check-frontmatter.sh` (`NAME!=FILENAME`, `DESC>1024`, `NO-MODEL`, `ARTEFACT`) — all four caught, clean on restore.
+- Follow-up: The honest test is whether the next accidental finding falls in one of these three classes. If it does, the checks were never the constraint. The four product repos still carry pre-fix agents and no references.
+
 ## 2026-09-13 — library — portfolio (path-and-name check, mechanised) + `CPO` + `cos` + `ux-designer`
 - Verdict: The defect class that produced four findings this week — all four found by accident — now has a check that finds it on purpose.
 - Changed: New `scripts/check-references.sh` + `scripts/reference-allowlist.txt`. Resolves every backticked path and filename the agents assert, against disk. `CPO`'s step-2 body sweep now calls it instead of its own `grep`. Five live `~/.claude/skills/...` pointers in `CPO.md` rewritten repo-relative. `cos.md` gained an explicit note that its `~/.claude/COS/` tree is outside the repo by design and that a cloud run must stop rather than reconstruct the mandate. `ux-designer` step 4 now says who "chosen" means when no user can answer, and a new section makes a non-design defect reportable, not repairable.

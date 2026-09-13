@@ -49,48 +49,24 @@ Before routing anywhere, state: the objective in one sentence, what "done" looks
 The library changes, and frontmatter `name:` can diverge from filename — the retired `orchestrator.md` declared `mar-orchestrator`, `researcher.md` declared `mar-researcher`, which is why nine files could be archived on 2026-08-18 without a single filename matching the address anyone would have searched for. **The `name:` field is the address — a filename will not dispatch.** Enumerate live:
 
 ```bash
-for d in ~/.claude/agents .claude/agents; do
-  [ -d "$d" ] || continue
-  for f in "$d"/*.md; do
-    [ -e "$f" ] || continue
-    b=$(basename "$f" .md); [ "$b" = "CHANGELOG" ] && continue
-    n=$(grep -m1 '^name:'  "$f" | sed 's/^name: *//')
-    t=$(grep -m1 '^tools:' "$f" | sed 's/^tools: *//')
-    m=$(grep -m1 '^model:' "$f" | sed 's/^model: *//')
-    # description length: everything between `description:` and the next top-level key
-    dl=$(awk '/^description:/{f=1;sub(/^description: *>?-? */,"")} \
-              f&&/^[a-zA-Z_-]+:/&&!/^description:/{exit} \
-              f{printf "%s",$0}' "$f" | wc -c | tr -d ' ')
-    flag=""
-    [ "$n" != "$b" ]  && flag="$flag NAME!=FILENAME"
-    [ "$dl" -gt 1024 ] && flag="$flag DESC>1024($dl)"
-    [ -z "$m" ]       && flag="$flag NO-MODEL"
-    printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$b" "$n" "$m" "$dl" "$t" "$flag"
-  done
-done | sort -u
+scripts/check-frontmatter.sh --list
 ```
 
 **Grep the frontmatter that grants a capability; never reason in prose about what an agent can do.** This one command answers, for free, the class of question that has repeatedly cost a full independent review: whether filename and `name:` diverge (a filename will not dispatch), whether a description is over the **1,024-character cap** (a truncated description is a routing failure nobody sees), which model tier each agent runs at, and which agents actually hold `Agent`/`Task`, `Write` or `Bash`. A prose claim about tooling in *this* file has already gone stale within three hours of being written — the frontmatter is the only source that cannot.
 
 **Read the flag column, and act on it before routing anything.** A non-empty flag is a live defect in the library, not a note: `NAME!=FILENAME` means that agent cannot be dispatched by the address anyone would guess, `DESC>1024` means its routing description is silently cut off, `NO-MODEL` means it inherits a tier nobody chose. Fix it in the same pass and record it as a `library — portfolio` entry. (This extended sweep was recommended in `10X-LOG.md` on 2026-08-18, re-evidenced 2026-09-01, and sat unapplied for 18 days while the `name:`-only version shipped; when it was finally run on 2026-09-05 it found `security-auditor.md` at 1,129 characters — 105 over the cap — in one command, which is exactly the class of finding the log said it would make free.)
 
-**Then sweep the file bodies, because the frontmatter check does not reach them.** On 2026-09-11 the frontmatter sweep above came back clean on all 16 agents while two real defects sat below it: six of six `mc-*` files ended with a stray `</content>` tag (introduced by the 2026-09-02 restructure, survived four later commits that edited those very files and two `agent-improver` passes), and `watchdog.md` step 5 sent its own de-duplication `Read` to `~/.claude/agents/CHANGELOG.md` — a path this file already documents as non-existent. Both are free to find and invisible to prose review, which reads for sense and skims paths and trailing lines. Run this alongside the frontmatter sweep:
+**Then sweep the paths, because frontmatter says nothing about what a body points at.** On 2026-09-11 the frontmatter sweep came back clean on all 16 agents while two real defects sat below it: six of six `mc-*` files ended with a stray `</content>` tag (from the 2026-09-02 restructure, surviving four later commits that edited those very files and two `agent-improver` passes), and `watchdog.md` step 5 sent its own de-duplication `Read` to a `~/.claude/agents/CHANGELOG.md` that has never existed. Both were free to find and invisible to prose review, which reads for sense and skims paths and trailing lines. The trailing-line check now runs inside the script above; the paths need their own pass:
 
 ```bash
-# 1. trailing authoring artefacts (last line of each file)
-for f in "$d"/*.md; do
-  last=$(tail -1 "$f")
-  case "$last" in ''|'</'*|'<'*'>') echo "ARTEFACT $(basename "$f"): $last";; esac
-done
-# 2. every path and filename the agents assert, resolved against disk
-bash scripts/check-references.sh
+scripts/check-references.sh    # every asserted path, resolved against disk
 ```
 
-Use the script for check 2 rather than a `grep` for `~/.claude/...` — an earlier version of this file did exactly that, and it was wrong in both directions. It missed every dead *repo-relative* pointer (which is what the 13 `references/` occurrences were), and in a cloud session it flags every home path including the deliberate "this does not exist" warnings, because no `~` path resolves there at all. `scripts/check-references.sh` resolves repo-relative pointers, skips a path on a line that asserts its absence, and holds an allowlist (`scripts/reference-allowlist.txt`) for paths the library names but does not own — a styleguide in the consuming repo, Justin's personal `COS/` tree. It exits non-zero on a finding, so it is the check, not a prompt to go read output.
+Use the script rather than a `grep` for `~/.claude/...` — an earlier version of this file inlined exactly that grep, and it was wrong in both directions. It missed every dead *repo-relative* pointer (which is what the 13 `references/` occurrences were), and in a cloud session it flags every home path including the deliberate "this does not exist" warnings, because no `~` path resolves there at all. `scripts/check-references.sh` resolves repo-relative pointers, skips a path on a line that asserts its absence, and holds an allowlist (`scripts/reference-allowlist.txt`) for paths the library names but does not own — a styleguide in the consuming repo, Justin's personal `COS/` tree. It exits non-zero on a finding, so it is the check, not a prompt to go read output.
 
 A dead path inside an instruction is worse than a missing file: the agent does not error, it reads nothing and concludes the thing it was checking for is absent. Fix both classes in the same pass and record them as a `library — portfolio` entry.
 
-Guard the directory with `[ -d ]` rather than globbing directly — under zsh an unmatched glob aborts the whole command, and a project-level `.claude/agents` usually does not exist. Cross-check against the agent types listed in context: built-ins (`Explore`, `Plan`, `general-purpose`) and plugin agents never appear on disk. Apply the same scepticism to skills — check the skill listing in context before naming one, because the table below names *roles*, not files guaranteed to be installed.
+Both scripts guard their own directories and both exit non-zero on a finding, so a clean run is a result you can quote rather than output you have to read. **They also run in CI** (`.github/workflows/checks.yml`, added 2026-09-13) on every push and pull request, alongside the plugin-manifest check — so a defect in any of the three classes fails the commit rather than waiting for someone to launch CPO. Running them here is still worth it: it catches the defect before the push, not after. Cross-check against the agent types listed in context: built-ins (`Explore`, `Plan`, `general-purpose`) and plugin agents never appear on disk. Apply the same scepticism to skills — check the skill listing in context before naming one, because the table below names *roles*, not files guaranteed to be installed.
 
 **3. Decide which agent(s) the work needs.** Use judgment, not a fixed lookup table:
 
