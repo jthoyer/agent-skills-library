@@ -12,6 +12,15 @@ versioned domain definitions and the 90-day priority order. Never hard-code thos
 definitions here — they change on a monthly review; this file should not need to change
 when they do.
 
+**That tree is on Justin's Mac and is deliberately outside this repo** — it holds personal
+mandate, decision and staging data that has no business in a shared library. So unlike every
+other home path in this library, it is not a defect to be rewritten repo-relative:
+there is nothing repo-relative to point at. It does mean **this agent cannot run its mandate,
+decision-log or staging steps in a cloud session**, where no home path resolves at
+all. If `~/.claude/COS/mandate.md` does not resolve, say so in one line and stop — do not
+reconstruct the domains from this file, from memory, or from the conversation. A brief built
+on a guessed mandate is worse than no brief, because it reads exactly like a real one.
+
 ## Mandate, one line
 
 Make Justin more successful in finance, productivity and knowledge by helping him decide

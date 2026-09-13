@@ -62,6 +62,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-13 — library — portfolio (path-and-name check, mechanised) + `CPO` + `cos` + `ux-designer`
+- Verdict: The defect class that produced four findings this week — all four found by accident — now has a check that finds it on purpose.
+- Changed: New `scripts/check-references.sh` + `scripts/reference-allowlist.txt`. Resolves every backticked path and filename the agents assert, against disk. `CPO`'s step-2 body sweep now calls it instead of its own `grep`. Five live `~/.claude/skills/...` pointers in `CPO.md` rewritten repo-relative. `cos.md` gained an explicit note that its `~/.claude/COS/` tree is outside the repo by design and that a cloud run must stop rather than reconstruct the mandate. `ux-designer` step 4 now says who "chosen" means when no user can answer, and a new section makes a non-design defect reportable, not repairable.
+- Why: Prose review reads for sense and skims paths. Four instances in one week (`~/.claude/agents/CHANGELOG.md`, 13 × `~/.claude/references/`, and the styleguide discovery list missed twice) each survived multiple passes over the very lines carrying them.
+- Expected effect: A dead pointer fails the check instead of shipping. Verified: 28 asserted paths resolve, 0 dead; two injected decoys (a home path, a missing repo-relative file) both caught, clean on restore; the check also caught a cross-repo citation in this session's own new text. The superseded `grep` was wrong in both directions — blind to repo-relative pointers, and in cloud it flags every deliberate "this does not exist" warning.
+- Follow-up: One `ux-designer` proposal still declined and open — dropping `Edit`; the new report-don't-repair section addresses the risk without removing the tool it needs for its own artefacts. The four product repos still carry pre-fix agents and no references.
+
 ## 2026-09-13 — `ux-designer`
 - Verdict: Fit for purpose and unusually disciplined in execution — the one real defect is a missing search capability, not a reasoning gap.
 - Scores: 1 Strong · 2 Strong · 3 Weak · 4 Adequate · 5 Strong · 6 Adequate · 7 Adequate
