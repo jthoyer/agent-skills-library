@@ -10,8 +10,11 @@ name: checks
 # needs anything beyond bash, so there is no install step and no cache.
 
 on:
+  # `pull_request` covers every branch that has a PR open; `push` covers main.
+  # Listing both without narrowing `push` runs each PR commit twice — which the
+  # first version of this file did, visibly, on its own opening commit.
   push:
-    branches: ['**']
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
