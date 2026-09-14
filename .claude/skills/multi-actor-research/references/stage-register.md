@@ -19,7 +19,7 @@ If a research task is interrupted mid-process, the Stage Register makes it resum
 
 To resume: open a new conversation, paste the most recent Stage Register and Handoff Note, state which stage you are resuming, and continue. The register carries all material signal. The prior conversation history is not required.
 
-**In-session, prefer `/compact` over a new conversation.** See `~/.claude/references/session-hygiene.md`. The moment a Stage Register is written down, the "nothing lost" condition it requires is met — say so and name it as a safe `/compact` point rather than waiting for the session to run long. Reach for the manual paste-into-a-new-conversation path above only when that tooling isn't available. And when the *next* task shares nothing with the research question just closed, `/clear` is the right move, not a fresh Stage 1 register carried inside an old, unrelated transcript.
+**In-session, prefer `/compact` over a new conversation.** See `.claude/references/session-hygiene.md` _(repo-relative; `Glob '**/references/session-hygiene.md'` if it isn't there — `~/.claude/` does not resolve in a cloud session)_. The moment a Stage Register is written down, the "nothing lost" condition it requires is met — say so and name it as a safe `/compact` point rather than waiting for the session to run long. Reach for the manual paste-into-a-new-conversation path above only when that tooling isn't available. And when the *next* task shares nothing with the research question just closed, `/clear` is the right move, not a fresh Stage 1 register carried inside an old, unrelated transcript.
 
 ---
 

@@ -1,0 +1,44 @@
+name: checks
+
+# Three mechanical checks that each catch a defect class this library has
+# shipped at least once. Until now all three ran only when someone remembered
+# to launch CPO first — and four dead pointers shipped in one week past readers
+# looking straight at the lines carrying them. A check that needs a person to
+# remember it inherits exactly the failure mode it was built to remove.
+#
+# Each script exits non-zero on a real finding and prints what it found. None
+# needs anything beyond bash, so there is no install step and no cache.
+
+on:
+  # `pull_request` covers every branch that has a PR open; `push` covers main.
+  # Listing both without narrowing `push` runs each PR commit twice — which the
+  # first version of this file did, visibly, on its own opening commit.
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Does every path and filename the agents assert resolve against disk?
+      # Catches: dead pointers, in both the ~/.claude and repo-relative forms.
+      - name: References resolve
+        run: bash scripts/check-references.sh
+
+      # Is plugin.json's agents list still the agents on disk?
+      # Catches: an agent added or renamed without the manifest following.
+      - name: Plugin manifest current
+        run: bash scripts/sync-plugin-manifest.sh --check
+
+      # Does every agent declare a dispatchable name, a model, tools, and a
+      # description under the 1,024-character cap — and end without a stray tag?
+      # Catches: undispatchable agents, silently truncated routing descriptions.
+      - name: Frontmatter and trailing lines
+        run: bash scripts/check-frontmatter.sh

@@ -1,0 +1,32 @@
+# Paths this library names but does not own. Checked by scripts/check-references.sh.
+# Format: token<TAB>reason. Anything not listed here must resolve against disk.
+#
+# Add an entry only when the path genuinely belongs to something else. A dead
+# pointer into THIS repo is a defect to fix, never an entry to add — that
+# distinction is the whole value of the file.
+
+# --- Files an agent looks for in the CONSUMING repo, not in this one. ---
+# cody / ux-designer / code-improver run against a target project and search for
+# whichever of these it happens to have. Absence here is expected, not breakage.
+STYLEGUIDE.md	styleguide discovery list — target repo
+styleguide.md	styleguide discovery list — target repo
+style-guide.html	styleguide discovery list — target repo (the file the 2026-09-13 ux-designer run missed)
+styleguide.html	styleguide discovery list — target repo
+docs/styleguide.md	styleguide discovery list — target repo
+docs/style-guide.md	styleguide discovery list — target repo
+design-system.md	styleguide discovery list — target repo
+DESIGN.md	styleguide discovery list — target repo
+docs/	conventional docs directory — target repo
+.storybook/	Storybook config directory — target repo
+CLAUDE.md	per-project instructions file — target repo
+CONTRIBUTING.md	contributor guide — target repo
+core.js	worked example from a BalanceTRI review, not a file here
+
+# --- Justin's personal tree, deliberately outside this repo. ---
+# Not rewritable repo-relative: there is nothing repo-relative to point at.
+# cos.md declares the cloud behaviour (stop and say so) rather than guessing.
+~/.claude/COS/mandate.md	personal mandate — outside the repo by design; see cos.md
+~/.claude/COS/decision-log.md	personal decision log — outside the repo by design; see cos.md
+~/.claude/COS/staging/	personal staging tree — outside the repo by design; see cos.md
+mandate.md	short form of ~/.claude/COS/mandate.md, same reason
+balancetri-app/app.js	worked example from the 2026-09-13 ux-designer run — a file in BalanceTRI-app, not here
