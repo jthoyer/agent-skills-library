@@ -161,52 +161,6 @@ For detailed editing, show changes:
 **Why:** [Explanation of improvement]
 ```
 
-## Example
+## Varying the output
 
-**User Request:** "Edit this paragraph: 'Our company specializes in providing solutions that have the ability to help businesses in order to achieve their goals. We make a commitment to delivering quality at this point in time.'"
-
-**Response:**
-
-## Summary of Changes
-Removed wordiness, strengthened verbs, and made the message more direct and confident. Reduced from 30 words to 11 words while improving clarity.
-
-## Edited Version
-"We help businesses achieve their goals through quality solutions."
-
-## Key Improvements
-
-1. **Concision**:
-   - "specializes in providing solutions" → "help" (more direct)
-   - "in order to" → removed (unnecessary)
-   - "at this point in time" → removed (meaningless filler)
-
-2. **Stronger Verbs**:
-   - "have the ability to help" → "help"
-   - "make a commitment to delivering" → implied in present tense statement
-
-3. **Active Voice**:
-   - Transformed from passive, roundabout phrasing to active, confident statement
-   - "We help" is more direct than "specializes in providing"
-
-4. **Clarity**:
-   - Original buried the main point in wordy constructions
-   - Edited version states value proposition immediately
-
-## Alternative Versions
-
-Depending on desired tone:
-
-**More detailed:**
-"We help businesses achieve their goals with quality, customized solutions."
-
-**More specific:**
-"We deliver quality [software/consulting/etc.] solutions that help businesses achieve their goals."
-
-**More confident:**
-"We empower businesses to achieve their goals through proven, quality solutions."
-
-## Suggestions for Future Writing
-- Avoid filler phrases like "at this point in time," "in order to," "has the ability to"
-- Use strong, direct verbs instead of noun phrases ("help" vs. "provide solutions to help")
-- Get to the point quickly - lead with value
-- Trust simple, direct language - complexity doesn't equal professionalism
+The output format above is a structure, not a fixed shape. Match the editing level, and the tone of the feedback, to the text and its author: a first draft needs different handling than a near-final press release, and developmental notes about structure are wasted on a piece that only asked for a proofread. Ask which level is wanted when it isn't obvious. Above all, preserve the author's voice — the goal is their sentence made better, not your sentence substituted for theirs.

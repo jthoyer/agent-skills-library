@@ -1,6 +1,6 @@
 ---
 name: pre-mortem
-description: "Imagine your project has failed spectacularly—then work backward to identify why. Apply Gary Klein's \"prospective hindsight\" technique to catch failures before they happen. Use when: **Before launching** a product, campaign, or major initiative; **Before making** an important decision (hiring, investment, partnership); **Starting a project** to identify risks the team hasn't considered; **When overconfident** and everyone agrees the plan is great; **Before committing resources** to a signific..."
+description: "Imagine your project has failed spectacularly—then work backward to identify why. Apply Gary Klein's \"prospective hindsight\" technique to catch failures before they happen. Use when: **Before launching** a product, campaign, or major initiative; **Before making** an important decision (hiring, investment, partnership); **Starting a project** to identify risks the team hasn't considered; **When overconfident** and everyone agrees the plan is great; **Before committing resources** to a significant, hard-to-reverse commitment. Use only on a *pending* decision that can still change — not on something already shipped or executed, which is a post-mortem or a design review instead."
 license: MIT
 metadata:
   author: ClawFu
@@ -56,4 +56,4 @@ Klein's research (1989) shows imagining an event has *already happened* dramatic
 ## Related Skills
 
 - [first-principles](../first-principles/) - Challenge assumptions surfaced in pre-mortem
-- [six-thinking-hats](../six-thinking-hats/) - Already includes Pre-Mortem as an Extended Black Hat module (own SKILL.md, "Extended Black Hat: Pre-Mortem"), so both skills claim the same trigger ("pre-mortem", "what could go wrong"). A 2026-09-05 blind test (see `CHANGELOG.md`) found no clean winner between the two on ordinary use, but this skill was the only one of three conditions tested that correctly recognized when a request *didn't* call for the technique at all — keep both for now on that evidence, not on the length either one carries.
+- [six-thinking-hats](../six-thinking-hats/) - Already includes Pre-Mortem as an Extended Black Hat module (own SKILL.md, "Extended Black Hat: Pre-Mortem"), so both skills claim the same trigger ("pre-mortem", "what could go wrong"). On an ordinary pre-mortem request the two produce comparable results; the distinguishing behaviour is applicability checking. This skill tests first whether the request calls for a pre-mortem at all and declines when the decision is already executed (see *When to use this — and when not to* above); the Black Hat module runs the technique whenever it is invoked. Route here when the framing might be wrong, there when a pre-mortem is already known to be the right move and is one lens among six.
