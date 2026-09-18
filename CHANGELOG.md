@@ -62,6 +62,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-18 — library — portfolio (Notion backlog sweep) + `CPO` + `agent-improver`
+- Verdict: All 9 actionable backlog rows applied. Two fixes deviated from the brief on evidence; the review step caught a defect this run itself introduced.
+- Changed: **Skills (7):** `jobs-to-be-done-jtbd` stray in-body frontmatter block removed (its `license`/`author` were the file's only provenance, so those merged up rather than being discarded) and its "Always" 0-10 scoring mandate scoped to review/critique; `value-proposition-canvas` and `pre-mortem` truncated `description` fields completed; `etf-investing-advisor` tax table corrected **to 2026-27, not the brief's 2024-25** — the brief's figures verified right for a year that ended 14 months ago — plus a verify-against-ATO instruction; `project-management` self-contradicting 200/300-word ceilings replaced with outcome framing at all 4 sites; `deep-research`/`academic-researcher`/`editor` worked examples cut (−268 lines) for vary-by-topic notes, and deep-research's mandatory 5-phase script replaced with a quality bar; `pre-mortem` blind-test narrative replaced with the actual distinguishing behaviour vs `six-thinking-hats` (applicability checking). **Agents (2):** 7 dated-incident narratives in `CPO.md` and `agent-improver.md` compressed to rule + citation.
+- Why: Backlog rows 1-9, raised against the library's own "quote nothing you can cite" principle and its 1,024-char routing-description contract.
+- Expected effect: Two skills become routable again (truncated descriptions are silent routing failures); one stops emitting literal YAML garbage on every load; ETF tax guidance stops being confidently wrong.
+- Caught in review: the compressions first cited `CHANGELOG.md` for August dates, but that file is current-month only — all 6 citations rewritten to the ledger-index form. Same class then found pre-existing at `agent-improver.md:74` (queue grep scoped to one file); fixed.
+- REDUCED INDEPENDENCE: CPO embodied (no Agent tool this session) and graded its own edits to its own definition.
+- Follow-up: Independent `agent-improver` pass on `CPO.md`. `ux-designer` still never reviewed. Backlog row 10 (launchd) untouched — blocked on the user.
+- Next audit targets: **`ux-designer`** — still zero entries and zero work samples, carried forward a fourth time; **`CPO`** — this run self-graded edits to it; **`watchdog`** — never independently reviewed, one of two graders standing.
+
 ## 2026-09-13 — library — portfolio (the three checks now run in CI) + `CPO`
 - Verdict: The library's fourth "right artefact, missing consumer" instance is closed — this time by a consumer that cannot forget.
 - Changed: New `.github/workflows/checks.yml` runs all three checks on every push and pull request. New `scripts/check-frontmatter.sh` extracts `CPO`'s inline frontmatter sweep into a script that exits non-zero, with `--list` preserving the inventory table CPO reads. `CPO.md` step 2 now calls both scripts instead of carrying two bash blocks; three passages that described the inlined versions were rewritten.

@@ -103,15 +103,17 @@ Apply Australian tax law accurately. Key rules to apply:
 - Stamp duty does not apply to ASX-listed security transfers (abolished for shares/ETFs)
 - For NSW residents: Medicare Levy (2%) applies on top of marginal income tax rate on investment income
 
-#### Marginal tax rate reference (2024–25, Australian residents)
+#### Marginal tax rate reference (2026–27, Australian residents)
 | Taxable Income | Marginal Rate |
 |---|---|
 | $0 – $18,200 | 0% (tax-free threshold) |
-| $18,201 – $45,000 | 19% |
-| $45,001 – $120,000 | 32.5% |
-| $120,001 – $180,000 | 37% |
-| $180,001+ | 45% |
+| $18,201 – $45,000 | 15% |
+| $45,001 – $135,000 | 30% |
+| $135,001 – $190,000 | 37% |
+| $190,001+ | 45% |
 | + Medicare Levy | 2% |
+
+**Verify this table against ato.gov.au before relying on it in any output.** Rates and thresholds change by legislation, and this table is a convenience reference, not a source — the same rule the fund-data guidance above applies. Two changes are already legislated: the 15% rate falls to 14% from 1 July 2027, and the thresholds are not indexed, so they only move when Parliament moves them. If you cannot confirm the current-year figures, say so rather than quoting this table as current.
 
 When applying tax rules, always ask or state the assumed marginal tax rate bracket. Tax outcomes vary materially between brackets.
 
