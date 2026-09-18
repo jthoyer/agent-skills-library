@@ -73,7 +73,7 @@ This file contains structured prompts for generating tailored agendas, updates, 
 > 5. Anything you need from your manager — a decision, awareness, support, or nothing
 > 6. Optional: any note on the team (dynamics, development, morale)"
 
-**Then produce:** A completed manager update under 200 words using the template in SKILL.md Part 3.
+**Then produce:** A completed manager update, scannable in under a minute, using the template in SKILL.md Part 3.
 
 **Tone guidance:**
 - Direct and honest — not reassuring at the expense of accuracy
@@ -178,7 +178,7 @@ When generating any output, watch for these and correct them:
 |---------|----------------|
 | Status update that is always Green | Encourage honesty; Amber with a response is more credible |
 | Escalation without a recommendation | Prompt user to name their preferred option and why |
-| Manager update over 300 words | Cut; if the manager needs more, they'll ask |
+| Manager update the reader has to work through rather than scan | Cut; if the manager needs more, they'll ask |
 | Stand-up agenda that includes problem-solving | Park it; stand-up is for alignment only |
 | 1:1 that becomes a status check | Redirect to development, feedback, and concerns |
 | Retro that produces a list of changes | Cut to one; multiple actions rarely get implemented |

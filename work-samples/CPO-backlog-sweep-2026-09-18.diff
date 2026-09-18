@@ -1,0 +1,495 @@
+diff --git a/.claude/agents/CPO.md b/.claude/agents/CPO.md
+index 3a9fb99..dd6c92b 100644
+--- a/.claude/agents/CPO.md
++++ b/.claude/agents/CPO.md
+@@ -72,9 +72,9 @@ Both scripts guard their own directories and both exit non-zero on a finding, so
+ 
+ | Shape of the work | Route to |
+ |---|---|
+-| UI/frontend implementation, single pass | `cody` — as of 2026-08-18 it self-reviews its own diff against the `code-review` skill before returning (its step 4), since nothing else checks a standalone dispatch |
++| UI/frontend implementation, single pass | `cody` — self-reviews its own diff against the `code-review` skill before returning (its step 4), since nothing else checks a standalone dispatch |
+ | The look/feel/interaction direction isn't settled yet — needs mocks before code | `ux-designer` — mocks 2-3 options grounded in current high-adoption design systems (shadcn/ui, Radix, Material Design 3, Apple HIG), picks/polishes one, hands `cody` a concrete spec (tokens, spacing, states) to build. Added 2026-09-01. Sequence before `cody`, not instead of it — this agent decides the look, `cody` builds it |
+-| Coding work where a defect would be expensive to find later | `mc-orchestrator` (or a single `mc-*` actor on demand) — `mc-planner`, as of 2026-08-18, self-reviews its draft spec against the `red-team` skill before persisting it, closing the "wrong spec, nothing downstream catches it" gap this table used to carry as an open risk |
++| Coding work where a defect would be expensive to find later | `mc-orchestrator` (or a single `mc-*` actor on demand) — `mc-planner` self-reviews its draft spec against the `red-team` skill before persisting it, which is what closes the "wrong spec, nothing downstream catches it" gap |
+ | Research feeding a strategy/investment/executive decision | the **`multi-actor-research` skill** (`.claude/skills/multi-actor-research/` — `SKILL.md` plus `references/actors.md`, `references/escalation.md`, `references/stage-register.md`), **not an agent**. The 8 `mar-*` agents were retired 2026-08-18; the skill carries all seven actor playbooks, the four stages, the Stage Register templates and the escalation protocol. Read `references/actors.md` before embodying any single actor. Archived originals: `.claude/skills/_retired/mar-*/` |
+ | The research question is "what should we do", not "what does the evidence say" | the **`multi-actor-strategy` skill** — options appraisal, not evidence grading |
+ | Pure adversarial demolition of a claim, plan or artefact, no synthesis obligation | the **`red-team` skill** |
+@@ -127,7 +127,7 @@ If you can't reach subagents from where you're running, embody the role yourself
+ 
+   A row marked Pending with no follow-up named is the same failure this step exists to prevent — every Pending needs either an owner or a one-line reason it's deferred.
+ - **The ledger is split by month.** `<library-root>/CHANGELOG.md` holds the current month; closed months are in `<library-root>/changelog/YYYY-MM.md`, older history in `CHANGELOG-ARCHIVE.md`. Its per-agent index says where any agent's entries live. Retention sweeps were retired on 2026-09-13 — **do not trim or archive on size grounds**; when the month turns, move the closed month's entries verbatim into its own file and leave the index accurate.
+-- Confirm the review's CHANGELOG entry was actually written — don't just assume it happened. **Entries are inserted at the *top* of `<library-root>/CHANGELOG.md` (the repo-root ledger — see *Canonical paths*; there is no ledger inside the agents directory), directly under the `<!-- New entries below this line, newest first -->` marker — never at the end of the file.** The ledger is read by agents whose `Read` truncates, so an entry at the bottom is an entry nobody reaches; the word "append" once put five consecutive entries at the wrong end and left the ledger with two contradictory orderings. If a single `Read` of the ledger comes back truncated, say so rather than working from the part you happened to see.
++- Confirm the review's CHANGELOG entry was actually written — don't just assume it happened. **Entries are inserted at the *top* of `<library-root>/CHANGELOG.md` (the repo-root ledger — see *Canonical paths*; there is no ledger inside the agents directory), directly under the `<!-- New entries below this line, newest first -->` marker — never at the end of the file.** The ledger is read by agents whose `Read` truncates, so an entry at the bottom is an entry nobody reaches, and a ledger with entries at both ends has no reliable ordering at all (see the ledger index, 2026-08-17). If a single `Read` of the ledger comes back truncated, say so rather than working from the part you happened to see.
+ 
+ - **Measure the entry against the 250-word cap, and cut before you close.** `agent-improver` enforces this structurally because it has no `Bash`; you have `Bash`, so you enforce it by counting. Run this against the ledger after the entry lands — it prints every live entry's word count, newest first:
+ 
+diff --git a/.claude/agents/agent-improver.md b/.claude/agents/agent-improver.md
+index bb6a846..b181203 100644
+--- a/.claude/agents/agent-improver.md
++++ b/.claude/agents/agent-improver.md
+@@ -50,9 +50,9 @@ Rate each **Strong / Adequate / Weak**, with one line of evidence. Never rate wi
+ 4. **Prescribe** — write each fix as a before→after edit, marked **High / Medium / Low** priority. High = it fails or misfires without this. Low = polish.
+ 5. **Apply — but write the ledger entry first, in the same breath.** If the user authorised edits (or this is the scheduled run), make the High-priority definition edits directly via Edit. Never apply edits that change the agent's core mandate without explicit sign-off — propose those instead.
+ 
+-   **Order matters: insert the CHANGELOG entry *before* you touch the agent files, then update it with the outcome as you go.** Write it with the Verdict, Scores, Why and the fixes you are about to apply, marking `Changed:` as `applying now — <list>`; amend that line to the final list once the edits land. This costs one extra Edit and removes a failure mode that has already happened: on 2026-09-01 a session rate limit killed a run *after* it had edited `cody.md` on disk but *before* it logged anything, so the library was left with an unattributed, unexplained change and CPO had to reconstruct the entry second-hand — the exact reduced-independence the ledger exists to avoid. **An edit with no ledger entry is worse than no edit**: the next reviewer reads a file that disagrees with its own history and cannot tell whether the change was reasoned or accidental. If you are interrupted after this point, the entry on disk is already enough for someone else to finish the job.
++   **Order matters: insert the CHANGELOG entry *before* you touch the agent files, then update it with the outcome as you go.** Write it with the Verdict, Scores, Why and the fixes you are about to apply, marking `Changed:` as `applying now — <list>`; amend that line to the final list once the edits land. This costs one extra Edit and removes a failure mode that has already happened: a run interrupted between editing a file and logging it leaves an unattributed, unexplained change that someone else has to reconstruct second-hand (see the ledger index, 2026-09-01, `cody`). **An edit with no ledger entry is worse than no edit**: the next reviewer reads a file that disagrees with its own history and cannot tell whether the change was reasoned or accidental. If you are interrupted after this point, the entry on disk is already enough for someone else to finish the job.
+ 
+-6. **Log — confirm the entry is on disk and reflects what actually happened.** The dated entry in `CHANGELOG.md` (see format) is not optional; it is the mechanism that delivers better agents in three months. If step 5 already wrote a provisional entry, reconcile it now: correct `Changed:` to the edits that actually landed, and if an edit was abandoned, say so rather than deleting the line. **Insert it at the top, directly under the `<!-- New entries below this line, newest first -->` marker — do not append to the end of the file.** The ledger is read by agents whose `Read` truncates from the top, so the newest entry must be the first one they see. (2026-08-17: the word "append" in this file caused five consecutive runs to add entries *below* the oldest ones, leaving `CHANGELOG.md` with two contradictory orderings and the genuinely newest entry — which reverses the ledger's headline claim about subagent dispatch — sitting where a truncated read never reaches it.)
++6. **Log — confirm the entry is on disk and reflects what actually happened.** The dated entry in `CHANGELOG.md` (see format) is not optional; it is the mechanism that delivers better agents in three months. If step 5 already wrote a provisional entry, reconcile it now: correct `Changed:` to the edits that actually landed, and if an edit was abandoned, say so rather than deleting the line. **Insert it at the top, directly under the `<!-- New entries below this line, newest first -->` marker — do not append to the end of the file.** The ledger is read by agents whose `Read` truncates from the top, so the newest entry must be the first one they see; entries at both ends leave the ledger with no reliable ordering and hide the newest finding exactly where a truncated read never reaches it (see the ledger index, 2026-08-17).
+ 7. **Re-check** — after editing, confirm the description is still ≤ 1,024 chars, frontmatter still parses, and no new trigger overlap was introduced.
+ 
+ ---
+@@ -70,11 +70,11 @@ This is the same narrow, read-only check an `Explore` dispatch would do. This fi
+ The description promises this mode; this is it. When asked to "audit my agents" or run the scheduled library pass, do not attempt all agents at rubric depth — a shallow pass on twenty is worth less than a real pass on five.
+ 
+ 1. **Read `CHANGELOG.md` first — then follow its per-agent index.** That file is the current month only; an agent's prior entry may sit in `changelog/YYYY-MM.md` or `CHANGELOG-ARCHIVE.md`, and the index at the top says which. Establish who was reviewed, when, and whether the review had a work sample. A heading naming an agent is not necessarily a review of it — creation and batch entries count too. Do not re-litigate applied findings.
+-2. **Verify that prior fixes actually landed, before selecting any new target.** For every entry that says a fix was applied, or proposed-and-signed-off, open the file and confirm the change is present. A fix recorded in the ledger but absent from disk is the highest-priority item in the audit — higher than any new finding, because the ledger is now lying and every later review is reasoning from it. This is not optional and it is not covered by "don't re-litigate applied findings": that rule bars re-arguing a decision, not re-checking that it happened. (2026-08-16: `mc-planner`'s signed-off `Write` fix sat unapplied through an entire audit because this step did not exist.)
+-3. **Select 4–6 targets — but read the standing queue before you select anything.** `CPO` owns the improvement queue and writes it to the ledger as a `Next audit targets:` line at the end of every `library — portfolio` entry. **`Grep` `CHANGELOG.md` for `Next audit target` and work from the most recent one.** It is a queue, not a suggestion: if you drop a target it names, say which and why, in the audit entry. Do not silently re-derive an order from whatever you happened to read first — that is the recency bias the queue exists to correct, and it has already failed once (`ux-designer` was named first target in three consecutive portfolio entries between 2026-09-05 and 2026-09-06 and was still never reviewed six days later, because nothing in this file told you to look).
++2. **Verify that prior fixes actually landed, before selecting any new target.** For every entry that says a fix was applied, or proposed-and-signed-off, open the file and confirm the change is present. A fix recorded in the ledger but absent from disk is the highest-priority item in the audit — higher than any new finding, because the ledger is now lying and every later review is reasoning from it. This is not optional and it is not covered by "don't re-litigate applied findings": that rule bars re-arguing a decision, not re-checking that it happened. A signed-off fix has already sat unapplied through an entire audit for want of this step (see the ledger index, 2026-08-16, `mc-planner`).
++3. **Select 4–6 targets — but read the standing queue before you select anything.** `CPO` owns the improvement queue and writes it to the ledger as a `Next audit targets:` line at the end of every `library — portfolio` entry. **`Grep` for `Next audit target` across `CHANGELOG.md` *and* `changelog/*.md` — the current-month file alone may not hold it — and work from the most recent one.** It is a queue, not a suggestion: if you drop a target it names, say which and why, in the audit entry. Do not silently re-derive an order from whatever you happened to read first — that is the recency bias the queue exists to correct, and it has already failed once: an agent named first target in three consecutive portfolio entries went unreviewed for days because nothing in this file told you to look (see the ledger index, 2026-09-05 to 2026-09-06, `ux-designer`).
+ 
+    Where the queue is empty, silent, or plainly stale, fall back to selecting by gap size, in this priority order: never reviewed; reviewed definition-only; definition drifted from the rest of the library (dead cross-references, retired skills/agents, stale dates); visibly overlapping another agent's responsibilities, since that is a routing hazard as well as a definition defect. Say which basis you used.
+-4. **Verify every cross-reference before citing it — using the right authority for the thing being checked.** *Files and sibling agents:* the filesystem (`Glob`/`Grep`). *Skills:* **the session's skill listing, never the filesystem.** Plugin skills (`anthropic-skills:multi-actor-research`, `…:red-team`, `…:scr-pyramid-communicator`, `…:multi-actor-strategy`) and built-in commands (`security-review`, `simplify`, `run`, `code-review`) are fully installed and invocable while having no directory under `~/.claude/skills/`. On 2026-08-16 this audit searched the filesystem, found only `_retired/agent-router`, and declared all eight skills dangling — a false cross-cutting finding that produced eleven wrong edits. If you cannot see a skill listing from where you run, say the check was not possible; do not substitute a filesystem search and report its result as fact.
++4. **Verify every cross-reference before citing it — using the right authority for the thing being checked.** *Files and sibling agents:* the filesystem (`Glob`/`Grep`). *Skills:* **the session's skill listing, never the filesystem.** Plugin skills (`anthropic-skills:multi-actor-research`, `…:red-team`, `…:scr-pyramid-communicator`, `…:multi-actor-strategy`) and built-in commands (`security-review`, `simplify`, `run`, `code-review`) are fully installed and invocable while having no directory under `~/.claude/skills/`. Searching the filesystem for them instead produces a false cross-cutting "all skills dangling" finding, and every edit made on the back of it is wrong (see the ledger index, 2026-08-16). If you cannot see a skill listing from where you run, say the check was not possible; do not substitute a filesystem search and report its result as fact.
+ 5. **Apply HIGH definition fixes; leave MED/LOW as before→after proposals** so the user chooses. Anything that changes routing behaviour or one agent's relationship to another is a proposal, not an edit. Prefer instructions that make an agent *check at run time* over instructions that hardcode what you observed today — an agent file is read months from now, and a stamped observation ages into a lie.
+ 6. **Log one dated audit entry** covering all agents touched, listing applied vs proposed separately.
+ 
+diff --git a/.claude/skills/academic-researcher/SKILL.md b/.claude/skills/academic-researcher/SKILL.md
+index 981d5ed..ff7f485 100644
+--- a/.claude/skills/academic-researcher/SKILL.md
++++ b/.claude/skills/academic-researcher/SKILL.md
+@@ -179,91 +179,6 @@ For paper summaries:
+ [Optional: Connections to other work, questions, critiques]
+ ```
+ 
+-## Example
++## Varying the output
+ 
+-**User Request:** "Summarize research on spaced repetition for learning"
+-
+-**Response:**
+-
+-## Literature Summary: Spaced Repetition in Learning
+-
+-### Overview
+-Spaced repetition is a learning technique where review sessions are distributed over increasing time intervals. Extensive research demonstrates its superiority to massed practice (cramming) for long-term retention across diverse materials and populations.
+-
+-### Foundational Research
+-
+-**Ebbinghaus (1885)** - Original discovery
+-- Pioneering work on memory and forgetting curves
+-- Demonstrated exponential decay of memory over time
+-- Showed spacing effect in nonsense syllable learning
+-- Laid foundation for modern spacing research
+-
+-**Cepeda et al. (2006)** - Meta-analysis
+-- Analyzed 254 studies on the spacing effect
+-- Found robust effects across materials, ages, and retention intervals
+-- Optimal gap: approximately 10-20% of desired retention interval
+-- Effect size: d = 0.42 (moderate to large)
+-
+-*Citation:* Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., & Rohrer, D. (2006). Distributed practice in verbal recall tasks: A review and quantitative synthesis. *Psychological Bulletin, 132*(3), 354-380. https://doi.org/10.1037/0033-2909.132.3.354
+-
+-### Mechanisms
+-
+-**Karpicke & Roediger (2008)** - Retrieval practice
+-- Compared spaced retrieval vs. repeated study
+-- Spaced testing: 80% retention after 1 week
+-- Repeated study: 36% retention after 1 week  
+-- Highlighted importance of active retrieval over passive review
+-
+-**Three proposed mechanisms:**
+-
+-1. **Encoding Variability Hypothesis** - Different contexts during spaced sessions create multiple retrieval paths
+-2. **Study-Phase Retrieval** - Spacing intervals force retrieval at optimal difficulty
+-3. **Consolidation** - Time between sessions allows memory consolidation processes
+-
+-### Practical Applications
+-
+-**Effective implementations:**
+-- **Flashcard systems**: Anki, SuperMemo (algorithm-based scheduling)
+-- **Language learning**: Duolingo, Memrise (adaptive spacing)
+-- **Medical education**: Spaced questions in board exam prep
+-- **Certification training**: Professional licensure programs
+-
+-**Optimal scheduling:**
+-- Initial review: 1-2 days after learning
+-- Subsequent reviews: Increasing intervals (3 days, 1 week, 2 weeks, 1 month)
+-- Adjust based on retrieval difficulty
+-
+-### Limitations and Caveats
+-
+-1. **Requires planning and commitment** - Can't cram night before exam
+-2. **Individual differences** - Optimal spacing varies by person, material
+-3. **Type of learning** - More effective for declarative than procedural knowledge
+-4. **Initial learning** - Still need effective initial encoding
+-5. **Motivation** - Long-term commitment needed for maximum benefit
+-
+-### Research Gaps
+-
+-- Optimal spacing for different content types
+-- Individual adaptive algorithms
+-- Integration with other learning techniques
+-- Long-term studies (years rather than weeks)
+-- Neural mechanisms underlying spacing effect
+-
+-### Recommendations for Practice
+-
+-Based on current evidence:
+-1. Start reviewing within 24-48 hours of initial learning
+-2. Use active retrieval (testing) not passive review
+-3. Gradually increase intervals between reviews
+-4. Adjust difficulty - items should be challenging but retrievable
+-5. Combine with other effective techniques (elaboration, interleaving)
+-
+-### Key References
+-
+-*Note: Full citations in APA format*
+-
+-Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., & Rohrer, D. (2006). Distributed practice in verbal recall tasks: A review and quantitative synthesis. *Psychological Bulletin, 132*(3), 354-380.
+-
+-Karpicke, J. D., & Roediger, H. L. (2008). The critical importance of retrieval for learning. *Science, 319*(5865), 966-968.
+-
+-Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J., & Willingham, D. T. (2013). Improving students' learning with effective learning techniques. *Psychological Science in the Public Interest, 14*(1), 4-58.
++The Output Format above is a structure, not a fixed shape. Match depth and tone to the literature and the reader: a mature field with decades of replication warrants different emphasis than an emerging one, where Limitations and Research Gaps carry most of the value. A single-paper analysis is not a literature review — don't inflate one into the other. Drop sections with nothing substantive to say rather than filling them, and match citation density to how contested the claims actually are.
+diff --git a/.claude/skills/deep-research/SKILL.md b/.claude/skills/deep-research/SKILL.md
+index ab1670b..2016f86 100644
+--- a/.claude/skills/deep-research/SKILL.md
++++ b/.claude/skills/deep-research/SKILL.md
+@@ -25,38 +25,15 @@ Use this skill when:
+ - Identifying key findings and trends
+ - Evaluating the quality and credibility of sources
+ 
+-## Research Process
+-
+-Follow this systematic approach:
+-
+-### 1. **Clarify the Research Question**
+-- What exactly needs to be researched?
+-- What level of detail is required?
+-- Are there specific angles to prioritize?
+-- What is the purpose of the research?
+-
+-### 2. **Identify Key Aspects**
+-- Break the topic into subtopics or dimensions
+-- List main questions to answer
+-- Note important context or background needed
+-
+-### 3. **Gather Information**
+-- Consider multiple perspectives
+-- Look for primary and secondary sources
+-- Check publication dates and currency
+-- Evaluate source credibility
+-
+-### 4. **Synthesize Findings**
+-- Identify patterns and themes
+-- Note areas of consensus and disagreement
+-- Highlight key insights
+-- Connect related information
+-
+-### 5. **Document Sources**
+-- Use numbered citations [1], [2], etc.
+-- List full sources at the end
+-- Note if information is uncertain or contested
+-- Indicate confidence levels where appropriate
++## The quality bar
++
++Plan the research however the question warrants — some need scoping before anything else, some are narrow enough to answer directly. What matters is that the finished work clears this bar:
++
++- **The question actually asked is the one answered**, at the depth and for the purpose the requester needs. Ask first when scope or purpose is genuinely ambiguous; don't ask when it isn't.
++- **Multiple perspectives are represented**, and disagreement between sources is reported as disagreement rather than silently resolved in favour of one side.
++- **Sources are credible and current**, evaluated against the criteria below, with primary sources preferred where they exist and publication dates checked when currency matters.
++- **Claims are traceable** — numbered citations [1], [2] in the text, full sources listed at the end.
++- **Uncertainty is visible.** Contested, thin, or low-confidence findings are labelled as such. What could not be established is stated rather than omitted, which is what the Gaps section exists for.
+ 
+ ## Output Format
+ 
+@@ -103,90 +80,6 @@ When citing sources, note:
+ - **Expert commentary** - Qualified opinions
+ - **General websites** - verify independently
+ 
+-## Example
+-
+-**User Request:** "Research the benefits and risks of intermittent fasting"
+-
+-**Response:**
+-
+-## Executive Summary
+-
+-Intermittent fasting (IF) shows promising benefits for weight loss and metabolic health based on current research, though long-term effects remain under study. Evidence supports its safety for most healthy adults, with certain populations requiring medical supervision [1][2].
+-
+-## Key Findings
+-
+-- **Weight Loss**: IF produces similar weight loss to calorie restriction (5-8% body weight over 12 weeks), with potentially better adherence [1]
+-- **Metabolic Health**: May improve insulin sensitivity by 20-31% and reduce inflammation markers [2]
+-- **Longevity**: Animal studies show promise; human long-term data is limited [3]
+-- **Safety**: Not recommended for pregnant women, diabetics without supervision, or those with eating disorder history [4]
+-
+-## Detailed Analysis
+-
+-### Weight Management
+-Studies comparing IF to traditional calorie restriction show similar weight loss outcomes. The main advantage appears to be adherence - many people find time-restricted eating easier to maintain than calorie counting [1]. Typical results show 5-8% body weight loss over 12-16 weeks.
+-
+-Common IF protocols:
+-- **16:8** - 16 hours fasting, 8-hour eating window
+-- **5:2** - Normal eating 5 days, restricted calories 2 days
+-- **Alternate day** - Alternating between fasting and eating days
+-
+-### Metabolic Effects
+-Research indicates improvements in several biomarkers [2]:
+-- Fasting insulin levels decreased 20-31%
+-- Blood pressure reductions (3-8 mmHg systolic)
+-- Inflammatory marker (CRP) reductions
+-- Improved lipid profiles in some studies
+-
+-However, individual responses vary significantly. Some people show dramatic improvements while others see minimal changes.
+-
+-### Potential Mechanisms
+-Several explanations for observed benefits:
+-1. **Caloric restriction** - IF naturally reduces total calories
+-2. **Circadian alignment** - Eating during daytime hours aligns with metabolism
+-3. **Autophagy** - Cellular cleanup processes activated during fasting
+-4. **Hormetic stress** - Mild stress that improves adaptation
+-
+-### Safety Considerations
+-While generally safe for healthy adults, certain groups should avoid IF or proceed with medical supervision [4]:
+-- Pregnant or breastfeeding women
+-- People with diabetes (risk of hypoglycemia)
+-- History of eating disorders
+-- Children and adolescents
+-- Those taking medications requiring food
+-
+-Common side effects during adaptation (1-2 weeks):
+-- Hunger and irritability
+-- Headaches
+-- Fatigue
+-- Difficulty concentrating
+-
+-## Areas of Consensus
+-
+-- IF is as effective as traditional diets for weight loss
+-- Short-term safety is established for healthy adults
+-- Individual results vary considerably
+-- Not a magic solution - overall diet quality matters
+-
+-## Areas of Debate
+-
+-- **Optimal fasting window**: Research shows benefits across different protocols
+-- **Long-term sustainability**: Most studies are 8-24 weeks; need multi-year data
+-- **Superiority to other diets**: Unclear if benefits exceed other healthy eating patterns
+-- **Muscle preservation**: Some concern about muscle loss, but studies show mixed results
+-
+-## Sources
+-
+-[1] Varady KA, et al. "Clinical application of intermittent fasting for weight loss." *Nature Reviews Endocrinology*, 2022. (Systematic review, high credibility)
+-
+-[2] de Cabo R, Mattson MP. "Effects of Intermittent Fasting on Health, Aging, and Disease." *New England Journal of Medicine*, 2019. (Peer-reviewed, authoritative review)
+-
+-[3] Longo VD, Panda S. "Fasting, Circadian Rhythms, and Time-Restricted Feeding in Healthy Lifespan." *Cell Metabolism*, 2016. (Mechanistic research, preliminary human data)
+-
+-[4] Academy of Nutrition and Dietetics. "Position on Intermittent Fasting." 2022. (Professional organization guidelines)
+-
+-## Gaps and Further Research
++## Varying the output
+ 
+-- **Long-term studies** (5+ years) needed for sustained effects
+-- **Different populations** - effects across ages, sexes, ethnicities
+-- **Optimization** - best fasting windows, meal timing, macronutrient composition
+-- **Clinical applications** - specific diseases or conditions that benefit most
++The Output Format above is a structure, not a fixed shape. Match depth and tone to the topic and the reader: a contested scientific question needs Areas of Debate to carry real weight, a straightforward market scan may not need that section at all, and a quick orientation question deserves a short answer rather than a full report with thin sections padded out to fill the template. Drop sections that have nothing to say instead of filling them, and add one the template didn't anticipate if the topic demands it. The structure serves the question — not the other way round.
+diff --git a/.claude/skills/editor/SKILL.md b/.claude/skills/editor/SKILL.md
+index 7e2e302..b24dfc6 100644
+--- a/.claude/skills/editor/SKILL.md
++++ b/.claude/skills/editor/SKILL.md
+@@ -161,52 +161,6 @@ For detailed editing, show changes:
+ **Why:** [Explanation of improvement]
+ ```
+ 
+-## Example
++## Varying the output
+ 
+-**User Request:** "Edit this paragraph: 'Our company specializes in providing solutions that have the ability to help businesses in order to achieve their goals. We make a commitment to delivering quality at this point in time.'"
+-
+-**Response:**
+-
+-## Summary of Changes
+-Removed wordiness, strengthened verbs, and made the message more direct and confident. Reduced from 30 words to 11 words while improving clarity.
+-
+-## Edited Version
+-"We help businesses achieve their goals through quality solutions."
+-
+-## Key Improvements
+-
+-1. **Concision**:
+-   - "specializes in providing solutions" → "help" (more direct)
+-   - "in order to" → removed (unnecessary)
+-   - "at this point in time" → removed (meaningless filler)
+-
+-2. **Stronger Verbs**:
+-   - "have the ability to help" → "help"
+-   - "make a commitment to delivering" → implied in present tense statement
+-
+-3. **Active Voice**:
+-   - Transformed from passive, roundabout phrasing to active, confident statement
+-   - "We help" is more direct than "specializes in providing"
+-
+-4. **Clarity**:
+-   - Original buried the main point in wordy constructions
+-   - Edited version states value proposition immediately
+-
+-## Alternative Versions
+-
+-Depending on desired tone:
+-
+-**More detailed:**
+-"We help businesses achieve their goals with quality, customized solutions."
+-
+-**More specific:**
+-"We deliver quality [software/consulting/etc.] solutions that help businesses achieve their goals."
+-
+-**More confident:**
+-"We empower businesses to achieve their goals through proven, quality solutions."
+-
+-## Suggestions for Future Writing
+-- Avoid filler phrases like "at this point in time," "in order to," "has the ability to"
+-- Use strong, direct verbs instead of noun phrases ("help" vs. "provide solutions to help")
+-- Get to the point quickly - lead with value
+-- Trust simple, direct language - complexity doesn't equal professionalism
++The output format above is a structure, not a fixed shape. Match the editing level, and the tone of the feedback, to the text and its author: a first draft needs different handling than a near-final press release, and developmental notes about structure are wasted on a piece that only asked for a proofread. Ask which level is wanted when it isn't obvious. Above all, preserve the author's voice — the goal is their sentence made better, not your sentence substituted for theirs.
+diff --git a/.claude/skills/etf-investing-advisor/SKILL.md b/.claude/skills/etf-investing-advisor/SKILL.md
+index cdf3e37..9bc9ad3 100644
+--- a/.claude/skills/etf-investing-advisor/SKILL.md
++++ b/.claude/skills/etf-investing-advisor/SKILL.md
+@@ -103,16 +103,18 @@ Apply Australian tax law accurately. Key rules to apply:
+ - Stamp duty does not apply to ASX-listed security transfers (abolished for shares/ETFs)
+ - For NSW residents: Medicare Levy (2%) applies on top of marginal income tax rate on investment income
+ 
+-#### Marginal tax rate reference (2024–25, Australian residents)
++#### Marginal tax rate reference (2026–27, Australian residents)
+ | Taxable Income | Marginal Rate |
+ |---|---|
+ | $0 – $18,200 | 0% (tax-free threshold) |
+-| $18,201 – $45,000 | 19% |
+-| $45,001 – $120,000 | 32.5% |
+-| $120,001 – $180,000 | 37% |
+-| $180,001+ | 45% |
++| $18,201 – $45,000 | 15% |
++| $45,001 – $135,000 | 30% |
++| $135,001 – $190,000 | 37% |
++| $190,001+ | 45% |
+ | + Medicare Levy | 2% |
+ 
++**Verify this table against ato.gov.au before relying on it in any output.** Rates and thresholds change by legislation, and this table is a convenience reference, not a source — the same rule the fund-data guidance above applies. Two changes are already legislated: the 15% rate falls to 14% from 1 July 2027, and the thresholds are not indexed, so they only move when Parliament moves them. If you cannot confirm the current-year figures, say so rather than quoting this table as current.
++
+ When applying tax rules, always ask or state the assumed marginal tax rate bracket. Tax outcomes vary materially between brackets.
+ 
+ #### EOFY actions to flag
+diff --git a/.claude/skills/jobs-to-be-done-jtbd/SKILL.md b/.claude/skills/jobs-to-be-done-jtbd/SKILL.md
+index 6d811ac..c061404 100644
+--- a/.claude/skills/jobs-to-be-done-jtbd/SKILL.md
++++ b/.claude/skills/jobs-to-be-done-jtbd/SKILL.md
+@@ -1,16 +1,9 @@
+ ---
+ name: jobs-to-be-done-jtbd
+ description: 'Strategic framework for discovering and designing product innovations based on Clayton Christensen''s Jobs to Be Done (JTBD) theory from "Competing Against Luck". Use when you need to: (1) understand customers'' true motivations, (2) design a new product or feature, (3) conduct customer discovery interviews, (4) analyze competition through the "jobs" lens, (5) diagnose why a product isn''t selling or customers are churning, (6) create positioning strategy, (7) build a jobs-oriented organization.'
+----
+-
+----
+-name: jobs-to-be-done
+-description: 'Strategic framework for discovering and designing product innovations based on Clayton Christensen''s Jobs to Be Done (JTBD) theory from "Competing Against Luck". Use when you need to: (1) understand customers'' true motivations, (2) design a new product or feature, (3) conduct customer discovery interviews, (4) analyze competition through the "jobs" lens, (5) diagnose why a product isn''t selling or customers are churning, (6) create positioning strategy, (7) build a jobs-oriented organization.'
+-description: 'Discover what customers truly need by analyzing the "job" they hire your product to do. Use when the user mentions "customer discovery", "why customers churn", "what job does this solve", "competing against luck", or "product-market fit". Covers JTBD interviews, competition analysis, and jobs-oriented roadmaps. For product positioning, see obviously-awesome. For rapid validation, see design-sprint.'
+ license: MIT
+ metadata:
+   author: wondelai
+-  version: "1.1.0"
+   version: "1.1.1"
+ ---
+ 
+@@ -27,9 +20,11 @@ Key elements of the definition:
+ - **Circumstances** - context determines the job, not customer attributes (demographics are useless)
+ - **Hiring/Firing** - customer actively chooses a product for the "job"
+ 
+-## Scoring
++## Scoring — for review and critique requests only
++
++**When the request is to review or critique existing work** (a positioning statement, a roadmap, a set of interview questions, a product strategy), rate it 0-10 against the principles below, and name the specific gaps between the current score and 10/10. The score exists to make the gaps concrete, so never give one without them.
+ 
+-**Goal: 10/10.** When reviewing or creating product strategy or positioning, rate it 0-10 based on adherence to the principles below. A 10/10 means full alignment with all guidelines; lower scores indicate gaps to address. Always provide the current score and specific improvements needed to reach 10/10.
++**Do not score** when the request is to draft, explain, or teach — generating interview questions, explaining the theory, or walking through the milkshake case is not work being graded, and attaching a number to it is noise.
+ 
+ ## Three Dimensions of Every Job
+ 
+diff --git a/.claude/skills/pre-mortem/SKILL.md b/.claude/skills/pre-mortem/SKILL.md
+index e294a7d..5edd646 100644
+--- a/.claude/skills/pre-mortem/SKILL.md
++++ b/.claude/skills/pre-mortem/SKILL.md
+@@ -1,6 +1,6 @@
+ ---
+ name: pre-mortem
+-description: "Imagine your project has failed spectacularly—then work backward to identify why. Apply Gary Klein's \"prospective hindsight\" technique to catch failures before they happen. Use when: **Before launching** a product, campaign, or major initiative; **Before making** an important decision (hiring, investment, partnership); **Starting a project** to identify risks the team hasn't considered; **When overconfident** and everyone agrees the plan is great; **Before committing resources** to a signific..."
++description: "Imagine your project has failed spectacularly—then work backward to identify why. Apply Gary Klein's \"prospective hindsight\" technique to catch failures before they happen. Use when: **Before launching** a product, campaign, or major initiative; **Before making** an important decision (hiring, investment, partnership); **Starting a project** to identify risks the team hasn't considered; **When overconfident** and everyone agrees the plan is great; **Before committing resources** to a significant, hard-to-reverse commitment. Use only on a *pending* decision that can still change — not on something already shipped or executed, which is a post-mortem or a design review instead."
+ license: MIT
+ metadata:
+   author: ClawFu
+@@ -56,4 +56,4 @@ Klein's research (1989) shows imagining an event has *already happened* dramatic
+ ## Related Skills
+ 
+ - [first-principles](../first-principles/) - Challenge assumptions surfaced in pre-mortem
+-- [six-thinking-hats](../six-thinking-hats/) - Already includes Pre-Mortem as an Extended Black Hat module (own SKILL.md, "Extended Black Hat: Pre-Mortem"), so both skills claim the same trigger ("pre-mortem", "what could go wrong"). A 2026-09-05 blind test (see `CHANGELOG.md`) found no clean winner between the two on ordinary use, but this skill was the only one of three conditions tested that correctly recognized when a request *didn't* call for the technique at all — keep both for now on that evidence, not on the length either one carries.
++- [six-thinking-hats](../six-thinking-hats/) - Already includes Pre-Mortem as an Extended Black Hat module (own SKILL.md, "Extended Black Hat: Pre-Mortem"), so both skills claim the same trigger ("pre-mortem", "what could go wrong"). On an ordinary pre-mortem request the two produce comparable results; the distinguishing behaviour is applicability checking. This skill tests first whether the request calls for a pre-mortem at all and declines when the decision is already executed (see *When to use this — and when not to* above); the Black Hat module runs the technique whenever it is invoked. Route here when the framing might be wrong, there when a pre-mortem is already known to be the right move and is one lens among six.
+diff --git a/.claude/skills/project-management/SKILL.md b/.claude/skills/project-management/SKILL.md
+index 1321a48..6fe59dc 100644
+--- a/.claude/skills/project-management/SKILL.md
++++ b/.claude/skills/project-management/SKILL.md
+@@ -291,7 +291,7 @@ Each person covers:
+ 
+ ### Weekly Manager Update
+ 
+-**Format:** Email or message | **Sent:** Same day each week | **Target length:** Under 200 words
++**Format:** Email or message | **Sent:** Same day each week | **Target length:** Scannable in under a minute
+ 
+ ---
+ 
+@@ -360,7 +360,7 @@ Use these prompts to generate tailored agendas and updates from user context. As
+ > "Give me: (1) The project name and week ending date. (2) The RAG status and why. (3) What moved forward this week (be specific). (4) What you're focused on next week. (5) Any risks or decisions needed. I'll draft the full update."
+ 
+ ### Prompt: Generate a manager update
+-> "Give me: (1) Project name. (2) RAG status in one word. (3) Two or three things that moved forward this week. (4) Anything you need from your manager. (5) Any team note. I'll keep it under 200 words."
++> "Give me: (1) Project name. (2) RAG status in one word. (3) Two or three things that moved forward this week. (4) Anything you need from your manager. (5) Any team note. I'll keep it scannable in under a minute."
+ 
+ ### Prompt: Generate an escalation pre-read
+ > "Describe: (1) What the issue is. (2) When it emerged. (3) What happens if it isn't resolved. (4) What options you've already considered. I'll draft the pre-read and structure your recommended option."
+diff --git a/.claude/skills/project-management/references/prompts.md b/.claude/skills/project-management/references/prompts.md
+index 67927ae..325e823 100644
+--- a/.claude/skills/project-management/references/prompts.md
++++ b/.claude/skills/project-management/references/prompts.md
+@@ -73,7 +73,7 @@ This file contains structured prompts for generating tailored agendas, updates,
+ > 5. Anything you need from your manager — a decision, awareness, support, or nothing
+ > 6. Optional: any note on the team (dynamics, development, morale)"
+ 
+-**Then produce:** A completed manager update under 200 words using the template in SKILL.md Part 3.
++**Then produce:** A completed manager update, scannable in under a minute, using the template in SKILL.md Part 3.
+ 
+ **Tone guidance:**
+ - Direct and honest — not reassuring at the expense of accuracy
+@@ -178,7 +178,7 @@ When generating any output, watch for these and correct them:
+ |---------|----------------|
+ | Status update that is always Green | Encourage honesty; Amber with a response is more credible |
+ | Escalation without a recommendation | Prompt user to name their preferred option and why |
+-| Manager update over 300 words | Cut; if the manager needs more, they'll ask |
++| Manager update the reader has to work through rather than scan | Cut; if the manager needs more, they'll ask |
+ | Stand-up agenda that includes problem-solving | Park it; stand-up is for alignment only |
+ | 1:1 that becomes a status check | Redirect to development, feedback, and concerns |
+ | Retro that produces a list of changes | Cut to one; multiple actions rarely get implemented |
+diff --git a/.claude/skills/value-proposition-canvas/SKILL.md b/.claude/skills/value-proposition-canvas/SKILL.md
+index 2c8200e..d823c3c 100644
+--- a/.claude/skills/value-proposition-canvas/SKILL.md
++++ b/.claude/skills/value-proposition-canvas/SKILL.md
+@@ -1,6 +1,6 @@
+ ---
+ name: value-proposition-canvas
+-description: "Use Osterwalder's Value Proposition Canvas to systematically achieve product-market fit by matching your products and services to customer jobs, pains, and gains Use when: **Launching a new product or service** and need to validate the value proposition; **Struggling with product-market fit** and need to diagnose why customers aren't buying; **Repositioning an existing offering** to better meet customer needs; **Entering a new market segment** with different customer requirements; **Developin..."
++description: "Use Osterwalder's Value Proposition Canvas to systematically achieve product-market fit by matching your products and services to customer jobs, pains, and gains. Use when: **Launching a new product or service** and needing to validate the value proposition; **Struggling with product-market fit** and needing to diagnose why an existing offering isn't selling; **Repositioning an offering**, or entering a new market segment with different customer requirements; **Pricing** based on value delivered rather than cost; **Prioritising an MVP feature list** against what customers actually value."
+ license: MIT
+ metadata:
+   author: ClawFu

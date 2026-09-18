@@ -1,6 +1,6 @@
 ---
 name: value-proposition-canvas
-description: "Use Osterwalder's Value Proposition Canvas to systematically achieve product-market fit by matching your products and services to customer jobs, pains, and gains Use when: **Launching a new product or service** and need to validate the value proposition; **Struggling with product-market fit** and need to diagnose why customers aren't buying; **Repositioning an existing offering** to better meet customer needs; **Entering a new market segment** with different customer requirements; **Developin..."
+description: "Use Osterwalder's Value Proposition Canvas to systematically achieve product-market fit by matching your products and services to customer jobs, pains, and gains. Use when: **Launching a new product or service** and needing to validate the value proposition; **Struggling with product-market fit** and needing to diagnose why an existing offering isn't selling; **Repositioning an offering**, or entering a new market segment with different customer requirements; **Pricing** based on value delivered rather than cost; **Prioritising an MVP feature list** against what customers actually value."
 license: MIT
 metadata:
   author: ClawFu

@@ -1,16 +1,9 @@
 ---
 name: jobs-to-be-done-jtbd
 description: 'Strategic framework for discovering and designing product innovations based on Clayton Christensen''s Jobs to Be Done (JTBD) theory from "Competing Against Luck". Use when you need to: (1) understand customers'' true motivations, (2) design a new product or feature, (3) conduct customer discovery interviews, (4) analyze competition through the "jobs" lens, (5) diagnose why a product isn''t selling or customers are churning, (6) create positioning strategy, (7) build a jobs-oriented organization.'
----
-
----
-name: jobs-to-be-done
-description: 'Strategic framework for discovering and designing product innovations based on Clayton Christensen''s Jobs to Be Done (JTBD) theory from "Competing Against Luck". Use when you need to: (1) understand customers'' true motivations, (2) design a new product or feature, (3) conduct customer discovery interviews, (4) analyze competition through the "jobs" lens, (5) diagnose why a product isn''t selling or customers are churning, (6) create positioning strategy, (7) build a jobs-oriented organization.'
-description: 'Discover what customers truly need by analyzing the "job" they hire your product to do. Use when the user mentions "customer discovery", "why customers churn", "what job does this solve", "competing against luck", or "product-market fit". Covers JTBD interviews, competition analysis, and jobs-oriented roadmaps. For product positioning, see obviously-awesome. For rapid validation, see design-sprint.'
 license: MIT
 metadata:
   author: wondelai
-  version: "1.1.0"
   version: "1.1.1"
 ---
 
@@ -27,9 +20,11 @@ Key elements of the definition:
 - **Circumstances** - context determines the job, not customer attributes (demographics are useless)
 - **Hiring/Firing** - customer actively chooses a product for the "job"
 
-## Scoring
+## Scoring — for review and critique requests only
 
-**Goal: 10/10.** When reviewing or creating product strategy or positioning, rate it 0-10 based on adherence to the principles below. A 10/10 means full alignment with all guidelines; lower scores indicate gaps to address. Always provide the current score and specific improvements needed to reach 10/10.
+**When the request is to review or critique existing work** (a positioning statement, a roadmap, a set of interview questions, a product strategy), rate it 0-10 against the principles below, and name the specific gaps between the current score and 10/10. The score exists to make the gaps concrete, so never give one without them.
+
+**Do not score** when the request is to draft, explain, or teach — generating interview questions, explaining the theory, or walking through the milkshake case is not work being graded, and attaching a number to it is noise.
 
 ## Three Dimensions of Every Job
 

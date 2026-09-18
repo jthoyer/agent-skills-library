@@ -291,7 +291,7 @@ Each person covers:
 
 ### Weekly Manager Update
 
-**Format:** Email or message | **Sent:** Same day each week | **Target length:** Under 200 words
+**Format:** Email or message | **Sent:** Same day each week | **Target length:** Scannable in under a minute
 
 ---
 
@@ -360,7 +360,7 @@ Use these prompts to generate tailored agendas and updates from user context. As
 > "Give me: (1) The project name and week ending date. (2) The RAG status and why. (3) What moved forward this week (be specific). (4) What you're focused on next week. (5) Any risks or decisions needed. I'll draft the full update."
 
 ### Prompt: Generate a manager update
-> "Give me: (1) Project name. (2) RAG status in one word. (3) Two or three things that moved forward this week. (4) Anything you need from your manager. (5) Any team note. I'll keep it under 200 words."
+> "Give me: (1) Project name. (2) RAG status in one word. (3) Two or three things that moved forward this week. (4) Anything you need from your manager. (5) Any team note. I'll keep it scannable in under a minute."
 
 ### Prompt: Generate an escalation pre-read
 > "Describe: (1) What the issue is. (2) When it emerged. (3) What happens if it isn't resolved. (4) What options you've already considered. I'll draft the pre-read and structure your recommended option."
