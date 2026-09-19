@@ -1,6 +1,16 @@
 ---
 name: market-analyst
-description: Structured competitive market analysis skill for sports technology, fitness apps, and endurance sports categories. Use this skill whenever the user asks to analyse, compare, or review apps, platforms, or products in a specific market segment — including requests like "what apps are out there for X", "analyse the triathlon app space", "what are competitors doing", "review the market for X", "what are users saying about apps in Y category", or "find market gaps in Z". Always use this skill before doing any ad-hoc market review — it produces significantly better-structured output by combining web-sourced user sentiment, per-product assessment, cross-category pattern recognition, and a gap opportunity matrix relevant to the user's product context. Triggers on: market analysis, competitor review, app landscape, user complaints, product gaps, sports tech review, what's available for X.
+description: >
+  Structured competitive market analysis skill for sports technology, fitness apps, and endurance
+  sports categories. Use this skill whenever the user asks to analyse, compare, or review apps,
+  platforms, or products in a specific market segment — including requests like "what apps are out
+  there for X", "analyse the triathlon app space", "what are competitors doing", "review the market
+  for X", "what are users saying about apps in Y category", or "find market gaps in Z". Always use
+  this skill before doing any ad-hoc market review — it produces significantly better-structured
+  output by combining web-sourced user sentiment, per-product assessment, cross-category pattern
+  recognition, and a gap opportunity matrix relevant to the user's product context. Triggers on
+  market analysis, competitor review, app landscape, user complaints, product gaps, sports tech
+  review, and "what's available for X".
 ---
 
 # Market Analyst

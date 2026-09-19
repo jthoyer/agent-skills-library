@@ -32,3 +32,28 @@ mandate.md	short form of ~/.claude/COS/mandate.md, same reason
 balancetri-app/app.js	worked example from the 2026-09-13 ux-designer run — a file in BalanceTRI-app, not here
 ~/code/papercuts.md	global cross-session papercuts log — outside the repo by design; see CPO.md
 ~/code	parent dir of the papercuts log, same reason
+
+# --- The claude.ai skills runtime, which is not this git repo. ---------------
+# skills-librarian and notion-second-brain govern the library on BOTH surfaces:
+# this repo, and the Claude Chat environment where user skills are mounted
+# read-only at /mnt/skills/ and work is built in /home/claude/. Those paths are
+# correct instructions there and unresolvable here, by construction.
+/mnt/skills/	claude.ai skills mount — read-only runtime, not this repo
+/mnt/skills/user/	claude.ai user-skill scope — the mount this repo mirrors
+/mnt/skills/public/	claude.ai read-only public scope
+/mnt/skills/examples/	claude.ai read-only examples scope
+/mnt/skills/examples/skill-creator	canonical creation protocol, read-only examples scope
+/mnt/skills/examples/skill-creator/SKILL.md	same, the file itself
+/mnt/skills/plugins/	claude.ai plugin scope
+/mnt/skills/private/	claude.ai private scope
+/home/claude/	claude.ai working directory — build here, deliver to outputs
+/mnt/user-data/outputs/	claude.ai delivery directory
+
+# --- Shapes and run-time artefacts, not files that exist now. ---------------
+assets/	optional skill subdirectory in the documented layout — a shape, not a file
+__MACOSX/	the junk directory a zip command is told to exclude
+iteration/	created at run time by the upgrade gauntlet, per its own instructions
+sealed/	created at run time by the upgrade gauntlet, per its own instructions
+
+# --- Third-party endpoints. -------------------------------------------------
+search.json	Reddit's search endpoint, named by recent-pulse — an API path, not a file

@@ -52,19 +52,18 @@ skill-name/
 ```
 
 Supporting files belong under `references/`, not beside `SKILL.md`. `SKILL.md` addresses them
-by relative path (`references/foo.md`), so a file left at the skill root will not resolve.
+by relative path (`references/<name>.md`), so a file left at the skill root will not resolve.
 
-## Skills (49)
+## Skills (38)
 
 Names below are the frontmatter `name:` field, which always matches the directory name.
 Each skill's own `description:` is the authoritative statement of when it fires — it is not
 duplicated here, so that this list cannot drift out of step with it.
 
-**icare scheme experts (10)** — `icare-expert`, `ni-scheme-expert`, `tmf-expert`, `ddc-expert`,
-`workers-care-expert`, `lifetime-care-expert`, `hbcf-expert`, `ctp-care-expert`,
-`general-lines-asset-expert`, `general-lines-motor-expert`
-
-**icare governance (1)** — `icare-tone-of-voice`
+**This list is checked against disk**, by `scripts/check-frontmatter.sh`. It has to be: it
+said 49 and still listed 11 icare skills and `content-writing` — all retired weeks earlier —
+until 2026-09-19, while `rewrite` had been live since 2026-09-11 and appeared nowhere. An
+index nobody verifies is worse than no index, because it is read as authoritative.
 
 **Strategy and problem-solving (7)** — `multi-actor-strategy`, `multi-actor-research`,
 `first-principles`, `issue-tree`, `six-thinking-hats`, `pre-mortem`, `red-team`
@@ -75,7 +74,7 @@ duplicated here, so that this list cannot drift out of step with it.
 **Product and customer insight (5)** — `customer-insight`, `jobs-to-be-done-jtbd`,
 `value-proposition-canvas`, `product-requirement-document`, `positioning`
 
-**Writing (7)** — `content-writing`, `content-research-writer`, `editor`, `humanizer`,
+**Writing (6)** — `content-research-writer`, `editor`, `humanizer`,
 `justin-voice`, `youtube-explainer`, `terse-mode`
 
 **Business and management (3)** — `business-case-builder`, `high-output-management`,
@@ -86,14 +85,16 @@ duplicated here, so that this list cannot drift out of step with it.
 **Personal (5)** — `triathlon-coach`, `etf-investing-advisor`, `etf-investing-coach`,
 `balance-tri-club-brand`, `resume-builder`
 
-**Meta / library management (3)** — `skills-librarian`, `prompt-refiner`, `notion-second-brain`
+**Meta / library management (4)** — `skills-librarian`, `prompt-refiner`, `notion-second-brain`,
+`rewrite`
 
-Seven skills carry a `references/` folder: `multi-actor-research`, `multi-actor-strategy`,
-`product-requirement-document`, `project-management`, `read-the-room`, `scr-pyramid-communicator`,
-`skills-librarian`. The other 39 are a single `SKILL.md`.
+Nine skills carry a `references/` folder: `humanizer`, `multi-actor-research`,
+`multi-actor-strategy`, `product-requirement-document`, `project-management`, `read-the-room`,
+`resume-builder`, `scr-pyramid-communicator`, `skills-librarian`. One carries `scripts/`:
+`recent-pulse`. The other 28 are a single `SKILL.md`.
 
-Regenerate this count against disk rather than trusting it:
+Regenerate against disk rather than trusting any of the above:
 
 ```bash
-for f in ~/.claude/skills/*/SKILL.md; do grep -m1 '^name:' "$f" | sed 's/^name: *//'; done | sort
+scripts/check-frontmatter.sh --list
 ```
