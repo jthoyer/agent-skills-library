@@ -5,6 +5,47 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-19 — the skills tree joins CI; `market-analyst` frontmatter did not parse; index rebuilt
+
+### Fixed
+- **`market-analyst`** — the frontmatter **did not parse as YAML**. `description:` was an unquoted
+  plain scalar containing `Triggers on: market analysis`, and a colon-space inside a plain scalar
+  makes YAML read a nested mapping and throw (`mapping values are not allowed here`, line 2 col
+  779). Rewritten as a `>` block scalar per §5. Invisible to every prose read — the line is good
+  English — and found by the first run of the new check. It is the whole trigger surface of the
+  skill, so for as long as this stood the skill's own description was unparseable.
+- **`README.md`** — declared **49 skills**, listed all 11 icare skills and `content-writing`
+  (retired 2026-09-06 and 2026-09-11), and omitted `rewrite` (live since 2026-09-11): 12 errors in
+  the one file a person reads to learn what the library holds. Rebuilt against disk at 38, with
+  sub-file counts corrected (9 carry `references/`, not 7; 1 carries `scripts/`).
+
+### Added
+- **Mechanical checks, run in CI on every push and PR.** `scripts/check-frontmatter.sh` now covers
+  `.claude/skills/*/SKILL.md`: YAML parses, `name:` matches the directory, description ≤ 1,024
+  **characters** (not bytes), body ≤ 500 lines, no trailing authoring artefact, no missing
+  `SKILL.md`, and the README index reconciled against disk. `scripts/check-references.sh` no longer
+  skips the skills tree: `~/.claude/skills/...` stays exempt, and every other assertion — including
+  repo-relative sub-file pointers — is resolved. These are the checks skills-librarian §4 has
+  always specified and which had only ever run by hand. Detail and decoy results: the
+  `library — portfolio` entry of the same date in the root `CHANGELOG.md`.
+
+### Still open
+- Two live skills name **retired** skills: `notion-second-brain/SKILL.md:149` (`icare-expert`) and
+  `justin-voice/SKILL.md:148` (`icare-tone-of-voice`). A dead *skill name* is not a path, so the
+  reference check cannot see it — §4's "every skill named in the body exists" is still a manual
+  check, and is the obvious next thing to mechanise.
+
+- Next audit targets: `scqa-framework` — its description triggers on "Minto Pyramid" and "executive
+  summary", which are `scr-pyramid-communicator`'s core framework and audience, so §7's
+  "triggers overlap so heavily that both fire unreliably" is live; `CPO.md`'s routing table already
+  arbitrates between them in prose, which is the evidence. Judge the pair, run the gauntlet's
+  no-skill arm, merge or draw a boundary. `notion-second-brain` — zero post-seed entries, and it
+  carries the dead `icare-expert` pointer plus a mirror model built on `/mnt/skills/user/` that
+  predates both this git repo and the account sync; skills-librarian §9 delegates its own Notion
+  workflow here, so a defect propagates. `business-case-builder` — zero post-seed entries, 431
+  lines against the 500-line guideline, and "business case" is an explicit trigger phrase in
+  `scr-pyramid-communicator`'s description, so the necessity question is real rather than tidy.
+
 ## 2026-09-11 — `prompt-refiner` reviewed and fixed; `/rewrite` launcher added
 
 ### Updated

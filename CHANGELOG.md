@@ -41,14 +41,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 | Agent | Latest entries in | Also in |
 |---|---|---|
-| `CPO` | CHANGELOG.md (current month)×6 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×4 |
+| `CPO` | CHANGELOG.md (current month)×8 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×4 |
 | `agent-improver` | CHANGELOG.md (current month)×3 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×5 |
 | `code-improver` | CHANGELOG.md (current month)×2 | `CHANGELOG-ARCHIVE.md`×4 |
 | `cody` | CHANGELOG.md (current month)×2 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×8 |
 | `cos` | CHANGELOG.md (current month) | — |
-| `investigator` | `changelog/2026-08.md` | `CHANGELOG-ARCHIVE.md` |
+| `investigator` | CHANGELOG.md (current month) | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `mc-implementer` | `changelog/2026-08.md`×2 | — |
-| `mc-integrator` | CHANGELOG.md (current month) | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
+| `mc-integrator` | CHANGELOG.md (current month)×2 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `mc-orchestrator` | CHANGELOG.md (current month) | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×5 |
 | `mc-planner` | `changelog/2026-08.md`×2 | `CHANGELOG-ARCHIVE.md`×5 |
 | `mc-reviewer` | CHANGELOG.md (current month) | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×4 |
@@ -61,6 +61,33 @@ Counts are entries whose **heading names** the agent — which includes creation
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-09-19 — library — portfolio (the skills tree joins the checked surface) + `CPO` + `skills-librarian`
+- Decision: **yes to parity, with two adaptations.** 38 skills had zero mechanical checks while 16 agents had three — inverted, since skills are account-synced and reach every session and agents reach only hand-synced repos. Adaptations: `name:` matches the *directory*, and `~/.claude/skills/...` stays legitimate inside a skill. **Reduced independence — every role embodied, dispatch probe resolved negative (no Agent/Task tool).**
+- Evidence, not tidiness: `skills-librarian` §4 has specified these exact checks since the seed commit and they had only ever run by hand — which is how 13 broken pointers shipped under an "all 46 clean" audit note (2026-08-17).
+- Changed: `check-frontmatter.sh` covers `.claude/skills/*/SKILL.md` (YAML parses, name = directory, description ≤ 1,024 **characters**, body ≤ 500 lines, trailing artefact, README index vs disk). `check-references.sh` no longer skips skills; the exemption is now home-form paths only, and a skill's sub-files must resolve **in that skill**. `skills-librarian` §4 gained a mechanised/not column and is now told to open an audit from the queue and close by writing the next one — CPO's half of that handshake was already written; this is the receiving end.
+- Found on the first run: `market-analyst`'s frontmatter **did not parse as YAML** (unquoted colon-space in a plain scalar); the skills `README.md` declared 49 skills and listed 12 that were retired or missing. Both fixed. Full decoy matrix, and a false positive caught before it shipped (`wc -m` counts bytes under CI's C locale, reporting `red-team` 1 over cap when it has 3 characters spare): `work-samples/skills-checks-2026-09-19.md`.
+- Also fixed, against the 2026-09-13 implementation: a dead pointer could **exempt itself** by containing a word from the negation regex — decoy `references/nonexistent-playbook.md` passed. Backticked spans are now stripped before the negation match.
+- **Reversal condition:** revert the skills half if it produces a false positive that forces a skill to be written worse to satisfy it, or if two consecutive months pass with no real finding in the skills tree — in which case the checks are costing maintenance for assurance already delivered elsewhere.
+- Rejected: a third script. Both halves extended in place, so CI needed no new step.
+- Next audit targets: `watchdog` — never independently reviewed and one of only two graders standing, now unchanged for over a month; `ux-designer` — reviewed 2026-09-13 with three proposals still awaiting sign-off, so its file and its ledger disagree; `mc-reviewer` — `mc-integrator` now points at its *Output* section by name, making its format load-bearing for a sibling for the first time.
+
+## 2026-09-19 — `mc-integrator`
+- Verdict: **REDUCED INDEPENDENCE** — embodied, dispatch probe resolved negative; the one live defect is a handshake asserted in `mc-reviewer.md` with no receiving end here.
+- Scores: 1 Strong · 2 Adequate · 3 Strong · 4 Strong · 5 Adequate · 6 not scorable — no work sample · 7 Weak
+- Prior-fix verification (disk): 2026-08-17 follow-ups (a) and (b) have both landed — line 11 carries the proposed mandate wording verbatim, and the trigger is now qualified "Reviewer/Verifier conflict". (c) was still open and is what this entry fixes.
+- Changed: 1 HIGH, applied — responsibility 2 names `mc-reviewer.md` and `mc-verifier.md` *Output* as the files its two Stage 3 inputs arrive in.
+- Why: `mc-reviewer.md:42` says its coverage close exists "so the Integrator can lay both halves of Stage 3 against the same list" — an obligation created in one file with no pointer in the other. Same shape as the CPO→`agent-improver` queue defect fixed 2026-09-11.
+- Expected effect: a cold-dispatched Integrator finds both input formats instead of guessing. Falsifiable: a Stage 4 close citing ACs in both siblings' vocabulary.
+- Follow-up: MED, proposed — `review-gates.md:5` lists four readers and `:7` one deliberate non-reader; `mc-integrator` is in neither, though it arbitrates findings produced under that gate. A relationship change, so it needs sign-off. D6 unscorable after three entries — never dispatched.
+
+## 2026-09-19 — `investigator`
+- Verdict: **REDUCED INDEPENDENCE** — embodied, no dispatch available; fit for purpose, and both findings are instructions that contradict themselves or live in a file this agent never opens.
+- Scores: 1 Strong · 2 Strong · 3 Adequate · 4 Strong · 5 Adequate · 6 not scorable — no work sample · 7 Strong
+- Changed: 2 HIGH, applied — (1) the file now states it deliberately does **not** read `review-gates.md`, and why; (2) the instrumentation carve-out is redrawn on intent-and-reversion rather than on which command was typed, with the revert verified by `git diff` before reporting.
+- Why: (1) that decision is fully reasoned at `review-gates.md:7`, a file `investigator` is never told to open, so from outside it reads as an unwired agent — and did: `CHANGELOG.md:133` queued it as a defect and this run was briefed to fix it. Third one-sided handshake here. (2) the old line forbade `sed -i` and redirection as a class while calling `Bash` instrumentation "explicitly expected", leaving no mechanism for the log line its Behaviours section calls its primary evidence tool.
+- Expected effect: the review-gates question is not raised a fourth time, and an instrumented run leaves the tree clean.
+- Follow-up: the queue item is **answered, not actioned** — `investigator` stays off `review-gates.md`, on the reasoning already recorded there. D6 not scorable after three entries.
 
 ## 2026-09-13 — library — portfolio (the three checks now run in CI) + `CPO`
 - Verdict: The library's fourth "right artefact, missing consumer" instance is closed — this time by a consumer that cannot forget.

@@ -27,8 +27,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Does every path and filename the agents assert resolve against disk?
-      # Catches: dead pointers, in both the ~/.claude and repo-relative forms.
+      # Does every path and filename the agents AND skills assert resolve
+      # against disk? Catches: dead pointers, in both the ~/.claude and
+      # repo-relative forms. Skills joined the scope on 2026-09-19 — they are
+      # the half that reaches every session, and had no checks at all.
       - name: References resolve
         run: bash scripts/check-references.sh
 
@@ -39,6 +41,10 @@ jobs:
 
       # Does every agent declare a dispatchable name, a model, tools, and a
       # description under the 1,024-character cap — and end without a stray tag?
-      # Catches: undispatchable agents, silently truncated routing descriptions.
+      # Does every skill parse as YAML, match its directory name, stay under the
+      # same cap and the 500-line body standard, and appear in the README index?
+      # Catches: undispatchable agents, silently truncated routing descriptions,
+      # skills whose frontmatter does not parse (found market-analyst on the
+      # first run), and a skills index that has drifted from disk.
       - name: Frontmatter and trailing lines
         run: bash scripts/check-frontmatter.sh
