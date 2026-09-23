@@ -54,7 +54,7 @@ skill-name/
 Supporting files belong under `references/`, not beside `SKILL.md`. `SKILL.md` addresses them
 by relative path (`references/<name>.md`), so a file left at the skill root will not resolve.
 
-## Skills (38)
+## Skills (39)
 
 Names below are the frontmatter `name:` field, which always matches the directory name.
 Each skill's own `description:` is the authoritative statement of when it fires — it is not
@@ -82,13 +82,13 @@ index nobody verifies is worse than no index, because it is read as authoritativ
 
 **Research (4)** — `academic-researcher`, `deep-research`, `market-analyst`, `recent-pulse`
 
-**Personal (5)** — `triathlon-coach`, `etf-investing-advisor`, `etf-investing-coach`,
-`balance-tri-club-brand`, `resume-builder`
+**Personal (6)** — `triathlon-coach`, `etf-investing-advisor`, `etf-investing-coach`,
+`balance-tri-club-brand`, `resume-builder`, `job-scan`
 
 **Meta / library management (4)** — `skills-librarian`, `prompt-refiner`, `notion-second-brain`,
 `rewrite`
 
-Nine skills carry a `references/` folder: `humanizer`, `multi-actor-research`,
+Ten skills carry a `references/` folder: `humanizer`, `job-scan`, `multi-actor-research`,
 `multi-actor-strategy`, `product-requirement-document`, `project-management`, `read-the-room`,
 `resume-builder`, `scr-pyramid-communicator`, `skills-librarian`. One carries `scripts/`:
 `recent-pulse`. The other 28 are a single `SKILL.md`.

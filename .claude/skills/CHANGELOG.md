@@ -5,6 +5,21 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-23 — `job-scan` added
+
+### Added
+- **`job-scan`** — runs Justin's dual-track (PM / Service Design) job-market scan: reads platforms,
+  exclusion list, and cadence live from each track's Notion prompt page rather than hardcoding them;
+  verifies every listing against its original source before filing (the corrected 23 Sep 2026 PM
+  run had filed three already-closed roles on aggregator snippet dates alone); deduplicates and
+  tracks roles across runs; and files structured results as a sub-item of the relevant prompt page.
+  Carries two reference files: `references/run-template.md` (the five-part run structure, worked)
+  and `references/verification-playbook.md` (live/closed signals for Ashby, Greenhouse, freehire,
+  Dreamwork, designremotejobs, plus the sources — SEEK, LinkedIn, iworkfor.nsw.gov.au — that block
+  automated fetching entirely). Hands off to `resume-builder` once a role is chosen and to
+  `multi-actor-research` for a pre-application deep-dive on a shortlisted role. README index and
+  skill count updated to 39.
+
 ## 2026-09-19 — the skills tree joins CI; `market-analyst` frontmatter did not parse; index rebuilt
 
 ### Fixed
