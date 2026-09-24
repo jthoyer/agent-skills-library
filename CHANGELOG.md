@@ -41,7 +41,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 | Agent | Latest entries in | Also in |
 |---|---|---|
-| `CPO` | CHANGELOG.md (current month)×8 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×4 |
+| `CPO` | CHANGELOG.md (current month)×9 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×4 |
 | `agent-improver` | CHANGELOG.md (current month)×3 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×5 |
 | `code-improver` | CHANGELOG.md (current month)×2 | `CHANGELOG-ARCHIVE.md`×4 |
 | `cody` | CHANGELOG.md (current month)×2 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×8 |
@@ -61,6 +61,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-09-24 — `CPO`
+- Verdict: Fit to route, but its embodiment fallback let it produce a specialist's output without that specialist's gates — here, a pairing that fails WCAG contrast.
+- Scores: 1 Adequate · 2 Adequate · 3 Adequate · 4 Strong · 5 Adequate · 6 Weak · 7 Adequate
+- Work sample: `work-samples/CPO-2026-09-24.md`, from `balancetri-app` (a vendored copy, no ledger of its own — see below). Independence: full — a separately dispatched `agent-improver` graded work it did not produce.
+- Why: CPO ruled `ux-designer` unnecessary, wrote three concepts itself, and skipped that role's contrast check (white on `#00a3e0` ≈ 2.87:1, under the 3:1 floor) and its token-usage check (`--yellow` called "accents only" against `styles.css:108-109`, actually the primary-button fill). `CPO.md` never said embodying a role carries that role's checks. Separately, nothing covered a consuming repo holding only a copy of `.claude/agents/`.
+- Changed: embodying a role now runs its gates, not just its voice; a root with `.claude/agents/` but no `CHANGELOG.md` is now a recognized vendored-copy case — state "ledger unreachable" rather than skip close-out or write a new ledger there; a caller's own return format/budget now binds, pointed at facts and constraints over unrequested alternatives.
+- Expected effect: embodied design scoping cites contrast ratios and `file:line`; a vendored-repo run says so instead of dropping close-out.
+- Follow-up: **MED, proposed, needs sign-off** — `ux-designer` row: applies even when the brief says another session builds the artifact.
 
 ## 2026-09-19 — library — portfolio (the skills tree joins the checked surface) + `CPO` + `skills-librarian`
 - Decision: **yes to parity, with two adaptations.** 38 skills had zero mechanical checks while 16 agents had three — inverted, since skills are account-synced and reach every session and agents reach only hand-synced repos. Adaptations: `name:` matches the *directory*, and `~/.claude/skills/...` stays legitimate inside a skill. **Reduced independence — every role embodied, dispatch probe resolved negative (no Agent/Task tool).**
