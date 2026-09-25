@@ -52,22 +52,30 @@ sub-question was too broad to be one lane.
 **3. Merge — dedupe, but never smooth over disagreement.**
 Walk the combined claim list:
 
+- Lane grades are the Researcher's proposal, not the audit. The Evidence Auditor grades each lane
+  source High / Moderate / Low and re-grades every merged claim against it, as in single-voice
+  Stage 1 — Confirmed needs a High-confidence source, and the lane contract does not carry one.
 - Same claim from 2+ lanes, same conclusion → note as corroborated, keep once.
-- Same question, different lanes disagree → this is a **Confidence Disagreement**
-  (`references/escalation.md` § 1). Log it and route to the Project Manager. Do not average the
-  claims or quietly keep the more confident-sounding one — a claim that survived silent selection
-  looks stronger than the evidence behind it actually is.
+- Lanes reach conflicting claims about the same fact → escalate to the Project Manager under
+  **Confidence Disagreement** (`references/escalation.md` § 1). That section is written for a
+  Researcher/Auditor dispute over a source grade, so log the conflict in its Decision Log with the
+  two lanes as the actors in conflict. The PM's default is to keep both claims, each graded on its
+  own source, and carry the conflict into the Stage 1 Register's open questions for the Devil's
+  Advocate; retire one only when its source is plainly weaker, with the reason logged. Do not
+  average the claims or quietly keep the more confident-sounding one — a claim that survived silent
+  selection looks stronger than the evidence behind it actually is.
 - Any Asserted claim with no path to Confirmed or Inferred is removed before the register closes,
   same as single-voice Stage 1.
 
 **4. Rank by decision impact, separately from confidence.**
 Confidence answers "how sure are we." Impact answers "how much would this change the answer if it
-turned out wrong." They are different axes — a Confirmed but incidental claim ranks low; an Asserted
+turned out wrong." They are different axes — a Confirmed but incidental claim ranks low; an Inferred
 claim the recommendation actually turns on ranks high and should be first in line for the Devil's
-Advocate in Stage 2. From the merged list, name the claims that would most change the answer if
-false. Carry that ranking into Handoff Note item 2 ("what needs your attention most") — it is exactly
-the prioritisation that item already asks for, now backed by an explicit pass rather than an
-impression.
+Advocate in Stage 2. An Asserted claim cannot rank: step 3 has already removed it, and if the
+answer turned on it, name that removal as the gap in Handoff Note item 3. From the merged list,
+name the claims that would most change the answer if false. Carry that ranking into Handoff Note
+item 2 ("what needs your attention most") — it is exactly the prioritisation that item already
+asks for, now backed by an explicit pass rather than an impression.
 
 **5. Close Stage 1 as normal.**
 Produce the Stage 1 Register and Handoff Note per `references/stage-register.md`. Nothing about the
@@ -76,9 +84,10 @@ downstream interface changes — Stage 2 does not need to know Stage 1 ran in pa
 ## Failure modes to avoid
 
 - **Fake independence.** Five prompts in the same conversation, each able to see the others'
-  output, is not parallel — it is sequential with extra steps. Dispatch as separate subagents (or at
-  minimum instruct each pass explicitly not to read prior lanes) or the decorrelation benefit is
-  lost.
+  output, is not parallel — it is sequential with extra steps. Dispatch each lane as a separate
+  subagent. If dispatch is unavailable, the precondition in *When to use it* is unmet: run Stage 1
+  as one sequential pass and label no agreement as corroboration — an instruction to ignore earlier
+  lanes cannot un-see them.
 - **Losing the disagreement in the merge.** The point of running lanes independently is to surface
   conflicts a single voice would have smoothed over. A merge step that resolves every conflict
   silently throws that benefit away.
