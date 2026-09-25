@@ -62,6 +62,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-25 — library — portfolio (`multi-actor-research` / `parallel-lanes.md` — independent review of the 2026-09-24 addition)
+- Verdict: Net-positive and worth keeping, but the shipped merge step bypassed Stage 1's own Evidence Auditor gate and contradicted the skill's Asserted rule.
+- Scores: 1 Strong · 2 Adequate · 3 N/A — skill · 4 N/A — skill · 5 Adequate · 6 Weak · 7 Adequate
+- Independence: full — a separately dispatched `agent-improver` that did not author the change; D6 scored by a follow-it-literally read, since no run exists.
+- Changed: 4 HIGH, applied — `parallel-lanes.md`: (1) Evidence Auditor grades sources and re-grades lane claims at merge; (2) lane conflicts logged under §1 with the lanes as parties, PM default keeps both for Stage 2; (3) impact ranking no longer routes Asserted claims to Stage 2; (4) the no-dispatch fallback removed. Plus a pointer entry in `.claude/skills/CHANGELOG.md`, which had no record of the addition.
+- Why: lanes self-grade on the Auditor's scale with no source grade, yet Confirmed needs one (`SKILL.md:139`); §1 covers a source-grade dispute, not conflicting claims (`escalation.md:10`); step 4 sent Asserted claims to Stage 2 against `stage-register.md:61`, and the fallback licensed the fake independence its own failure-mode list forbids.
+- Expected effect: a Parallel Lane Stage 1 closes with an Auditor-graded source register, and a lane conflict reaches Stage 2 as an open question rather than a PM pick.
+- Follow-up: MED, proposed — ranking into the Register's open questions; state that corroboration needs lane overlap; run `skills-librarian`'s small-addition A/B before calling it proven; a Related Skills boundary against `deep-research`/`academic-researcher`. Checks not run here (no Bash).
+
 ## 2026-09-24 — `CPO`
 - Verdict: Fit to route, but its embodiment fallback let it produce a specialist's output without that specialist's gates — here, a pairing that fails WCAG contrast.
 - Scores: 1 Adequate · 2 Adequate · 3 Adequate · 4 Strong · 5 Adequate · 6 Weak · 7 Adequate
