@@ -5,6 +5,26 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-25 — `multi-actor-research`: Parallel Lane Mode (added 2026-09-24), independently reviewed
+
+### Added (2026-09-24, recorded here late)
+- **`multi-actor-research/references/parallel-lanes.md`** — an alternative way to run Stage 1 when
+  the question decomposes into independent sub-questions and subagent dispatch is available, plus
+  two pointers in `SKILL.md`. It was logged only in the root `CHANGELOG.md` (the 2026-09-24
+  `library — portfolio` entry), so this ledger had no record of it. Rationale lives there.
+
+### Updated (2026-09-25)
+- **`parallel-lanes.md`** — four internal contradictions fixed after an independent `agent-improver`
+  review: the merge now runs the Evidence Auditor's source and claim grading, which lane self-grades
+  had bypassed; lane conflicts are logged under the §1 escalation path with an explicit PM default,
+  since §1 as written covers only source-grade disputes; Asserted claims no longer rank into Stage 2;
+  and the no-dispatch fallback that allowed fake independence is gone. Detail: the root
+  `CHANGELOG.md` entry of this date.
+
+### Still open
+- Unproven: `skills-librarian` workflow 6's small-addition A/B (sequential vs parallel Stage 1 on
+  3–5 decomposable questions) has not been run.
+
 ## 2026-09-23 — `job-scan` added
 
 ### Added

@@ -68,6 +68,8 @@ See `references/stage-register.md` for templates and the full handoff note conve
 
 Build or update the source register. Grade each source (High / Moderate / Low confidence). Produce the initial confidence register with each claim graded: **Confirmed**, **Inferred**, or **Asserted**.
 
+If the question decomposes into independent sub-questions and subagent dispatch is available, run this stage as **Parallel Lane Mode** instead of a single sequential pass — see `references/parallel-lanes.md`. It changes how evidence is gathered, not the Stage 1 output.
+
 **Closing requirement:** Produce a Stage 1 Register (source register + confidence register + open questions) and a Handoff Note to Stage 2 before proceeding. See `references/stage-register.md`.
 
 **Handoff condition:** Source register versioned. Confidence register complete. No claims proceed without this.
@@ -145,4 +147,5 @@ Always include: confidence grade for each material claim, a note on what is Conf
 - To embody any actor fully → read `references/actors.md`
 - When an impasse arises or escalation is needed → read `references/escalation.md`
 - For Stage Register templates and handoff note format → read `references/stage-register.md`
-- For any complex or multi-stage research task → read all three
+- When Stage 1 can run as independent, parallel sub-questions → read `references/parallel-lanes.md`
+- For any complex or multi-stage research task → read all four
