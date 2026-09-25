@@ -44,7 +44,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `CPO` | CHANGELOG.md (current month)×9 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×4 |
 | `agent-improver` | CHANGELOG.md (current month)×3 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×5 |
 | `code-improver` | CHANGELOG.md (current month)×2 | `CHANGELOG-ARCHIVE.md`×4 |
-| `cody` | CHANGELOG.md (current month)×2 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×8 |
+| `cody` | CHANGELOG.md (current month)×3 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×8 |
 | `cos` | CHANGELOG.md (current month) | — |
 | `investigator` | CHANGELOG.md (current month) | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `mc-implementer` | `changelog/2026-08.md`×2 | — |
@@ -61,6 +61,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-09-25 — `cody`
+- Verdict: **REDUCED INDEPENDENCE** — CPO embodied both cody and this review (dispatch probe negative, no Agent/Task tool). Fit for purpose; the lever is that "verify rendered" names one extra width, not every breakpoint the changed component has.
+- Scores: 1 Strong · 2 Adequate · 3 Strong · 4 Adequate · 5 Strong · 6 Adequate · 7 Adequate
+- Work sample: `work-samples/cody-2026-09-25.md` (Balance Bolt reversed waves + wave countdown, 146 → 161 checks, mutation-tested).
+- Why: 6 is Adequate, not Strong — the first layout pass broke at ≥700px (`styles.css:579` `.wave-bar { flex-wrap: nowrap }`). It was caught only because the harness defaulted to 1024px, and `cody.md` asks for "a narrow mobile width too", nothing more. Also, the first assertion on a live region read its final text, which a later message had overwritten. That is the wrong observable, and it would have passed or failed by timing. Case against the work: the brief suggested the slowest-call formula and the run chose the median. The choice is documented but never put to the user.
+- Changed: `cody.md` step 1 — render at every breakpoint with an `@media` override for the changed selectors; assert live-region announcements from a recorded history, not final text. Description untouched (checks clean).
+- Expected effect: the next UI sample quotes per-breakpoint renders and an announcement log.
+- Follow-up: independent `agent-improver` pass on this sample; ask Justin to confirm median vs slowest-call.
 
 ## 2026-09-24 — `CPO`
 - Verdict: Fit to route, but its embodiment fallback let it produce a specialist's output without that specialist's gates — here, a pairing that fails WCAG contrast.
