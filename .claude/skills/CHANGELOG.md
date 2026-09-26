@@ -21,9 +21,12 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
   and the no-dispatch fallback that allowed fake independence is gone. Detail: the root
   `CHANGELOG.md` entry of this date.
 
-### Still open
-- Unproven: `skills-librarian` workflow 6's small-addition A/B (sequential vs parallel Stage 1 on
-  3–5 decomposable questions) has not been run.
+### Resolved (2026-09-25)
+- `skills-librarian` workflow 6's small-addition A/B ran: 3 decomposable tasks, single-voice vs
+  Parallel Lane Mode, blind-graded per task. **GREEN** — full reasoning and scores in the root
+  `CHANGELOG.md` entry of this date. The one gap this run found (an Asserted claim left with a
+  trailing "excluded" label instead of being fully removed) was an execution slip in one merge,
+  not a defect in `parallel-lanes.md` itself, so no further skill edit follows from it.
 
 ## 2026-09-23 — `job-scan` added
 
