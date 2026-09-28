@@ -5,6 +5,25 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-28 — `jobs-to-be-done-jtbd` frontmatter fixed; two dead skill-name references removed
+
+### Fixed
+- **`jobs-to-be-done-jtbd`** (v1.1.0/v1.1.1 → v1.1.2): `SKILL.md` carried **two stacked YAML
+  frontmatter blocks** — an unadapted-import artefact (`metadata.author: wondelai`) never cleaned
+  up after the seed import, in the same family as the ClawFu and `awesome-llm-apps` leftovers
+  found in earlier passes. The second block duplicated `description:` and `metadata.version:`
+  (`1.1.0` then `1.1.1`) and its description pointed at `obviously-awesome` and `design-sprint` —
+  neither exists in this library. `check-frontmatter.sh` parsed it anyway (PyYAML silently keeps
+  the last of a duplicate key), so this shipped clean on every CI run. Merged to a single block:
+  kept the first (adapted) description, `license: MIT`, `author: wondelai` as provenance, version
+  bumped to `1.1.2`. The `check-frontmatter.sh`/`check-references.sh` duplicate-frontmatter-block
+  gap is not mechanised by this fix — still only caught by reading the file.
+- **Dead skill-name references**, flagged open in the 2026-09-19 entry below, now resolved:
+  `notion-second-brain/SKILL.md` dropped its `icare-expert` line from Related Skills, and
+  `justin-voice/SKILL.md` dropped its `icare-tone-of-voice` line — both name skills removed from
+  this repo on 2026-09-11. Left `notion-second-brain` and `business-case-builder` as still-open
+  review targets per that entry; not addressed here.
+
 ## 2026-09-25 — `multi-actor-research`: Parallel Lane Mode (added 2026-09-24), independently reviewed
 
 ### Added (2026-09-24, recorded here late)

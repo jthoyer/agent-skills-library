@@ -145,5 +145,4 @@ sentence delivers the payload.
 
 - `humanizer`: final pass to strip AI writing patterns; always run after drafting
 - `scr-pyramid-communicator`: governs the structural logic Justin defaults to
-- `icare-tone-of-voice`: governs register for icare-specific outputs; runs alongside this skill
 - `content-research-writer`: for long-form content; Justin voice applies within it

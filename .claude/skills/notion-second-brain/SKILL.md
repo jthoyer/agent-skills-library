@@ -146,4 +146,3 @@ See `skills-librarian` skill for the full sync protocol.
 
 - `skills-librarian` — creation, maintenance, and quality control of the skills library itself
 - `content-research-writer` — writing up captured content before logging to Notion
-- `icare-expert` — source of icare scheme content that feeds project second brains
