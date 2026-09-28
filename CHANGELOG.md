@@ -66,6 +66,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-28 — source-scout, cluster-analyst, evidence-auditor, idea-challenger (batch, 4 agents reviewed)
+- Verdict: sound roles; five logic defects fixed before first real use. **Reduced independence — main-thread review, no separate `agent-improver` dispatch.** No work sample yet, so Dimension 6 is still not scorable.
+- Changed: `evidence-auditor` carried the skill's overlapping rubric (Inferred covered "proof from one class", which Confirmed also met); now the fixed rubric, with seller claims Asserted, a Contested grade, and idea grade = weakest load-bearing claim. `cluster-analyst` built ideas for thin clusters it had not yet counted; it now counts first and stops if thin, marks load-bearing claims, and records push, anxiety, date and incentive. `source-scout` flags seller or affiliate incentive and stale sources, and now covers Partial classes. `idea-challenger` defines Blocks, which now drops an idea to Low. Stage numbers across all four follow the new 0–8 scheme.
+- Why: the agents copied the v2 skill's rules, bugs included, and no run had exercised them.
+- Expected effect: auditor and main thread reach the same grade on the same facts; seller-heavy clusters stop reading as Confirmed. Measure: grade changes after blind audit, logged per run.
+- Follow-up: the retire test below still stands. Dispatch `agent-improver` on the first real run's output.
+
 ## 2026-09-28 — source-scout, cluster-analyst, evidence-auditor, idea-challenger (batch, 4 agents added)
 - Verdict: added to give `research-to-ideas` v3 independent hands at Stages 0–3 and 5. Reviewed once by a dispatched `agent-improver` (separate context) before merge. No work sample exists yet, so Dimension 6 is not scorable for any of them.
 - Changed: 4 agent files created. Review fixes applied: `evidence-auditor` no longer promises a "diff against the draft" (it returned grades for the main thread to diff); both blind agents now open only named paths and print BLIND and INPUTS READ; claim and source IDs added so grades match claim by claim; `idea-challenger` gained `WebFetch` and the external-content pointer; triggers scoped to the pipeline to avoid `multi-actor-research`. Plugin manifest, counts (16 → 20) and cold-start table updated. New: `research-to-ideas/scripts/check_brief.py`. Visual map at repo root: `research-to-ideas-map.html` and `.png`.

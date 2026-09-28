@@ -1,7 +1,7 @@
 # Agent workflow for research-to-ideas
 
-Read this when a run has real stakes, more than two clusters, or a Not-reached source class. For a
-small run, do the stages inline and skip the agents.
+Read this before dispatching any agent. Lite runs (see SKILL.md Stage 0) work inline and skip
+the agents.
 
 ## Description
 
@@ -11,12 +11,12 @@ write, and attacking ideas it did not rank. A script does the arithmetic.
 
 | Role | Kind | Stage | Job | Sees | Never sees |
 |---|---|---|---|---|---|
-| `source-scout` | agent, sonnet | 0 | Reach one Not-reached source class; hunt failures and denominators | Topic, class, what is in hand | Ideas, scores |
-| `cluster-analyst` | agent, sonnet | 1–2 | One cluster to job, candidate ideas, evidence table | One cluster | Other clusters, grades |
-| `evidence-auditor` | agent, opus | 3 | Blind regrade, independence, spot-checks, denominators | Evidence table | Draft grades, scores |
-| `idea-challenger` | agent, opus | 5 | Catch and worst case for one idea | One idea and its evidence | Score, rank, author reasoning |
-| `scripts/check_brief.py` | script | 4, 6, 7 | Totals, ranking rule, confidence caps, decision-rule gaps | The brief as JSON | n/a |
-| `watchdog` | existing agent | 6 | On re-runs, sweep the new page against the old one for drift | Both pages | n/a |
+| `source-scout` | agent, sonnet | 0 | Reach one Not-reached or Partial source class; hunt failures, denominators and seller bias | Topic, class, what is in hand | Ideas, scores |
+| `cluster-analyst` | agent, sonnet | 1–3 | One cluster to job, candidate ideas, evidence table with load-bearing claims | One cluster | Other clusters, grades |
+| `evidence-auditor` | agent, opus | 4 | Blind regrade, independence, spot-checks, denominators | Evidence table | Draft grades, scores |
+| `idea-challenger` | agent, opus | 6 | Catch and worst case for one idea | One idea and its evidence | Score, rank, author reasoning |
+| `scripts/check_brief.py` | script | 5, 7, 8 | Totals, ranking rule, confidence caps, decision-rule gaps | The brief as JSON | n/a |
+| `watchdog` | existing agent | re-runs | On re-runs, sweep the new page against the old one for drift | Both pages | n/a |
 
 The main thread stays the conductor. It owns scope, clustering, scoring, the decision and the
 write-back. Agents return evidence and objections. They never decide.
@@ -24,27 +24,28 @@ write-back. Agents return evidence and objections. They never decide.
 ## Workflow
 
 ```
-0  Scope + coverage plan (main)
-   └─ per Not-reached class: source-scout ×N in parallel. Max two rounds. Then mark
-      Reached / Partial / Not reached honestly.
-1  Cluster (main, issue-tree)
-2  cluster-analyst ×N in parallel, one per cluster → job, ideas, evidence table
-3  Draft grades (main) AND evidence-auditor blind on the same table, in parallel
-   └─ diff the two. Lower grade stands until the reason is written down.
-4  Numbers + scores (main) → write brief.json → check_brief.py. Fix every FAIL.
-5  idea-challenger ×3 in parallel, one per top idea → catch, worst case
-6  Decide (main, scr-pyramid-communicator) → check_brief.py again with the decision rule
-   └─ re-run only: watchdog sweeps new page vs old page
-7  Test and learn (main) → check_brief.py on the Continue / Change / Stop rule
-8  Write-back, then Calibration (re-run only)
+0    Scope + coverage plan (main)
+     └─ per Not-reached or Partial class: source-scout ×N in parallel. Max two rounds.
+        Then mark Reached / Partial / Not reached honestly.
+1    Cluster (main, issue-tree). Thin groups go to the Revisit-if list.
+2–3  cluster-analyst ×N in parallel, one per cluster → job, push, anxiety, ideas,
+     evidence table with load-bearing claims. Main thread trims to eight ideas.
+4    Draft grades (main) AND evidence-auditor blind on the same table, in parallel
+     └─ diff the two. Lower grade stands until the reason is written down.
+5    Numbers + scores + confidence (main) → brief.json → check_brief.py. Fix every FAIL.
+6    idea-challenger ×3 in parallel, one per top idea → catch, worst case, severity
+     └─ Blocks → Low confidence. Re-rank, re-run check_brief.py. Max two passes.
+7    Decide (main, scr-pyramid-communicator) → check_brief.py with stated ranks
+8    Test and learn (main) → check_brief.py on the Continue / Change / Stop rule
+     Write-back. Re-runs: Calibration, then watchdog sweeps new page vs old
 ```
 
-Steps 0, 2, 3 and 5 are the parallel ones. Send every agent in a step in one message.
+Steps 0, 2–3, 4 and 6 are the parallel ones. Send every agent in a step in one message.
 
 ### Dispatch contract
 
 Agents start cold. Every brief carries: the objective in two sentences, absolute paths to every
-input, the scope block (decision, limits, fit weights), what the agent must **not** be given
+input, the scope block (decision, limits, priority weights), what the agent must **not** be given
 (auditor: no grades; challenger: no score or rank), the output format it must return, and a
 budget. Ask for the output in the reply. The main thread saves it to the parent page.
 
@@ -55,15 +56,25 @@ role yourself in the order above, one at a time. Read the agent file first
 (`Glob '**/agents/<name>.md'`); if it is not in this repo, use the role line in the table.
 Label the run **embodied**. Two rules follow from that:
 
-- Grades from an embodied auditor are self-graded. Cap every idea's confidence at Medium.
+- Grades from an embodied auditor are self-graded. Cap every idea's confidence at Medium. Set
+  `"embodied": true` in the brief and `check_brief.py` enforces it.
 - Catches from an embodied challenger are labelled "self-challenged". Do not call the top pick
   stress-tested in the decision block. Write "stress-tested by author".
 
 `check_brief.py` needs no agent and always runs.
 
+### The brief as JSON
+
+`check_brief.py` reads the brief as JSON. Its docstring holds the full schema. The fields that
+carry the rules: `priority` (the two doubled criteria), `embodied`, `coverage`, and per idea
+`grade`, `sources`, `denominator` (known, estimated, unknown), `blocker` (none, workaround,
+hard), `severity` (from `idea-challenger`), `scores` on reach, cost, speed, fit and upside,
+plus `stated_total` and `stated_rank` so the script can catch arithmetic and ranking slips.
+`test_check_brief.py` beside it proves the checks. CI runs it.
+
 ### Calibration (re-runs)
 
-The first run predicts. The re-run learns. When a Stage 7 result arrives, add a **Calibration**
+The first run predicts. The re-run learns. When a Stage 8 result arrives, add a **Calibration**
 section to the new parent page:
 
 | Idea | Predicted confidence | Predicted range | Actual | Hit? |
@@ -92,13 +103,13 @@ new piece answers one.
    in prose and never run is not a check. Weighted totals, the ranking rule, the confidence caps
    and the decision-rule gaps are all mechanical. A script runs them in a second. It is not an
    agent because nothing in it needs judgment.
-6. **The loop never closed.** Stage 7 produced a result and the next run re-scored from scratch.
+6. **The loop never closed.** Stage 8 produced a result and the next run re-scored from scratch.
    Calibration compares predicted confidence and ranges to actuals, so the rules improve.
 
 What the design does not do. It adds no conductor agent. The skill is the conductor, which keeps
-the run at one rung of the CPO ladder. It adds no scoring agent. Scoring reads the fit weights,
+the run at one rung of the CPO ladder. It adds no scoring agent. Scoring reads the priority weights,
 which are the owner's judgment, so the main thread keeps it. It does not replace the skills
-behind the stages. `issue-tree`, `jobs-to-be-done-jtbd`, `pre-mortem`, `red-team` and
+behind the stages. `issue-tree`, `customer-insight`, `pre-mortem`, `red-team` and
 `scr-pyramid-communicator` still supply the thinking.
 
 Known risk. The library retired eight `mar-*` agents on 2026-08-18 because none had produced a
