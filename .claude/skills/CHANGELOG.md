@@ -5,6 +5,34 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-28 — `research-to-ideas` added, then updated to v2 before merge
+
+### Added
+- **`research-to-ideas`**: turns completed research (forum scans, interviews, desk research) into
+  a small set of ranked, evidence-graded ideas. Stacks existing skills rather than reinventing
+  their thinking; this skill's own job is the sequence, the evidence rubric, and the write-back.
+  Single `SKILL.md`, no `references/`. Filed under Meta / library management alongside
+  `prompt-refiner`, which it names directly as the adjacent case: `prompt-refiner` routes one
+  prompt to the right skill, this one routes a body of research through a fixed sequence of
+  skills. Frontmatter reformatted from a quoted single-line `name`/`description` to the library's
+  unquoted `name:` / `description: >` convention to pass `check-frontmatter.sh`. README index and
+  skill count (39 → 40), and the plugin/marketplace skill counts, updated to match.
+
+### Updated
+- **`research-to-ideas`** (v1 → v2, same day, before the adding PR merged): expanded from a fixed
+  5-stage pipeline to seven, adding a scoping-and-coverage step up front (decision, limits, fit
+  weights, a source-coverage plan that caps confidence at Medium when a needed source class is Not
+  reached), a cost/score/confidence stage that now records cost, weeks-to-first-signal, and
+  outcome range per idea and adds a denominator line (how many tried it vs. how many succeeded),
+  a decide-and-land stage that adds a decision block (decider, decide-by date, reversing
+  assumption, review date, "Revisit if" triggers for parked ideas), and a new Stage 7 test-and-learn
+  step (hypothesis, cheapest test, Continue/Change/Stop decision rule, review date) that turns the
+  top pick into a test rather than stopping at the shortlist. Added a "Re-runs" section: find and
+  link the prior run on the same topic, carry forward what still stands, open with "What changed."
+  Evidence grading gained a `Tested` tier above `Confirmed` and now requires two source classes
+  plus proof for `Confirmed`, not just three consistent accounts. Same reformatting applied to the
+  new frontmatter (unquoted `name`, folded `description: >`).
+
 ## 2026-09-28 — `rewrite` description rejected by the account skill uploader: literal angle brackets read as an XML tag
 
 ### Fixed
