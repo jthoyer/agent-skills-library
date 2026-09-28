@@ -4,8 +4,9 @@ description: >
   Turn completed research (forum scans, interviews, desk research) into a short, ranked,
   evidence-graded shortlist, then a decision and a test. Fixed pipeline: a scoping step, then
   seven stages (cluster, frame the job, grade evidence, cost and score, stress-test, decide,
-  test and learn). Use for turning a pile of research into ideas, options, a decision or a
-  30-day plan, and for re-running an earlier run with new results.
+  test and learn), backed by four agents (source scout, cluster analyst, blind evidence auditor,
+  idea challenger) and a checking script. Use for turning a pile of research into ideas, options,
+  a decision or a 30-day plan, and for re-running an earlier run with new results.
 ---
 
 # Research → Ideas Pipeline
@@ -41,6 +42,22 @@ Spend two minutes. Put these four lines at the top of the parent page.
    Name the two hardest to reach. If a class the decision leans on is Not reached, say so on the
    page. Confidence then caps at Medium (Stage 4).
 
+## Agents behind the stages
+
+Small run, few clusters, low stakes: do the stages inline. Real stakes, more than two clusters, or
+a Not-reached source class: dispatch agents. Full workflow, dispatch contract, fallback and
+rationale are in `references/agent-workflow.md`. Read it before dispatching.
+
+- **Stage 0:** `source-scout`, one per Not-reached class, in parallel. Two rounds at most.
+- **Stages 1–2:** `cluster-analyst`, one per cluster, in parallel.
+- **Stage 3:** `evidence-auditor`, blind. It never sees your draft grades.
+- **Stage 5:** `idea-challenger`, one per leading idea, blind to score and rank.
+- **Stages 4, 6, 7:** run `scripts/check_brief.py` on the brief as JSON. Fix every FAIL first.
+
+The agents return evidence and objections. You decide. If no Agent tool exists, run each role
+yourself, label the run **embodied**, and cap confidence at Medium (the auditor's grades are then
+self-graded).
+
 ## Stages
 
 **1. Cluster: `issue-tree`.** Break the raw research into MECE groups. A group needs at least
@@ -62,6 +79,9 @@ to"), send the cluster back for another pass.
    Self-reported outcomes stay Asserted until something backs them. Three self-reports are not
    proof. Accounts count as independent only if they have different authors and none quotes
    another. The grade travels with the idea. Never round it up for a cleaner story.
+
+   Send the evidence table to `evidence-auditor` without your grades. Where its grade differs
+   from yours, the lower one stands until you write down why. Log every difference on the page.
 
    Add one **denominator** line per idea: how many people tried this, and how many succeeded?
    Success stories show it can work. They do not show how often. If the count is unknown, write
@@ -88,7 +108,8 @@ works, not just how soon it launches. Weight the scores with the fit weights. Ad
    visibly apart.
 
 **5. Stress-test the leaders: `pre-mortem`, stacked with `red-team` for anything high-stakes.** Take
-the top two or three. For each, assume it has already failed and name the most likely reason: a
+the top two or three. Dispatch one `idea-challenger` per idea. Give it the idea and evidence only,
+never the score or rank. For each, assume it has already failed and name the most likely reason: a
 failure story from the research if one exists, otherwise the most plausible mechanism. This is the
 catch. An idea with no catch has not been stress-tested. Then size the worst case on its own. Can
 it cost more than the budget or hours in scope? Can you undo it? One line each.
@@ -97,7 +118,8 @@ it cost more than the budget or hours in scope? Can you undo it? One line each.
 idea to back and why, in one sentence. Then the **decision block**: the decision, the decider, the
 decide-by date, the recommendation, the main assumption that would reverse it, and a review date.
 For each idea not chosen, add one line: *Revisit if [measurable trigger].* Then the ranked list.
-Close with what the research could not verify. Never drop that line. A pipeline that never admits a
+Run `scripts/check_brief.py` on the brief before you write the decision block. Close with what
+the research could not verify. Never drop that line. A pipeline that never admits a
 gap is hiding one.
 
 **7. Test and learn: top pick only.** Turn the pick into a test:
@@ -105,7 +127,7 @@ gap is hiding one.
      [measurable signal].
    - **Cheapest test** that fits the time limit, and the metric it reads.
    - **Decision rule:** one threshold each for Continue, Change and Stop. Check the three for gaps
-     and overlaps. Every possible result must land in exactly one outcome.
+     and overlaps. Every possible result must land in exactly one outcome. `scripts/check_brief.py` proves it.
    - **Review date,** set as the plan page's Due Date.
 
    The plan page holds day-1 actions, weekly goals with checkpoints, spend, risks and the decision
@@ -117,7 +139,9 @@ Before Stage 1, find the latest parent page in Category Research on the same top
 not start over. Link the old page in the first line of the new one. Carry forward what still
 stands. Update grades where new evidence exists, re-score, and open with a short "What changed"
 section. Mark any idea with a Stage 7 result as Tested and re-rank. Promote parked ideas whose
-"Revisit if" trigger has fired.
+"Revisit if" trigger has fired. Add a Calibration table: predicted confidence and range against
+the actual result (see `references/agent-workflow.md`). Have `watchdog` sweep the new page against
+the old one for drift.
 
 ## Output shape
 
@@ -159,6 +183,8 @@ Outside that project, ask where the shortlist should land before defaulting to a
 - `multi-actor-strategy`: an alternative to Stage 4 when the decision has real strategic actors to
   model, not just a scoring rubric
 - `pre-mortem`, `red-team`: Stage 5 stress-testing
+- `source-scout`, `cluster-analyst`, `evidence-auditor`, `idea-challenger`: the agents behind
+  Stages 0–3 and 5. `watchdog`: re-run drift sweep
 - `scr-pyramid-communicator`: Stage 6 structure
 - `prompt-refiner`: routes a single prompt to the right skill. This skill routes a body of research
   through a fixed sequence of skills instead
