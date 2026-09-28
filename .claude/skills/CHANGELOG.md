@@ -5,6 +5,19 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-28 — `research-to-ideas` v3: agent-backed pipeline
+
+### Updated
+- **`research-to-ideas`** (v2 → v3): Stages 0–3 and 5 now run through four agents (`source-scout`,
+  `cluster-analyst`, `evidence-auditor`, `idea-challenger`), two of them blind by design: the
+  auditor never sees draft grades, the challenger never sees score or rank. Added a stdlib checker,
+  `scripts/check_brief.py` (weighted totals, ranking rule, confidence caps, decision-rule gaps and
+  overlaps), a Calibration table on re-runs, and an embodied fallback that caps confidence at
+  Medium when no Agent tool exists. Detail and rationale moved to `references/agent-workflow.md`;
+  `SKILL.md` stays under the 500-line standard. Agents are in `.claude/agents/`, which is not
+  account-synced: consuming repos need `scripts/sync-agents.sh`, otherwise the skill falls back to
+  inline roles.
+
 ## 2026-09-28 — `research-to-ideas` added, then updated to v2 before merge
 
 ### Added

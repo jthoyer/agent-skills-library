@@ -44,8 +44,11 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `CPO` | CHANGELOG.md (current month)×9 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×4 |
 | `agent-improver` | CHANGELOG.md (current month)×3 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×5 |
 | `code-improver` | CHANGELOG.md (current month)×2 | `CHANGELOG-ARCHIVE.md`×4 |
+| `cluster-analyst` | CHANGELOG.md (current month) | — |
 | `cody` | CHANGELOG.md (current month)×3 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×8 |
 | `cos` | CHANGELOG.md (current month) | — |
+| `evidence-auditor` | CHANGELOG.md (current month) | — |
+| `idea-challenger` | CHANGELOG.md (current month) | — |
 | `investigator` | CHANGELOG.md (current month) | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `mc-implementer` | `changelog/2026-08.md`×2 | — |
 | `mc-integrator` | CHANGELOG.md (current month)×2 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
@@ -55,12 +58,20 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `mc-verifier` | CHANGELOG.md (current month) | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×2 |
 | `release-engineer` | CHANGELOG.md (current month) | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `security-auditor` | CHANGELOG.md (current month)×3 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
+| `source-scout` | CHANGELOG.md (current month) | — |
 | `ux-designer` | `CHANGELOG-ARCHIVE.md` | — |
 | `watchdog` | CHANGELOG.md (current month) | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×3 |
 
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-09-28 — source-scout, cluster-analyst, evidence-auditor, idea-challenger (batch, 4 agents added)
+- Verdict: added to give `research-to-ideas` v3 independent hands at Stages 0–3 and 5. Reviewed once by a dispatched `agent-improver` (separate context) before merge. No work sample exists yet, so Dimension 6 is not scorable for any of them.
+- Changed: 4 agent files created. Review fixes applied: `evidence-auditor` no longer promises a "diff against the draft" (it returned grades for the main thread to diff); both blind agents now open only named paths and print BLIND and INPUTS READ; claim and source IDs added so grades match claim by claim; `idea-challenger` gained `WebFetch` and the external-content pointer; triggers scoped to the pipeline to avoid `multi-actor-research`. Plugin manifest, counts (16 → 20) and cold-start table updated. New: `research-to-ideas/scripts/check_brief.py`. Visual map at repo root: `research-to-ideas-map.html` and `.png`.
+- Why: v2 graded its own evidence, ranked and stress-tested in one context, analysed clusters in series, and checked arithmetic by eye.
+- Expected effect: grades change after blind audit on some runs; catches name a mechanism; `check_brief.py` finds defects before the decision block.
+- Follow-up: **retire test.** `source-scout` and `cluster-analyst` are the weak cases for being agents (the main thread has the same tools; the depth gain is untested). After two real runs, if the main thread would have produced the same output inline, retire them, as the eight `mar-*` agents were on 2026-08-18. `evidence-auditor` zero grade changes over three runs means redundant. Rationale in `research-to-ideas/references/agent-workflow.md`.
 
 ## 2026-09-25 — library — portfolio (skills-librarian small-addition A/B: Parallel Lane Mode — GREEN)
 - Verdict: **GREEN.** Closes the MED-3 "unproven" item from the 2026-09-25 `agent-improver` entry. 3 realistic decision-relevant tasks (nonprofit CRM migration, Jira→Linear, AI-writing-tool adoption), each run both as single-voice sequential Stage 1 and as Parallel Lane Mode with 3 genuinely independent subagent lanes, both conditions doing real web research. Graded blind: a separately dispatched judge per task, given both registers anonymized in randomized order, with no knowledge of which condition produced which.
