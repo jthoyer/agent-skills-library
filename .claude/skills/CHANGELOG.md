@@ -5,6 +5,19 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-28 — `rewrite` description rejected by the account skill uploader: literal angle brackets read as an XML tag
+
+### Fixed
+- **`rewrite`** (v1.3.0 → v1.3.1): packaging it for account install (claude.ai Settings →
+  Capabilities → Skills, which validates and rejects on upload rather than warning) surfaced an
+  error neither mechanical check here catches: **"SKILL.md description cannot contain XML tags."**
+  The description used `` `/rewrite <your prompt>` `` — the angle brackets around a placeholder,
+  ordinary in prose, parse as an unclosed tag to that validator. Reworded to `` `/rewrite` followed
+  by your prompt``, no angle brackets. Swept every other live skill's description for the same
+  `<word...>` pattern — `rewrite` was the only hit. Not mechanised: `check-frontmatter.sh` has no
+  rule for this class yet, and this defect is invisible until the account uploader is actually
+  used, not on any local check.
+
 ## 2026-09-28 — `jobs-to-be-done-jtbd` frontmatter fixed; two dead skill-name references removed
 
 ### Fixed

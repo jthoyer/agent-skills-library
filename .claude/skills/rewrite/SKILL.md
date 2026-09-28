@@ -1,9 +1,9 @@
 ---
 name: rewrite
-description: Launcher for `prompt-refiner`. Rewrites the prompt you give it to be excellent, shows what changed, then executes it. Invoke explicitly as `/rewrite <your prompt>` — this skill does not fire on its own.
+description: Launcher for `prompt-refiner`. Rewrites the prompt you give it to be excellent, shows what changed, then executes it. Invoke explicitly as `/rewrite` followed by your prompt — this skill does not fire on its own.
 disable-model-invocation: true
 metadata:
-  version: 1.3.0
+  version: 1.3.1
 ---
 
 # /rewrite
