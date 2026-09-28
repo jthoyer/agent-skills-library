@@ -5,6 +5,22 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-28 — `research-to-ideas` added
+
+### Added
+- **`research-to-ideas`**: turns completed research (forum scans, interviews, desk research) into
+  a small set of ranked, evidence-graded ideas via a fixed 5-stage pipeline — cluster
+  (`issue-tree`), frame the job (`jobs-to-be-done-jtbd` + `customer-insight`), grade the evidence,
+  score and rate confidence, stress-test the leaders (`pre-mortem` + `red-team`), land the
+  shortlist (`scr-pyramid-communicator`). Stacks existing skills rather than reinventing their
+  thinking; this skill's own job is the sequence, the evidence rubric, and the write-back. Single
+  `SKILL.md`, no `references/`. Filed under Meta / library management alongside `prompt-refiner`,
+  which it names directly as the adjacent case: `prompt-refiner` routes one prompt to the right
+  skill, this one routes a body of research through a fixed sequence of skills. Frontmatter
+  reformatted from a quoted single-line `name`/`description` to the library's unquoted
+  `name:` / `description: >` convention to pass `check-frontmatter.sh`. README index and skill
+  count (39 → 40), and the plugin/marketplace skill counts, updated to match.
+
 ## 2026-09-28 — `rewrite` description rejected by the account skill uploader: literal angle brackets read as an XML tag
 
 ### Fixed
