@@ -48,3 +48,10 @@ jobs:
       # first run), and a skills index that has drifted from disk.
       - name: Frontmatter and trailing lines
         run: bash scripts/check-frontmatter.sh
+
+      # Does research-to-ideas' brief checker still enforce the skill's rules?
+      # Catches: a checker that passes a Contested idea at Medium, a decision
+      # rule with a gap, or a malformed brief that crashes instead of failing.
+      # The first version shipped all three. Stdlib python only, no install.
+      - name: research-to-ideas checker tests
+        run: python3 .claude/skills/research-to-ideas/scripts/test_check_brief.py

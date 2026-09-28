@@ -65,8 +65,9 @@ said 49 and still listed 11 icare skills and `content-writing` — all retired w
 until 2026-09-19, while `rewrite` had been live since 2026-09-11 and appeared nowhere. An
 index nobody verifies is worse than no index, because it is read as authoritative.
 
-**Strategy and problem-solving (7)** — `multi-actor-strategy`, `multi-actor-research`,
-`first-principles`, `issue-tree`, `six-thinking-hats`, `pre-mortem`, `red-team`
+**Strategy and problem-solving (8)** — `multi-actor-strategy`, `multi-actor-research`,
+`first-principles`, `issue-tree`, `six-thinking-hats`, `pre-mortem`, `red-team`,
+`research-to-ideas`
 
 **Communication frameworks (4)** — `scr-pyramid-communicator`, `scqa-framework`, `made-to-stick`,
 `read-the-room`
@@ -85,13 +86,13 @@ index nobody verifies is worse than no index, because it is read as authoritativ
 **Personal (6)** — `triathlon-coach`, `etf-investing-advisor`, `etf-investing-coach`,
 `balance-tri-club-brand`, `resume-builder`, `job-scan`
 
-**Meta / library management (5)** — `skills-librarian`, `prompt-refiner`, `notion-second-brain`,
-`rewrite`, `research-to-ideas`
+**Meta / library management (4)** — `skills-librarian`, `prompt-refiner`, `notion-second-brain`,
+`rewrite`
 
-Ten skills carry a `references/` folder: `humanizer`, `job-scan`, `multi-actor-research`,
+Eleven skills carry a `references/` folder: `humanizer`, `job-scan`, `multi-actor-research`,
 `multi-actor-strategy`, `product-requirement-document`, `project-management`, `read-the-room`,
-`resume-builder`, `scr-pyramid-communicator`, `skills-librarian`. One carries `scripts/`:
-`recent-pulse`. The other 29 are a single `SKILL.md`.
+`research-to-ideas`, `resume-builder`, `scr-pyramid-communicator`, `skills-librarian`. Two carry
+`scripts/`: `recent-pulse`, `research-to-ideas`. The other 28 are a single `SKILL.md`.
 
 Regenerate against disk rather than trusting any of the above:
 

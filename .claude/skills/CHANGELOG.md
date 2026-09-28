@@ -5,6 +5,50 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-28 — `research-to-ideas` v3.1: logic fixes across the skill, agents and checker
+
+### Fixed
+- **No ideation step.** Stages went cluster → job → grade → score "ideas" that no stage created.
+  Added Stage 3, Generate ideas (two to four per job, at most eight carried, load-bearing claims
+  marked). Stages renumber to 0–8.
+- **Grade rubric overlapped.** "Inferred" included "proof from one class", which Confirmed also
+  covered. Grades are now highest-rule-met, with override rules for self-reports, sellers'
+  claims (always Asserted) and contradicting evidence (new **Contested**). An idea's grade is its
+  weakest load-bearing claim.
+- **Confidence had unassigned cases.** Now a table of checks; the lowest tier wins.
+- **Scores had no direction and double-counted time.** Five fixed criteria, 5 always best,
+  "speed to signal" replaces "time"; two priority weights count double ("fit weights" renamed:
+  "fit" was also a criterion).
+- **Stress test never touched the rank.** A Blocks verdict, a broken limit or an irreversible
+  worst case now drops the idea to Low, then re-rank.
+- **Thin clusters had no exit.** They go straight to the Revisit-if list.
+- **Write-back duplicated pages and never closed them.** Re-runs update pages in place; status
+  lifecycle and Revenue $ now defined. Schema checked against the live Notion data source.
+- **`check_brief.py`** passed a Contested idea at Medium, accepted a decision rule with two Stops
+  and no Continue, could not express a blocker with a workaround, and crashed on a missing field.
+  Rewritten against the new rules, plus `test_check_brief.py` (17 cases), now run in CI.
+
+### Updated
+- Description gained trigger phrases and hand-offs to `deep-research`, `recent-pulse` and
+  `multi-actor-research`. Added Lite depth, "back nothing yet" as a valid call, and
+  `references/templates.md` (idea card, decision block, test plan, worked example). Stage 2 uses
+  `customer-insight` alone (it already contains JTBD) and adds push and anxiety.
+- README: moved from Meta to Strategy and problem-solving. `prompt-refiner` routing table gained
+  a `research-to-ideas` row. Map page and PNG regenerated for stages 0–8.
+
+## 2026-09-28 — `research-to-ideas` v3: agent-backed pipeline
+
+### Updated
+- **`research-to-ideas`** (v2 → v3): Stages 0–3 and 5 now run through four agents (`source-scout`,
+  `cluster-analyst`, `evidence-auditor`, `idea-challenger`), two of them blind by design: the
+  auditor never sees draft grades, the challenger never sees score or rank. Added a stdlib checker,
+  `scripts/check_brief.py` (weighted totals, ranking rule, confidence caps, decision-rule gaps and
+  overlaps), a Calibration table on re-runs, and an embodied fallback that caps confidence at
+  Medium when no Agent tool exists. Detail and rationale moved to `references/agent-workflow.md`;
+  `SKILL.md` stays under the 500-line standard. Agents are in `.claude/agents/`, which is not
+  account-synced: consuming repos need `scripts/sync-agents.sh`, otherwise the skill falls back to
+  inline roles.
+
 ## 2026-09-28 — `research-to-ideas` added, then updated to v2 before merge
 
 ### Added

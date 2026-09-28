@@ -4,14 +4,14 @@ description: >
   Turn research that already exists (forum scans, interviews, desk research, competitor pages)
   into a ranked, evidence-graded shortlist of ideas, one decision, and a cheap test of the top
   pick. Fixed pipeline: scope, then cluster, frame the job, generate ideas, grade evidence, cost
-  and score, stress-test, decide, test and learn. Re-runs update an earlier run with new
-  evidence or test results instead of starting over. Trigger on: "turn this research into
-  ideas", "what should I do with this research", "shortlist these options", "rank these ideas",
-  "which of these should I try", "give me a 30-day plan from this", "re-run the shortlist",
-  "we got the test result", or any request to get from a pile of findings to a call. Not for
-  gathering research from scratch (use deep-research or recent-pulse first, then come back),
-  and not for evidence synthesis that stops at findings with no options to choose between (use
-  multi-actor-research).
+  and score, stress-test, decide, test and learn. Four agents (source scout, cluster analyst,
+  blind evidence auditor, blind idea challenger) and a checking script back the stages. Re-runs
+  update an earlier run instead of starting over. Trigger on: "turn this research into ideas",
+  "what should I do with this research", "shortlist these options", "rank these ideas", "which
+  of these should I try", "give me a 30-day plan from this", "re-run the shortlist", "we got the
+  test result", or any request to get from a pile of findings to a call. Not for gathering
+  research from scratch (use deep-research or recent-pulse first), and not for evidence
+  synthesis with no options to choose between (use multi-actor-research).
 ---
 
 # Research → Ideas Pipeline
@@ -23,11 +23,14 @@ Each stage stacks a skill already in the library. This skill owns the sequence, 
 rules, the ranking, the decision block, the test loop and the write-back. It does not own the
 thinking inside each stage.
 
-Stages 1–3 diagnose. Stages 4–5 grade and rank. Stage 6 stress-tests. Stage 7 decides. Stage 8
+Stages 1–3 find the jobs and the ideas. Stages 4–5 grade and rank. Stage 6 stress-tests. Stage 7 decides. Stage 8
 tests, and its result feeds the next run.
 
-Page, block and card templates, plus a worked example, live in
-[`references/templates.md`](references/templates.md). Read it before writing any output.
+Read before you write any output:
+
+- [`references/templates.md`](references/templates.md): idea card, decision block, test plan,
+  and a worked example.
+- [`references/agent-workflow.md`](references/agent-workflow.md): before dispatching any agent.
 
 ## When this fires, and when it hands off
 
@@ -50,12 +53,32 @@ Two minutes. These five lines open the parent page.
 3. **Priority weights.** Name the two criteria that matter most for this decision. They count
    double in Stage 5. Everything else counts once.
 4. **Coverage plan.** List the source classes the decision needs (forums, first-hand case
-   studies, verified revenue data, expert interviews, competitor pages). Mark each Reached or
-   Not reached. If a class the decision leans on is Not reached, say so. Confidence then caps at
+   studies, verified revenue data, expert interviews, competitor pages). Mark each Reached,
+   Partial or Not reached. Only Reached counts as reached. Anything else caps confidence at
    Medium (Stage 5).
-5. **Depth.** *Full* (all stages) by default. *Lite* when the corpus has under ten sources or
-   the budget at risk is under AUD 100: skip `red-team` in Stage 6 and write the output inline
-   instead of as separate idea pages. Say which depth you chose.
+5. **Depth.** *Full* by default. *Lite* when the corpus has under ten sources or the budget at
+   risk is under AUD 100: work inline with no agents, skip `red-team` in Stage 6, and write only
+   the parent page. A Lite run grades its own evidence, so it caps at Medium like an embodied
+   run. Say which depth you chose.
+
+On Full depth, dispatch one `source-scout` per Not-reached or Partial class before Stage 1.
+
+## Agents behind the stages
+
+On Full depth, four agents and one script take the jobs the main thread does badly for itself.
+The main thread stays the conductor and makes every call. Agents return evidence and objections.
+
+| Stage | Agent or script | Blind to |
+|---|---|---|
+| 0 | `source-scout`, one per missing class, in parallel. Two rounds at most | Ideas, scores |
+| 1–3 | `cluster-analyst`, one per cluster, in parallel | Other clusters, grades |
+| 4 | `evidence-auditor`, alongside your own draft grades | **Your draft grades** |
+| 5, 7, 8 | `scripts/check_brief.py` on the brief as JSON. Fix every FAIL | — |
+| 6 | `idea-challenger`, one per leading idea, in parallel | **Score, rank, your reasoning** |
+
+If this session has no Agent tool, run each role yourself in order, reading its agent file first.
+Label the run **embodied**. An embodied audit is self-graded, so every idea caps at Medium
+confidence, and the decision block says "stress-tested by author", not "stress-tested".
 
 ## Stages
 
@@ -75,13 +98,14 @@ quoted source. If the job reads as a feature or tactic ("sell PDFs") rather than
 
 **3. Generate ideas.** For each job, write two to four ideas that would do it. At least one
 per job must fit inside the Stage 0 limits as they stand. Name each idea verb first, in plain
-words. Drop ideas that break a hard constraint, and list them with the reason.
+words. Drop ideas that break a hard constraint, and list them with the reason. For each idea,
+mark its **load-bearing claims**: the facts it fails without.
 
 Carry at most **eight** ideas into Stage 4. If more survive, keep those with the strongest
 evidence behind their job and park the rest with a "Revisit if" trigger.
 
-**4. Grade the evidence.** Grade the claims each idea rests on. Take them one at a time,
-strongest grade first. Each claim gets the highest grade whose rule it meets in full.
+**4. Grade the evidence.** Grade each claim. Give it the highest grade whose rule it meets in
+full. If you're unsure between two, take the lower.
 
 | Grade | Rule |
 |---|---|
@@ -90,19 +114,23 @@ strongest grade first. Each claim gets the highest grade whose rule it meets in 
 | **Inferred** | Two or more independent accounts agree, but the claim misses a Confirmed rule. |
 | **Asserted** | One account, or accounts that are not independent. |
 
-Then apply three rules that override the table:
+Three rules override the table:
 
 - **Self-reports are not proof.** Three people saying they earned $500 is three accounts, not
   proof. Proof is something a third party produced.
 - **Sellers' claims are Asserted.** A source that profits if you believe it (course sellers,
-  affiliate posts, "how I made $10k" funnels) grades Asserted, however many copies exist.
-  Their claims can still suggest ideas. They cannot support one.
+  affiliate posts, "how I made $10k" funnels) grades Asserted, however many copies exist. Its
+  claims can suggest ideas. They cannot support one.
 - **Contested beats consensus.** If an independent account of equal or higher grade says the
   opposite, mark the claim **Contested** and show both sides. Don't average them.
 
-Accounts are independent only if they have different authors and none quotes another. The
-idea's grade is the grade of its **weakest load-bearing claim**: the one the idea fails
-without. Never round a grade up for a cleaner story.
+Accounts are independent only if they have different authors and none quotes another. An
+idea's grade is the grade of its **weakest load-bearing claim**. Never round a grade up for a
+cleaner story.
+
+On Full depth, send the evidence table to `evidence-auditor` without your grades. Where its
+grade differs from yours, the lower one stands until you write down why. Log every difference
+on the page.
 
 Add one **denominator** line per idea: how many people tried this, and how many succeeded?
 Success stories show it can work. They don't show how often. Give a count with its source, a
@@ -133,8 +161,9 @@ Then rate confidence. Work out each check below, then take the **lowest** tier a
 | Idea grade (Stage 4) | Tested or Confirmed | Inferred | Asserted or Contested |
 | Independent sources | 5+ | 3–4 | 1–2 |
 | Denominator | Known | Estimated | Unknown |
-| Coverage | All needed classes Reached, no class supplies over half the sources | A needed class Not reached, or one class supplies over half | — |
+| Coverage | Every needed class Reached, none over half the sources | A class not Reached, or one class over half | — |
 | Blockers | None | One, with a workaround | One with no workaround |
+| Run | Dispatched audit | Embodied audit or Lite run | — |
 
 State in one line what would lift the rating one tier.
 
@@ -142,40 +171,45 @@ State in one line what would lift the rating one tier.
 on the page. The grade judges one claim. Confidence judges the whole idea. Keep them visibly
 apart.
 
+On Full depth, write the brief as JSON and run `scripts/check_brief.py` on it. It checks totals,
+caps and rank. Fix every FAIL before Stage 6.
+
 **6. Stress-test the leaders: `pre-mortem`, plus `red-team` on Full depth.** Take the top
-three. For each, assume it has already failed. Name the most likely reason: a failure story
-from the research if one exists, otherwise the most plausible cause. That is the **catch**. An
-idea with no catch has not been stress-tested.
+three. On Full depth, dispatch one `idea-challenger` per idea, with the idea and its evidence
+only, never the score or rank. For each, assume it has already failed. Name the most likely
+reason: a failure story from the research if one exists, otherwise the most plausible cause.
+That is the **catch**. An idea with no catch has not been stress-tested.
 
 Then size the worst case in one line each. Can it lose more than the budget or take more hours
 than the limit? Can you undo it within a week?
 
 Feed the result back into the rank:
 
-- Worst case breaks a Stage 0 limit, or can't be undone → drop the idea to Low confidence.
+- Worst case breaks a Stage 0 limit, can't be undone, or the challenger rates it **Blocks** →
+  drop the idea to Low confidence.
 - The catch hits a load-bearing claim → re-grade that claim in Stage 4 and re-rate.
 - Re-sort. If the leader changed, stress-test the new top three. Stop after two passes, and say
   so if the rank still moved.
 
 **7. Decide and land it: `scr-pyramid-communicator`.** Answer first: which idea to back and why,
 in one sentence. Then the **decision block**: decision, decider, decide-by date,
-recommendation, the one assumption that would reverse it, and the review date (the same date
-the Stage 8 test reports).
+recommendation, the one assumption that would reverse it, and the review date (the date the
+Stage 8 test reports).
 
 "Back nothing yet" is a valid call. Make it when no idea reaches Medium confidence. The top
 pick then becomes the cheapest research step that would lift the leading idea one tier.
 
 For each idea not chosen, and each thin group, add one line: *Revisit if [measurable
-trigger].*
+trigger].* Run `check_brief.py` again before you publish.
 
 **8. Test and learn: top pick only.** Turn the pick into a test:
 
 - **Hypothesis:** we believe [who] will [do what] because [evidence, with grade]. We will know
   when [measurable signal].
 - **Cheapest test** that fits the Stage 0 limits, and the one metric it reads.
-- **Decision rule:** a threshold each for Continue, Change and Stop. Every possible result must
-  land in exactly one. Write them as ranges that meet with no gap (for example Stop < 3,
-  Change 3–9, Continue ≥ 10).
+- **Decision rule:** a range each for Continue, Change and Stop. Every possible result lands in
+  exactly one. Write the ranges so they meet with no gap (for example Stop < 3, Change 3 to
+  under 10, Continue 10+). `check_brief.py` proves it.
 - **Review date:** the decision block's review date.
 
 The plan page holds day-1 actions, weekly checkpoints, spend, risks and the decision rule. When
@@ -190,22 +224,25 @@ A re-run updates the last run. It never starts over.
 2. Create a new parent page. Link the old one in its first line. Set the old parent to Done.
 3. Open with **What changed**: new sources, grades that moved, test results, and any "Revisit
    if" triggers that fired.
-4. Update existing idea pages in place: re-grade, re-score, re-rank. Create a page only for an
+4. Add **Calibration** once any Stage 8 result exists: predicted confidence and range against
+   the actual result (table in `references/agent-workflow.md`).
+5. Update existing idea pages in place: re-grade, re-score, re-rank. Create a page only for an
    idea that is new. Point each carried page's Parent item at the new parent.
-5. Mark any idea with a Stage 8 result as Tested. Promote parked ideas whose trigger fired.
+6. Mark any idea with a Stage 8 result as Tested. Promote parked ideas whose trigger fired.
+7. On Full depth, have `watchdog` sweep the new parent against the old one for drift.
 
 ## Output shape
 
 Parent page, in this order:
 
-1. Scope and coverage (Stage 0)
-2. What changed (re-runs only)
+1. Scope and coverage (Stage 0), with the depth and whether the run was embodied
+2. What changed, and Calibration (re-runs only)
 3. Decision block, answer first (Stage 7)
-4. Ranked idea cards (one per idea past Stage 5; card template in `references/templates.md`)
+4. Ranked idea cards, one per idea past Stage 5 (template in `references/templates.md`)
 5. Revisit-if list: parked ideas, thin groups, dropped ideas with reasons
 6. **What the research could not verify.** Never drop this section. A run that admits no gap is
    hiding one.
-7. Method: the ranking rule, the priority weights, the depth
+7. Method: the ranking rule, the priority weights, grade differences from the audit
 
 ## Write-back
 
@@ -220,8 +257,8 @@ Write the result somewhere durable. A run that lives only in chat gets redone fr
 | One per idea past Stage 5 | Market Analysis | Strategy | Research; In Progress for the top pick | Budget $ = cost to first signal; Notes: confidence, grade, source count, range; Parent item = the parent |
 | Plan for the top pick | Plan | Strategy | Not Started | Budget $; Due Date = review date; Parent item = the parent |
 
-When a test reports, set the plan page to Done and put any money earned in **Revenue $**. Note
-that Revenue $ displays in USD format but holds AUD like everything else.
+When a test reports, set the plan page to Done and put any money earned in **Revenue $**. It
+displays in USD format but holds AUD like every other figure.
 
 Before creating any page, search the data source for a page with the same Name and update it
 instead. Lite runs write only the parent page.
@@ -242,5 +279,7 @@ paste the full brief.
   stakeholders, not a scoring table
 - `pre-mortem`, `red-team`: Stage 6 stress-test
 - `scr-pyramid-communicator`: Stage 7 structure
+- `source-scout`, `cluster-analyst`, `evidence-auditor`, `idea-challenger`: the agents behind
+  Stages 0–4 and 6. `watchdog`: the re-run drift sweep
 - `prompt-refiner`: routes one prompt to the right skill. This skill routes a body of research
   through a fixed sequence of skills

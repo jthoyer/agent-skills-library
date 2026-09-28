@@ -152,6 +152,7 @@ Use this to identify which installed skill(s) to invoke during execution — sin
 | Structuring a recommendation, brief, or executive message | `scr-pyramid-communicator` |
 | Strategic options appraisal or decision-making | `multi-actor-strategy` |
 | Research synthesis with evidence grading feeding a strategy/investment/executive decision | `multi-actor-research` |
+| Turning research that already exists into ranked ideas, a decision and a test | `research-to-ideas` |
 | A general research question with no high-stakes decision riding on it — gathering sources, synthesising across them | `deep-research` |
 | Academic literature specifically — paper analysis, methodology critique, citation formatting | `academic-researcher` |
 | Social listening — what people are currently saying about a topic, last 30 days, public sources | `recent-pulse` |
