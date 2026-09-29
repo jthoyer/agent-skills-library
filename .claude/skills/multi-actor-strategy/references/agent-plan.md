@@ -1,7 +1,8 @@
 # Plan: agents behind multi-actor-strategy
 
 Status: **phase 1 done (2026-09-29). Phases 2–6 ready to launch** from `cpo-launch-brief.md`
-in this folder. Nothing in `SKILL.md` points here yet.
+in this folder. Nothing in `SKILL.md` points here yet. Visual map at repo root:
+`multi-actor-strategy-map.html` and `.png`.
 
 ## The question
 
