@@ -130,21 +130,20 @@
 <div class="wrap">
 
   <header>
-    <p class="eyebrow">.claude/agents · 20 agents · v6</p>
+    <p class="eyebrow">~/.claude/agents · 12 agents · v6</p>
     <h1>CPO Dispatch Map</h1>
     <p class="standfirst">How a request finds the right agent in this library, what each agent guarantees by its tool set, and where the library routes to a skill instead of an agent.</p>
     <div class="meta">
-      <span><b>20</b> agents</span>
+      <span><b>12</b> agents</span>
       <span><b>2</b> hubs — COS above &#183; CPO within</span>
-      <span><b>2</b> pipelines — coding (5 actors) &#183; research-to-ideas (4 agents)</span>
-      <span><b>8</b> single-pass specialists</span>
-      <span><b>9</b> routes (CPO) go to a skill, not an agent</span>
-      <span><b>18</b> routes (COS) into the library and beyond it</span>
+      <span><b>1</b> pipeline — 5 actors</span>
+      <span><b>4</b> single-pass specialists</span>
+      <span><b>8</b> routes (CPO) go to a skill, not an agent</span>
+      <span><b>10</b> routes (COS) into the library and beyond it</span>
       <span><b>2</b> self-review inline before returning</span>
-      <span><b>13</b> opus / <b>7</b> sonnet</span>
+      <span><b>8</b> opus / <b>4</b> sonnet</span>
     </div>
     <p style="font-size:13.5px;color:var(--muted)">Renamed 2026-08-18, after v4 shipped — dispatch name changed prody &#8594; CPO. The file was renamed too, to <code>CPO.md</code> (v5 mistakenly recorded it as staying <code>prody.md</code>; corrected here in v6, and left unedited in v5 itself — see the correction entry below).</p>
-    <p style="font-size:13.5px;color:var(--muted)">Refreshed 2026-09-29 against the 20 agent files now in <code>.claude/agents/</code> and <code>plugin.json</code>. Eight agents joined after the 2026-08-18 version: <code>investigator</code>, <code>security-auditor</code> and <code>release-engineer</code> (2026-08-18), <code>ux-designer</code> (2026-09-01), and the four <code>research-to-ideas</code> agents (2026-09-28). <code>code-improver</code> is no longer on trial. Details in the history entries at the end.</p>
     <p style="font-size:13.5px;color:var(--muted)">This map covers the library CPO governs. COS, added 2026-08-18, sits above it and isn't part of what CPO governs — see &#8220;Where COS sits&#8221; below.</p>
   </header>
 
@@ -167,15 +166,7 @@
           <tr><td>Structuring a message</td><td class="who"><code>scr-pyramid-communicator</code></td></tr>
           <tr><td>Writing in Justin's voice</td><td class="who"><code>justin-voice</code> &#8594; <code>humanizer</code></td></tr>
           <tr><td>icare scheme facts</td><td class="who">the relevant scheme-expert skill</td></tr>
-          <tr><td>Library composition — what exists, what's retired or merged</td><td class="who"><code>CPO</code></td></tr>
-          <tr><td>Grading an agent against a work sample</td><td class="who"><code>agent-improver</code></td></tr>
-          <tr><td>Duplication or error sweeps over delivered work</td><td class="who"><code>watchdog</code></td></tr>
-          <tr><td>UI/UX direction before any code exists</td><td class="who"><code>ux-designer</code></td></tr>
-          <tr><td>Diagnosing a live defect, read-only</td><td class="who"><code>investigator</code></td></tr>
-          <tr><td>Security review of a change</td><td class="who"><code>security-auditor</code></td></tr>
-          <tr><td>Standalone code-quality review</td><td class="who"><code>code-improver</code></td></tr>
-          <tr><td>Tagging, versioning, releasing</td><td class="who"><code>release-engineer</code></td></tr>
-          <tr><td>Skill files — content, structure, retirement</td><td class="who"><code>skills-librarian</code></td></tr>
+          <tr><td>Library changes</td><td class="who"><code>skills-librarian</code></td></tr>
         </tbody>
       </table>
     </div>
@@ -183,7 +174,6 @@
     <ul class="bul tight">
       <li>Everything consequential COS produces is staged at <code>~/.claude/COS/staging/</code> for approval — never sent, published, or executed directly.</li>
       <li>Before a decision of consequence, COS names a mentor from the Mentors &amp; Board Members database in Notion and states their idea in one line. Decisions that changed an actual action are logged to a Notion decision-log database, mirrored locally at <code>~/.claude/COS/decision-log.md</code> so the count can't go silently stale.</li>
-      <li>COS still has no row for <code>research-to-ideas</code>. Neither does CPO's table (see &#8220;Skills this library routes to&#8221;).</li>
       <li>COS never orchestrates a build itself — that's still <code>mc-orchestrator</code>, reached the same way CPO reaches it.</li>
       <li>A domain mandate at <code>~/.claude/COS/mandate.md</code>, versioned and reviewed monthly, defines what COS is even trying to optimise for. Nothing in that definition is hard-coded into <code>cos.md</code> itself.</li>
     </ul>
@@ -194,7 +184,7 @@
 
     <figure>
       <div class="scroller">
-        <svg viewBox="0 0 1100 800" role="img" aria-label="A request enters CPO, which frames the objective, enumerates the library live, and routes along a dispatch line to one of four lanes: the two pipelines (coding, and the research-to-ideas skill with its four agents), eight single-pass specialist agents, skills that are loaded rather than dispatched, or built-in tools. Work and its output return to a closing step where agent-improver grades the agent and watchdog grades the artifact, both writing to a changelog. CPO separately holds portfolio authority over which agents exist.">
+        <svg viewBox="0 0 1100 600" role="img" aria-label="A request enters CPO, which frames the objective, enumerates the library live, and routes along a dispatch line to one of four lanes: the coding pipeline, single-pass specialist agents, skills that are loaded rather than dispatched, or built-in tools. Work and its output return to a closing step where agent-improver grades the agent and watchdog grades the artifact, both writing to a changelog. CPO separately holds portfolio authority over which agents exist.">
 
           <defs>
             <marker id="ar-i" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -228,63 +218,48 @@
           <text class="t-acc" x="262" y="312">delegate, not only embody</text>
           <text class="t-sub" x="262" y="334">never runs a pipeline itself</text>
 
-          <line class="bus" x1="500" y1="70" x2="500" y2="618" />
+          <line class="bus" x1="500" y1="70" x2="500" y2="440" />
           <line class="ed-a" x1="460" y1="218" x2="496" y2="218" marker-end="url(#ar-a)" />
 
-          <rect class="pn" x="520" y="70" width="290" height="92" rx="3" />
-          <text class="t-hdr" x="532" y="88">PIPELINES — NO ACTOR GRADES ITSELF</text>
+          <rect class="pn" x="520" y="70" width="290" height="60" rx="3" />
+          <text class="t-hdr" x="532" y="88">PIPELINE — NO ACTOR GRADES ITSELF</text>
           <rect class="bx" x="532" y="96" width="266" height="26" rx="2" />
           <text class="t" x="544" y="114">mc-orchestrator</text>
           <text class="t-sub end" x="786" y="114">coding &#183; 5 actors</text>
-          <rect class="bx" x="532" y="128" width="266" height="26" rx="2" />
-          <text class="t" x="544" y="146">research-to-ideas</text>
-          <text class="t-sub end" x="786" y="146">skill &#183; 4 agents</text>
 
-          <rect class="pn" x="520" y="176" width="290" height="288" rx="3" />
-          <text class="t-hdr" x="532" y="194">SINGLE-PASS AGENTS</text>
-          <rect class="bx" x="532" y="202" width="266" height="26" rx="2" />
-          <text class="t" x="544" y="220">cody</text>
-          <text class="t-sub end" x="786" y="220">UI &#183; a11y &#183; self-reviews</text>
-          <rect class="bx" x="532" y="234" width="266" height="26" rx="2" />
-          <text class="t" x="544" y="252">ux-designer</text>
-          <text class="t-sub end" x="786" y="252">look before code</text>
-          <rect class="bx" x="532" y="266" width="266" height="26" rx="2" />
-          <text class="t" x="544" y="284">code-improver</text>
-          <text class="t-sub end" x="786" y="284">read-only &#183; kept</text>
-          <rect class="bx" x="532" y="298" width="266" height="26" rx="2" />
-          <text class="t" x="544" y="316">watchdog</text>
-          <text class="t-sub end" x="786" y="316">duplication &#183; errors</text>
-          <rect class="bx" x="532" y="330" width="266" height="26" rx="2" />
-          <text class="t" x="544" y="348">agent-improver</text>
-          <text class="t-sub end" x="786" y="348">grades the agent</text>
-          <rect class="bx" x="532" y="362" width="266" height="26" rx="2" />
-          <text class="t" x="544" y="380">investigator</text>
-          <text class="t-sub end" x="786" y="380">live-defect cause</text>
-          <rect class="bx" x="532" y="394" width="266" height="26" rx="2" />
-          <text class="t" x="544" y="412">security-auditor</text>
-          <text class="t-sub end" x="786" y="412">read-only review</text>
-          <rect class="bx" x="532" y="426" width="266" height="26" rx="2" />
-          <text class="t" x="544" y="444">release-engineer</text>
-          <text class="t-sub end" x="786" y="444">asks before push</text>
+          <rect class="pn" x="520" y="142" width="290" height="150" rx="3" />
+          <text class="t-hdr" x="532" y="160">SINGLE-PASS AGENTS</text>
+          <rect class="bx" x="532" y="168" width="266" height="26" rx="2" />
+          <text class="t" x="544" y="186">cody</text>
+          <text class="t-sub end" x="786" y="186">UI &#183; a11y &#183; self-reviews</text>
+          <rect class="bx" x="532" y="200" width="266" height="26" rx="2" />
+          <text class="t" x="544" y="218">code-improver</text>
+          <text class="t-sub end" x="786" y="218">read-only &#183; on trial</text>
+          <rect class="bx" x="532" y="232" width="266" height="26" rx="2" />
+          <text class="t" x="544" y="250">watchdog</text>
+          <text class="t-sub end" x="786" y="250">duplication &#183; errors</text>
+          <rect class="bx" x="532" y="264" width="266" height="26" rx="2" />
+          <text class="t" x="544" y="282">agent-improver</text>
+          <text class="t-sub end" x="786" y="282">grades the agent</text>
 
-          <rect class="pn-t" x="520" y="476" width="290" height="96" rx="3" />
-          <text class="t-hdr" x="532" y="494">SKILLS — LOADED, NOT DISPATCHED</text>
-          <rect class="pn-t" x="532" y="502" width="126" height="24" rx="2" />
-          <text class="t-sub mid" x="595" y="518" style="font-size:9.5px">multi-actor-research</text>
-          <rect class="pn-t" x="666" y="502" width="126" height="24" rx="2" />
-          <text class="t-sub mid" x="729" y="518" style="font-size:9.5px">multi-actor-strategy</text>
-          <rect class="pn-t" x="532" y="532" width="126" height="24" rx="2" />
-          <text class="t-sub mid" x="595" y="548" style="font-size:9.5px">red-team</text>
-          <rect class="pn-t" x="666" y="532" width="126" height="24" rx="2" />
-          <text class="t-sub mid" x="729" y="548" style="font-size:9.5px">skills-librarian</text>
+          <rect class="pn-t" x="520" y="304" width="290" height="90" rx="3" />
+          <text class="t-hdr" x="532" y="322">SKILLS — LOADED, NOT DISPATCHED</text>
+          <rect class="pn-t" x="532" y="330" width="126" height="24" rx="2" />
+          <text class="t-sub mid" x="595" y="346" style="font-size:9.5px">multi-actor-research</text>
+          <rect class="pn-t" x="666" y="330" width="126" height="24" rx="2" />
+          <text class="t-sub mid" x="729" y="346" style="font-size:9.5px">multi-actor-strategy</text>
+          <rect class="pn-t" x="532" y="360" width="126" height="24" rx="2" />
+          <text class="t-sub mid" x="595" y="376" style="font-size:9.5px">red-team</text>
+          <rect class="pn-t" x="666" y="360" width="126" height="24" rx="2" />
+          <text class="t-sub mid" x="729" y="376" style="font-size:9.5px">skills-librarian</text>
 
-          <rect class="pn-d" x="520" y="582" width="290" height="36" rx="3" />
-          <text class="t-hdr" x="532" y="604">BUILT-INS — Explore &#183; Plan</text>
+          <rect class="pn-d" x="520" y="404" width="290" height="36" rx="3" />
+          <text class="t-hdr" x="532" y="426">BUILT-INS — Explore &#183; Plan</text>
 
           <line class="ed-a" x1="500" y1="112" x2="516" y2="112" marker-end="url(#ar-a)" />
-          <line class="ed-a" x1="500" y1="320" x2="516" y2="320" marker-end="url(#ar-a)" />
-          <line class="ed-a" x1="500" y1="524" x2="516" y2="524" marker-end="url(#ar-a)" stroke-dasharray="1.5 4" />
-          <line class="ed-a" x1="500" y1="600" x2="516" y2="600" marker-end="url(#ar-a)" />
+          <line class="ed-a" x1="500" y1="215" x2="516" y2="215" marker-end="url(#ar-a)" />
+          <line class="ed-a" x1="500" y1="348" x2="516" y2="348" marker-end="url(#ar-a)" stroke-dasharray="1.5 4" />
+          <line class="ed-a" x1="500" y1="420" x2="516" y2="420" marker-end="url(#ar-a)" />
 
           <line class="ed" x1="810" y1="220" x2="864" y2="220" />
           <text class="t-sub" x="812" y="210">work + output</text>
@@ -305,23 +280,23 @@
           <rect class="bx" x="900" y="268" width="180" height="42" rx="3" />
           <text class="t mid" x="990" y="294">CHANGELOG.md</text>
 
-          <path class="ed-p" d="M990,310 L990,690 L750,690" marker-end="url(#ar-a)" />
+          <path class="ed-p" d="M990,310 L990,520 L750,520" marker-end="url(#ar-a)" />
 
-          <rect class="band" x="240" y="650" width="510" height="80" rx="3" />
-          <text class="t" x="258" y="678" style="font-size:13px">CPO &#183; portfolio authority</text>
-          <text class="t-sub" x="258" y="698">adds &#183; retires &#183; merges agents &#183; owns the routing table</text>
-          <text class="t-sub" x="258" y="716" style="fill: var(--accent)">composition only — never delivery</text>
+          <rect class="band" x="240" y="480" width="510" height="80" rx="3" />
+          <text class="t" x="258" y="508" style="font-size:13px">CPO &#183; portfolio authority</text>
+          <text class="t-sub" x="258" y="528">adds &#183; retires &#183; merges agents &#183; owns the routing table</text>
+          <text class="t-sub" x="258" y="546" style="fill: var(--accent)">composition only — never delivery</text>
 
-          <line class="ed-p" x1="290" y1="650" x2="290" y2="350" marker-end="url(#ar-a)" />
+          <line class="ed-p" x1="290" y1="480" x2="290" y2="350" marker-end="url(#ar-a)" />
 
-          <line class="ed-a" x1="30" y1="770" x2="60" y2="770" />
-          <text class="t-sub" x="66" y="774">dispatch</text>
-          <line class="ed" x1="146" y1="770" x2="176" y2="770" />
-          <text class="t-sub" x="182" y="774">work returning</text>
-          <line class="ed-p" x1="290" y1="770" x2="320" y2="770" />
-          <text class="t-sub" x="326" y="774">portfolio record</text>
-          <line class="ed-a" x1="470" y1="770" x2="500" y2="770" stroke-dasharray="1.5 4" />
-          <text class="t-sub" x="506" y="774">loaded, not dispatched</text>
+          <line class="ed-a" x1="30" y1="580" x2="60" y2="580" />
+          <text class="t-sub" x="66" y="584">dispatch</text>
+          <line class="ed" x1="146" y1="580" x2="176" y2="580" />
+          <text class="t-sub" x="182" y="584">work returning</text>
+          <line class="ed-p" x1="290" y1="580" x2="320" y2="580" />
+          <text class="t-sub" x="326" y="584">portfolio record</text>
+          <line class="ed-a" x1="430" y1="580" x2="460" y2="580" stroke-dasharray="1.5 4" />
+          <text class="t-sub" x="466" y="584">loaded, not dispatched</text>
 
         </svg>
       </div>
@@ -330,7 +305,6 @@
           <li>Calling an agent by name skips the framing — but also skips the closing review, which is the part that compounds over time.</li>
           <li>Climb only as far as the work needs: inline first, a single specialist next, the pipeline last. A skill costs no cold start, so it's cheaper than any of the three.</li>
           <li><code>agent-improver</code> grades the <b>agent</b>; <code>watchdog</code> grades the <b>artifact</b>. Different subjects — running one doesn't cover the other.</li>
-          <li><code>research-to-ideas</code> is a skill, so it sits in the pipeline lane by what it does, not by what it is. Its main thread conducts and dispatches the four agents. There is no orchestrator agent behind it. CPO's routing table doesn't name it yet, so a request reaches it by the session's skill listing.</li>
           <li>This diagram is CPO's own dispatch line, unchanged by COS's addition — a request that names CPO directly still enters here at REQUEST. A request that starts with COS instead enters COS's table above, which may itself land here at CPO for product decisions.</li>
         </ul>
       </figcaption>
@@ -369,7 +343,7 @@
           <tr>
             <td class="who">code-improver</td><td class="mdl">sonnet</td>
             <td>Read-only code quality pass</td>
-            <td><ul class="bul"><li><code>Read, Grep, Glob</code> only — structurally cannot edit</li><li>Trial closed 2026-09-06 on a real work sample: kept. If its next two reviews only repeat what <code>mc-reviewer</code> would have found, the merge case reopens</li></ul></td>
+            <td><ul class="bul"><li><code>Read, Grep, Glob</code> only — structurally cannot edit</li><li>On trial: never once routed to yet</li></ul></td>
           </tr>
           <tr>
             <td class="who">watchdog</td><td class="mdl">opus</td>
@@ -380,27 +354,6 @@
             <td class="who">agent-improver</td><td class="mdl">opus</td>
             <td>Reviews and improves an agent's own definition</td>
             <td><ul class="bul"><li>Runs in a context that never saw the work produced — the whole point</li><li>Same embodied-verification pattern as <code>watchdog</code>, added the same day</li></ul></td>
-          </tr>
-
-          <tr>
-            <td class="who">ux-designer</td><td class="mdl">sonnet</td>
-            <td>Decides the look and behaviour of a UI before code exists</td>
-            <td><ul class="bul"><li>Mocks 2&#8211;3 options against current design systems, then hands <code>cody</code> a concrete spec</li><li>No <code>Bash</code>, and does no backend work. Decides the look; <code>cody</code> builds it</li></ul></td>
-          </tr>
-          <tr>
-            <td class="who">investigator</td><td class="mdl">opus</td>
-            <td>Root-cause debugger for a live defect whose cause is unknown</td>
-            <td><ul class="bul"><li><code>Read, Bash, Grep, Glob</code> only — can run things, cannot edit, so it cannot fix</li><li>Iron Law: no fix without a demonstrated cause. Stops after three failed hypotheses. Hands the diagnosis to <code>cody</code> or <code>mc-implementer</code></li></ul></td>
-          </tr>
-          <tr>
-            <td class="who">security-auditor</td><td class="mdl">opus</td>
-            <td>Static OWASP and STRIDE review of code already written</td>
-            <td><ul class="bul"><li><code>Read, Grep, Glob, WebSearch</code> only — reports, never patches</li><li>Every finding is confidence-gated and carries a concrete exploit scenario. For a quick inline pass, the <code>security-review</code> skill is enough</li></ul></td>
-          </tr>
-          <tr>
-            <td class="who">release-engineer</td><td class="mdl">opus</td>
-            <td>Prepares a reviewed branch for release: sync, tests, PR staging</td>
-            <td><ul class="bul"><li>Stops and asks before any push or PR, every time. The yes must come from the user, not from whatever dispatched it</li><li>Never merges or deploys. Both are explicit non-goals</li></ul></td>
           </tr>
 
           <tr class="grp"><td colspan="4">Coding pipeline — mc-orchestrator</td></tr>
@@ -433,28 +386,6 @@
             <td class="who">mc-integrator</td><td class="mdl">opus</td>
             <td>Merge gate, arbitrates conflicts</td>
             <td><ul class="bul"><li>No <code>Bash</code> — cannot substitute its own verification</li></ul></td>
-          </tr>
-
-          <tr class="grp"><td colspan="4">Research pipeline — the research-to-ideas skill dispatches these</td></tr>
-          <tr>
-            <td class="who">source-scout</td><td class="mdl">sonnet</td>
-            <td>Hunts the evidence a brief is missing: failures, denominators, seller bias</td>
-            <td><ul class="bul"><li>Read-only and web-facing. Grades nothing, clusters nothing</li></ul></td>
-          </tr>
-          <tr>
-            <td class="who">cluster-analyst</td><td class="mdl">sonnet</td>
-            <td>Turns one cluster into a job, candidate ideas and an evidence table</td>
-            <td><ul class="bul"><li><code>Read, Grep, Glob</code> only — no web, sees one cluster and nothing else</li></ul></td>
-          </tr>
-          <tr>
-            <td class="who">evidence-auditor</td><td class="mdl">opus</td>
-            <td>Grades the evidence independently</td>
-            <td><ul class="bul"><li>Works blind: never receives the author's draft grades, so it can't anchor on them</li></ul></td>
-          </tr>
-          <tr>
-            <td class="who">idea-challenger</td><td class="mdl">opus</td>
-            <td>Stress-tests one idea by assuming it already failed</td>
-            <td><ul class="bul"><li>Sees the idea, its job and its evidence. Never the score, rank or the author's reasoning</li></ul></td>
           </tr>
         </tbody>
       </table>
@@ -518,32 +449,6 @@
   </section>
 
   <section>
-    <h2>The research pipeline, in sequence</h2>
-    <p style="max-width:78ch">The <code>research-to-ideas</code> skill turns finished research into ranked, evidence-graded ideas. Its main thread owns scope, clustering, scoring, the decision and the write-back. Agents return evidence and objections. They never decide. Full visual: <code>research-to-ideas-map.html</code>.</p>
-
-    <div class="tbl-scroll">
-      <table>
-        <thead>
-          <tr><th>Stage</th><th>Who</th><th>Dispatch</th><th>Never sees</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>0 &#183; Scope and coverage</td><td class="who"><code>source-scout</code></td><td>One per Not-reached or Partial source class, in parallel. Two rounds at most</td><td>Ideas, scores</td></tr>
-          <tr><td>1 &#183; Cluster</td><td class="who">main thread</td><td>Uses <code>issue-tree</code>. Thin groups go to the Revisit-if list</td><td>n/a</td></tr>
-          <tr><td>2&#8211;3 &#183; Job and ideas</td><td class="who"><code>cluster-analyst</code></td><td>One per cluster, in parallel</td><td>Other clusters, grades</td></tr>
-          <tr><td>4 &#183; Grade evidence</td><td class="who"><code>evidence-auditor</code></td><td>Blind, in parallel with the main thread's own draft. The lower grade stands until the gap is explained</td><td>Draft grades, scores</td></tr>
-          <tr><td>5 &#183; Score and rank</td><td class="who">main thread + <code>check_brief.py</code></td><td>A script checks totals, ranking and confidence caps</td><td>n/a</td></tr>
-          <tr><td>6 &#183; Stress-test</td><td class="who"><code>idea-challenger</code></td><td>One per leading idea, in parallel. A Blocks rating drops the idea to Low confidence</td><td>Score, rank, author's reasoning</td></tr>
-          <tr><td>7&#8211;8 &#183; Decide, test</td><td class="who">main thread</td><td>Write-back to Notion. On re-runs, <code>watchdog</code> sweeps the new page against the old</td><td>n/a</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <ul class="bul tight">
-      <li>Agents run on Full depth only. A Lite run (under ten sources, or risk under AUD 100) works inline and caps confidence at Medium.</li>
-      <li>With no dispatch tool, the main thread embodies each role in turn and labels the run <b>embodied</b>. It grades itself, so confidence caps at Medium.</li>
-    </ul>
-  </section>
-
-  <section>
     <h2>Skills this library routes to instead of an agent</h2>
 
     <div class="tbl-scroll">
@@ -555,10 +460,9 @@
           <tr><td>Research feeding a strategy, investment, or executive decision</td><td class="who"><code>multi-actor-research</code></td></tr>
           <tr><td>"What should we do", not "what does the evidence say"</td><td class="who"><code>multi-actor-strategy</code></td></tr>
           <tr><td>Pure adversarial demolition of a claim or artefact</td><td class="who"><code>red-team</code></td></tr>
-          <tr><td>Pure adversarial code demolition, no build obligation</td><td class="who"><code>security-review</code>, or <code>security-auditor</code> when security is the whole ask</td></tr>
+          <tr><td>Pure adversarial code demolition, no build obligation</td><td class="who"><code>security-review</code></td></tr>
           <tr><td>Auditing or curating <code>~/.claude/skills</code></td><td class="who"><code>skills-librarian</code></td></tr>
           <tr><td>A leverage or reframing idea; the daily launch check</td><td class="who"><code>first-principles</code></td></tr>
-          <tr><td>Turning finished research into ranked, evidence-graded ideas</td><td class="who"><code>research-to-ideas</code> &#8212; dispatches four agents; not yet in CPO's table</td></tr>
           <tr><td>Translating a finished output for a mixed/executive audience</td><td class="who"><code>scr-pyramid-communicator</code></td></tr>
           <tr><td>Strategy, writing, communication, domain expertise generally</td><td class="who">whichever skill fits the session's listing</td></tr>
         </tbody>
@@ -592,7 +496,7 @@
 
   <section>
     <h2>How the library got here</h2>
-    <p style="max-width:78ch">v4 dropped the narrative of prior versions in favor of an appendix. v5 kept that shape and added two entries at the end for what changed since. v6 does the same, plus a correction to something v5 got wrong. The decisions behind the 12-agent shape v6 shipped with, kept for reference. The eight agents added since are in the last two entries:</p>
+    <p style="max-width:78ch">v4 dropped the narrative of prior versions in favor of an appendix. v5 kept that shape and added two entries at the end for what changed since. v6 does the same, plus a correction to something v5 got wrong. The decisions behind the current 12-agent shape, kept for reference:</p>
 
     <ul class="bul">
       <li><b>The library started at 20 agents.</b> A necessity test was applied to each: does the job require a separate context window, an isolated tool set, or genuine concurrent dispatch — something a skill loaded into the current turn structurally cannot provide? If not, the agent was retired in favor of a skill.</li>
@@ -607,15 +511,10 @@
       <li><b>New in v5 — a routing boundary and a verification pattern, added the same day as the rename.</b> <code>mc-planner</code> and built-in <code>Plan</code> had overlapped on the same trigger ("design an approach before code exists") since the library's founding; the boundary is now persistence — <code>Plan</code> when nothing downstream reads the answer, <code>mc-planner</code> when a spec must be consumed by <code>mc-implementer</code>/<code>mc-reviewer</code>/<code>mc-verifier</code>. Separately, <code>agent-improver</code> and <code>watchdog</code> gained instructions to verify one specific claim directly — a targeted <code>Grep</code>/<code>Glob</code>/<code>Read</code>, the same check an <code>Explore</code> dispatch would do — rather than trust a work sample's own narration, scoped down after adding them an <code>Agent</code> tool was blocked by the auto-mode classifier.</li>
       <li><b>Correction, v6 — the CPO rename was more complete than v5 recorded.</b> The bullet immediately above claims the file "stays <code>prody.md</code>." That was wrong: confirmed 2026-08-18, while building COS, that the file is <code>CPO.md</code> — it was renamed along with the frontmatter <code>name:</code> field, not just the dispatch name. Left the v5 bullet unedited above, per this doc's own stated policy of preserving prior entries as point-in-time snapshots rather than rewriting them; this note is the fix going forward.</li>
       <li><b>New in v6 — COS, a personal Chief of Staff, added 2026-08-18.</b> COS sits above this library rather than inside it: no portfolio authority over what agents exist (that stays CPO's, unchanged), but it routes into the library — for builds, code, product decisions, pressure-testing — from its own table (see "Where COS sits"). It brings three mechanisms this library didn't have before: a mandate read fresh each session from <code>~/.claude/COS/mandate.md</code> rather than hard-coded into the agent, so domain definitions can be revised monthly without touching agent logic; a headline number — decisions made with a framework behind them — logged to a Notion database and mirrored locally so the count can never silently go stale; and a staging discipline at <code>~/.claude/COS/staging/</code> so nothing consequential leaves without approval. A <code>PostToolUse</code> hook (<code>cos-audit.py</code>) logs every <code>Write</code>/<code>Edit</code> it makes to <code>~/.claude/COS/audit/log.jsonl</code>, and fails silently on any error rather than ever blocking a tool call. Verified end to end the same day: <code>/brief</code> produced the full six-part format against live Notion data, including a real, un-softened finding (ten job leads stalled since 2026-08-06).</li>
-
-      <li><b>Refresh, 2026-09-29 — eight agents added since v6 first shipped, 12 to 20.</b> Three arrived on 2026-08-18, the day v6 was written: <code>investigator</code> (root-cause debugging, read/run only), <code>security-auditor</code> (static OWASP/STRIDE review) and <code>release-engineer</code> (release prep that asks before every push). CPO's routing table and COS's table both list them. <code>ux-designer</code> followed on 2026-09-01. Each new agent holds a <code>tools:</code> line that removes the one thing its role must not do: no fixing, no patching, no merging.</li>
-      <li><b>Refresh, 2026-09-29 — the library gained a second pipeline.</b> On 2026-09-28 the <code>research-to-ideas</code> skill gained four agents: <code>source-scout</code>, <code>cluster-analyst</code>, <code>evidence-auditor</code> and <code>idea-challenger</code>. Unlike <code>mc-orchestrator</code>, the skill's main thread conducts them, and two of the four work blind by design. The same day, v3.1 added a stage that generates the ideas and renumbered the stages 0&#8211;8.</li>
-      <li><b>Refresh, 2026-09-29 — <code>code-improver</code> left trial.</b> A real work sample on 2026-09-06 reversed the 2026-09-05 recommendation to merge it. It stays, with a falsifiable condition: two more reviews that only repeat <code>mc-reviewer</code> reopen the merge case.</li>
-      <li><b>Refresh, 2026-09-29 — two gaps this map found, not fixed.</b> Neither CPO's nor COS's routing table names <code>research-to-ideas</code>. And the v6 statement that "there is no git behind <code>~/.claude</code>" describes the local install; this repo is the tracked source, with CI running the frontmatter and reference checks on every push.</li>
     </ul>
   </section>
 
-  <footer>v6 refreshed 2026-09-29 against 20 agents (was 12); first written 2026-08-18 — COS added as a personal hub above this library, routing in rather than being governed by CPO's portfolio authority, plus a correction to v5's claim about the CPO-rename filename &#183; light mode forced, dark tokens available only via explicit <code>data-theme="dark"</code> &#183; v1&#8211;v5 preserved unmodified at <code>dispatch-map.html</code>, <code>dispatch-map-v2.html</code>, <code>dispatch-map-v3.html</code>, <code>dispatch-map-v4.html</code>, <code>dispatch-map-v5.html</code> &#183; names shown are frontmatter <code>name:</code> values, the dispatch address — filenames differ, except <code>cos.md</code> and <code>CPO.md</code>, which now match</footer>
+  <footer>v6 updated 2026-08-18 — COS added as a personal hub above this library, routing in rather than being governed by CPO's portfolio authority, plus a correction to v5's claim about the CPO-rename filename &#183; light mode forced, dark tokens available only via explicit <code>data-theme="dark"</code> &#183; v1&#8211;v5 preserved unmodified at <code>dispatch-map.html</code>, <code>dispatch-map-v2.html</code>, <code>dispatch-map-v3.html</code>, <code>dispatch-map-v4.html</code>, <code>dispatch-map-v5.html</code> &#183; names shown are frontmatter <code>name:</code> values, the dispatch address — filenames differ, except <code>cos.md</code> and <code>CPO.md</code>, which now match</footer>
 
 </div>
 </body>
