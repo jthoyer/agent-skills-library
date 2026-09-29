@@ -1,0 +1,149 @@
+{
+  "_source": "work-samples/multi-actor-strategy-2026-09-29-baseline.md, rendered 2026-09-29 as the passing fixture for check_strategy.py. Launch B must not open this file.",
+  "stage": 4,
+  "embodied": true,
+  "preference": "C",
+  "options": [
+    {
+      "id": "A",
+      "name": "Sustain",
+      "sustain": true,
+      "status": "qualified",
+      "challenge": {
+        "for": "Distribution was only fixed on 2026-09-11; three weeks of non-use after a fix measures almost nothing (Dana).",
+        "against": "'Extend by a month' is how Tomasz's pipeline lived two years; A was the implicit decision on 2026-08-18 and 2026-09-11 too.",
+        "verdict": "Qualified. Survives only with a hard end date and a named test."
+      },
+      "premortem": [
+        {
+          "failure": "Another month passes, no run happens, and the call is deferred a fourth time.",
+          "kind": "Intrinsic",
+          "likelihood": "H",
+          "consequence": "M",
+          "warning": "No register by the new date",
+          "mitigation": "Hard date plus D as the named test; auto-default to C if no run"
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "name": "Default: retire the pipeline",
+      "status": "qualified",
+      "challenge": {
+        "for": "The mar-* precedent. Zero register in the pipeline's whole life, not just three weeks.",
+        "against": "It destroys the only mc-* evidence that exists (E5, E6); B's case leans on dispatch doubts the rule said not to decide on.",
+        "verdict": "Qualified. Fatal for the reviewer/verifier pair; plausible for the other four."
+      },
+      "premortem": [
+        {
+          "failure": "A merge-worthy defect ships in BalanceBolt that a tool-limited reviewer would have caught.",
+          "kind": "Intrinsic",
+          "likelihood": "M",
+          "consequence": "H",
+          "warning": "Reviews that include edits",
+          "mitigation": "None within B. Condition, not a variable."
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "name": "Split",
+      "status": "qualified",
+      "challenge": {
+        "for": "Keeps exactly what has evidence; matches the library's newest pattern (E9); cuts four files from the review queue.",
+        "against": "Without mc-planner's persisted spec the reviewer has nothing to review against and the pair converges (Ines); decides on usage data from one repo (A1).",
+        "verdict": "Survives, qualified. Manageable if the skill keeps 'persist a spec before build' as a hard step."
+      },
+      "premortem": [
+        {
+          "failure": "The skill drops the persisted spec under time pressure; the pair is briefed from cody's summary and rubber-stamps.",
+          "kind": "Execution",
+          "likelihood": "M",
+          "consequence": "M",
+          "warning": "Reviewer briefs with no spec path",
+          "mitigation": "Make 'spec on disk' a hard gate in the skill, and a check the reviewer runs"
+        },
+        {
+          "failure": "The pair is kept but never dispatched, and in three months faces the same rule again.",
+          "kind": "Intrinsic",
+          "likelihood": "M",
+          "consequence": "L",
+          "warning": "No pair samples by 2026-11-01",
+          "mitigation": "Retire test with a date"
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "name": "Test first",
+      "status": "condition",
+      "reason": "Too slow to decide by 2026-10-01; useful as a check. Folded into the counterfactual and the retire test.",
+      "challenge": {
+        "for": "Settles A1 with data, not argument; BalanceBolt now has tests, so the verifier can run (E11).",
+        "against": "Two days is too short; one run is a sample of one; it defers the call again.",
+        "verdict": "Retained as a condition, not a standalone option."
+      }
+    },
+    {
+      "id": "E",
+      "name": "Merge the overlap",
+      "status": "eliminated",
+      "reason": "Its only useful part (the implementer folds) is a subset of C.",
+      "challenge": {
+        "for": "Removes the one real overlap.",
+        "against": "Keeps five of six on the same 'might be useful' footing; merging dilutes the implementer's narrowness.",
+        "verdict": "Eliminated."
+      }
+    }
+  ],
+  "challenger": {
+    "mode": "embodied",
+    "blind": false,
+    "strongest_pick": "C"
+  },
+  "pick_gap_answer": "",
+  "council": {
+    "mode": "embodied",
+    "answers": [
+      {
+        "by": "main thread",
+        "role": "main",
+        "blind": false,
+        "strongest": "C",
+        "blind_spot": "B",
+        "missed": "None of the cases asks where the coding work actually runs."
+      }
+    ]
+  },
+  "bets": [
+    {
+      "by": "Strategist (for C)",
+      "role": "advocate",
+      "option": "C",
+      "confidence": 75
+    },
+    {
+      "by": "Challenger (B's case on the four)",
+      "role": "advocate",
+      "option": "B",
+      "confidence": 80
+    },
+    {
+      "by": "Stakeholder Proxy (for A)",
+      "role": "advocate",
+      "option": "A",
+      "confidence": 25
+    }
+  ],
+  "recommendation": {
+    "option": "C",
+    "confidence": "Reasoned",
+    "rationale": [
+      {
+        "claim": "C is the only option that follows the evidence per agent: it keeps the two tool-limited agents with a caught defect and folds the four with none into a skill.",
+        "grade": "Reasoned"
+      }
+    ]
+  },
+  "brief_text": "**Recommendation.** Split the coding pipeline. Keep `mc-reviewer` and `mc-verifier` as agents.\nFold the other four into a `multi-actor-coding` skill that runs in the main thread and dispatches\nthe pair.\n\n**Why this over the alternatives.** The six agents don't share one record. The reviewer and\nverifier caught a real defect that cody's own tests missed, and their tool limits (one can't run\ncode, the other can't edit) can't be copied into a skill. The other four have no run on record,\never. Keeping all six defers the call a fourth time. Retiring all six throws away the only\nevidence the pipeline has produced.\n\n**What to hold.**\n- **Confidence is Reasoned, not Supported.** Coding work happens in five other repos this run\n  couldn't see. If the pipeline has been running there, this is the wrong call.\n- **Condition 1:** the skill must write the spec to disk before building, and the reviewer must be\n  briefed with that path. Without it, the pair reviews cody's summary and stops being independent.\n- **Condition 2:** the pair faces the same test on 2026-11-01. No graded work sample by then, and\n  the question comes back.\n- **Undo:** the four move to `_retired/` with pointers. Reversal is one `mv`.\n\n**Would change the recommendation:** a complete `mc-orchestrator` register from any repo that\ncaught something cody plus the pair would have missed."
+}

@@ -59,12 +59,22 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `release-engineer` | CHANGELOG.md (current month) | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `security-auditor` | CHANGELOG.md (current month)×3 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `source-scout` | CHANGELOG.md (current month) | — |
+| `strategy-challenger` | CHANGELOG.md (current month) | — |
+| `strategy-juror` | CHANGELOG.md (current month) | — |
 | `ux-designer` | `CHANGELOG-ARCHIVE.md` | — |
 | `watchdog` | CHANGELOG.md (current month) | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×3 |
 
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-09-29 — strategy-challenger, strategy-juror (batch, 2 agents added) + `check_strategy.py`
+- Verdict: built for `multi-actor-strategy` phases 2–3 (`references/cpo-launch-brief.md`, Launch A). **Reduced independence: every role embodied by CPO, dispatch probe negative (no Agent/Task tool).** CPO drafted the agents and reviewed them. Definition-only, so Dimension 6 is not scorable.
+- Scores (both): 1 S · 2 A · 3 A · 4 S · 5 A · 6 not scorable · 7 S.
+- Changed: new `.claude/skills/multi-actor-strategy/scripts/check_strategy.py` and a test. The baseline JSON (`work-samples/multi-actor-strategy-2026-09-29-baseline.json`) passes, and one decoy per rule (R1–R8) fails on that rule alone. Disabling each rule turns only its own decoys red. Also wired into CI. New: the two agent files and `references/agent-workflow.md`. `SKILL.md` dispatches the agents at Stages 2–3, and runs as before, labelled embodied, when no Agent tool exists. Manifest and counts updated (20 → 22). Four High fixes applied: the challenger may not search or fetch the run, this library or earlier runs; jurors get no criteria; juror cases exclude the preference line and Handoff Notes, and rewrite cross-references to the juror's letters; the preference is recorded before dispatch.
+- Why: one context cannot attack its own preference or judge its own cases blind.
+- Expected effect: in phase 4, a challenger pick or a juror spread that differs from the preference.
+- Follow-up: MED applied: the `CPO.md` routing row. MED, proposed: remove juror Grep/Glob, since tool limits beat prose. LOW: the challenger's Eliminate verdict is advisory. Retire test in `agent-workflow.md`. Launch B next.
 
 ## 2026-09-29 — CPO, cos (routing tables, `research-to-ideas`)
 - Verdict: routing gap closed. The dispatch map v7 found that neither table named `research-to-ideas`, so a request reached it only through the session's skill listing.

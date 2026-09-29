@@ -1,6 +1,7 @@
 # CPO launch brief: agents behind multi-actor-strategy
 
 Ready-to-launch instructions for phases 2–6 of `agent-plan.md` (same folder). Phase 1 is done.
+Launch A (phases 2–3) was built on 2026-09-29; Launch B is next.
 
 ## How to launch
 
@@ -58,7 +59,7 @@ fresh session can run the comparison. Build nothing else.
   fixture for the script. Its recommendation is **not** an input to agent design.
 
 **Phase 2 — the script.** Route to `cody`.
-- Write a strategy checker in `scripts/`, with a test beside it, following `check_brief.py` in
+- Write a strategy checker at `.claude/skills/multi-actor-strategy/scripts/check_strategy.py`, with a test beside it, following `check_brief.py` in
   `research-to-ideas`. It reads a run as JSON and checks the rules in the plan's "What the script
   checks" list.
 - Include a JSON rendering of the baseline as a fixture. It followed the skill, so it should
@@ -114,14 +115,17 @@ two new agents dispatched. This is the comparison run.
    The session must be on a branch that holds Launch A's agents: its branch, or `main` after merge.
 2. **Inputs:** `work-samples/multi-actor-strategy-2026-09-29-inputs.md` and the skill. Nothing else
    in `work-samples/`.
-3. **Never open** `work-samples/multi-actor-strategy-2026-09-29-baseline.md`, and never pass its
-   path to an agent. If you see it by accident, say so in the output's first line.
+3. **Never open** `work-samples/multi-actor-strategy-2026-09-29-baseline.md`, or its JSON rendering
+   `work-samples/multi-actor-strategy-2026-09-29-baseline.json` (the checker's test fixture), and
+   never pass either path to an agent. Do not run `test_check_strategy.py`: it loads that
+   fixture. Run only `check_strategy.py` on your own run's JSON. If you see the baseline by
+   accident, say so in the output's first line.
 4. Dispatch `strategy-challenger` once at Stage 2, in the same turn as your Stakeholder Proxy work.
    Dispatch two or three `strategy-juror`s at Stage 3 in one message, each with the cases in a
    different order.
 5. Paste each agent's reply verbatim into the run, under its stage.
 6. Save to work-samples/multi-actor-strategy-2026-09-29-agents.md (new file). Render the run as JSON and
-   run the strategy checker on it. Fix every FAIL before saving.
+   run `.claude/skills/multi-actor-strategy/scripts/check_strategy.py` on it. Fix every FAIL before saving.
 7. Commit and push to the branch you were given. Do not read the baseline to compare. Launch C
    does that.
 
