@@ -2,8 +2,8 @@
 
 Status: **phases 2–3 built (2026-09-29).** Phase 1 done the same day. Phase 4 (Launch B) is next,
 from `cpo-launch-brief.md` in this folder. `SKILL.md` now points at `agent-workflow.md`, which
-points here. Visual map at repo root:
-`multi-actor-strategy-map.html` and `.png`.
+points here. Visual map:
+`multi-actor-strategy-map.html` at the repo root, and `workflows/multi-actor-strategy-map.png`.
 
 ## The question
 
