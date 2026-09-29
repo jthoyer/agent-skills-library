@@ -41,18 +41,18 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 | Agent | Latest entries in | Also in |
 |---|---|---|
-| `CPO` | CHANGELOG.md (current month)×9 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×4 |
+| `CPO` | CHANGELOG.md (current month)×10 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×4 |
 | `agent-improver` | CHANGELOG.md (current month)×3 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×5 |
 | `code-improver` | CHANGELOG.md (current month)×2 | `CHANGELOG-ARCHIVE.md`×4 |
 | `cluster-analyst` | CHANGELOG.md (current month) | — |
-| `cody` | CHANGELOG.md (current month)×3 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×8 |
+| `cody` | CHANGELOG.md (current month)×4 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×8 |
 | `cos` | CHANGELOG.md (current month) | — |
 | `evidence-auditor` | CHANGELOG.md (current month) | — |
 | `idea-challenger` | CHANGELOG.md (current month) | — |
 | `investigator` | CHANGELOG.md (current month) | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
-| `mc-implementer` | `changelog/2026-08.md`×2 | — |
+| `mc-implementer` (retired 2026-09-29, `.claude/skills/_retired/mc-implementer/`) | CHANGELOG.md (current month) | `changelog/2026-08.md`×2 |
 | `mc-integrator` | CHANGELOG.md (current month)×2 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
-| `mc-orchestrator` | CHANGELOG.md (current month) | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×5 |
+| `mc-orchestrator` | CHANGELOG.md (current month)×2 | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×5 |
 | `mc-planner` | `changelog/2026-08.md`×2 | `CHANGELOG-ARCHIVE.md`×5 |
 | `mc-reviewer` | CHANGELOG.md (current month) | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×4 |
 | `mc-verifier` | CHANGELOG.md (current month) | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×2 |
@@ -67,6 +67,39 @@ Counts are entries whose **heading names** the agent — which includes creation
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-09-29 — strategy-challenger
+- Verdict: Fit for run 2; step 7's fact-check now also covers claims taken from the inputs pack, where its worst error arose.
+- Scores: 1 S · 2 S · 3 S · 4 S · 5 A · 6 A · 7 S
+- Changed: Inlined the external-content rule and made "open only the paths the brief names" absolute (owner decision 1). Extended step 7 so figures cited from inputs rows must appear in that row or be marked derived. Removed the baseline-outcome sentence from "Why you exist".
+- Why: Lines 24 and 57 contradicted each other, so the agent skipped the rule file (`work-samples/multi-actor-strategy-2026-09-29-agents.md`:116). Its unsupported "20 commits in about a month" reached the final brief (`work-samples/multi-actor-strategy-2026-09-29-phase5-watchdog.md` §5.1).
+- Expected effect: Run 2's INPUTS READ names no skipped file, and no figure cited to an E-row is missing from that row.
+- Follow-up: Tools and model unchanged, on trial. Blind-pick mechanism still untested: pick matched preference (watchdog §4).
+- Work sample: the first dispatched run, above. Reviewer: `agent-improver`, dispatched from the top-level session (independent).
+
+## 2026-09-29 — strategy-juror
+- Verdict: Not fit as specified, because its Inputs asked for Stage 2 verdicts; cases now carry the stress-test's arguments only.
+- Scores: 1 S · 2 S · 3 S · 4 S · 5 W · 6 A · 7 A
+- Changed: Juror Inputs, "must not be given" list, `agent-workflow.md` juror brief and roles table, and `SKILL.md` Stage 3 now strip verdict labels (Eliminate/Qualify/Survives, dominated, baseline, amended, challenger's pick). Leaked verdicts now count as NOT BLIND. Also inlined the external-content rule and generalised "Why you exist", dropping a claim the run contradicted.
+- Why: The Sustain case arrived as "kept as the do-nothing baseline", and all three jurors bet 65% on the same option, downstream of the challenger (phase 5 verdict §2.4, §4).
+- Expected effect: Run 2 jurors report no verdict-label asymmetry. Spread or agreement then measures the cases, not the challenger.
+- Follow-up: Proposed a `check_strategy.py` R9 for verdict leaks (not applied). Retire test decides after run 2. The plan's juror row now lists "Stage 2 verdicts" under Never sees.
+- Work sample: same run, three juror replies. Reviewer: `agent-improver`, independent.
+
+## 2026-09-29 — library — portfolio (`mc-*` composition; `multi-actor-strategy` Launch C) — 4 agents materially changed (`cody`, `mc-implementer`, `mc-orchestrator`, `CPO`), cap 1,000 words
+- Verdict: the owner's yes ("Proceed with recommendations", 2026-09-29) adopts the agents run's `mc-*` recommendation, with the spec-on-disk condition restored. **Reduced independence: CPO embodied every step; the dispatch probe was negative (no Agent/Task tool).** The evidence is independent: the phase 4 agents run and `watchdog`'s phase 5 verdict were both dispatched (`work-samples/multi-actor-strategy-2026-09-29-agents.md`, `…-phase5-watchdog.md`).
+- Decision, `mc-*`:
+  1. **The 2026-10-01 rule is withdrawn.** It was never signed (`library-review-2026-09-11.md` Part 3, left as a record). A missing register in this repo can't separate "unused" from "used out of view" (E2, E3).
+  2. **`mc-implementer` is folded into `cody`** (E10). It is archived unmodified to `.claude/skills/_retired/mc-implementer/`, with `_superseded-by.md`. `cody.md` gains "Building to an approved spec": the spec, no more, no less; ambiguity stops the build; it never grades its own work. `mc-orchestrator` Stage 2 now dispatches `cody`. References are updated in `CPO`, `mc-planner`, `investigator`, `security-auditor` and `ux-designer`. Manifest and counts: 22 → 21.
+  3. **`mc-reviewer` and `mc-verifier` are kept, with a retire test due 2026-12-31:** at least 2 dispatches of the pair in sessions with the Agent tool, and at least 1 real finding the implementer's tests missed. Miss either and the pair folds into skill steps, dispatched as fresh read-only agents.
+  4. **`mc-orchestrator`, `mc-planner` and `mc-integrator` are kept until the owner's usage check, due 2026-10-08** (five consuming repos, use since 2026-09-10). Default with no result: retire all three to `_retired/`.
+  5. **The spec-on-disk condition is restored** (`watchdog` flagged its loss as a regression). "Persist before the next stage" already stood. Added: the Stage 2 and Stage 3 briefs carry the spec's absolute path.
+- Decision, Launch C: no retirements. Challenger and juror are kept for run 2 (their fixes are in `agent-improver`'s entry). `option-premortem` is not built. `check_strategy.py` caught nothing in either run (NOT MET); it stays, per the plan.
+- Rejected: retiring all six now (the baseline's call). It retires the only evidenced pair on absence alone.
+- Reversal: restore `mc-implementer` (one `mv`) if `cody` expands scope or grades itself in a pipeline run. Trio use found by 10-08 switches to a side-by-side run.
+- The agents run's factual errors ("20 commits in a month"; `mar-*` "came back") reached no live file.
+- Follow-up: an independent `agent-improver` pass on `cody`'s first spec-mode run. Dispatch maps v6/v7 still show `mc-implementer`; they are dated snapshots.
+- Next audit targets: `cody` — its spec-mode section is unexercised; `mc-orchestrator` — its Stage 2 dispatch to `cody` is untested.
 
 ## 2026-09-29 — strategy-challenger, strategy-juror (batch, 2 agents added) + `check_strategy.py`
 - Verdict: built for `multi-actor-strategy` phases 2–3 (`references/cpo-launch-brief.md`, Launch A). **Reduced independence: every role embodied by CPO, dispatch probe negative (no Agent/Task tool).** CPO drafted the agents and reviewed them. Definition-only, so Dimension 6 is not scorable.

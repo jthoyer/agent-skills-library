@@ -1,0 +1,110 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CPO Dispatch Map v8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one wide swimlane figure (one lane per role family), then reference tables. Source for workflows/dispatch-map-v8.png. */
+:root{--bg:#f5f6f7;--fg:#1b2126;--muted:#5b6670;--rule:#d5dade;--main-fill:#e6eaee;--main-line:#4a5560;
+--agent-fill:#dcebf2;--agent-line:#2b6f8f;--blind-fill:#f6e2d6;--blind-line:#b4491b;--script-fill:#e0eddf;--script-line:#3f7a48;--head:"Public Sans",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13171a;--fg:#e4e8eb;--muted:#9aa5ae;--rule:#2c343a;--main-fill:#252c32;--main-line:#8b98a3;--agent-fill:#17323f;--agent-line:#6db6d6;--blind-fill:#3d2417;--blind-line:#f08a5b;--script-fill:#1b3020;--script-line:#7cc487;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#13171a;--fg:#e4e8eb;--muted:#9aa5ae;--rule:#2c343a;--main-fill:#252c32;--main-line:#8b98a3;--agent-fill:#17323f;--agent-line:#6db6d6;--blind-fill:#3d2417;--blind-line:#f08a5b;--script-fill:#1b3020;--script-line:#7cc487;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--head);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:28px}
+main{max-width:1040px;margin:0 auto}
+h1{font-size:1.7rem;line-height:1.2;margin:0 0 6px;text-wrap:balance}
+h2{font-size:1.05rem;margin:36px 0 10px;text-wrap:balance}
+p.lede{color:var(--muted);max-width:65ch;margin:0 0 22px}
+a{color:var(--agent-line)}
+figure{margin:0}
+.scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;padding:8px}
+svg{display:block;min-width:760px;width:100%;height:auto;color:var(--fg)}
+figcaption{color:var(--muted);font-size:.9rem;margin-top:8px;max-width:75ch}
+svg .lane{font:600 9px var(--head);letter-spacing:.09em;fill:var(--muted);text-transform:uppercase}
+svg rect.main{fill:var(--main-fill);stroke:var(--main-line);stroke-width:1.2}
+svg rect.agent{fill:var(--agent-fill);stroke:var(--agent-line);stroke-width:1.4}
+svg rect.blind{fill:var(--blind-fill);stroke:var(--blind-line);stroke-width:2}
+svg rect.script,svg rect.cal{fill:var(--script-fill);stroke:var(--script-line);stroke-width:1.4}
+svg rect.dashed{stroke-dasharray:5 3}
+svg .mt{font:600 11.5px var(--head);fill:var(--fg)}
+svg .ms{font:400 10.5px var(--head);fill:var(--muted)}
+svg .an{font:700 9.5px var(--mono);fill:var(--fg)}
+svg .cn{font:700 11px var(--mono);fill:var(--fg)}
+svg .as{font:400 10px var(--head);fill:var(--fg)}
+svg .lg{font:400 11px var(--head);fill:var(--muted)}
+svg line{stroke:currentColor;stroke-width:1.3;fill:none}
+svg line.brief{stroke-dasharray:4 3;opacity:.75}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:640px}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--rule)}
+th{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.n{font-family:var(--mono);font-weight:500;white-space:nowrap}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:3px;border:1px solid var(--blind-line);color:var(--blind-line)}
+ul{padding-left:1.1rem;max-width:75ch}
+li{margin-bottom:6px}
+svg rect.opus{fill:var(--main-fill);stroke:var(--main-line);stroke-width:1.3}
+svg rect.hub{fill:var(--script-fill);stroke:var(--script-line);stroke-width:1.6}
+svg rect.skill{fill:none;stroke:var(--main-line);stroke-width:1.2;stroke-dasharray:5 3}
+svg rect.skillhub{fill:var(--script-fill);stroke:var(--script-line);stroke-width:1.6;stroke-dasharray:5 3}
+svg rect.trial{stroke-dasharray:2 3}
+svg rect.loop{fill:none;stroke:var(--script-line);stroke-width:1.4;stroke-dasharray:5 3}
+svg .lt{font:700 12px var(--head);fill:var(--fg)}
+svg .cap{font:400 9.5px var(--head);fill:var(--muted)}
+.tag.trial{border-color:var(--main-line);color:var(--muted)}
+td.nw{white-space:nowrap}
+</style></head>
+<body>
+<main>
+<h1>CPO Dispatch Map v8</h1>
+<p class="lede">Twenty-one agents. Two hubs, three lanes of work and eight single-pass specialists. A request enters CPO. CPO routes it to an agent, a pipeline or a skill, and grades the work after. COS sits above the library and routes into it.</p>
+
+<figure>
+<div class="scroll"><svg viewBox="0 96 1016 626" role="img" aria-label="Dispatch map: COS routes into CPO. Coding lane: mc-orchestrator, mc-planner, cody building to spec, the mc-reviewer and mc-verifier pair, mc-integrator. Research lane: research-to-ideas skill with four agents. Strategy lane: multi-actor-strategy skill with strategy-challenger and strategy-juror. Eight single-pass specialists and five skills." xmlns="http://www.w3.org/2000/svg"><defs><marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="currentColor"/></marker></defs><text x="0" y="0" class="lane" text-anchor="middle" transform="translate(30 144) rotate(-90)">HUBS</text><rect class="hub" x="64" y="116" width="300" height="56" rx="4"/><text class="an" x="214.0" y="141.0" text-anchor="middle">cos</text><text class="as" x="214.0" y="156.0" text-anchor="middle">opus · personal hub, above the library</text><rect class="hub" x="698" y="116" width="300" height="56" rx="4"/><text class="an" x="848.0" y="141.0" text-anchor="middle">CPO</text><text class="as" x="848.0" y="156.0" text-anchor="middle">opus · routes, owns which agents exist</text><line class="brief" x1="366" y1="144" x2="694" y2="144" marker-end="url(#ar)"/><text class="cap" x="530" y="136" text-anchor="middle">routes into</text><text x="0" y="0" class="lane" text-anchor="middle" transform="translate(30 250) rotate(-90)">CODING</text><rect class="hub trial" x="64.0" y="214" width="150" height="56" rx="4"/><text class="an" x="139.0" y="234.0" text-anchor="middle">mc-orchestrator</text><text class="as" x="139.0" y="248.0" text-anchor="middle">opus · dispatches</text><text class="as" x="139.0" y="260.0" text-anchor="middle">use check by 10-08</text><rect class="opus trial" x="260.5" y="214" width="150" height="56" rx="4"/><text class="an" x="335.5" y="234.0" text-anchor="middle">mc-planner</text><text class="as" x="335.5" y="248.0" text-anchor="middle">opus · spec on disk</text><text class="as" x="335.5" y="260.0" text-anchor="middle">use check by 10-08</text><rect class="agent" x="457.0" y="214" width="150" height="56" rx="4"/><text class="an" x="532.0" y="234.0" text-anchor="middle">cody</text><text class="as" x="532.0" y="248.0" text-anchor="middle">sonnet · builds to spec</text><text class="as" x="532.0" y="260.0" text-anchor="middle">took over mc-implementer</text><rect class="opus" x="653.5" y="206" width="150" height="34" rx="4"/><text class="an" x="728.5" y="220.0" text-anchor="middle">mc-reviewer</text><text class="as" x="728.5" y="235.0" text-anchor="middle">opus · reads</text><rect class="agent" x="653.5" y="246" width="150" height="34" rx="4"/><text class="an" x="728.5" y="260.0" text-anchor="middle">mc-verifier</text><text class="as" x="728.5" y="275.0" text-anchor="middle">sonnet · runs</text><text class="cap" x="728.5" y="294" text-anchor="middle">concurrent pair · retire test 12-31</text><rect class="opus trial" x="850.0" y="214" width="150" height="56" rx="4"/><text class="an" x="925.0" y="234.0" text-anchor="middle">mc-integrator</text><text class="as" x="925.0" y="248.0" text-anchor="middle">opus · merge gate</text><text class="as" x="925.0" y="260.0" text-anchor="middle">use check by 10-08</text><line x1="216.0" y1="242.0" x2="258.5" y2="242.0" marker-end="url(#ar)"/><line x1="412.5" y1="242.0" x2="455.0" y2="242.0" marker-end="url(#ar)"/><line x1="609.0" y1="242.0" x2="651.5" y2="242.0" marker-end="url(#ar)"/><line x1="805.5" y1="242.0" x2="848.0" y2="242.0" marker-end="url(#ar)"/><text x="0" y="0" class="lane" text-anchor="middle" transform="translate(30 344) rotate(-90)">RESEARCH</text><rect class="skillhub" x="64.0" y="316" width="150" height="56" rx="4"/><text class="an" x="139.0" y="341.0" text-anchor="middle">research-to-ideas</text><text class="as" x="139.0" y="356.0" text-anchor="middle">skill · main thread conducts</text><rect class="agent" x="260.5" y="316" width="150" height="56" rx="4"/><text class="an" x="335.5" y="341.0" text-anchor="middle">source-scout</text><text class="as" x="335.5" y="356.0" text-anchor="middle">sonnet · stage 0</text><rect class="agent" x="457.0" y="316" width="150" height="56" rx="4"/><text class="an" x="532.0" y="341.0" text-anchor="middle">cluster-analyst</text><text class="as" x="532.0" y="356.0" text-anchor="middle">sonnet · stages 1–3</text><rect class="blind" x="653.5" y="316" width="150" height="56" rx="4"/><text class="an" x="728.5" y="341.0" text-anchor="middle">evidence-auditor</text><text class="as" x="728.5" y="356.0" text-anchor="middle">opus · stage 4 · BLIND</text><rect class="blind" x="850.0" y="316" width="150" height="56" rx="4"/><text class="an" x="925.0" y="341.0" text-anchor="middle">idea-challenger</text><text class="as" x="925.0" y="356.0" text-anchor="middle">opus · stage 6 · BLIND</text><line class="brief" x1="216.0" y1="344" x2="258.5" y2="344" marker-end="url(#ar)"/><line x1="412.5" y1="344" x2="455.0" y2="344" marker-end="url(#ar)"/><line x1="609.0" y1="344" x2="651.5" y2="344" marker-end="url(#ar)"/><line x1="805.5" y1="344" x2="848.0" y2="344" marker-end="url(#ar)"/><text x="0" y="0" class="lane" text-anchor="middle" transform="translate(30 434) rotate(-90)">STRATEGY</text><rect class="skillhub" x="64.0" y="406" width="150" height="56" rx="4"/><text class="an" x="139.0" y="431.0" text-anchor="middle" style="font-size:8.8px">multi-actor-strategy</text><text class="as" x="139.0" y="446.0" text-anchor="middle">skill · main thread conducts</text><rect class="blind" x="260.5" y="406" width="150" height="56" rx="4"/><text class="an" x="335.5" y="426.0" text-anchor="middle" style="font-size:8.8px">strategy-challenger</text><text class="as" x="335.5" y="440.0" text-anchor="middle">opus · stage 2 · BLIND</text><text class="as" x="335.5" y="452.0" text-anchor="middle">on trial · run 2 pending</text><rect class="blind" x="457.0" y="406" width="150" height="56" rx="4"/><text class="an" x="532.0" y="426.0" text-anchor="middle">strategy-juror</text><text class="as" x="532.0" y="440.0" text-anchor="middle">opus · stage 3 · BLIND</text><text class="as" x="532.0" y="452.0" text-anchor="middle">×2–3 in parallel · on trial</text><line class="brief" x1="216.0" y1="434" x2="258.5" y2="434" marker-end="url(#ar)"/><line x1="412.5" y1="434" x2="455.0" y2="434" marker-end="url(#ar)"/><text class="cap" x="653.5" y="430">Main thread keeps framer, strategist, stakeholder proxy,</text><text class="cap" x="653.5" y="443">decision architect and PM. check_strategy.py runs each stage.</text><text x="0" y="0" class="lane" text-anchor="middle" transform="translate(30 522) rotate(-90)">SINGLE-PASS</text><rect class="agent" x="64.0" y="496" width="108" height="52" rx="4"/><text class="an" x="118.0" y="519.0" text-anchor="middle">cody</text><text class="as" x="118.0" y="534.0" text-anchor="middle">sonnet</text><rect class="agent" x="182.28571428571428" y="496" width="108" height="52" rx="4"/><text class="an" x="236.28571428571428" y="519.0" text-anchor="middle">ux-designer</text><text class="as" x="236.28571428571428" y="534.0" text-anchor="middle">sonnet</text><rect class="agent" x="300.57142857142856" y="496" width="108" height="52" rx="4"/><text class="an" x="354.57142857142856" y="519.0" text-anchor="middle">code-improver</text><text class="as" x="354.57142857142856" y="534.0" text-anchor="middle">sonnet</text><rect class="opus" x="418.8571428571429" y="496" width="108" height="52" rx="4"/><text class="an" x="472.8571428571429" y="519.0" text-anchor="middle">watchdog</text><text class="as" x="472.8571428571429" y="534.0" text-anchor="middle">opus</text><rect class="opus" x="537.1428571428571" y="496" width="108" height="52" rx="4"/><text class="an" x="591.1428571428571" y="519.0" text-anchor="middle">agent-improver</text><text class="as" x="591.1428571428571" y="534.0" text-anchor="middle">opus</text><rect class="opus" x="655.4285714285714" y="496" width="108" height="52" rx="4"/><text class="an" x="709.4285714285714" y="519.0" text-anchor="middle">investigator</text><text class="as" x="709.4285714285714" y="534.0" text-anchor="middle">opus</text><rect class="opus" x="773.7142857142858" y="496" width="108" height="52" rx="4"/><text class="an" x="827.7142857142858" y="519.0" text-anchor="middle" style="font-size:8.8px">security-auditor</text><text class="as" x="827.7142857142858" y="534.0" text-anchor="middle">opus</text><rect class="opus" x="892.0" y="496" width="108" height="52" rx="4"/><text class="an" x="946.0" y="519.0" text-anchor="middle" style="font-size:8.8px">release-engineer</text><text class="as" x="946.0" y="534.0" text-anchor="middle">opus</text><text x="0" y="0" class="lane" text-anchor="middle" transform="translate(30 598) rotate(-90)">SKILLS</text><rect class="skill" x="64.0" y="580" width="176.0" height="36" rx="4"/><text class="an" x="152.0" y="602.0" text-anchor="middle">multi-actor-research</text><rect class="skill" x="254.0" y="580" width="176.0" height="36" rx="4"/><text class="an" x="342.0" y="602.0" text-anchor="middle">red-team</text><rect class="skill" x="444.0" y="580" width="176.0" height="36" rx="4"/><text class="an" x="532.0" y="602.0" text-anchor="middle">first-principles</text><rect class="skill" x="634.0" y="580" width="176.0" height="36" rx="4"/><text class="an" x="722.0" y="602.0" text-anchor="middle" style="font-size:8.8px">scr-pyramid-communicator</text><rect class="skill" x="824.0" y="580" width="176.0" height="36" rx="4"/><text class="an" x="912.0" y="602.0" text-anchor="middle">security-review</text><text class="cap" x="64" y="632">Skills are loaded, not dispatched. CPO routes to them when the work is a method, not an executor.</text><rect class="loop" x="64" y="642" width="936" height="34" rx="4"/><text class="lt" x="532" y="663" text-anchor="middle">Close the loop: agent-improver grades the agent · watchdog grades the artifact · both write to CHANGELOG.md</text><rect class="agent" x="64" y="695" width="22" height="14" rx="2"/><text class="lg" x="92" y="706">sonnet</text><rect class="opus" x="150" y="695" width="22" height="14" rx="2"/><text class="lg" x="178" y="706">opus</text><rect class="blind" x="226" y="695" width="22" height="14" rx="2"/><text class="lg" x="254" y="706">blind by design</text><rect class="hub" x="352" y="695" width="22" height="14" rx="2"/><text class="lg" x="380" y="706">hub or conductor</text><rect class="opus trial" x="494" y="695" width="22" height="14" rx="2"/><text class="lg" x="522" y="706">dotted = dated usage check</text><rect class="skill" x="690" y="695" width="22" height="14" rx="2"/><text class="lg" x="718" y="706">dashed = skill, loaded not dispatched</text></svg></div>
+<figcaption>Each lane names the one thing its agents may not do: grade their own work. The tool lists enforce it. The reviewer cannot run code, the verifier cannot edit, and the blind agents never see the numbers or the preference they would be tempted to match.</figcaption>
+</figure>
+
+<h2>What each agent guarantees</h2>
+<div class="scroll"><table>
+<thead><tr><th>Agent</th><th>Lane</th><th>Model</th><th>What its tools and rules guarantee</th></tr></thead>
+<tbody>
+<tr><td class="n">cos</td><td>Personal hub</td><td>opus</td><td>Delegates, never builds. No portfolio authority</td></tr>
+<tr><td class="n">CPO</td><td>Library hub</td><td>opus</td><td>Owns which agents exist. Can dispatch</td></tr>
+<tr><td class="n">cody</td><td>Single-pass · coding</td><td>sonnet</td><td>Builds to an approved spec in the pipeline, no more, no less. Accessibility check and self-review every turn</td></tr>
+<tr><td class="n">ux-designer</td><td>Single-pass</td><td>sonnet</td><td>Mocks options, hands cody a spec. No Bash</td></tr>
+<tr><td class="n">code-improver</td><td>Single-pass</td><td>sonnet</td><td>Read, Grep, Glob only. Cannot edit</td></tr>
+<tr><td class="n">watchdog</td><td>Single-pass</td><td>opus</td><td>Finds duplication and errors across work</td></tr>
+<tr><td class="n">agent-improver</td><td>Single-pass</td><td>opus</td><td>Reviews the agent, not the artifact</td></tr>
+<tr><td class="n">investigator</td><td>Single-pass</td><td>opus</td><td>Runs code, cannot edit. No fix without a cause</td></tr>
+<tr><td class="n">security-auditor</td><td>Single-pass</td><td>opus</td><td>Reports only. Exploit scenario per finding</td></tr>
+<tr><td class="n">release-engineer</td><td>Single-pass</td><td>opus</td><td>Asks the user before any push or PR</td></tr>
+<tr><td class="n">mc-orchestrator <span class="tag trial">CHECK 10-08</span></td><td>Coding</td><td>opus</td><td>Can dispatch its own actors. Stage 2 waits for the spec on disk</td></tr>
+<tr><td class="n">mc-planner <span class="tag trial">CHECK 10-08</span></td><td>Coding</td><td>opus</td><td>No Edit or Bash. Red-teams its own spec, saves it, returns its path</td></tr>
+<tr><td class="n">mc-reviewer</td><td>Coding</td><td>opus</td><td>Read, Grep, Glob only. Never runs code. Briefed with the spec's path</td></tr>
+<tr><td class="n">mc-verifier</td><td>Coding</td><td>sonnet</td><td>No Edit or Write. Runs and reports. Briefed with the spec's path</td></tr>
+<tr><td class="n">mc-integrator <span class="tag trial">CHECK 10-08</span></td><td>Coding</td><td>opus</td><td>No Bash. Gates the merge</td></tr>
+<tr><td class="n">source-scout</td><td>Research</td><td>sonnet</td><td>Read-only, web-facing. Grades nothing</td></tr>
+<tr><td class="n">cluster-analyst</td><td>Research</td><td>sonnet</td><td>Read, Grep, Glob. Sees one cluster</td></tr>
+<tr><td class="n">evidence-auditor <span class="tag">BLIND</span></td><td>Research</td><td>opus</td><td>Never sees the draft grades</td></tr>
+<tr><td class="n">idea-challenger <span class="tag">BLIND</span></td><td>Research</td><td>opus</td><td>Never sees the score or rank</td></tr>
+<tr><td class="n">strategy-challenger <span class="tag">BLIND</span></td><td>Strategy</td><td>opus</td><td>Never told which option is preferred. Fact-checks every figure it cites</td></tr>
+<tr><td class="n">strategy-juror <span class="tag">BLIND</span></td><td>Strategy</td><td>opus</td><td>Anonymised cases, no verdicts, no criteria. Read-only, no web</td></tr>
+</tbody></table></div>
+
+<h2>Open dates</h2>
+<div class="scroll"><table>
+<thead><tr><th>Date</th><th>What</th><th>If nothing happens</th></tr></thead>
+<tbody>
+<tr><td class="nw">2026-10-08</td><td>Owner checks the five consuming repos for any use of <code>mc-orchestrator</code>, <code>mc-planner</code> or <code>mc-integrator</code> since 2026-09-10</td><td>All three retire to <code>_retired/</code>, undone with one move</td></tr>
+<tr><td class="nw">2026-12-31</td><td><code>mc-reviewer</code> and <code>mc-verifier</code>: two dispatches with the Agent tool, and one real finding the implementer's tests missed</td><td>Their rules fold into skill steps, dispatched as fresh read-only agents</td></tr>
+<tr><td class="nw">Run 2</td><td><code>strategy-challenger</code> and <code>strategy-juror</code> on a new real decision the owner names</td><td>Both stay on trial</td></tr>
+</tbody></table></div>
+
+<h2>What changed since v7</h2>
+<ul>
+<li><strong>A strategy lane.</strong> <code>strategy-challenger</code> and <code>strategy-juror</code> joined on 2026-09-29, blind, behind the <code>multi-actor-strategy</code> skill. After run 1 both stay on trial, and juror cases no longer carry the challenger's verdicts.</li>
+<li><strong><code>mc-implementer</code> folded into <code>cody</code>.</strong> <code>cody</code> now builds to the spec in the coding pipeline. The old file is archived unmodified in <code>.claude/skills/_retired/</code>.</li>
+<li><strong>The 2026-10-01 rule is withdrawn.</strong> A missing register in this repo cannot tell "unused" from "used where this repo can't see". A dated usage check replaces it.</li>
+<li><strong>The spec goes on disk before the build.</strong> <code>mc-orchestrator</code> Stage 2 waits for it, and the reviewer and verifier briefs carry its path.</li>
+<li><strong>Counts:</strong> 21 agents, 15 opus and 6 sonnet. <code>multi-actor-strategy</code> moved from the skills row to its own lane.</li>
+</ul>
+<p class="lede" style="margin-top:18px">The long-form v7 page (<code>dispatch-map-v7.html</code>) keeps the full routing tables and the library's history. This page is the one-page view.</p>
+</main>
+</body>
+</html>
