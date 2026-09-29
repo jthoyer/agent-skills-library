@@ -1,7 +1,7 @@
 # Plan: agents behind multi-actor-strategy
 
-Status: **proposal, not adopted.** Nothing in `SKILL.md` points here yet. Adopt it by working
-through the phases below in order.
+Status: **phase 1 done (2026-09-29). Phases 2–6 ready to launch** from `cpo-launch-brief.md`
+in this folder. Nothing in `SKILL.md` points here yet.
 
 ## The question
 
@@ -101,8 +101,10 @@ pass dispatches no agents. Nothing changes there.
 
 ## Phases
 
-1. **Baseline (one session).** Run the skill as it stands on one real, current decision. Save
-   the full output to `work-samples/`. Without this, no later run can show a gain.
+1. **Baseline (done 2026-09-29).** The skill as it stands, run on the `mc-*` composition
+   decision due 2026-10-01. Inputs frozen in `work-samples/multi-actor-strategy-2026-09-29-inputs.md`;
+   the run is in `work-samples/multi-actor-strategy-2026-09-29-baseline.md`, with a table of
+   what one context did at each step this plan targets.
 2. **Script first (half a day).** Write check_strategy.py (proposed) and its test, and add both to
    `.github/workflows/checks.yml`. The script improves embodied runs too, so it pays off
    even if the agents never do.
@@ -112,8 +114,8 @@ pass dispatches no agents. Nothing changes there.
    contract (objective, absolute input paths, what the agent must not see, output format,
    budget). Update `SKILL.md` Stages 2 and 3 to dispatch them. Run
    `scripts/check-frontmatter.sh` and `scripts/sync-plugin-manifest.sh --check`.
-4. **Re-run the baseline decision** with the agents, in a session with the Agent tool. Save it
-   beside the baseline.
+4. **Re-run the baseline decision** with the agents, in a fresh session with the Agent tool.
+   Give it the inputs file only, never the baseline output. Save it beside the baseline.
 5. **Build `option-premortem` only if phase 4 earns it.** It is the weak case: the main thread
    has the same tools, and only parallelism and blindness set it apart. First check whether
    `idea-challenger` could be widened to cover it. Two agents doing near-identical pre-mortems is
