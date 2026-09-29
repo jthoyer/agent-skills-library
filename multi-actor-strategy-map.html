@@ -1,0 +1,89 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Strategy Agents Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one wide swimlane figure (agents above, conductor middle, checks below), then reference tables. */
+:root{--bg:#f5f6f7;--fg:#1b2126;--muted:#5b6670;--rule:#d5dade;--main-fill:#e6eaee;--main-line:#4a5560;
+--agent-fill:#dcebf2;--agent-line:#2b6f8f;--blind-fill:#f6e2d6;--blind-line:#b4491b;--script-fill:#e0eddf;--script-line:#3f7a48;--head:"Public Sans",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13171a;--fg:#e4e8eb;--muted:#9aa5ae;--rule:#2c343a;--main-fill:#252c32;--main-line:#8b98a3;--agent-fill:#17323f;--agent-line:#6db6d6;--blind-fill:#3d2417;--blind-line:#f08a5b;--script-fill:#1b3020;--script-line:#7cc487;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#13171a;--fg:#e4e8eb;--muted:#9aa5ae;--rule:#2c343a;--main-fill:#252c32;--main-line:#8b98a3;--agent-fill:#17323f;--agent-line:#6db6d6;--blind-fill:#3d2417;--blind-line:#f08a5b;--script-fill:#1b3020;--script-line:#7cc487;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--head);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:28px}
+main{max-width:1040px;margin:0 auto}
+h1{font-size:1.7rem;line-height:1.2;margin:0 0 6px;text-wrap:balance}
+h2{font-size:1.05rem;margin:36px 0 10px;text-wrap:balance}
+p.lede{color:var(--muted);max-width:65ch;margin:0 0 22px}
+a{color:var(--agent-line)}
+figure{margin:0}
+.scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;padding:8px}
+svg{display:block;min-width:760px;width:100%;height:auto;color:var(--fg)}
+figcaption{color:var(--muted);font-size:.9rem;margin-top:8px;max-width:75ch}
+svg .lane{font:600 9px var(--head);letter-spacing:.09em;fill:var(--muted);text-transform:uppercase}
+svg rect.main{fill:var(--main-fill);stroke:var(--main-line);stroke-width:1.2}
+svg rect.agent{fill:var(--agent-fill);stroke:var(--agent-line);stroke-width:1.4}
+svg rect.blind{fill:var(--blind-fill);stroke:var(--blind-line);stroke-width:2}
+svg rect.script,svg rect.cal{fill:var(--script-fill);stroke:var(--script-line);stroke-width:1.4}
+svg rect.dashed{stroke-dasharray:5 3}
+svg .mt{font:600 11.5px var(--head);fill:var(--fg)}
+svg .ms{font:400 10.5px var(--head);fill:var(--muted)}
+svg .an{font:700 9.5px var(--mono);fill:var(--fg)}
+svg .cn{font:700 11px var(--mono);fill:var(--fg)}
+svg .as{font:400 10px var(--head);fill:var(--fg)}
+svg .lg{font:400 11px var(--head);fill:var(--muted)}
+svg line{stroke:currentColor;stroke-width:1.3;fill:none}
+svg line.brief{stroke-dasharray:4 3;opacity:.75}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:640px}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--rule)}
+th{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.n{font-family:var(--mono);font-weight:500;white-space:nowrap}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:3px;border:1px solid var(--blind-line);color:var(--blind-line)}
+ul{padding-left:1.1rem;max-width:75ch}
+li{margin-bottom:6px}
+.tag.prop{border-color:var(--agent-line);color:var(--agent-line)}
+td.st,td.nw{white-space:nowrap}
+</style></head>
+<body>
+<main>
+<h1>Multi-Actor Strategy: agents and workflow</h1>
+<p class="lede">Proposed design, not yet built. The main thread runs the four stages and makes every call. It keeps the Problem Framer, Strategist, Stakeholder Proxy, Decision Architect and Project Manager. Agents attach only where one context breaks the skill's own blindness promises. Fast passes skip them.</p>
+
+<figure>
+<div class="scroll"><svg viewBox="0 104 1008 416" role="img" aria-label="Workflow: the main thread runs eight steps across four stages. The strategy-challenger attaches at stage 2, strategy-jurors at the stage 3 council and trade-off, an optional option-premortem at the stage 3 pre-mortem, and the check script at options, stakeholders, trade-off and brief." xmlns="http://www.w3.org/2000/svg"><defs><marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="currentColor"/></marker></defs><text x="0" y="0" class="lane" text-anchor="middle" transform="translate(16 160) rotate(-90)">AGENTS</text><text x="0" y="0" class="lane" text-anchor="middle" transform="translate(16 306) rotate(-90)">MAIN THREAD</text><text x="0" y="0" class="lane" text-anchor="middle" transform="translate(16 433) rotate(-90)">CHECKS</text><rect class="main" x="44" y="280" width="108" height="52" rx="4"/><text class="mt" x="98.0" y="301" text-anchor="middle">1 Frame</text><text class="ms" x="98.0" y="318" text-anchor="middle">the real question</text><rect class="main" x="162" y="280" width="108" height="52" rx="4"/><text class="mt" x="216.0" y="301" text-anchor="middle">1 Options</text><text class="ms" x="216.0" y="318" text-anchor="middle">3+, incl. sustain</text><rect class="main" x="280" y="280" width="108" height="52" rx="4"/><text class="mt" x="334.0" y="301" text-anchor="middle">2 Challenge</text><text class="ms" x="334.0" y="318" text-anchor="middle">+ expert cameos</text><rect class="main" x="398" y="280" width="108" height="52" rx="4"/><text class="mt" x="452.0" y="301" text-anchor="middle">2 Stakeholders</text><text class="ms" x="452.0" y="318" text-anchor="middle">response map</text><rect class="main" x="516" y="280" width="108" height="52" rx="4"/><text class="mt" x="570.0" y="301" text-anchor="middle">3 Pre-mortem</text><text class="ms" x="570.0" y="318" text-anchor="middle">per option</text><rect class="main" x="634" y="280" width="108" height="52" rx="4"/><text class="mt" x="688.0" y="301" text-anchor="middle">3 Council</text><text class="ms" x="688.0" y="318" text-anchor="middle">blind check</text><rect class="main" x="752" y="280" width="108" height="52" rx="4"/><text class="mt" x="806.0" y="301" text-anchor="middle">3 Trade-off</text><text class="ms" x="806.0" y="318" text-anchor="middle">criteria, bets</text><rect class="main" x="870" y="280" width="108" height="52" rx="4"/><text class="mt" x="924.0" y="301" text-anchor="middle">4 Brief</text><text class="ms" x="924.0" y="318" text-anchor="middle">PM sign-off</text><rect class="blind" x="280" y="128" width="108" height="64" rx="4"/><text class="an" x="334.0" y="150" text-anchor="middle" style="font-size:8.4px">strategy-challenger</text><text class="as" x="334.0" y="167" text-anchor="middle">BLIND: never told</text><text class="as" x="334.0" y="181" text-anchor="middle">which is preferred</text><line class="brief" x1="325.0" y1="192" x2="325.0" y2="278" marker-end="url(#ar)"/><line class="ret" x1="343.0" y1="280" x2="343.0" y2="194" marker-end="url(#ar)"/><rect class="agent dashed" x="516" y="128" width="108" height="64" rx="4"/><text class="an" x="570.0" y="150" text-anchor="middle">option-premortem</text><text class="as" x="570.0" y="167" text-anchor="middle">if earned: 1 per</text><text class="as" x="570.0" y="181" text-anchor="middle">option · parallel</text><line class="brief" x1="561.0" y1="192" x2="561.0" y2="278" marker-end="url(#ar)"/><line class="ret" x1="579.0" y1="280" x2="579.0" y2="194" marker-end="url(#ar)"/><rect class="blind" x="634" y="128" width="226" height="64" rx="4"/><text class="an" x="747.0" y="150" text-anchor="middle">strategy-juror</text><text class="as" x="747.0" y="167" text-anchor="middle">2–3 in parallel · BLIND: anonymised,</text><text class="as" x="747.0" y="181" text-anchor="middle">shuffled cases · council answers, bets</text><line class="brief" x1="679.0" y1="192" x2="679.0" y2="278" marker-end="url(#ar)"/><line class="ret" x1="697.0" y1="280" x2="697.0" y2="194" marker-end="url(#ar)"/><line class="brief" x1="797.0" y1="192" x2="797.0" y2="278" marker-end="url(#ar)"/><line class="ret" x1="815.0" y1="280" x2="815.0" y2="194" marker-end="url(#ar)"/><rect class="script" x="162" y="408" width="108" height="50" rx="4"/><text class="cn" x="216.0" y="428" text-anchor="middle">check_strategy</text><text class="as" x="216.0" y="442" text-anchor="middle">3+ options,</text><text class="as" x="216.0" y="453" text-anchor="middle">sustain included</text><line class="brief" x1="207.0" y1="332" x2="207.0" y2="406" marker-end="url(#ar)"/><line class="ret" x1="225.0" y1="408" x2="225.0" y2="334" marker-end="url(#ar)"/><rect class="script" x="398" y="408" width="108" height="50" rx="4"/><text class="cn" x="452.0" y="428" text-anchor="middle">check_strategy</text><text class="as" x="452.0" y="442" text-anchor="middle">every option</text><text class="as" x="452.0" y="453" text-anchor="middle">challenged</text><line class="brief" x1="443.0" y1="332" x2="443.0" y2="406" marker-end="url(#ar)"/><line class="ret" x1="461.0" y1="408" x2="461.0" y2="334" marker-end="url(#ar)"/><rect class="script" x="752" y="408" width="108" height="50" rx="4"/><text class="cn" x="806.0" y="428" text-anchor="middle">check_strategy</text><text class="as" x="806.0" y="442" text-anchor="middle">bets recorded,</text><text class="as" x="806.0" y="453" text-anchor="middle">pick gap answered</text><line class="brief" x1="797.0" y1="332" x2="797.0" y2="406" marker-end="url(#ar)"/><line class="ret" x1="815.0" y1="408" x2="815.0" y2="334" marker-end="url(#ar)"/><rect class="script" x="870" y="408" width="108" height="50" rx="4"/><text class="cn" x="924.0" y="428" text-anchor="middle">check_strategy</text><text class="as" x="924.0" y="442" text-anchor="middle">no Assumed,</text><text class="as" x="924.0" y="453" text-anchor="middle">embodied wording</text><line class="brief" x1="915.0" y1="332" x2="915.0" y2="406" marker-end="url(#ar)"/><line class="ret" x1="933.0" y1="408" x2="933.0" y2="334" marker-end="url(#ar)"/><line class="brief" x1="44" y1="500" x2="86" y2="500" marker-end="url(#ar)"/><text class="lg" x="92" y="504">brief sent</text><line class="ret" x1="184" y1="500" x2="226" y2="500" marker-end="url(#ar)"/><text class="lg" x="232" y="504">result returned (PASS or FAIL for checks)</text><rect class="blind" x="494" y="492" width="22" height="14" rx="2"/><text class="lg" x="522" y="504">blind by design</text><rect class="agent dashed" x="654" y="492" width="22" height="14" rx="2"/><text class="lg" x="682" y="504">only if phase 4 earns it</text></svg></div>
+<figcaption>Agents sit above the step they serve. Orange outlines mark the two blind agents: the challenger is never told which option is preferred, and each juror sees only anonymised, shuffled cases. The challenger runs in the same turn as the stakeholder map. Jurors answer the council questions and place the conviction bets blind.</figcaption>
+</figure>
+
+<h2>Who sees what</h2>
+<div class="scroll"><table>
+<thead><tr><th>Agent</th><th>Stage</th><th>Sees</th><th>Never sees</th><th>Model</th></tr></thead>
+<tbody>
+<tr><td class="n">strategy-challenger <span class="tag">BLIND</span></td><td>2</td><td>The question, constraints and options longlist, in shuffled order</td><td>Which option the main thread prefers</td><td>opus</td></tr>
+<tr><td class="n">strategy-juror <span class="tag">BLIND</span></td><td>3</td><td>Anonymised cases A, B, C, in a different order per juror</td><td>Actor names, the preference, other jurors' answers</td><td>opus</td></tr>
+<tr><td class="n">option-premortem <span class="tag prop">IF EARNED</span></td><td>3</td><td>One option, its challenge log, its stakeholder rows</td><td>Other options, the preference</td><td>sonnet</td></tr>
+<tr><td class="n">watchdog</td><td>Rollout</td><td>The baseline run and the agent run, on the same inputs</td><td>n/a</td><td>opus</td></tr>
+</tbody></table></div>
+
+<h2>What each piece fixes</h2>
+<ul>
+<li><strong>Challenger:</strong> the author of the preference no longer attacks it. The challenger picks the strongest option itself and attacks that one. If its pick differs from the preference, the recommendation must answer in writing.</li>
+<li><strong>Jurors:</strong> relabelling to A, B, C now hides something. In the baseline run the author knew every letter on sight, and its pick matched the preference.</li>
+<li><strong>Bets:</strong> jurors bet blind, so the bets can disagree. The baseline's three bets came from one mind and none disagreed.</li>
+<li><strong>Pre-mortem:</strong> built only if the re-run shows the risk step was the weakest. First check whether widening <code>idea-challenger</code> covers it.</li>
+<li><strong>check_strategy.py:</strong> three or more options, every option challenged, bets recorded, the pick gap answered, no Assumed rationale at Stage 4, and no "blind" claim on an embodied run. Each rule has a decoy that must fail in CI.</li>
+</ul>
+
+<h2>Rollout</h2>
+<div class="scroll"><table>
+<thead><tr><th>Phase</th><th>What</th><th>Who</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td class="st">1 Baseline</td><td>The skill as it stands, on the <code>mc-*</code> composition decision. Inputs frozen separately</td><td>Main thread</td><td class="nw">Done, 2026-09-29</td></tr>
+<tr><td class="st">2 Script</td><td>check_strategy.py, tests and decoys, wired into CI</td><td>Launch A: CPO → cody, mc-verifier</td><td>Ready</td></tr>
+<tr><td class="st">3 Agents</td><td>strategy-challenger and strategy-juror, and the skill's dispatch steps</td><td>Launch A: CPO → agent-improver</td><td>Ready</td></tr>
+<tr><td class="st">4 Re-run</td><td>Same inputs, agents dispatched, baseline never opened</td><td>Launch B: fresh session</td><td>After A</td></tr>
+<tr><td class="st">5 Judge</td><td>Baseline vs re-run; keep or retire each agent</td><td>Launch C: watchdog, then the owner</td><td>After B</td></tr>
+<tr><td class="st">6 Close</td><td>Review each kept agent on its work sample; ledger entry</td><td>Launch C: agent-improver</td><td>After C</td></tr>
+</tbody></table></div>
+
+<p class="lede" style="margin-top:18px">No agent tool in the session? Each role runs inline and the run is labelled embodied: "stress-tested by author", never "blind", and the script enforces the wording. Every agent has a retire test: after two real runs, if the main thread would have produced the same output, fold its rule back into the skill.</p>
+</main>
+</body>
+</html>
