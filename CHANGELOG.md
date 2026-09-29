@@ -68,6 +68,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-29 — library — portfolio (`mc-*` usage check closed: owner keeps all three)
+- Decision: **keep `mc-orchestrator`, `mc-planner` and `mc-integrator`**, owner's call on the usage-check result. The 2026-10-08 retirement default is cancelled, with no replacement date.
+- Evidence: no use since 2026-09-10 in BalanceBolt, BalanceTRI-app, CLACFridays or tri-momentum (git history, every branch, no pipeline artefacts), nor in 85 cloud sessions. The agents were present in every repo but not used. Produced by the main session, not CPO; read-only. Gaps: no "personal" repo on GitHub, local sessions unseen, session titles and summaries only. Full record: `work-samples/mc-usage-check-2026-09-29.md`.
+- Against it: the evidence favoured the default (retire). The owner kept them anyway, which is the owner's right; recorded so a later audit does not read "kept" as "used".
+- Unchanged: the `mc-reviewer` + `mc-verifier` retire test (2026-12-31) and `strategy-*` run 2.
+- Changed: `CPO.md` open composition items; dispatch map v8 (trial markers and the 10-08 row removed, PNG regenerated).
+
 ## 2026-09-29 — strategy-challenger
 - Verdict: Fit for run 2; step 7's fact-check now also covers claims taken from the inputs pack, where its worst error arose.
 - Scores: 1 S · 2 S · 3 S · 4 S · 5 A · 6 A · 7 S
