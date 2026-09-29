@@ -1,0 +1,207 @@
+{
+ "stage": 4,
+ "embodied": false,
+ "preference": "C",
+ "options": [
+  {
+   "id": "A",
+   "name": "Sustain: keep all six, let the rule lapse",
+   "sustain": true,
+   "status": "qualified",
+   "reason": "",
+   "challenge": {
+    "for": "Costs nothing now; respects unknown use elsewhere (E3) and the unsigned rule (E13).",
+    "against": "Not cheap: 276 lines, 20 commits in a month (E1); proven duplicate splits routing (E10); no trigger, repeats the 09-11 deferral.",
+    "verdict": "Qualify: collapses into E; retained only as the baseline."
+   },
+   "premortem": [
+    {
+     "failure": "Question rolls into a fourth review; six keep drawing edits; routing split with cody",
+     "warning": "another deferral",
+     "mitigation": "none inside A"
+    },
+    {
+     "failure": "Bug ships because the pair sits unused",
+     "warning": "no pair dispatch in ledger",
+     "mitigation": "CPO step 4 names the pair"
+    }
+   ]
+  },
+  {
+   "id": "B",
+   "name": "Apply the rule: retire all six to a skill",
+   "status": "eliminated",
+   "reason": "Challenge fatal: retires the only agents with positive evidence (E5, E6), on an absence confounded by E3/E4, and the mar-* precedent it cites later re-added agents on exactly the pair's grounds (E9). PM decision 2026-09-29.",
+   "challenge": {
+    "for": "Matches the mar-* precedent (E9) and 'Shrink and stabilise' (E12).",
+    "against": "Retires the only evidenced pair (E5, E6); three weeks is roughly all of the pipeline's synced life (E4); use elsewhere unknown (E3); its own precedent re-added tool-bounded agents (E9); rule unsigned (E13).",
+    "verdict": "Eliminate: discards the one evidenced asset."
+   }
+  },
+  {
+   "id": "C",
+   "name": "Keep the tool-bounded pair, retire the conductor",
+   "status": "qualified",
+   "reason": "",
+   "challenge": {
+    "for": "Every keep/retire call cites evidence: pair E5/E6, fold E10, skill-conductor pattern E9; six to two; reversible; does not need the unsigned rule.",
+    "against": "Retires the trio on the same absence (E2) confounded by E3/E4; the 'cannot fan out' belief (E7) is untested and current docs say nesting is on by default; pair evidence is n=1; skill conductor needs the Agent tool, absent in 3 of 6 sampled sessions (E8).",
+    "verdict": "Survives, qualified: keep pair + fold implementer now; retire the trio only after the five-repo usage check comes back empty; dated retire test on the pair."
+   },
+   "premortem": [
+    {
+     "failure": "Usage check never runs; change stalls half-done",
+     "warning": "no result a week after the yes",
+     "mitigation": "dated default: inconclusive = empty, retire reversibly"
+    },
+    {
+     "failure": "Shallow check misses real use",
+     "warning": "product session reports a missing agent",
+     "mitigation": "_retired/ restore in minutes"
+    },
+    {
+     "failure": "Pair unreachable without Agent tool; retired on unavailability",
+     "warning": "retire window passes with no dispatch",
+     "mitigation": "count only sessions with dispatch"
+    },
+    {
+     "failure": "Nested dispatch works; trio was the better conductor",
+     "warning": "a successful pipeline rerun",
+     "mitigation": "reversible; D-prime can run later"
+    }
+   ]
+  },
+  {
+   "id": "D",
+   "name": "Replace the rule with one real run, decide by 2026-10-31",
+   "status": "qualified",
+   "reason": "",
+   "challenge": {
+    "for": "Possible now: BalanceBolt tests (E11), Agent tool present (E8); turns absence into evidence.",
+    "against": "n=1 owner-chosen demo; no pass/fail bar set in advance, so it can always end in 'keep'; holds the E10 fold hostage; spends a month against the shrink mandate.",
+    "verdict": "Qualify: fold implementer now; set pass/fail bar before the run, including a head-to-head against skill-conducted dispatch; trio retires by default if the run misses 10-31."
+   },
+   "premortem": [
+    {
+     "failure": "No task arrives; default retire fires a month late",
+     "warning": "no task by 10-08",
+     "mitigation": "accept the default"
+    },
+    {
+     "failure": "Pass read loosely; five stay on n=1",
+     "warning": "pass declared without head-to-head",
+     "mitigation": "bar signed before the run"
+    },
+    {
+     "failure": "Run eats owner attention meant for product work",
+     "warning": "task slips twice",
+     "mitigation": "use a backlog task"
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "name": "Minimal cut: fold mc-implementer into cody only",
+   "status": "condition",
+   "reason": "Folded into D-prime and C-prime: the implementer fold becomes their shared first step; E alone has no trigger (challenger verdict). PM decision 2026-09-29.",
+   "challenge": {
+    "for": "Removes the only proven duplicate (E10) at near-zero risk.",
+    "against": "No trigger and no date; defers the central question a second time; lets the rule lapse without a replacement.",
+    "verdict": "Qualify: E plus a dated decision and named test, which is qualified D."
+   }
+  }
+ ],
+ "challenger": {
+  "mode": "dispatched",
+  "blind": true,
+  "strongest_pick": "C"
+ },
+ "bets": [
+  {
+   "by": "juror-1",
+   "role": "juror",
+   "option": "C",
+   "confidence": 65
+  },
+  {
+   "by": "juror-2",
+   "role": "juror",
+   "option": "C",
+   "confidence": 65
+  },
+  {
+   "by": "juror-3",
+   "role": "juror",
+   "option": "C",
+   "confidence": 65
+  },
+  {
+   "by": "main thread",
+   "role": "main",
+   "option": "C",
+   "confidence": 70,
+   "placed": "before juror replies arrived"
+  }
+ ],
+ "council": {
+  "mode": "dispatched",
+  "answers": [
+   {
+    "by": "juror-1",
+    "role": "juror",
+    "blind": true,
+    "strongest": "C",
+    "blind_spot": "A",
+    "missed": "rule never settled; usage check feasibility; short window since sync"
+   },
+   {
+    "by": "juror-2",
+    "role": "juror",
+    "blind": true,
+    "strongest": "C",
+    "blind_spot": "A",
+    "missed": "rule never settled; no keep-bar for the pair; usage check feasibility; dispatch availability"
+   },
+   {
+    "by": "juror-3",
+    "role": "juror",
+    "blind": true,
+    "strongest": "C",
+    "blind_spot": "D",
+    "missed": "rule never settled; usage check feasibility; no keep-bar for the pair; outside doc evidence"
+   }
+  ]
+ },
+ "pick_gap_answer": "",
+ "recommendation": {
+  "option": "C",
+  "confidence": "Reasoned",
+  "rationale": [
+   {
+    "claim": "Keep reviewer+verifier: tool limits and one caught defect outside the pipeline (E5, E6)",
+    "grade": "Supported"
+   },
+   {
+    "claim": "Fold mc-implementer into cody: proven overlap (E10)",
+    "grade": "Supported"
+   },
+   {
+    "claim": "Retire the trio only after a dated usage check, reversible default: absence confounded by E3/E4",
+    "grade": "Reasoned"
+   },
+   {
+    "claim": "Withdraw the unsigned 10-01 rule (E13); it would retire the evidenced pair",
+    "grade": "Reasoned"
+   },
+   {
+    "claim": "Fits 'Shrink and stabilise' (E12; mandate file unseen)",
+    "grade": "Reasoned"
+   },
+   {
+    "claim": "Pair value generalises beyond one run: tested by the 12-31 bar, not assumed",
+    "grade": "Reasoned"
+   }
+  ]
+ },
+ "brief_text": "## Decision brief \u2014 the six `mc-*` coding agents\n\n**For:** Justin, library owner. **Decide on or just after:** 2026-10-01. **Confidence:** Reasoned.\n\n### Recommendation\n\nKeep two, fold one, retire three behind a dated check. Withdraw the 2026-10-01 rule.\n\n1. **Don't sign the 10-01 rule.** It would decide on an absence this repo can't interpret, and taken as written it would also retire the one pair that has shown value.\n2. **Now:** fold `mc-implementer` into `cody`. Their jobs overlap (E10). Keep `mc-reviewer` and `mc-verifier`.\n3. **By 2026-10-08:** check session history and git logs in your five product repos for any use of `mc-orchestrator`, `mc-planner` or `mc-integrator` since 2026-09-10.\n   - **Found:** keep them, and run one real BalanceBolt task through the pipeline and through the skill, side by side, before deciding.\n   - **Empty, or you can't tell:** retire them to `_retired/` with a pointer. The coding playbook skill conducts from the top level. This takes minutes to undo.\n4. **By 2026-12-31:** the pair must have run at least twice in sessions with the Agent tool and caught at least one real defect the implementer's own tests missed. If not, fold them into skill steps too.\n\nSix agents become two, plus `cody`.\n\n### Why this over the alternatives\n\n- **It keeps what the evidence supports.** The reviewer and verifier caught a real defect that cody's 62-assertion suite missed (E5). Their tool limits are why they survived the August cull (E6).\n- **It doesn't treat \"we can't see it\" as \"it isn't there\".** 22 of 26 sessions ran in repos this one can't see (E3), and the agents only synced there from 2026-09-10 (E4). So the trio retires after a look, not on silence.\n- **It lands.** The 2026-09-11 review already deferred this question. The gate is nine days away, and its default fires on its own.\n\n| Considered | Why not |\n|---|---|\n| Apply the rule, retire all six | Retires the only evidenced pair. The `mar-*` precedent it leans on later brought back agents on exactly the pair's grounds (E9). Eliminated. |\n| One real pipeline run, decide by 10-31 | One curated task shows the pipeline *can* work, not that anyone uses it. It costs a month and your attention in a product repo. It becomes the route if the usage check finds real use. |\n| Keep all six | Not cheap: 276 lines and 20 commits in a month (E1), and routing split with `cody`. No trigger, so it defers again. |\n| Fold the implementer only | Folded into step 2 above. On its own it has no date and no test. |\n\n### Conditions and risks to hold\n\n- **Reasoned, not Supported.** The pair's value rests on one run (E5). The 12-31 test is there to find out whether it holds.\n- **The usage check may not be able to see anything.** If session history doesn't record agent dispatch, the check is inconclusive and the reversible retire fires. Restore on the first report of breakage.\n- **The pair needs the Agent tool, which was missing in half the sampled sessions (E8).** The 12-31 test counts only sessions where dispatch was possible.\n- **Unverified:** current platform docs suggest subagents can dispatch subagents by default. If true, the orchestrator may work as designed. This is reversible either way, and the side-by-side run in step 3 would settle it.\n- **Mandate:** \"Shrink and stabilise\" comes from the ledger (E12). The mandate file isn't visible from this repo.\n\n### How this was tested\n\nA blind `strategy-challenger` stress-tested all five options without knowing the preference. It independently picked this option as strongest, then attacked it hardest; the step-3 gate is its fix. Three blind `strategy-juror`s judged the surviving cases anonymised and shuffled. All three picked this option and bet on it at 65%. All three noted that no case settled the rule, so step 1 settles it. Caveat: the do-nothing case reached the jurors already marked as dominated, so their agreement on that point adds little independent weight.\n\n**What would change this:** real use of the trio in any product repo, which switches to the side-by-side run.\n"
+}
