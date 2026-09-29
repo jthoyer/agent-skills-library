@@ -152,12 +152,12 @@ Risk Analyst applies prospective hindsight to each surviving option:
 
 **Blind Council Check — default step.** Before the Decision Architect drafts anything, run one blind cross-review pass. This borrows the core insight of Karpathy's LLM Council: a reviewer who knows which actor championed an option defers to that actor's authority instead of judging the case on its merits. Anonymising strips that bias out, so it runs by default — the sharper recommendation it produces is worth the extra round.
 
-Anonymise each surviving option's full case (Strategist's rationale + Challenger's stress-test + Stakeholder Proxy's map + Risk Analyst's log) as Option A, B, C — no actor names attached. Working from the anonymised set only, each actor answers three questions:
+Anonymise each surviving option's full case (Strategist's rationale + the Challenger's strongest case for and against, without its verdict + Stakeholder Proxy's map + Risk Analyst's log) as Option A, B, C — no actor names attached, and no Stage 2 labels ("Qualify", "Survives", "dominated", "baseline", "amended after challenge"). The council weighs the arguments itself; a case that arrives pre-judged gets re-read, not judged. Working from the anonymised set only, each actor answers three questions:
 1. Which option's case is strongest, and why?
 2. Which option's case has the biggest blind spot?
 3. What did every option's case miss?
 
-**With the Agent tool, the council is two or three `strategy-juror`s**, dispatched in one message. Each gets the anonymised cases in a different shuffled order, and none sees the preference, the actor names or another juror's answers. Jurors disagreeing is a finding: the case is closer than it looks. Without the Agent tool, the actors answer as above and the step is labelled "self-reviewed council", not blind.
+**With the Agent tool, the council is two or three `strategy-juror`s**, dispatched in one message. Each gets the anonymised cases in a different shuffled order, and none sees the preference, the actor names, the Stage 2 verdicts or another juror's answers. Jurors disagreeing is a finding: the case is closer than it looks. Without the Agent tool, the actors answer as above and the step is labelled "self-reviewed council", not blind.
 
 Feed the answers to the Decision Architect before the recommendation is drafted. Skip only if the user explicitly asks for a fast, low-stakes pass — state that the check was skipped and why.
 

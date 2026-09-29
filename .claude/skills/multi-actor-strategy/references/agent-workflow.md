@@ -16,7 +16,7 @@ mechanical rules. Everything else stays in the main thread.
 | `strategy-challenger` | agent, opus, read-only + web | 2 | Stress-test every option; cast the cameos; name the strongest option and attack it hardest | Question, constraints, options longlist (shuffled) | **Which option the main thread prefers** |
 | Stakeholder Proxy | main thread | 2, in the same message as the challenger dispatch | Stakeholder response map | Everything | n/a |
 | Risk Analyst | main thread | 3 | Pre-mortem per surviving option | Everything | n/a |
-| `strategy-juror` ×2–3 | agent, opus, read-only | 3 | Blind Council Check: the three questions, plus a Conviction Bet | Anonymised, shuffled cases A, B, C | Actor names, the preference, other jurors' answers |
+| `strategy-juror` ×2–3 | agent, opus, read-only | 3 | Blind Council Check: the three questions, plus a Conviction Bet | Anonymised, shuffled cases A, B, C | Actor names, the preference, Stage 2 verdicts, other jurors' answers |
 | Decision Architect, Project Manager | main thread | 3–4 | Criteria, trade-off, recommendation, impasse calls, sign-off | Everything | n/a |
 | `scripts/check_strategy.py` | script | end of 1, 2, 3, 4 | The eight mechanical rules | The run as JSON | n/a |
 
@@ -57,9 +57,16 @@ the longlist rows. Shuffle the options and keep the ids. Strip anything that mar
 written up at twice the length of the rest. Before you dispatch, write the preference into the
 run, so the pick gap is measured against what you thought and not against the reply.
 
-**Juror brief.** Build one case per surviving option: rationale, stress-test rows, stakeholder
-rows, risk log. Remove every actor name and advocate label. Leave out the Stage 2 Register's
-CHALLENGER block (it holds the preference), every Handoff Note and any draft trade-off. Relabel as
+**Juror brief.** Build one case per surviving option: rationale, the stress-test's strongest case
+for and strongest case against, stakeholder rows, risk log. **Pass the stress-test's arguments,
+never its verdicts.** Strip every label that pre-judges a case: Eliminate / Qualify / Survives,
+"dominated", "baseline" or "do-nothing baseline", "amended in response to challenge", and the
+challenger's strongest pick. An amended option goes in as its amended form, with no note of how it
+got there. Write the sustain option up at the same depth as the others, saying what it does, not
+what role it plays. Jurors who get the verdicts re-read the stress-test instead of judging, and
+their agreement then measures the challenger, not the cases. Remove every actor name and advocate
+label. Leave out the Stage 2 Register's CHALLENGER block (it holds the preference), every Handoff
+Note and any draft trade-off. Relabel as
 Option A, B, C in a **different shuffled order for each juror**. Rewrite every reference to
 another option into that juror's letters, and keep the letter-to-option map to yourself. Give
 each juror its id, the question, the horizon and the real constraints, but not the decision
