@@ -1,7 +1,10 @@
 # CPO launch brief: agents behind multi-actor-strategy
 
-Ready-to-launch instructions for phases 2–6 of `agent-plan.md` (same folder). Phase 1 is done.
-Launch A (phases 2–3) was built on 2026-09-29; Launch B is next.
+Ready-to-launch instructions for phases 2–6 of `agent-plan.md` (same folder).
+
+**Status (2026-09-29):** Launches A, B and C have all run. Phases 1–5 are done. Phase 6 is partly
+done: `agent-improver` has run on both agents against the phase 4 work sample. **Run 2 is pending.**
+It waits for the owner to name a new decision; see "Run 2" at the end.
 
 ## How to launch
 
@@ -41,6 +44,8 @@ Launch C (CPO)
 Phase 5  Judge ─────────── watchdog compares baseline vs re-run on the plan's signal table
    │     gate: the owner's yes on keep / retire for each agent; option-premortem only if earned
 Phase 6  Close ─────────── agent-improver on each agent with its work sample → CHANGELOG
+   ▼ STOP: run 2 waits for a new decision named by the owner
+Run 2    Second comparison on a new decision (see "Run 2" below)
 ```
 
 ---
@@ -133,6 +138,12 @@ two new agents dispatched. This is the comparison run.
 
 ## Launch C — phases 5 and 6 (CPO)
 
+*Ran 2026-09-29.* Verdict: `work-samples/multi-actor-strategy-2026-09-29-phase5-watchdog.md`.
+Owner decisions: no retirements; keep `strategy-challenger` and fix its path contradiction; fix
+`strategy-juror` (no Stage 2 verdicts in juror cases); `option-premortem` not built. The script
+caught nothing in either run (NOT MET) and stays. The same session adopted the agents run's `mc-*`
+recommendation (`CHANGELOG.md`, 2026-09-29 `library — portfolio`).
+
 **Objective.** Decide whether the agents earned their place, act on the owner's decision, and
 close the loop.
 
@@ -155,6 +166,30 @@ close the loop.
 **Return:** watchdog's verdict table, the owner's decision, what changed, and the ledger entry.
 
 ---
+
+## Run 2 — once the owner names a decision
+
+Run 1 could not test whether the challenger's pick ever departs from the preference. The same
+author curated its inputs and already preferred an option. Run 2 fixes that.
+
+1. **Pre-check.** The branch holds the `strategy-challenger` path fix and the `strategy-juror` fix
+   (no Stage 2 verdicts in juror cases). Confirm both in `strategy-challenger.md`,
+   `strategy-juror.md` and `agent-workflow.md` before launching. If either is missing, stop.
+2. **Inputs, in a fresh session with no prior view on the decision.** Gather the evidence into
+   `work-samples/multi-actor-strategy-<topic>-<YYYY-MM-DD>-inputs.md`, in run 1's inputs format
+   (question, evidence table, audience), and freeze it. That session states no preference and
+   runs nothing else.
+3. **Baseline, in another fresh session.** Run the skill inline on the inputs file only, with no
+   agents dispatched. Label it embodied, and save it as `work-samples/multi-actor-strategy-<topic>-<YYYY-MM-DD>-baseline.md` plus its JSON.
+4. **Agents run, in a third fresh session with the Agent tool.** Follow Launch B's rules, with
+   the new inputs file and the new baseline paths substituted: probe first, never open the
+   baseline, and save `work-samples/multi-actor-strategy-<topic>-<YYYY-MM-DD>-agents.md` plus its JSON.
+5. **Judge.** Follow Launch C's phase 5 with both run 2 files. Then apply the plan's retire test
+   across runs 1 and 2.
+
+Paste line for step 4: `/prompt-refiner Run multi-actor-strategy on <inputs path>, following
+Launch B in .claude/skills/multi-actor-strategy/references/cpo-launch-brief.md, with the run 2
+paths from its "Run 2" section`
 
 ## Independence, stated plainly
 

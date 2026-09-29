@@ -1,8 +1,9 @@
 # Plan: agents behind multi-actor-strategy
 
-Status: **phases 2–3 built (2026-09-29).** Phase 1 done the same day. Phase 4 (Launch B) is next,
-from `cpo-launch-brief.md` in this folder. `SKILL.md` now points at `agent-workflow.md`, which
-points here. Visual map:
+Status: **phases 1–5 done (2026-09-29); phase 6 partly done; run 2 pending.** Phase 6 status:
+`agent-improver` has run on both agents against the phase 4 work sample. Run 2 waits for the
+owner to name a new real decision (see "Run 1 results" below and the Run 2 note in
+`cpo-launch-brief.md`). `SKILL.md` points at `agent-workflow.md`, which points here. Visual map:
 `multi-actor-strategy-map.html` at the repo root, and `workflows/multi-actor-strategy-map.png`.
 
 ## The question
@@ -48,7 +49,7 @@ The skill stays the conductor. Agents return objections and verdicts. They never
 | `strategy-challenger` | new agent, opus, read-only + web | 2 | Stress-test every option; cast the Dynamic Expert Cameo personas itself | Question, constraints, options longlist (shuffled) | **Which option the main thread prefers** |
 | Stakeholder Proxy | main thread | 2, in the same message as the challenger dispatch | Stakeholder response map | Everything | n/a |
 | `option-premortem` | new agent, sonnet, read-only + web | 3 | One dispatch per surviving option, in parallel: failure mode, warning signs, mitigation, intrinsic or execution risk | One option, its challenge log, its stakeholder rows | Other options, the preference |
-| `strategy-juror` | new agent, opus, read-only | 3 | Blind Council Check: answer the skill's three questions; place a Conviction Bet | Anonymised, shuffled cases A, B, C | Actor names, the preference, other jurors' answers |
+| `strategy-juror` | new agent, opus, read-only | 3 | Blind Council Check: answer the skill's three questions; place a Conviction Bet | Anonymised, shuffled cases A, B, C | Actor names, the preference, other jurors' answers, Stage 2 verdicts |
 | Decision Architect, Project Manager | main thread | 3–4 | Criteria, trade-off, recommendation, impasse calls, sign-off | Everything | n/a |
 | `.claude/skills/multi-actor-strategy/scripts/check_strategy.py` (built) | script | 1–4 | Mechanical rules (below) | The run as JSON | n/a |
 
@@ -119,12 +120,16 @@ pass dispatches no agents. Nothing changes there.
    `scripts/check-frontmatter.sh` and `scripts/sync-plugin-manifest.sh --check`.
 4. **Re-run the baseline decision** with the agents, in a fresh session with the Agent tool.
    Give it the inputs file only, never the baseline output. Save it beside the baseline.
-5. **Build `option-premortem` only if phase 4 earns it.** It is the weak case: the main thread
+   *Done 2026-09-29:* `work-samples/multi-actor-strategy-2026-09-29-agents.md`, dispatched.
+5. **Build `option-premortem` only if phase 4 earns it.** *Done 2026-09-29, not built:* `watchdog`
+   did not find the baseline's risk step the weakest
+   (`work-samples/multi-actor-strategy-2026-09-29-phase5-watchdog.md`). It is the weak case: the main thread
    has the same tools, and only parallelism and blindness set it apart. First check whether
    `idea-challenger` could be widened to cover it. Two agents doing near-identical pre-mortems is
    the overlap `watchdog` exists to catch.
 6. **Review and log.** Dispatch `agent-improver` on each agent with its work sample. Log one
-   `CHANGELOG.md` entry. Route the portfolio call through `CPO`.
+   `CHANGELOG.md` entry. Route the portfolio call through `CPO`. *Partly done 2026-09-29:*
+   `agent-improver` has run on both agents against the phase 4 work sample. Run 2 is pending.
 
 ## How we know it worked
 
@@ -136,6 +141,22 @@ Compare phase 4 with phase 1 on the same decision:
 | Juror spread | Jurors disagree on the strongest case at least once, or name a shared blind spot the baseline missed |
 | Recommendation | Changes, gains a condition, or loses an Assumed rationale compared with the baseline |
 | Script | Catches at least one rule break the author missed |
+
+## Run 1 results (2026-09-29)
+
+`watchdog` compared the two runs (`work-samples/multi-actor-strategy-2026-09-29-phase5-watchdog.md`):
+
+| Signal | Run 1 |
+|---|---|
+| Challenger's strongest pick | MET on catches only. Its pick matched the preference. |
+| Juror spread | MET narrowly: one shared blind spot, no split. All three jurors bet 65%. |
+| Recommendation | MET: it changed and gained conditions. It lost the spec-on-disk gate, which was restored in `mc-orchestrator.md` on adoption. |
+| Script | **NOT MET.** It caught no rule break in either run. It stays anyway (see the retire test). |
+
+The owner's decisions: keep `strategy-challenger` for run 2, and fix its path contradiction. Fix
+`strategy-juror` so juror cases carry no Stage 2 verdicts, then run 2. No retirements. Run 2 uses a
+new real decision that the owner names, with inputs gathered by a session that has no prior view
+on it. Run 1's inputs were curated by an author who already preferred an option.
 
 ## Retire test
 
