@@ -29,7 +29,8 @@ The two skills are designed to be used together: research produces the evidence 
 
 Read `references/actors.md` for full actor playbooks.  
 Read `references/escalation.md` for escalation protocol and coordination principles.  
-Read `references/stage-register.md` for Stage Register templates and handoff note convention.
+Read `references/stage-register.md` for Stage Register templates and handoff note convention.  
+Read `references/agent-workflow.md` before dispatching `strategy-challenger` or `strategy-juror`.
 
 ---
 
@@ -62,6 +63,23 @@ Claude embodies one nominated actor. Read that actor's full playbook in `referen
 
 ---
 
+## Agents and Embodied Runs
+
+Two steps keep a promise that one context cannot: the Stage 2 attack on the preferred option,
+and the Stage 3 Blind Council Check. When the session has the **Agent tool**, those steps
+dispatch two blind agents, `strategy-challenger` and `strategy-juror`. The rest of the skill
+stays in the main thread. `references/agent-workflow.md` holds the dispatch contract.
+
+**No Agent tool?** Say so in one line and run every step as written below, in the main thread.
+Label the run **embodied**. The final brief then says "stress-tested by author" and "self-reviewed
+council", never "blind" or "independently stress-tested". A fast pass dispatches nothing.
+
+**Every stage closes with a check.** Record the run as JSON and run
+`python3 scripts/check_strategy.py run.json` (in this skill's folder). Fix every FAIL before
+the next stage. It needs no agent, so it always runs.
+
+---
+
 ## Context Management — The Stage Register System
 
 For any multi-stage strategy task, context compression is critical. Long processes degrade if later actors attempt to re-read full prior reasoning rather than working from structured signal.
@@ -87,7 +105,7 @@ Before generating options, the Problem Framer must establish:
 
 The Strategist then generates a minimum of three genuine options — including at least one non-obvious option and one "do nothing / sustain current approach" option for comparison.
 
-**Closing requirement:** Produce a Stage 1 Register (question definition + assumptions surfaced + options longlist with a one-line rationale for each) and a Handoff Note to Stage 2 before proceeding. See `references/stage-register.md`.
+**Closing requirement:** Produce a Stage 1 Register (question definition + assumptions surfaced + options longlist with a one-line rationale for each) and a Handoff Note to Stage 2 before proceeding. See `references/stage-register.md`. Run `check_strategy.py` at stage 1.
 
 **Handoff condition:** Question is precisely defined. Minimum three options generated. No options narrowed yet.
 
@@ -104,11 +122,19 @@ In parallel:
 
 Where a stakeholder position and a strategic challenge intersect, flag to Project Manager rather than resolve bilaterally.
 
+**With the Agent tool, the Challenger is `strategy-challenger`.** Dispatch it in the same message
+as the Stakeholder Proxy work. Brief it with the question, constraints and the longlist in
+shuffled order, and **never** tell it which option you prefer. It casts the Dynamic Expert
+Cameo personas itself, names the option it thinks strongest, and attacks that one hardest.
+Record your own preference in the run before you dispatch it. Paste the reply verbatim into
+the Stage 2 Register. Without the Agent tool, the Challenger and the cameos run as described
+here, and the log is labelled "stress-tested by author".
+
 **Dynamic Expert Cameo — default step, feeds the Challenger's stress-test.** Generic actor voices produce generic critique. Before the stress-test, generate 2–3 bespoke personas tailored to *this specific* question — not the standing actors, and not generic advisors. Each needs a first name, a one-line backstory that includes a real failure (a flawed expert argues sharper than a flawless one), and an opinionated lens the standing actors don't already cover. Route their critique through the Challenger's stress-test rather than as a separate output.
 
 Examples: an icare benefit-design question might cast "Priya, former scheme actuary who underpriced a benefit tier in 2019 and watched it blow the reserve two years later"; a pricing question might cast "Marcus, ex-pricing lead who grew a PLG product to $1B ARR and regrets half his pricing calls." Specificity is the point — the more concrete the persona, the more concrete the critique. Skip only for a fast, low-stakes pass — state that it was skipped and why.
 
-**Closing requirement:** Produce a Stage 2 Register (stress-tested options + stakeholder response map + any options eliminated or elevated this stage) and a Handoff Note to Stage 3 before proceeding.
+**Closing requirement:** Produce a Stage 2 Register (stress-tested options + stakeholder response map + any options eliminated or elevated this stage + the challenger's strongest pick) and a Handoff Note to Stage 3 before proceeding. Run `check_strategy.py` at stage 2.
 
 **Handoff condition:** Every option has been challenged. No option eliminated without reasoning recorded.
 
@@ -131,6 +157,8 @@ Anonymise each surviving option's full case (Strategist's rationale + Challenger
 2. Which option's case has the biggest blind spot?
 3. What did every option's case miss?
 
+**With the Agent tool, the council is two or three `strategy-juror`s**, dispatched in one message. Each gets the anonymised cases in a different shuffled order, and none sees the preference, the actor names or another juror's answers. Jurors disagreeing is a finding: the case is closer than it looks. Without the Agent tool, the actors answer as above and the step is labelled "self-reviewed council", not blind.
+
 Feed the answers to the Decision Architect before the recommendation is drafted. Skip only if the user explicitly asks for a fast, low-stakes pass — state that the check was skipped and why.
 
 Decision Architect then produces the trade-off framework, incorporating the blind-review findings:
@@ -138,12 +166,13 @@ Decision Architect then produces the trade-off framework, incorporating the blin
 - How each surviving option performs against the criteria
 - A ranked recommendation with stated rationale
 - What would have to be true for a different recommendation to be correct
+- If `strategy-challenger`'s strongest pick differs from your preference, a written answer to that gap
 
 No Assumed rationale may survive to Stage 4. All reasoning must be Supported or Reasoned.
 
-**Conviction Bet — default step, closing gut-check before Stage 4.** A confidence grade is a label; a label can hide hedging. Before the recommendation is finalised, each surviving option's original advocate (Strategist, Challenger, or Stakeholder Proxy, whichever championed it) states what they'd bet on the outcome and at what confidence: "If I had $1,000 of my own on this, I'd bet on X, confidence Y%." Record the bet alongside the confidence grade — don't let it replace the grade, and don't let vague "it depends" stand in for a bet. Skip only for a fast, low-stakes pass — state that it was skipped and why.
+**Conviction Bet — default step, closing gut-check before Stage 4.** A confidence grade is a label; a label can hide hedging. Before the recommendation is finalised, each surviving option's original advocate (Strategist, Challenger, or Stakeholder Proxy, whichever championed it) states what they'd bet on the outcome and at what confidence: "If I had $1,000 of my own on this, I'd bet on X, confidence Y%." With the Agent tool, the jurors place their bets blind, and the main thread records its own bet beside theirs. Record the bet alongside the confidence grade — don't let it replace the grade, and don't let vague "it depends" stand in for a bet. Skip only for a fast, low-stakes pass — state that it was skipped and why.
 
-**Closing requirement:** Produce a Stage 3 Register (risk log per option + blind council check findings + conviction bets + trade-off assessment + preliminary recommendation with confidence grade) and a Handoff Note to Stage 4 before proceeding.
+**Closing requirement:** Produce a Stage 3 Register (risk log per option + blind council check findings + conviction bets + trade-off assessment + preliminary recommendation with confidence grade) and a Handoff Note to Stage 4 before proceeding. Run `check_strategy.py` at stage 3.
 
 **Handoff condition:** Decision Architect has a defensible recommendation. Project Manager approves before Stage 4.
 
@@ -161,7 +190,7 @@ Adapt the recommendation for the target stakeholder(s). The output must answer t
 
 Never simplify a qualified recommendation into an unqualified one. Flag to Project Manager any conditions that required significant softening.
 
-**Closing requirement:** Produce the final Stage 4 Register (recommendation as communicated, any qualification flags, PM sign-off note) as an archival record of the complete process.
+**Closing requirement:** Produce the final Stage 4 Register (recommendation as communicated, any qualification flags, PM sign-off note) as an archival record of the complete process. Run `check_strategy.py` at stage 4 with the brief's text, and fix every FAIL before release. Save the registers, agent replies and run JSON as `references/agent-workflow.md` describes.
 
 **Handoff condition:** Project Manager reviews. Any materially changed recommendation returns to the Decision Architect before release.
 
@@ -198,4 +227,5 @@ Always include: the confidence grade for the recommendation, the alternatives th
 - To embody any actor fully → read `references/actors.md`
 - When an impasse arises or escalation is needed → read `references/escalation.md`
 - For Stage Register templates and handoff note format → read `references/stage-register.md`
-- For any complex or multi-stage strategy task → read all three
+- Before dispatching `strategy-challenger` or `strategy-juror`, or for the run JSON → read `references/agent-workflow.md`
+- For any complex or multi-stage strategy task → read all four

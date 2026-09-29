@@ -55,3 +55,11 @@ jobs:
       # The first version shipped all three. Stdlib python only, no install.
       - name: research-to-ideas checker tests
         run: python3 .claude/skills/research-to-ideas/scripts/test_check_brief.py
+
+      # Does multi-actor-strategy's run checker still enforce the skill's rules?
+      # Catches: a run with no sustain option, an unchallenged option, a bet
+      # missing, an unanswered pick gap, an Assumed rationale at Stage 4, or an
+      # embodied run calling itself blind. The baseline run must pass and one
+      # decoy per rule must fail on that rule alone. Stdlib python only.
+      - name: multi-actor-strategy checker tests
+        run: python3 .claude/skills/multi-actor-strategy/scripts/test_check_strategy.py

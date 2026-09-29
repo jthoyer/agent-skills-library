@@ -103,6 +103,11 @@ Date / version: [date, v1]
 [Persona name] — [one-line backstory incl. failure] | Sharpened challenge on: [Option letter] | Key point: [one line]
 [If skipped: reason skipped, at whose request]
 
+--- CHALLENGER ---
+Mode: dispatched (strategy-challenger, BLIND: yes/NOT BLIND) | embodied (stress-tested by author)
+Strongest pick: [Option] | Main-thread preference, recorded before dispatch: [Option]
+[If they differ: the Decision Architect answers the gap at Stage 3]
+
 --- DECISIONS MADE THIS STAGE ---
 [Option C] eliminated — challenge fatal: [core reason]; PM decision: [date]
 [Option B] qualified — original assumption [X] does not hold; retained in amended form
@@ -142,15 +147,20 @@ Counterfactual: If [X], then [Option Y] would be preferred instead
 [Failure mode 2] | Likelihood: H/M/L | Strategic consequence: H/M/L | Mitigation: none available | Status: CONDITION
 
 --- BLIND COUNCIL CHECK ---
+Mode: dispatched ([N] strategy-jurors, each BLIND: yes/NOT BLIND) | embodied (self-reviewed council)
 Strongest case (anonymised): [Option letter → name] | Why: [one line]
 Biggest blind spot found: [Option letter → name] | Blind spot: [one line]
 Missed by all cases: [what every option's case overlooked]
 [If skipped: reason skipped, at whose request]
 
 --- CONVICTION BETS ---
-[Advocate — actor name] | Bets on: [Option] | Amount: $1,000 (notional) | Confidence: [X]%
-[Advocate — actor name] | Bets on: [Option] | Amount: $1,000 (notional) | Confidence: [X]%
+[Juror id, or advocate — actor name if embodied] | Bets on: [Option] | Amount: $1,000 (notional) | Confidence: [X]%
+[Juror id, or advocate — actor name if embodied] | Bets on: [Option] | Amount: $1,000 (notional) | Confidence: [X]%
+Main thread | Bets on: [Option] | Amount: $1,000 (notional) | Confidence: [X]%
 [If skipped: reason skipped, at whose request]
+
+--- PICK GAP (only if the challenger's strongest pick ≠ the preference) ---
+[Why the preference still stands, or what changed because of the challenger's pick]
 
 --- DECISION CRITERIA USED ---
 [Criterion 1]: [why this criterion; how each option performed]
