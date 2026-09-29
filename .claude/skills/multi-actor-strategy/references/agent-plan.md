@@ -48,7 +48,7 @@ The skill stays the conductor. Agents return objections and verdicts. They never
 | `option-premortem` | new agent, sonnet, read-only + web | 3 | One dispatch per surviving option, in parallel: failure mode, warning signs, mitigation, intrinsic or execution risk | One option, its challenge log, its stakeholder rows | Other options, the preference |
 | `strategy-juror` | new agent, opus, read-only | 3 | Blind Council Check: answer the skill's three questions; place a Conviction Bet | Anonymised, shuffled cases A, B, C | Actor names, the preference, other jurors' answers |
 | Decision Architect, Project Manager | main thread | 3–4 | Criteria, trade-off, recommendation, impasse calls, sign-off | Everything | n/a |
-| `scripts/check_strategy.py` | script | 1–4 | Mechanical rules (below) | The run as JSON | n/a |
+| scripts/check_strategy.py (proposed) | script | 1–4 | Mechanical rules (below) | The run as JSON | n/a |
 
 Dispatch two or three jurors in parallel, each with the cases in a different order. Juror
 disagreement is itself a finding: it tells the Decision Architect the case is closer than it
@@ -103,12 +103,12 @@ pass dispatches no agents. Nothing changes there.
 
 1. **Baseline (one session).** Run the skill as it stands on one real, current decision. Save
    the full output to `work-samples/`. Without this, no later run can show a gain.
-2. **Script first (half a day).** Write `check_strategy.py` and its test, and add both to
+2. **Script first (half a day).** Write check_strategy.py (proposed) and its test, and add both to
    `.github/workflows/checks.yml`. The script improves embodied runs too, so it pays off
    even if the agents never do.
 3. **Build the two strong agents.** `strategy-juror` and `strategy-challenger`, following the
    `idea-challenger.md` format: mandate, why you exist, inputs, process, output block, behaviours
-   to avoid, the external-content rule. Add `references/agent-workflow.md` with the dispatch
+   to avoid, the external-content rule. Add an agent-workflow.md reference (proposed) with the dispatch
    contract (objective, absolute input paths, what the agent must not see, output format,
    budget). Update `SKILL.md` Stages 2 and 3 to dispatch them. Run
    `scripts/check-frontmatter.sh` and `scripts/sync-plugin-manifest.sh --check`.
