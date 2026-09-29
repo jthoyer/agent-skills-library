@@ -66,6 +66,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-09-29 — CPO, cos (routing tables, `research-to-ideas`)
+- Verdict: routing gap closed. The dispatch map v7 found that neither table named `research-to-ideas`, so a request reached it only through the session's skill listing.
+- Changed: `CPO.md` gains one row: existing research to ranked ideas goes to the `research-to-ideas` skill, with the four agents it dispatches and the boundary against `multi-actor-research`. `cos.md` gains one row pointing at the same skill. No description or tool line changed.
+- Why: the skill and its four agents shipped 2026-09-28 without a routing entry in either hub.
+- Expected effect: "turn this research into ideas" routes to the skill, not to `multi-actor-research`. Check on the next CPO launch that names it.
+- Follow-up: none.
+
 ## 2026-09-28 — source-scout, cluster-analyst, evidence-auditor, idea-challenger (batch, 4 agents reviewed)
 - Verdict: sound roles; five logic defects fixed before first real use. **Reduced independence — main-thread review, no separate `agent-improver` dispatch.** No work sample yet, so Dimension 6 is still not scorable.
 - Changed: `evidence-auditor` carried the skill's overlapping rubric (Inferred covered "proof from one class", which Confirmed also met); now the fixed rubric, with seller claims Asserted, a Contested grade, and idea grade = weakest load-bearing claim. `cluster-analyst` built ideas for thin clusters it had not yet counted; it now counts first and stops if thin, marks load-bearing claims, and records push, anxiety, date and incentive. `source-scout` flags seller or affiliate incentive and stale sources, and now covers Partial classes. `idea-challenger` defines Blocks, which now drops an idea to Low. Stage numbers across all four follow the new 0–8 scheme.
