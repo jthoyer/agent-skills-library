@@ -103,6 +103,12 @@ td.nw{white-space:nowrap}
 <li><strong>The spec goes on disk before the build.</strong> <code>mc-orchestrator</code> Stage 2 waits for it, and the reviewer and verifier briefs carry its path.</li>
 <li><strong>Counts:</strong> 21 agents, 15 opus and 6 sonnet. <code>multi-actor-strategy</code> moved from the skills row to its own lane.</li>
 </ul>
+<h2>Since v8 (2026-10-02)</h2>
+<ul>
+<li><strong>No agent changed.</strong> The map above still holds.</li>
+<li><strong>The two conducting skills tick a checklist.</strong> <code>research-to-ideas</code> (stages 0–8) and <code>multi-actor-strategy</code> (stages 1–4) open each run by pasting it, and a stage starts only when the one above is ticked.</li>
+<li><strong>A third library check in CI.</strong> <code>scripts/check-skill-structure.sh</code>: contents lists on long reference files, references one level deep, and a <code>Requires:</code> line for every skill script.</li>
+</ul>
 <p class="lede" style="margin-top:18px">The long-form v7 page (<code>dispatch-map-v7.html</code>) keeps the full routing tables and the library's history. This page is the one-page view.</p>
 </main>
 </body>
