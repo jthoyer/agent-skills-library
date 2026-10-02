@@ -1,5 +1,16 @@
 # Resume Format & Structure Reference
 
+## Contents
+
+- Source: Harvard Career Services, r/EngineeringResumes, The Tech Resume Inside Out
+- Page Layout Specifications
+- Section Order
+- Contact Information Format
+- Experience Section Format
+- Page Count Guidelines
+- ATS Format Requirements
+- PDF Conversion & Delivery
+
 ## Source: Harvard Career Services, r/EngineeringResumes, The Tech Resume Inside Out
 
 ---

@@ -4,6 +4,14 @@ The annotated shape of a filed scan, worked from the PM and SD tracks' actual hi
 placeholder below is illustrative — a shape to fill, not a real listing. Read this before writing
 a run; do not start from a blank page and reconstruct the sections from memory.
 
+## Contents
+
+- 1\. Run details
+- 2\. Snapshot
+- 3\. Roles
+- 4\. Cross-run sections
+- 5\. Market observations
+
 ---
 
 ## 1. Run details

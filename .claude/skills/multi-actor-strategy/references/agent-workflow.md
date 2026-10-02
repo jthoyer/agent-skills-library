@@ -3,6 +3,16 @@
 Read this before dispatching either agent. A fast, low-stakes pass dispatches no agents and
 works inline, as `SKILL.md` already allows.
 
+## Contents
+
+- Description
+- Workflow
+  - Dispatch contract
+  - If no agent can be dispatched
+  - The run as JSON
+  - Persistence
+- Retire test
+
 ## Description
 
 Two of the skill's steps promise something one context cannot deliver: a challenge aimed at the

@@ -5,6 +5,62 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-02 — Anthropic skill-authoring guidance applied across the library
+
+Source: Google Doc "Transcript - Claude Skills Updates" (seven changes to Anthropic's guidance).
+Each was checked against all 40 live skills. Gaps were fixed. Where the library already met a
+change, nothing was edited.
+
+### Added
+- **`scripts/check-skill-structure.sh`**, run in CI. Three rules, each from the guidance:
+  a reference file over 100 lines needs `## Contents` near the top; every `references/` file must
+  be named in its own `SKILL.md` (one level deep); a skill with `scripts/` needs a `Requires:`
+  line. First run: 24 findings. Now clean.
+
+### Updated
+- **`skills-librarian`** (2.2.0 → 2.3.0): contents-list threshold cut from 300 to 100 lines;
+  `SKILL.md` framed as a directory with one-level references; new §"Degrees of freedom"
+  (high / medium / low, matched to fragility); new §"Ordered workflows and self-checks"
+  (copyable checklists, check-fix loops); `Requires:` lines for scripts; five new audit rows,
+  three mechanised. `references/upgrade-gauntlet.md` §4.3 now tests on every model a skill runs
+  on, with subagents pinned per model in Claude Code.
+- **Contents lists** added to 19 reference files in 8 skills: `job-scan`, `multi-actor-research`,
+  `multi-actor-strategy`, `product-requirement-document`, `project-management`, `read-the-room`,
+  `research-to-ideas`, `resume-builder`. Generated from each file's headings. No body text changed.
+- **`multi-actor-strategy`**: `references/agent-plan.md` and `references/cpo-launch-brief.md` were
+  reachable only through other references. Now linked from `SKILL.md`, marked maintenance-only.
+  Added a `Requires:` line and a four-stage checklist.
+- **`multi-actor-research`**: four-stage checklist tied to the existing handoff conditions.
+- **`research-to-ideas`**: Stage 0–8 checklist; `Requires:` line beside `check_brief.py`.
+- **`recent-pulse`** (1.0.0 → 1.1.0): `Requires:` line naming Python 3.8+, stdlib only, and the
+  two hosts the script calls, with the fallback when a network policy blocks one.
+- **`job-scan`** (1.1.0 → 1.2.0): pre-filing checklist covering the verification, dedup and
+  filing rules already in the skill.
+- **`justin-voice`** (1.1.0 → 1.2.0): check-fix loop against the eight characteristics, three
+  passes at most, before the `humanizer` pass.
+- **`humanizer`** (2.6.0 → 2.7.0): the self-audit now repeats until clean, three rounds at most.
+- **`balance-tri-club-brand`**: pre-delivery check against the Quick Reference and the
+  "What This Brand Is Not" list, repeated until a pass is clean.
+
+### Not changed, and why
+- **Body length:** the longest `SKILL.md` is 488 lines (`product-requirement-document`). All are
+  under 500.
+- **Degrees of freedom:** the three low-freedom operations (the checker scripts) are already
+  exact scripts. No skill scripts a high-freedom task. Recorded as a judgement row for audits.
+- **Model testing:** no skill was re-benchmarked in this pass. See follow-up.
+
+### Follow-up
+- The checklists and loops change behaviour, so `skills-librarian` §6 calls for a 3–5 task blind
+  A/B. Not run here. Run it for `justin-voice` and `humanizer` first: their loops add the most
+  turns to every use.
+- Re-upload the 13 changed skill folders to claude.ai.
+
+- Next audit targets: `justin-voice` — new check-fix loop is untested; A/B it against 1.1.0 on
+  Haiku and Opus, since a three-pass loop may cost more than it returns on the stronger model.
+  `scqa-framework` — still open from the last audit: triggers overlap `scr-pyramid-communicator`.
+  `product-requirement-document` — 488 lines, 12 under the cap; the next addition breaks it, so
+  move a section to `references/` now.
+
 ## 2026-09-28 — `research-to-ideas` v3.1: logic fixes across the skill, agents and checker
 
 ### Fixed

@@ -2,6 +2,16 @@
 
 Ready-to-launch instructions for phases 2–6 of `agent-plan.md` (same folder).
 
+## Contents
+
+- How to launch
+- The workflow
+- Launch A — phases 2 and 3 (CPO)
+- Launch B — phase 4 (fresh session, no CPO)
+- Launch C — phases 5 and 6 (CPO)
+- Run 2 — once the owner names a decision
+- Independence, stated plainly
+
 **Status (2026-09-29):** Launches A, B and C have all run. Phases 1–5 are done. Phase 6 is partly
 done: `agent-improver` has run on both agents against the phase 4 work sample. **Run 2 is pending.**
 It waits for the owner to name a new decision; see "Run 2" at the end.

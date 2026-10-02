@@ -2,6 +2,19 @@
 
 This file contains structured prompts for generating tailored agendas, updates, and communications from user input. Use these when a user asks for a specific output and needs to provide context first.
 
+## Contents
+
+- How to Use These Prompts
+- Prompts by Output Type
+  - Ritual Stack Design
+  - Weekly Status Update (Stakeholders)
+  - Manager Update
+  - Escalation Pre-read
+  - Kick-off Agenda
+  - Stakeholder Working Session Agenda
+  - Retro Facilitation Guide
+- Common Mistakes to Flag
+
 ---
 
 ## How to Use These Prompts

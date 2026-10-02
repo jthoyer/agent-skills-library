@@ -2,6 +2,17 @@
 
 The most dangerous PRDs are not the ones that are clearly wrong. They are the ones that look complete but aren't. These are the most common failure modes, their symptoms, and how to fix them.
 
+## Contents
+
+- Failure Mode 1: The PRD Written for the Author
+- Failure Mode 2: The PRD with No Measurable Success
+- Failure Mode 3: The PRD with Hidden Assumptions
+- Failure Mode 4: The PRD Scope Creep Document
+- Failure Mode 5: The PRD Shared in the Room
+- Failure Mode 6: The PRD That Doesn't Change
+- Failure Mode 7: The PRD That Ignored the Customer
+- Failure Mode 8: The PRD with No One Accountable
+
 ---
 
 ## Failure Mode 1: The PRD Written for the Author

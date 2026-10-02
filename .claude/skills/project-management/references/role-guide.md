@@ -1,5 +1,14 @@
 # Role Guide: Lead, Senior, and Junior
 
+## Contents
+
+- Overview
+- The Lead
+- The Senior
+- The Junior
+- Signs a Team Is Working Well
+- Signs a Team Is Under Stress
+
 ## Overview
 
 On a three-person service design or product team, role clarity prevents both under-contribution and over-reach. This guide outlines the responsibilities, rituals, and development focus for each role.

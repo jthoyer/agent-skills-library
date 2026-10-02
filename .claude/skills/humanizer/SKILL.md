@@ -1,6 +1,6 @@
 ---
 name: humanizer
-version: 2.6.0
+version: 2.7.0
 description: |
   Remove signs of AI-generated writing from text. Use when editing or reviewing
   text to make it sound more natural and human-written. Based on Wikipedia's
@@ -152,7 +152,9 @@ text. The index below is only to tell you what is in there.
 6. Prompt: "What makes the below so obviously AI generated?"
 7. Answer briefly with the remaining tells (if any)
 8. Prompt: "Now make it not obviously AI generated."
-9. Present the final version (revised after the audit)
+9. Repeat steps 6–8 until the audit finds no tells, up to three rounds. If tells remain after
+   the third, list them rather than looping again.
+10. Present the final version (revised after the audit)
 
 ## Output Format
 

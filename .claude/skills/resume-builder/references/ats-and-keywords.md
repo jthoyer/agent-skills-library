@@ -1,5 +1,15 @@
 # ATS & Keywords Reference — Truths vs Myths
 
+## Contents
+
+- Source: The Tech Resume Inside Out (Gergely Orosz), Amy Miller (ex-Amazon/Google recruiter), r/EngineeringResumes wiki, MIT CAPD, Harvard Career Services
+- What ATS Actually Is
+- ATS Myths — Debunked
+- What Actually Matters for Getting Past Screening
+- Keyword Categories for Tech Resumes
+- Tailoring Strategy
+- The Hiring Pipeline Context
+
 ## Source: The Tech Resume Inside Out (Gergely Orosz), Amy Miller (ex-Amazon/Google recruiter), r/EngineeringResumes wiki, MIT CAPD, Harvard Career Services
 
 ---

@@ -1,5 +1,16 @@
 # Common Resume Mistakes — What to Avoid
 
+## Contents
+
+- Harvard's Top 5 Resume Mistakes
+- Formatting Mistakes
+- Content Mistakes
+- Structural Mistakes
+- Language Mistakes
+- Mistakes Specific to Tech / Engineering Resumes
+- Cultural / Regional Mistakes
+- The "Too Much Information" Trap
+
 ## Source: Harvard Career Services, r/EngineeringResumes, The Tech Resume Inside Out
 
 ---

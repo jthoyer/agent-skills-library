@@ -15,7 +15,7 @@ description: >
 license: MIT
 metadata:
   author: Justin
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Recent Pulse
@@ -36,6 +36,10 @@ the point of this skill, not an implementation detail.
   as an environment variable. Do not work around the auth requirement any other way.
 
 ## Sources & method
+
+Requires: Python 3.8+, standard library only (nothing to install), and outbound HTTPS to
+`hn.algolia.com` and `www.reddit.com`. If the environment's network policy blocks either host,
+the script prints the error on stderr. Use the WebSearch fallback in step 2 for that source.
 
 1. **Hacker News — reliable, structured.** Public Algolia API, no key, no login:
    ```

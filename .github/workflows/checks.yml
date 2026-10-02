@@ -49,6 +49,13 @@ jobs:
       - name: Frontmatter and trailing lines
         run: bash scripts/check-frontmatter.sh
 
+      # Does every skill follow Anthropic's structural guidance (2026-10)?
+      # Catches: a reference file over 100 lines with no contents list (Claude
+      # previews the first 100), a reference reachable only through another
+      # reference, and a skill whose scripts never state what they need.
+      - name: Skill structure
+        run: bash scripts/check-skill-structure.sh
+
       # Does research-to-ideas' brief checker still enforce the skill's rules?
       # Catches: a checker that passes a Contested idea at Medium, a decision
       # rule with a gap, or a malformed brief that crashes instead of failing.

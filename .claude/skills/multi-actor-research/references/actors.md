@@ -2,6 +2,16 @@
 
 Full playbooks for all seven actors. Read this file when embodying any actor or when orchestrating the full process.
 
+## Contents
+
+- 1\. Researcher
+- 2\. Evidence Auditor
+- 3\. Devil's Advocate
+- 4\. Subject Matter Validator
+- 5\. Synthesiser
+- 6\. Communicator
+- 7\. Project Manager
+
 ---
 
 ## 1. Researcher

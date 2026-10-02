@@ -2,6 +2,19 @@
 
 This file governs context compression across stages. Its purpose is to ensure that later actors work from structured signal — not from re-reading full prior reasoning — and that the process is resumable across sessions.
 
+## Contents
+
+- The Core Rule
+- Resuming Across Sessions
+- Stage Register — General Structure
+- Stage Register Templates
+  - Stage 1 Register
+  - Stage 2 Register
+  - Stage 3 Register
+  - Stage 4 Register (Archival)
+- Handoff Note Convention
+- Compress-and-Carry-Forward Prompt
+
 ---
 
 ## The Core Rule

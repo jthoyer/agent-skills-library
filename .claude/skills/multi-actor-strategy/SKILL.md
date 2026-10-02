@@ -78,6 +78,9 @@ council", never "blind" or "independently stress-tested". A fast pass dispatches
 `python3 scripts/check_strategy.py run.json` (in this skill's folder). Fix every FAIL before
 the next stage. It needs no agent, so it always runs.
 
+Requires: Python 3.8+, standard library only. Nothing to install. Run the self-test with
+`python3 scripts/test_check_strategy.py` if the checker's output looks wrong.
+
 ---
 
 ## Context Management — The Stage Register System
@@ -93,6 +96,16 @@ See `references/stage-register.md` for templates and the full handoff note conve
 ---
 
 ## The Four Stages
+
+Copy this checklist into your reply at the start of a full run and tick each line when its
+handoff condition is met. A stage opens only when the line above it is ticked.
+
+```
+- [ ] 1 Frame and Generate: question defined; three or more options; none narrowed; Stage Register written
+- [ ] 2 Challenge and Proxy: every option challenged; eliminations reasoned; Stage Register written
+- [ ] 3 Risk and Trade-off: defensible recommendation; PM approves; Stage Register written
+- [ ] 4 Communication: PM reviews; changed recommendation sent back; Stage Register written
+```
 
 ### Stage 1 — Frame and Generate
 *Owner: Problem Framer → reviewed by Strategist*
@@ -229,3 +242,6 @@ Always include: the confidence grade for the recommendation, the alternatives th
 - For Stage Register templates and handoff note format → read `references/stage-register.md`
 - Before dispatching `strategy-challenger` or `strategy-juror`, or for the run JSON → read `references/agent-workflow.md`
 - For any complex or multi-stage strategy task → read all four
+- Only when changing this skill's agents or rerunning the agent comparison → read
+  `references/agent-plan.md` (the design and run results) and `references/cpo-launch-brief.md`
+  (the build and comparison briefs). Neither is needed to run the skill.

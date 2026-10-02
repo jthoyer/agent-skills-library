@@ -2,6 +2,16 @@
 
 Full playbooks for all seven actors. Read this file when embodying any actor or when orchestrating the full process.
 
+## Contents
+
+- 1\. Problem Framer
+- 2\. Strategist
+- 3\. Challenger
+- 4\. Stakeholder Proxy
+- 5\. Risk Analyst
+- 6\. Decision Architect
+- 7\. Project Manager
+
 ---
 
 ## 1. Problem Framer

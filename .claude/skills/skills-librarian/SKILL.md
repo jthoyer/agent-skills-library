@@ -13,7 +13,7 @@ description: >
   task touching the skills directory or library health. Always use before writing or modifying any
   SKILL.md — it enforces the standards that keep the library reliable.
 metadata:
-  version: 2.2.0
+  version: 2.3.0
 ---
 
 # Skills Librarian
@@ -126,11 +126,41 @@ Run this before installing any new or modified skill.
 
 ### Body guidelines
 
-- Target under 500 lines. Move anything beyond ~100 lines of supporting content into `references/`
-  with an explicit pointer stating when to read it.
-- Give reference files over 300 lines a table of contents.
+- Keep `SKILL.md` under 500 lines and use it as a directory. Move anything beyond ~100 lines of
+  supporting content into `references/` with an explicit pointer stating when to read it.
+- Link every reference file directly from `SKILL.md`, one level deep. A file reachable only
+  through another reference is the kind Claude reads partially or misses.
+- Give any reference file over 100 lines a `## Contents` list near the top. Claude often previews
+  only the first 100 lines; the list lets it jump to the section it needs.
+- State each script's dependencies on a `Requires:` line beside the command that runs it: runtime
+  version, packages with their install command, and any network host it calls. Never assume a
+  package is installed — environments differ, and a missing one fails silently.
 - Cross-reference related skills in a "Related Skills" section, and verify each named skill exists.
 - Write in the imperative. Explain why a constraint exists rather than stacking emphatic capitals.
+
+### Degrees of freedom
+
+Match how prescriptive an instruction is to how fragile the task is.
+
+| Freedom | Task shape | Write | Example |
+|---|---|---|---|
+| High | Many good answers; judgement matters | Plain-text guidance and the reason behind it | Code review, drafting a post |
+| Medium | A preferred shape, some variation fine | A template with the variable parts marked | Client report, run template |
+| Low | One right sequence; a slip is costly | An exact script or command, plus "do not change" | Migration, financial write, publish step |
+
+Prescribing a high-freedom task wastes context and flattens output. Leaving a low-freedom task
+loose invites the one mistake that matters. Newer models need less instruction than older ones,
+so test on the models the skill will run on before adding detail (`references/upgrade-gauntlet.md`
+§4.3).
+
+### Ordered workflows and self-checks
+
+- **Checklist.** Where a workflow has steps whose order matters, give a short copyable checklist
+  (`- [ ]` lines in a code block) and tell Claude to paste it into its reply and tick each line.
+  A ticked list survives a long run; a prose sequence gets skipped.
+- **Feedback loop.** Where a skill has a guide to meet (brand rules, voice characteristics, a
+  validator script), add the loop explicitly: check against the guide, name each miss, fix, check
+  again, stop when a pass is clean or after a stated number of rounds.
 
 ### Positive directive framing
 
@@ -226,6 +256,7 @@ commands, they exit non-zero on a finding, and they run in CI on every push:
 ```bash
 scripts/check-frontmatter.sh --list    # per-skill inventory, then the flags
 scripts/check-references.sh            # every asserted path, resolved against disk
+scripts/check-skill-structure.sh       # contents lists, one-level references, Requires: lines
 ```
 
 Between them they cover description length, YAML validity, name-matches-directory, body length,
@@ -246,6 +277,11 @@ the table below by hand — and note in the CHANGELOG that the numbers were hand
 | Cross-scope duplication | User skills that duplicate a public or plugin skill | no — judgement |
 | Negative framing | Prohibitions that should be positive directives | no — judgement |
 | Staleness | Hardcoded counts, dates, or "as of" snapshots inside skill bodies | partly |
+| Contents lists | Every reference file over 100 lines has `## Contents` near the top | yes |
+| One level deep | Every `references/` file is named in its own `SKILL.md` | yes |
+| Dependencies stated | Every skill with `scripts/` has a `Requires:` line | yes |
+| Degrees of freedom | Detail matches fragility: no scripted drafting, no loose migrations | no — judgement |
+| Checklists and loops | Ordered workflows have a checklist; guided outputs have a check-fix loop | no — judgement |
 
 Output an audit table: Skill | Scope | Chars | Lines | Issues | Verdict (Keep / Merge / Trim / Fix /
 Test / Retire).

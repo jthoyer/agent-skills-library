@@ -2,6 +2,20 @@
 
 Use these prompts to generate each PRD section from structured inputs. Provide the answers, then ask Claude to draft the section.
 
+## Contents
+
+- Section 1: Context and Problem
+- Section 2: Goals and Success Metrics
+- Section 3: User and Customer Context
+- Section 4: Solution Overview
+- Section 5: Functional Requirements
+- Section 6: Non-Functional Requirements
+- Section 7: Out of Scope
+- Section 8: Dependencies and Risks
+- Section 9: Rollout and Measurement
+- Section 10: Open Questions
+- Full PRD Generation Prompt
+
 ---
 
 ## Section 1: Context and Problem

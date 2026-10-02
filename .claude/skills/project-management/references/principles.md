@@ -1,5 +1,18 @@
 # Extended Principles Reference
 
+## Contents
+
+- Why Principles Before Rituals
+- The Seven Principles — Extended Rationale
+  - 1\. Information should flow, not pool
+  - 2\. Rituals serve the work, not the other way around
+  - 3\. Distinguish alignment from working sessions
+  - 4\. The junior's development is a project deliverable
+  - 5\. Stakeholders should never be surprised
+  - 6\. Decisions must be documented, not just discussed
+  - 7\. Close the loop explicitly
+- On the Escalation Protocol
+
 ## Why Principles Before Rituals
 
 The most common failure in project management is selecting rituals before understanding what those rituals need to achieve. A stand-up copied from another team's playbook, running in a context it wasn't designed for, quickly becomes a chore. Principles first forces the question: *what does good coordination actually need to produce on this project?*
