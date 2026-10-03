@@ -13,7 +13,7 @@ description: >
   Not for general job-market questions unrelated to Justin's tracked search, or for drafting the
   resume itself — hand off to `resume-builder` for that.
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Job Scan
@@ -141,6 +141,20 @@ Before filing, check the Job search database for this track's existing sub-items
 through in place (`~~...~~`) with a one- or two-sentence note on what was confirmed and when —
 never delete it silently. The record should show what was missed and why, consistent with the
 project's gap-transparency standard. Update the run's snapshot counts and closing note to match.
+
+### Before filing
+
+Copy this list into your reply and tick each line. File only when every line is ticked or
+carries a stated reason.
+
+```
+- [ ] Prompt page fetched fresh this run; version noted in Run details
+- [ ] Every role's listing fetched directly, or marked unconfirmed with the reason
+- [ ] Each role classed against prior sub-items (new / carried / closed / removed)
+- [ ] Exclusion-list removals flagged for Justin separately
+- [ ] Five parts present, in order; snapshot counts match the role list
+- [ ] Name and properties match the track's latest sub-item
+```
 
 ## Depth vs breadth
 

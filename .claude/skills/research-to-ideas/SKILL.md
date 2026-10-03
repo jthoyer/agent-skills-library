@@ -26,6 +26,22 @@ thinking inside each stage.
 Stages 1–3 find the jobs and the ideas. Stages 4–5 grade and rank. Stage 6 stress-tests. Stage 7 decides. Stage 8
 tests, and its result feeds the next run.
 
+Order matters: each stage reads the one before. Copy this checklist into your reply at the
+start of the run and tick each line as it closes. Start a stage only when the line above it
+is ticked.
+
+```
+- [ ] 0 Scope and coverage set; missing source classes scouted
+- [ ] 1 Clustered; thin groups sent to Revisit-if
+- [ ] 2 One job per cluster, with push and anxiety quoted
+- [ ] 3 Two to four ideas per job; load-bearing claims marked
+- [ ] 4 Claims graded; auditor's grades diffed against mine
+- [ ] 5 Scored, confidence rated, ranked; check_brief.py clean (Full)
+- [ ] 6 Top three stress-tested; drops re-ranked
+- [ ] 7 Decision block written; check_brief.py clean again
+- [ ] 8 Test plan with gap-free decision rule; write-back done
+```
+
 Read before you write any output:
 
 - [`references/templates.md`](references/templates.md): idea card, decision block, test plan,
@@ -173,6 +189,9 @@ apart.
 
 On Full depth, write the brief as JSON and run `scripts/check_brief.py` on it. It checks totals,
 caps and rank. Fix every FAIL before Stage 6.
+
+Requires: Python 3.8+, standard library only. Nothing to install. Run
+`python3 scripts/test_check_brief.py` to self-test the checker.
 
 **6. Stress-test the leaders: `pre-mortem`, plus `red-team` on Full depth.** Take the top
 three. On Full depth, dispatch one `idea-challenger` per idea, with the idea and its evidence

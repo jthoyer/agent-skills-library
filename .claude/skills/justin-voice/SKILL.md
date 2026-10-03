@@ -10,7 +10,7 @@ description: >
   use where authenticity of authorship matters. Always apply the humanizer skill as a final pass.
 metadata:
   author: Justin Hoyer
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Justin Voice
@@ -136,8 +136,12 @@ sentence delivers the payload.
 ## Application process
 
 1. Draft in Justin's voice using the characteristics above.
-2. Apply the `humanizer` skill as a final pass to strip remaining AI patterns.
-3. Read aloud test: does this sound like a person wrote it, or like a tool assembled it?
+2. Check the draft against the eight characteristics and "What to avoid". For each miss, quote
+   the line and name the characteristic it breaks. Fix every miss, then check again. Stop when a
+   pass finds none, or after three passes; say which misses remain and why.
+3. Apply the `humanizer` skill as a final pass to strip remaining AI patterns.
+4. Read aloud test: does this sound like a person wrote it, or like a tool assembled it? If not,
+   return to step 2.
 
 ---
 

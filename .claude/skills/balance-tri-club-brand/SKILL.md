@@ -161,6 +161,12 @@ Layout:         Dark canvas · high contrast · numbered action lists
 Tone:           Direct · Warm · Cheeky · Inclusive · Action-oriented
 ```
 
+### Check before you deliver
+
+Check every output against the Quick Reference above and the "What This Brand Is Not" list.
+Name each miss (a wrong hex value, a title-case headline, a passive call to action), fix it,
+then check again. Deliver only when a full pass finds nothing.
+
 ---
 
 ## Related Skills

@@ -1,5 +1,17 @@
 # Bullet Writing Guide — XYZ/STAR Formula & Action Verbs
 
+## Contents
+
+- Source: Harvard Career Services, Google XYZ Formula, r/EngineeringResumes, Columbia STAR Method
+- The XYZ Formula (Google's Recommended Format)
+- The STAR Method (For Complex Accomplishments)
+- Action Verbs — Use These, Not Those
+- Quantification Strategies
+- Bullet Formatting Rules (per r/EngineeringResumes wiki)
+- Bullet Length Guidelines
+- Domain Context — The Secret Weapon
+- Things to NEVER Include in Bullets
+
 ## Source: Harvard Career Services, Google XYZ Formula, r/EngineeringResumes, Columbia STAR Method
 
 ---

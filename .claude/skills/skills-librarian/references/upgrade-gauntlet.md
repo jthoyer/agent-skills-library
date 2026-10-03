@@ -120,9 +120,11 @@ Run each condition twice per task where the task is cheap enough to justify it. 
 resampling in one conversation is thinner evidence of real variance than parallel independent
 runs — treat a single win on a single task as noise, not signal.
 
-If the person wants a genuine cross-model check — does an upgrade written for the current model
-also help or hurt on another one — ask them to switch the active model before a condition and
-confirm once they have. You can't switch your own model or verify a switch happened from inside
+Test on every model the skill will run on — Haiku, Sonnet and Opus where all three are in use.
+A skill tuned on a newer model can under-specify for an older one, and detail that helps Haiku
+can crowd Opus. In Claude Code, run each arm through a subagent pinned to each model (the Agent
+tool's `model` parameter) and log model × arm on the dashboard. Here, ask the person to switch the
+active model before a condition and confirm once they have. You can't switch your own model or verify a switch happened from inside
 the conversation; take their confirmation and log which model ran which condition on the
 dashboard.
 

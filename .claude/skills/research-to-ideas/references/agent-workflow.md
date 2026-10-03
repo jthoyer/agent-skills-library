@@ -3,6 +3,17 @@
 Read this before dispatching any agent. Lite runs (see SKILL.md Stage 0) work inline and skip
 the agents.
 
+## Contents
+
+- Description
+- Workflow
+  - Dispatch contract
+  - If no agent can be dispatched
+  - The brief as JSON
+  - Calibration (re-runs)
+- Rationale
+  - How to know it worked
+
 ## Description
 
 The pipeline now has four agents behind the stages. Each does one job that the main thread does

@@ -6,6 +6,25 @@ owner to name a new real decision (see "Run 1 results" below and the Run 2 note 
 `cpo-launch-brief.md`). `SKILL.md` points at `agent-workflow.md`, which points here. Visual map:
 `multi-actor-strategy-map.html` at the repo root, and `workflows/multi-actor-strategy-map.png`.
 
+## Contents
+
+- The question
+- Short answer
+- Why not seven agents
+- Where one context breaks the skill's own promises
+- The design
+  - The challenger's key rule
+  - The Conviction Bet moves to the jurors
+  - What the script checks
+  - Persistence
+  - If no agent can be dispatched
+  - Fast pass
+- Phases
+- How we know it worked
+- Run 1 results (2026-09-29)
+- Retire test
+- Risks
+
 ## The question
 
 Would `multi-actor-strategy` be 10x better if its seven actors ran as agents?

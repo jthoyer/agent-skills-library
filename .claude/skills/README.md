@@ -36,7 +36,8 @@ This library serves several places, and they do not all sync with each other.
 
 1. Snapshot before editing (`skills-librarian` §"Change safety").
 2. Build changes outside this repo, validate (frontmatter, description ≤1,024 chars,
-   body <500 lines, cross-references resolve), then commit here.
+   body <500 lines, cross-references resolve, `scripts/check-skill-structure.sh` clean),
+   then commit here.
 3. Add a `CHANGELOG.md` entry — Added / Merged / Updated / Retired.
 4. Batch re-upload changed folders to claude.ai Skills settings.
 5. Optional: mirror to Notion's AI Skills DB per `skills-librarian` §9.

@@ -63,6 +63,16 @@ See `references/stage-register.md` for templates and the full handoff note conve
 
 ## The Four Stages
 
+Copy this checklist into your reply at the start of a full run and tick each line when its
+handoff condition is met. A stage opens only when the line above it is ticked.
+
+```
+- [ ] 1 Evidence Assembly: source and confidence registers complete; Stage Register written
+- [ ] 2 Challenge and Validation: both outputs in; open challenges escalated; Stage Register written
+- [ ] 3 Synthesis: Evidence Auditor confirms clean; PM approves; Stage Register written
+- [ ] 4 Communication: PM reviews the note; changed claims sent back; Stage Register written
+```
+
 ### Stage 1 — Evidence Assembly
 *Owner: Researcher → reviewed by Evidence Auditor*
 
