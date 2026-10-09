@@ -49,7 +49,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `cody` | `changelog/2026-09-2.md`×2, `changelog/2026-09-1.md`×2 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×8 |
 | `cos` | `changelog/2026-09-2.md`, `changelog/2026-09-1.md`×2 | — |
 | `evidence-auditor` | `changelog/2026-09-2.md`×2 | — |
-| `idea-challenger` | `changelog/2026-09-2.md`×2 | — |
+| `idea-challenger` | `CHANGELOG.md`, `changelog/2026-09-2.md`×2 | — |
 | `investigator` | `changelog/2026-09-2.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `mc-implementer` (retired 2026-09-29, `.claude/skills/_retired/mc-implementer/`) | `changelog/2026-09-2.md` | `changelog/2026-08.md`×2 |
 | `mc-integrator` | `changelog/2026-09-2.md`, `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
@@ -68,6 +68,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-10-09 — idea-challenger (intake mode: Impact-Effort grade and quick-win step)
+- Verdict: **extended, not reviewed.** No `agent-improver` pass and no real run behind the new mode yet.
+- Changed: `idea-challenger.md` gains an intake mode. It scores a newly proposed idea 1–5 on Impact (demand evidence, income, career lift, compounding) and Effort (hours, dependencies, unknowns), names the quadrant, and writes one "When X, I will Y" quick-win step. `references/agent-workflow.md` gains the matching table row and an "Intake" section. The description grew from 665 to 795 characters.
+- Why: the owner wanted a fast triage for new ideas outside a full run. The agent only stress-tested ideas already ranked.
+- Guards: Stage 6 stays blind. Intake grades never reach a Stage 6 dispatch, the Stage 5 score or `check_brief.py`. Demand evidence caps at 2 when only Asserted. Effort runs 5 = heavy, the opposite of Stage 5, so the output labels it.
+- Expected effect: a new idea gets a quadrant and a next step in one dispatch. Check on the first real use: does the step fit under two hours and read a signal?
+- Follow-up: not synced to the four consuming repos (`scripts/sync-agents.sh`). `research-to-ideas-map.html` and `SKILL.md` do not mention intake mode. Next audit targets: `idea-challenger` (first intake run), `cluster-analyst` (depth gain untested), `source-scout` (parallelism is its only edge).
 
 ## 2026-10-03 — library — portfolio (agent roster synced into the four consuming repos)
 - Verdict: **closed.** The follow-up open since 2026-09-11 ("sync the roster into the four repos (needs write access, not done)", `changelog/2026-09-1.md`) is done.

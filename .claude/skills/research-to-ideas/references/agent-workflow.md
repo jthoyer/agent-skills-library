@@ -25,7 +25,7 @@ write, and attacking ideas it did not rank. A script does the arithmetic.
 | `source-scout` | agent, sonnet | 0 | Reach one Not-reached or Partial source class; hunt failures, denominators and seller bias | Topic, class, what is in hand | Ideas, scores |
 | `cluster-analyst` | agent, sonnet | 1–3 | One cluster to job, candidate ideas, evidence table with load-bearing claims | One cluster | Other clusters, grades |
 | `evidence-auditor` | agent, opus | 4 | Blind regrade, independence, spot-checks, denominators | Evidence table | Draft grades, scores |
-| `idea-challenger` | agent, opus | 6 | Catch and worst case for one idea | One idea and its evidence | Score, rank, author reasoning |
+| `idea-challenger` | agent, opus | 6; intake any time | Catch and worst case for one idea. Intake mode: Impact-Effort grade, quadrant and one quick-win step for a new idea | Stress-test: one idea and its evidence. Intake: the idea, any evidence, the limits | Stress-test: score, rank, author reasoning |
 | `scripts/check_brief.py` | script | 5, 7, 8 | Totals, ranking rule, confidence caps, decision-rule gaps | The brief as JSON | n/a |
 | `watchdog` | existing agent | re-runs | On re-runs, sweep the new page against the old one for drift | Both pages | n/a |
 
@@ -52,6 +52,17 @@ write-back. Agents return evidence and objections. They never decide.
 ```
 
 Steps 0, 2–3, 4 and 6 are the parallel ones. Send every agent in a step in one message.
+
+### Intake: a new idea, outside the stages
+
+When the owner proposes a new idea, dispatch `idea-challenger` in intake mode. It returns Impact and
+Effort scores, a quadrant and one "When X, I will Y" quick-win step. The brief says "intake mode",
+names the idea and its evidence, and gives the limits. Intake is a triage, not a Stage 5 score:
+
+- Its grades stay out of the JSON brief and out of `check_brief.py`.
+- Never pass them to a Stage 6 dispatch. That challenger stays blind.
+- Effort runs 5 = heavy. Stage 5 criteria run 5 = best. Do not add the two.
+- If the idea earns a place in a run, the main thread scores it at Stage 5 in the usual way.
 
 ### Dispatch contract
 
