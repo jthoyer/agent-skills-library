@@ -69,6 +69,17 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-09 — CPO
+- Verdict: **fit for purpose; root resolution fails in multi-repo cloud sessions.** REDUCED INDEPENDENCE: CPO embodied `agent-improver` on its own run (no Agent/Task tool, dispatch probe resolved-negative).
+- Scores: 1 S · 2 S · 3 A · 4 S · 5 A · 6 A · 7 S
+- Sample: `work-samples/CPO-2026-10-09.md` (BalanceTRI-app gated-accounts spec).
+- Changed: `CPO.md` step-0 snippet gains a sibling-directory fallback and prints `NOT FOUND` instead of a blank. Tested from `/home/user`: it now resolves the library. Both check scripts clean.
+- Why: dispatched with cwd `/home/user` (not a repo) beside two checkouts. `git rev-parse` failed, `~/.claude/agents` is absent, and the snippet printed an empty root. A literal run would have declared the ledger unreachable one directory away.
+- Case against the run (6 = A): the live database was never inspected (no Supabase MCP tool), so every schema claim rests on migration files. The SMTP-restriction flag rests on a web search, not the dashboard. The spec states both as open questions; neither is verified.
+- Proposed (MED, not applied): step 1 should inventory what the target repo already does against the ask before framing. This run found 4 of 6 asked capabilities already shipped, which reframed the whole spec.
+- Amended same day: owner chose option D (passwords); spec revised. The work sample holds revision 1.
+- Follow-up: independent `agent-improver` pass on this sample. Re-sync agents to the four consuming repos (`scripts/sync-agents.sh`). Notion backlog not reconciled (no Notion tool).
+
 ## 2026-10-09 — idea-challenger (intake mode: Impact-Effort grade and quick-win step)
 - Verdict: **extended, not reviewed.** No `agent-improver` pass and no real run behind the new mode yet.
 - Changed: `idea-challenger.md` gains an intake mode. It scores a newly proposed idea 1–5 on Impact (demand evidence, income, career lift, compounding) and Effort (hours, dependencies, unknowns), names the quadrant, and writes one "When X, I will Y" quick-win step. `references/agent-workflow.md` gains the matching table row and an "Intake" section. The description grew from 665 to 795 characters.
