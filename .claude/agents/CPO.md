@@ -19,7 +19,9 @@ model: opus
 ```bash
 LIB=$(git -C "$(pwd)" rev-parse --show-toplevel 2>/dev/null)
 [ -f "$LIB/CHANGELOG.md" ] && [ -d "$LIB/.claude/agents" ] || LIB=$(dirname "$(ls -d ~/.claude/agents 2>/dev/null | xargs readlink -f 2>/dev/null)" 2>/dev/null | xargs dirname 2>/dev/null)
-echo "library root: $LIB"
+# Cloud sessions often start in a non-repo parent holding several checkouts side by side.
+[ -f "$LIB/CHANGELOG.md" ] && [ -d "$LIB/.claude/agents" ] || LIB=$(for d in "$(pwd)"/*/ "$(pwd)"/../*/; do [ -f "$d/CHANGELOG.md" ] && [ -d "$d/.claude/agents" ] && readlink -f "$d" && break; done)
+echo "library root: ${LIB:-NOT FOUND}"
 ```
 
 The two ledgers this file depends on do **not** live inside the agents directory — they sit one level above it, at the library repo root:
