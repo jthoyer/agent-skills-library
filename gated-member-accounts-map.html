@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gated Member Accounts Map</title>
+<style>
+  :root {
+    --ground: #F4F5F7; --panel: #F8F9FA; --ink: #1F2933; --muted: #5B6670; --rule: #D5DAE0;
+    --blue: #DCE8F1;  --blue-s: #4F7FA6;
+    --grey: #ECEDEF;  --grey-s: #6E7781;
+    --green: #E3F0E6; --green-s: #2F7A47;
+    --amber: #FBE3D6; --amber-s: #B5532A;
+    --sans: "DejaVu Sans", "Liberation Sans", system-ui, sans-serif;
+    --mono: "DejaVu Sans Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 36px 20px 48px; display: flex; flex-direction: column; gap: 22px; }
+  h1 { font-size: 38px; margin: 0; letter-spacing: -0.01em; }
+  h2 { font-size: 22px; margin: 18px 0 0; }
+  p  { margin: 0; color: var(--muted); max-width: 72ch; }
+  .lead { font-size: 17px; }
+  figure { margin: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 18px 10px; }
+  svg { display: block; width: 100%; height: auto; }
+  .b  { stroke-width: 1.6; rx: 6; }
+  .bl { fill: var(--blue);  stroke: var(--blue-s); }
+  .gr { fill: var(--grey);  stroke: var(--grey-s); }
+  .gn { fill: var(--green); stroke: var(--green-s); }
+  .am { fill: var(--amber); stroke: var(--amber-s); }
+  .ex { fill: #fff; stroke: var(--grey-s); stroke-dasharray: 5 4; }
+  .t  { font-family: var(--mono); font-size: 12px; font-weight: 700; fill: var(--ink); text-anchor: middle; }
+  .s  { font-family: var(--sans); font-size: 10.5px; fill: var(--muted); text-anchor: middle; }
+  .lane { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; fill: var(--muted); text-anchor: middle; }
+  .ar { fill: none; stroke: #3B4650; stroke-width: 1.3; marker-end: url(#h); }
+  .ad { fill: none; stroke: #3B4650; stroke-width: 1.3; stroke-dasharray: 5 4; marker-end: url(#h); }
+  .note { font-family: var(--sans); font-size: 10.5px; fill: var(--muted); }
+  .lg { font-family: var(--sans); font-size: 12px; fill: var(--ink); }
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--rule); font-size: 14.5px; }
+  th { text-align: left; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 11px 14px; border-bottom: 1px solid var(--rule); }
+  td { padding: 9px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { font-family: var(--mono); font-size: 13.5px; white-space: nowrap; }
+  .pill { font-family: var(--mono); font-size: 11px; padding: 1px 7px; border-radius: 4px; border: 1px solid; white-space: nowrap; }
+  .p-done { color: var(--green-s); border-color: var(--green-s); background: var(--green); }
+  .p-rev  { color: var(--amber-s); border-color: var(--amber-s); background: var(--amber); }
+  .p-own  { color: var(--blue-s); border-color: var(--blue-s); background: var(--blue); }
+  .p-todo { color: var(--grey-s); border-color: var(--grey-s); background: var(--grey); }
+  ul { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; }
+  li { max-width: 80ch; }
+  li b { color: var(--ink); }
+  code { font-family: var(--mono); font-size: 0.86em; }
+  footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Gated Member Accounts Map</h1>
+  <p class="lead">How someone joins the Balance Tri Club calendar once sign-in moves to email and password. They sign up, ask for access and wait. The owner gets one Telegram message, decides in the console, and the allow-list does the rest. Guards stop a pre-approval being claimed by someone else.</p>
+
+  <figure>
+  <svg viewBox="0 0 1040 560" role="img" aria-label="Lane diagram: sign-up, alert, decision, guards and build steps">
+    <defs><marker id="h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3B4650"/></marker></defs>
+
+    <!-- lane labels -->
+    <text class="lane" transform="translate(32,58) rotate(-90)">SIGN-UP</text>
+    <text class="lane" transform="translate(32,160) rotate(-90)">ALERT</text>
+    <text class="lane" transform="translate(32,262) rotate(-90)">DECISION</text>
+    <text class="lane" transform="translate(32,357) rotate(-90)">GUARDS</text>
+    <text class="lane" transform="translate(32,452) rotate(-90)">BUILD</text>
+
+    <!-- SIGN-UP -->
+    <rect class="b bl" x="70"  y="28" width="210" height="60"/><text class="t" x="175" y="53">Sign up</text><text class="s" x="175" y="71">email · password · display name</text>
+    <rect class="b bl" x="320" y="28" width="210" height="60"/><text class="t" x="425" y="53">request_access()</text><text class="s" x="425" y="71">name rules · name must be unique</text>
+    <rect class="b gr" x="570" y="28" width="210" height="60"/><text class="t" x="675" y="53">access_requests</text><text class="s" x="675" y="71">one row · status: pending</text>
+    <rect class="b bl" x="820" y="28" width="200" height="60"/><text class="t" x="920" y="53">Waiting banner</text><text class="s" x="920" y="71">can browse, can't write</text>
+    <path class="ar" d="M280,58 H318"/><path class="ar" d="M530,58 H568"/><path class="ar" d="M780,58 H818"/>
+
+    <!-- ALERT -->
+    <rect class="b gr" x="70"  y="130" width="210" height="60"/><text class="t" x="175" y="155">insert trigger</text><text class="s" x="175" y="173">pg_net · sends user_id + secret</text>
+    <rect class="b gr" x="320" y="130" width="210" height="60"/><text class="t" x="425" y="155">notify-access-request</text><text class="s" x="425" y="173">Edge Function · checks the secret</text>
+    <rect class="b gr" x="570" y="130" width="210" height="60"/><text class="t" x="675" y="155">notifier_claim()</text><text class="s" x="675" y="173">still pending · max 20 per Sydney day</text>
+    <rect class="b ex" x="820" y="130" width="200" height="60"/><text class="t" x="920" y="155">Telegram to owner</text><text class="s" x="920" y="173">name + console link · no buttons</text>
+    <path class="ar" d="M675,88 V108 H175 V128"/>
+    <path class="ar" d="M280,160 H318"/><path class="ar" d="M530,160 H568"/><path class="ar" d="M780,160 H818"/>
+
+    <!-- DECISION -->
+    <rect class="b gn" x="70"  y="232" width="210" height="60"/><text class="t" x="175" y="257">Console: Requests</text><text class="s" x="175" y="275">owner · two-factor sign-in</text>
+    <rect class="b gn" x="320" y="232" width="210" height="60"/><text class="t" x="425" y="257">admin_decide_request()</text><text class="s" x="425" y="275">approve · reject · revoke · reapprove</text>
+    <rect class="b gr" x="570" y="232" width="210" height="60"/><text class="t" x="675" y="257">allow-list</text><text class="s" x="675" y="275">hashed address added or removed</text>
+    <rect class="b gr" x="820" y="232" width="200" height="60"/><text class="t" x="920" y="257">RLS on every write</text><text class="s" x="920" y="275">the allow-list is the only gate</text>
+    <path class="ad" d="M920,190 V210 H175 V230"/>
+    <text class="note" x="560" y="206">owner opens the console (the badge counts what's waiting)</text>
+    <path class="ar" d="M280,262 H318"/><path class="ar" d="M530,262 H568"/><path class="ar" d="M780,262 H818"/>
+
+    <!-- GUARDS -->
+    <rect class="b am" x="70"  y="326" width="176" height="62"/><text class="t" x="158" y="350">G1 · cutover</text><text class="s" x="158" y="367">drop hashes with no</text><text class="s" x="158" y="380">confirmed account</text>
+    <rect class="b am" x="256" y="326" width="176" height="62"/><text class="t" x="344" y="350">G2 · add</text><text class="s" x="344" y="367">approve only a</text><text class="s" x="344" y="380">confirmed account</text>
+    <rect class="b am" x="442" y="326" width="176" height="62"/><text class="t" x="530" y="350">G3 · triggers</text><text class="s" x="530" y="367">deleted or changed email</text><text class="s" x="530" y="380">drops the hash</text>
+    <rect class="b am" x="628" y="326" width="176" height="62"/><text class="t" x="716" y="350">account lock</text><text class="s" x="716" y="367">one change per account</text><text class="s" x="716" y="380">at a time</text>
+    <rect class="b am" x="814" y="326" width="206" height="62"/><text class="t" x="917" y="350">name guard</text><text class="s" x="917" y="367">unique · renames follow</text><text class="s" x="917" y="380">the request · 5 a day</text>
+
+    <!-- BUILD chips -->
+    <g font-family="DejaVu Sans Mono" font-size="12" font-weight="700" text-anchor="middle">
+      <rect class="b gn" x="70"  y="424" width="76" height="40"/><text x="108" y="449">B0</text>
+      <rect class="b bl" x="154" y="424" width="76" height="40"/><text x="192" y="449">B1</text>
+      <rect class="b bl" x="238" y="424" width="76" height="40"/><text x="276" y="449">B2</text>
+      <rect class="b am" x="322" y="424" width="76" height="40"/><text x="360" y="449">B3</text>
+      <rect class="b gn" x="406" y="424" width="76" height="40"/><text x="444" y="449">B4</text>
+      <rect class="b gr" x="490" y="424" width="76" height="40"/><text x="528" y="449">B5</text>
+      <rect class="b gr" x="574" y="424" width="76" height="40"/><text x="612" y="449">B6</text>
+      <rect class="b gr" x="658" y="424" width="76" height="40"/><text x="696" y="449">B7</text>
+      <rect class="b bl" x="742" y="424" width="76" height="40"/><text x="780" y="449">B8</text>
+      <rect class="b gr" x="826" y="424" width="76" height="40"/><text x="864" y="449">B9</text>
+      <rect class="b bl" x="910" y="424" width="110" height="40"/><text x="965" y="449">B10</text>
+    </g>
+    <g class="s">
+      <text x="108" y="480">preflight</text><text x="192" y="480">bot + keys</text><text x="276" y="480">hCaptcha</text><text x="360" y="480">migration</text><text x="444" y="480">notifier</text>
+      <text x="528" y="480">reset fn</text><text x="612" y="480">console</text><text x="696" y="480">app (held)</text><text x="780" y="480">announce</text><text x="864" y="480">cutover</text><text x="965" y="480">watch week</text>
+      <text x="108" y="493">done</text><text x="192" y="493">owner</text><text x="276" y="493">owner</text><text x="360" y="493">PR 76</text><text x="444" y="493">merged</text>
+      <text x="528" y="493">to do</text><text x="612" y="493">to do</text><text x="696" y="493">to do</text><text x="780" y="493">owner</text><text x="864" y="493">owner + Claude</text><text x="965" y="493">owner</text>
+    </g>
+
+    <!-- legend -->
+    <g class="lg">
+      <rect class="b bl" x="70"  y="522" width="16" height="12"/><text x="92"  y="533">member or owner step</text>
+      <rect class="b gr" x="240" y="522" width="16" height="12"/><text x="262" y="533">database or function</text>
+      <rect class="b gn" x="420" y="522" width="16" height="12"/><text x="442" y="533">admin, or done</text>
+      <rect class="b am" x="560" y="522" width="16" height="12"/><text x="582" y="533">guard, or in review</text>
+      <rect class="b ex" x="730" y="522" width="16" height="12"/><text x="752" y="533">outside service</text>
+      <path class="ad" d="M868,528 H900"/><text x="908" y="533">a person acts</text>
+    </g>
+  </svg>
+  </figure>
+
+  <p>Nothing in the request flow grants access by itself. The only thing the write rules check is the allow-list. A request row is the record of who asked and what the owner decided, and <code>admin_decide_request()</code> moves the two together in one step. The guards exist because, once "Confirm email" is off, an email address proves nothing.</p>
+
+  <h2>What each state means</h2>
+  <table>
+    <tr><th>State</th><th>How they got there</th><th>What they see</th><th>Can write?</th></tr>
+    <tr><td>none</td><td>Has an account, no request yet</td><td>The name and note step</td><td>No</td></tr>
+    <tr><td>pending</td><td>Sent a request</td><td>"Waiting for the club admin" banner</td><td>No</td></tr>
+    <tr><td>approved</td><td>On the allow-list (with or without a request row)</td><td>The calendar as today</td><td>Yes</td></tr>
+    <tr><td>rejected</td><td>The owner said no</td><td>A message, then signed out</td><td>No</td></tr>
+    <tr><td>revoked</td><td>Was approved, then removed, or changed their email</td><td>"Your access has been removed"</td><td>No</td></tr>
+  </table>
+
+  <h2>Review gates before anything goes live</h2>
+  <table>
+    <tr><th>Gate</th><th>What</th><th>B3 status</th></tr>
+    <tr><td>R1</td><td>Independent code review</td><td><span class="pill p-done">passed round 2</span> last fixes not yet re-reviewed</td></tr>
+    <tr><td>R2</td><td>Security review</td><td><span class="pill p-done">passed round 2</span> no open Critical or High</td></tr>
+    <tr><td>R3</td><td>Executed tests, output saved</td><td><span class="pill p-done">scratch Postgres</span> live stack still to run</td></tr>
+    <tr><td>R4</td><td>Supabase advisors against the B0 baseline</td><td><span class="pill p-todo">after apply</span></td></tr>
+    <tr><td>R5</td><td>Owner's explicit yes</td><td><span class="pill p-own">yours</span> before every live change</td></tr>
+  </table>
+
+  <h2>Where it stands</h2>
+  <ul>
+    <li><b>Live project unchanged.</b> B0 found the repo and the database match: 33 migrations each. 161 of 162 allow-list entries have no account, and G1 will remove them at cutover.</li>
+    <li><b>B4 is merged, not deployed.</b> The notifier code and its trigger migration wait for B3, the secrets and your go.</li>
+    <li><b>B3 is in review.</b> PR 76 holds the migration and the SQL tests. Round 1 of the security review found a High: an unconfirmed account could keep a pre-approval alive. It is fixed, and both reviews passed round 2. All but one fix has a test that fails if the fix is removed. The exception is a deadlock guard that no test can force.</li>
+    <li><b>Yours next:</b> the Telegram bot and hCaptcha keys (B1), then a yes for each live step.</li>
+  </ul>
+
+  <footer>BalanceTRI-app · gated member accounts · 11 Oct 2026 · source: the plan in Notion, PRs 75 and 76</footer>
+</div>
+</body>
+</html>
