@@ -39,7 +39,7 @@ Pick the level the user names, or `full` if they just say "terse":
 
 ## Related Skills
 
-- `prompt-refiner` — routes "make replies terser" requests here
+- `cpo` — routes "make replies terser" requests here
 - `editor` — compresses or clarifies a document the user hands over; this skill governs Claude's own
   reply length instead
 - `humanizer` — a different axis (authenticity, not length); stack both if the user wants short *and*

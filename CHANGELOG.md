@@ -42,7 +42,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 | Agent | Latest entries in | Also in |
 |---|---|---|
-| `CPO` | `changelog/2026-09-2.md`×4, `changelog/2026-09-1.md`×9 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×4 |
+| `CPO` (retired 2026-10-13 → `cpo` skill) | `changelog/2026-09-2.md`×4, `changelog/2026-09-1.md`×9 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×4 |
 | `agent-improver` | `changelog/2026-09-1.md`×4 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×5 |
 | `code-improver` | `changelog/2026-09-1.md`×2 | `CHANGELOG-ARCHIVE.md`×4 |
 | `cluster-analyst` | `changelog/2026-09-2.md`×2 | — |
@@ -76,6 +76,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 - Proposed (Medium, needs the owner's yes): one sentence in step 1. Where the project has a test runner, commit the stub that executed the unloaded half into it, rather than leaving it in a temp directory.
 - Case against my own grade: CPO framed, built and graded this run, so "Observed Strong" is self-assessed. The scratchpad loss is CPO's own miss as much as cody's.
 - Follow-up: an independent pass when dispatch is reachable. Dispatch probe: resolved-negative. No Notion tool in session. Sample: `work-samples/cody-2026-10-13-pass3.md`.
+
+## 2026-10-13 — library — portfolio (CPO agent and prompt-refiner retired into the `cpo` skill)
+- Decision: retire the `CPO` agent and the `prompt-refiner` skill; the `cpo` skill is the one front door (frame → route → do → review). `/rewrite` launches it. Approved by the owner, gated on two tests.
+- Evidence (all delegated, none embodied): a dispatched `CPO` reported no `Agent` tool although `CPO.md:5` listed it. Blind routing test went from 6/8 to 8/8. Blind intake comparison: new `cpo` 86/90, old `cpo` 73, `prompt-refiner` 46; the new system is never worse in any cell. Sample: `work-samples/cpo-redesign-2026-10-13.md`.
+- Rule adopted: conductors are skills, executors are agents.
+- Rejected: keeping `prompt-refiner` as intake only. It duplicated `cpo`'s framing and routing and scored lower on both.
+- Archived unmodified: `.claude/skills/_retired/CPO/CPO.md`, `.claude/skills/_retired/prompt-refiner/`. History stays in this ledger; the skill carries rules only (7,871 words → 861 plus three on-demand references).
+- Reverses if: two runs in a month need a dispatched router, or the routing test drops below 8/8 after an edit.
+- Open: `cos` and `mc-orchestrator` list `Agent` but cannot use it when dispatched (second PR, approved). `balancetri-app` still holds a synced `CPO.md`; the sync script never deletes, so remove it by hand. Account-synced copies of `prompt-refiner` need removing in claude.ai settings.
+- Next audit targets: `cpo` (first real multi-agent run under the new close-out), `cos` (same conversion), `watchdog` (now the default reviewer for member-facing work).
 
 ## 2026-10-13 — cody (Balance Bolt hand-set waves; REDUCED INDEPENDENCE — embodied by CPO)
 - Verdict: Built, tested and committed locally (`BalanceBolt@f1076d5`, not pushed). The riskiest defect, deploy order, surfaced only at review.

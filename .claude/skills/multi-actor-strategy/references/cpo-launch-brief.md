@@ -1,5 +1,9 @@
 # CPO launch brief: agents behind multi-actor-strategy
 
+> **2026-10-13:** "CPO" below now means the `cpo` skill, run in the main thread. The CPO agent
+> and `prompt-refiner` were retired and merged into it; launch commands below use `/cpo` and
+> `/rewrite`.
+
 Ready-to-launch instructions for phases 2–6 of `agent-plan.md` (same folder).
 
 ## Contents
@@ -23,13 +27,13 @@ session or the owner's yes.
 
 | Launch | Phases | Paste this | Where |
 |---|---|---|---|
-| **A** | 2–3: script, then two agents | `/prompt-refiner Launch CPO with Launch A from .claude/skills/multi-actor-strategy/references/cpo-launch-brief.md` | Any session in this repo |
-| **B** | 4: the comparison run | `/prompt-refiner Run multi-actor-strategy on work-samples/multi-actor-strategy-2026-09-29-inputs.md, following Launch B in .claude/skills/multi-actor-strategy/references/cpo-launch-brief.md` | A **fresh** session with the Agent tool |
-| **C** | 5–6: judge, decide, close | `/prompt-refiner Launch CPO with Launch C from .claude/skills/multi-actor-strategy/references/cpo-launch-brief.md` | Any session, after B is saved |
+| **A** | 2–3: script, then two agents | `/cpo Run Launch A from .claude/skills/multi-actor-strategy/references/cpo-launch-brief.md` | Any session in this repo |
+| **B** | 4: the comparison run | `/rewrite Run multi-actor-strategy on work-samples/multi-actor-strategy-2026-09-29-inputs.md, following Launch B in .claude/skills/multi-actor-strategy/references/cpo-launch-brief.md` | A **fresh** session with the Agent tool |
+| **C** | 5–6: judge, decide, close | `/cpo Run Launch C from .claude/skills/multi-actor-strategy/references/cpo-launch-brief.md` | Any session, after B is saved |
 
 **Why three launches, not one.** Phase 4 needs a main thread that can dispatch agents and has
 never seen the baseline. CPO can do neither. It will have read the baseline while building the
-agents, and no one has ever seen an agent dispatch from inside another agent (`CPO.md`, step 4).
+agents, and a subagent cannot dispatch at all (confirmed live 2026-10-13).
 A fresh top-level session can do both.
 
 ## The workflow
@@ -197,7 +201,7 @@ author curated its inputs and already preferred an option. Run 2 fixes that.
 5. **Judge.** Follow Launch C's phase 5 with both run 2 files. Then apply the plan's retire test
    across runs 1 and 2.
 
-Paste line for step 4: `/prompt-refiner Run multi-actor-strategy on <inputs path>, following
+Paste line for step 4: `/rewrite Run multi-actor-strategy on <inputs path>, following
 Launch B in .claude/skills/multi-actor-strategy/references/cpo-launch-brief.md, with the run 2
 paths from its "Run 2" section`
 

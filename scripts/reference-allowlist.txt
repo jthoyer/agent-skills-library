@@ -30,7 +30,7 @@ core.js	worked example from a BalanceTRI review, not a file here
 ~/.claude/COS/staging/	personal staging tree — outside the repo by design; see cos.md
 mandate.md	short form of ~/.claude/COS/mandate.md, same reason
 balancetri-app/app.js	worked example from the 2026-09-13 ux-designer run — a file in BalanceTRI-app, not here
-~/code/papercuts.md	global cross-session papercuts log — outside the repo by design; see CPO.md
+~/code/papercuts.md	global cross-session papercuts log — outside the repo by design; see .claude/skills/cpo/references/portfolio.md
 ~/code	parent dir of the papercuts log, same reason
 
 # --- The claude.ai skills runtime, which is not this git repo. ---------------

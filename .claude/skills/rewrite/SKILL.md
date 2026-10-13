@@ -1,9 +1,9 @@
 ---
 name: rewrite
-description: Launcher for `prompt-refiner`. Rewrites the prompt you give it to be excellent, shows what changed, then executes it. Invoke explicitly as `/rewrite` followed by your prompt — this skill does not fire on its own.
+description: Launcher for the `cpo` skill. Restates the prompt you give it so it can be done well, shows what changed, then routes and executes it. Invoke explicitly as `/rewrite` followed by your prompt — this skill does not fire on its own.
 disable-model-invocation: true
 metadata:
-  version: 1.3.1
+  version: 2.0.0
 ---
 
 # /rewrite
@@ -26,33 +26,32 @@ failed, however good the answer is.
 The prompt to refine is `$ARGUMENTS`. If empty, refine the user's previous message; if
 there is none, ask what they want rewritten and stop.
 
-**This overrides `prompt-refiner`'s Phase 0 skip check.** That check exists for prompts the
-model refines on its own initiative; typing `/rewrite` is a deliberate request, so the
-rewrite is always shown. The one concession: if the prompt is genuinely already specific on
-goal, audience, format and scope, say so in one line under **What changed** rather than
-padding the rewrite with invented constraints — then execute.
+**Always show the rewrite.** Typing `/rewrite` is a deliberate request, so `cpo`'s
+"skip the frame" rule does not apply here. The one concession: if the prompt is already
+specific on goal, audience, format and scope, say so in one line under **What changed**
+rather than padding it with invented constraints — then execute.
+
+The rewritten prompt is `cpo`'s frame written as a prompt: objective, done when, out of
+scope, audience, format and length, and the route.
 
 ## The method
 
-Invoke the `prompt-refiner` skill and follow it — it carries the diagnosis, the skill
-routing, the stakes-calibrated ambiguity handling and the execution rules. Resolve its
-name against your skill list, first match wins:
+Invoke the `cpo` skill and follow it — it frames, routes, does the work and reviews it.
+Resolve its name against your skill list, first match wins:
 
-1. `prompt-refiner`
-2. `jh:prompt-refiner`
-3. `anthropic-skills:prompt-refiner`
+1. `cpo`
+2. `jh:cpo`
+3. `anthropic-skills:cpo`
 
-**Never load it by filesystem path.** `~/.claude/skills/` does not exist in a cloud
-session. The skill list is the only reliable handle.
-
-If none of those three is listed, say so in one line and satisfy the contract above
-yourself: a rewrite naming role or context, goal, audience, output format and constraints,
-then execute. Match the machinery to the work — one piece of work executes directly, not
-through an orchestrator. A skill that *is* listed is never "unavailable".
+**Never load it by filesystem path** unless none is listed. `~/.claude/skills/` does not
+exist in a cloud session. If none of the three is listed, say so in one line, read
+`Glob '**/skills/cpo/SKILL.md'` from the library repo and follow it. If that is missing
+too, satisfy the contract above yourself and execute.
 
 ## Why this file exists
 
-`prompt-refiner` is model-invoked and fires on its own when a prompt is underspecified.
-This launcher is explicit-only (`disable-model-invocation: true`), so the two never race.
+`cpo` is model-invoked and fires on its own for multi-part work. This launcher is
+explicit-only (`disable-model-invocation: true`) and adds one thing: the rewrite is shown
+first, always.
 
-Change the method in `prompt-refiner`. Change the contract here.
+Change the method in `cpo`. Change the contract here.

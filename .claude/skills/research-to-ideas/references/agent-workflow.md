@@ -129,7 +129,7 @@ new piece answers one.
    Calibration compares predicted confidence and ranges to actuals, so the rules improve.
 
 What the design does not do. It adds no conductor agent. The skill is the conductor, which keeps
-the run at one rung of the CPO ladder. It adds no scoring agent. Scoring reads the priority weights,
+the run at one rung of the `cpo` ladder. It adds no scoring agent. Scoring reads the priority weights,
 which are the owner's judgment, so the main thread keeps it. It does not replace the skills
 behind the stages. `issue-tree`, `customer-insight`, `pre-mortem`, `red-team` and
 `scr-pyramid-communicator` still supply the thinking.

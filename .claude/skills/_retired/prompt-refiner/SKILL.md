@@ -2,7 +2,7 @@
 name: prompt-refiner
 description: Rewrites any prompt to be excellent, then executes it — with skill routing (including multi-skill stacking), intent diagnosis, audience calibration, stakes-aware ambiguity handling, and output format declaration built in. Use this skill whenever the user says "rewrite", "rewrite this prompt and run it", "improve this prompt then execute", "make this prompt better then do it", "refine then run", or any variant of wanting their prompt improved before execution. Also trigger when a prompt is clearly underspecified and would benefit from structured rewriting before Claude attempts it. Skip the full rewrite ceremony when the raw prompt is already specific, bounded, and unambiguous — state that briefly and proceed straight to execution. Always use this skill before attempting a complex task when the user has explicitly asked for prompt improvement first.
 metadata:
-  version: 1.2.0
+  version: 1.3.0
 ---
 
 # Prompt Refiner
@@ -92,7 +92,7 @@ Match the route to the work, not to the ceremony:
 | The rewritten prompt is... | Route |
 |---|---|
 | One piece of work that one skill covers, or none — a draft, an answer, an edit, a piece of research | Execute it yourself, applying the routed skill(s). **Do not launch CPO.** |
-| Multi-part: needs several specialists, or needs work staged, built and reviewed | Launch `CPO`, which picks the roster and any further agents, and closes its own loop |
+| Multi-part: needs several specialists, or needs work staged, built and reviewed | Invoke the `cpo` skill. It runs CPO's process in this thread, where the Agent tool exists, so CPO can launch the specialists and close its own loop. **Never dispatch `CPO` as a subagent:** a dispatched CPO has no Agent tool and cannot delegate |
 
 Most rewrites are the first row. Launching a product-management hub to answer one
 well-formed prompt costs a context window and buys nothing.
@@ -111,19 +111,22 @@ Either way:
 If no specific skill applies, execute to the quality standard the rewritten prompt implies
 and match the output format it declares.
 
-### If you took the CPO route and CPO cannot be launched
+### If you took the CPO route and the `cpo` skill is not listed
 
-No Agent/Task tool in this session — a per-session fact, not a settled one. State that in
-one line, then run the phase yourself following `CPO.md` from the agents directory. Locate
-it with `Glob '**/agents/CPO.md'` rather than assuming a path: `~/.claude/agents/` does
-**not** exist in a cloud session. Say which path you used. Label the run "embodied CPO" —
-that distinction is what every independence claim downstream rests on — and complete the
-phase rather than dropping it because the launch failed.
+Resolve the name against your skill list, first match wins: `cpo`, `jh:cpo`,
+`anthropic-skills:cpo`. If none is listed, say so in one line. Then run the phase yourself
+following `CPO.md` from the agents directory. Locate it with `Glob '**/agents/CPO.md'`
+rather than assuming a path: `~/.claude/agents/` does **not** exist in a cloud session. Say
+which path you used.
+
+If this thread has no Agent/Task tool, that is a per-session fact, not a settled one. State
+it in one line and label the run "embodied CPO". That distinction is what every independence
+claim downstream rests on. Complete the phase rather than dropping it.
 
 ### Closing the loop
 
 **Only when an agent actually ran.** The `agent-improver` pass and the `CHANGELOG.md`
-entry belong to CPO's process and fire when CPO ran, launched or embodied. A rewrite you
+entry belong to CPO's process and fire when CPO ran, delegated or embodied. A rewrite you
 executed yourself produces the output and stops there — logging a ledger entry for every
 refinement pollutes the record that ledger exists to keep readable.
 

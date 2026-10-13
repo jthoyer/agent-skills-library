@@ -87,13 +87,12 @@ index nobody verifies is worse than no index, because it is read as authoritativ
 **Personal (6)** — `triathlon-coach`, `etf-investing-advisor`, `etf-investing-coach`,
 `balance-tri-club-brand`, `resume-builder`, `job-scan`
 
-**Meta / library management (4)** — `skills-librarian`, `prompt-refiner`, `notion-second-brain`,
-`rewrite`
+**Meta / library management (4)** — `cpo`, `rewrite`, `skills-librarian`, `notion-second-brain`
 
-Eleven skills carry a `references/` folder: `humanizer`, `job-scan`, `multi-actor-research`,
+Twelve skills carry a `references/` folder: `cpo`, `humanizer`, `job-scan`, `multi-actor-research`,
 `multi-actor-strategy`, `product-requirement-document`, `project-management`, `read-the-room`,
 `research-to-ideas`, `resume-builder`, `scr-pyramid-communicator`, `skills-librarian`. Two carry
-`scripts/`: `recent-pulse`, `research-to-ideas`. The other 28 are a single `SKILL.md`.
+`scripts/`: `recent-pulse`, `research-to-ideas`. The other 27 are a single `SKILL.md`.
 
 Regenerate against disk rather than trusting any of the above:
 
