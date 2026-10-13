@@ -47,13 +47,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `code-improver` | `changelog/2026-09-1.md`×2 | `CHANGELOG-ARCHIVE.md`×4 |
 | `cluster-analyst` | `changelog/2026-09-2.md`×2 | — |
 | `cody` | `CHANGELOG.md`, `changelog/2026-09-2.md`×2, `changelog/2026-09-1.md`×2 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×8 |
-| `cos` | `changelog/2026-09-2.md`, `changelog/2026-09-1.md`×2 | — |
+| `cos` (agent retired 2026-10-13 → `cos` skill) | `changelog/2026-09-2.md`, `changelog/2026-09-1.md`×2 | — |
 | `evidence-auditor` | `changelog/2026-09-2.md`×2 | — |
 | `idea-challenger` | `CHANGELOG.md`, `changelog/2026-09-2.md`×2 | — |
 | `investigator` | `changelog/2026-09-2.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `mc-implementer` (retired 2026-09-29, `.claude/skills/_retired/mc-implementer/`) | `changelog/2026-09-2.md` | `changelog/2026-08.md`×2 |
 | `mc-integrator` | `changelog/2026-09-2.md`, `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
-| `mc-orchestrator` | `changelog/2026-09-2.md`, `changelog/2026-09-1.md` | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×5 |
+| `mc-orchestrator` (agent retired 2026-10-13 → skill) | `changelog/2026-09-2.md`, `changelog/2026-09-1.md` | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×5 |
 | `mc-planner` | `changelog/2026-08.md`×2 | `CHANGELOG-ARCHIVE.md`×5 |
 | `mc-reviewer` | `changelog/2026-09-1.md` | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×4 |
 | `mc-verifier` | `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×2 |
@@ -68,6 +68,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-10-13 — library — portfolio (`cos` and `mc-orchestrator` agents become skills; CI flags conductors)
+- Decision: convert both agents to skills of the same name, archive the agents unmodified (`.claude/skills/_retired/cos/`, `.claude/skills/_retired/mc-orchestrator/`). Owner-approved second PR of the `cpo` redesign. Every conductor in the library is now a skill.
+- Evidence (delegated): a dispatched agent never holds `Agent` (live test, same day). Blind routing gate 8/8. Sample: `work-samples/cos-mc-orchestrator-skills-2026-10-13.md`.
+- Guard: `check-frontmatter.sh` flags `AGENT-TOOL` for any agent listing `Agent` or `Task`. Proven on planted fixtures; runs in CI.
+- Gate fixes: `mc-orchestrator` adds `security-auditor` for auth, payments or member data; its trigger no longer collides with `multi-actor-research`; `cos` routes product decisions to `multi-actor-strategy` and `product-requirement-document`.
+- Rejected: renaming `mc-orchestrator` to a new skill name. The old name keeps "run the coding playbook" and every pointer working.
+- Reverses if: a harness grants dispatched subagents the `Agent` tool, or a conductor needs its own isolated context more than it needs to dispatch.
+- Open: `balancetri-app` still holds synced `CPO.md`, `cos.md`, `mc-orchestrator.md`; the sync script never deletes. Account-synced copies need the same clean-up in claude.ai settings.
+- Next audit targets: `etf-investing-advisor` + `etf-investing-coach` (shared triggers), `cos` (first brief as a skill), `high-output-management` ("where should I spend my time" overlaps `cos`).
 
 ## 2026-10-13 — library — portfolio (CPO agent and prompt-refiner retired into the `cpo` skill)
 - Decision: retire the `CPO` agent and the `prompt-refiner` skill; the `cpo` skill is the one front door (frame → route → do → review). `/rewrite` launches it. Approved by the owner, gated on two tests.

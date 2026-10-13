@@ -24,10 +24,10 @@ core.js	worked example from a BalanceTRI review, not a file here
 
 # --- Justin's personal tree, deliberately outside this repo. ---
 # Not rewritable repo-relative: there is nothing repo-relative to point at.
-# cos.md declares the cloud behaviour (stop and say so) rather than guessing.
-~/.claude/COS/mandate.md	personal mandate — outside the repo by design; see cos.md
-~/.claude/COS/decision-log.md	personal decision log — outside the repo by design; see cos.md
-~/.claude/COS/staging/	personal staging tree — outside the repo by design; see cos.md
+# the cos skill declares the cloud behaviour (stop and say so) rather than guessing.
+~/.claude/COS/mandate.md	personal mandate — outside the repo by design; see .claude/skills/cos/SKILL.md
+~/.claude/COS/decision-log.md	personal decision log — outside the repo by design; see .claude/skills/cos/SKILL.md
+~/.claude/COS/staging/	personal staging tree — outside the repo by design; see .claude/skills/cos/SKILL.md
 mandate.md	short form of ~/.claude/COS/mandate.md, same reason
 balancetri-app/app.js	worked example from the 2026-09-13 ux-designer run — a file in BalanceTRI-app, not here
 ~/code/papercuts.md	global cross-session papercuts log — outside the repo by design; see .claude/skills/cpo/references/portfolio.md

@@ -64,9 +64,9 @@ skill.
   dispatches of the pair from a main thread with the `Agent` tool, and at least one real
   finding the implementer's own tests missed. Miss the bar and the pair's rules fold into
   skill steps, dispatched as fresh read-only agents.
-- **`cos` and `mc-orchestrator` list `Agent` in their tools** but cannot use it when
-  dispatched. Convert them the way `CPO` was converted (second PR, approved 2026-10-13),
-  then add a CI check that flags any agent whose `tools:` line lists `Agent`.
+- **Done 2026-10-13: every conductor is a skill.** `CPO`, `cos` and `mc-orchestrator` were
+  agents that listed `Agent`; all three are now skills. `scripts/check-frontmatter.sh` flags
+  `AGENT-TOOL` on any agent that lists `Agent` or `Task`, so CI blocks a new one.
 - **Usage of `mc-orchestrator`, `mc-planner`, `mc-integrator`:** checked 2026-09-29, no use
   found, kept by the owner. Evidence: `work-samples/mc-usage-check-2026-09-29.md`.
 

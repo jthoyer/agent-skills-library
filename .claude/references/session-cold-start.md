@@ -1,8 +1,8 @@
 # Session cold start — the first turn is not a measurement
 
 **Who reads this:** any agent that judges what the session *has* — which agents exist,
-whether a skill is installed, whether the library is present. The `cpo` skill, `cos`,
-`mc-orchestrator` above all, because each opens by taking stock.
+whether a skill is installed, whether the library is present. The `cpo`, `cos` and
+`mc-orchestrator` skills above all, because each opens by taking stock.
 
 ## The rule
 

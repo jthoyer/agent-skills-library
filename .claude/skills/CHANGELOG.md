@@ -5,6 +5,21 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-13 — `cos` and `mc-orchestrator` added as skills
+
+### Added
+- **`cos`** (1.0.0): the Chief of Staff, moved from an agent so it dispatches from the main
+  thread. Body unchanged except the route table and the nesting rule. Product decisions now
+  route to `multi-actor-strategy` and `product-requirement-document`.
+- **`mc-orchestrator`** (1.0.0): the coding playbook, moved from an agent. Dispatches its five
+  actors for real; Reviewer, Verifier and (for auth, payments or member data)
+  `security-auditor` in one turn. Embodies only when the `Agent` tool is absent.
+
+### Updated
+- `cpo` routing: rung 2 and rung 4 name the `mc-orchestrator` skill; personal planning names
+  the `cos` skill. `portfolio.md` records the conductor rule as done, with its CI guard.
+- Evidence: `work-samples/cos-mc-orchestrator-skills-2026-10-13.md`.
+
 ## 2026-10-13 — `cpo` 2.0.0 absorbs `prompt-refiner`; `rewrite` 2.0.0
 
 ### Merged

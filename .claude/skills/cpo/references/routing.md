@@ -16,7 +16,7 @@ only the boundaries descriptions can't express. The roster itself is the live li
 |---|---|---|
 | UI or backend implementation, one pass | `cody` | Self-reviews its own diff. Nothing else checks a standalone dispatch |
 | The look and interaction aren't settled | `ux-designer`, then `cody` | It decides the look; `cody` builds it. Sequence, never instead |
-| Code where a late defect is expensive | `mc-planner` → `cody` → `mc-reviewer` + `mc-verifier` → `mc-integrator` | Dispatch each stage from here. `mc-orchestrator` cannot fan out when dispatched |
+| Code where a late defect is expensive | the `mc-orchestrator` skill: `mc-planner` → `cody` → `mc-reviewer` + `mc-verifier` → `mc-integrator` | A conducting skill. It runs in this thread and dispatches each stage |
 | A spec that must be persisted and built from | `mc-planner` | Not `Plan`. If nothing downstream reads it, use `Plan` |
 | A quick "what's the approach", nothing consumes it | `Plan` | No `Write` tool; the plan lives only in the transcript |
 | A live defect, cause unknown | `investigator`, then `cody` | Investigator runs code, cannot edit. No fix without a demonstrated cause |
@@ -26,7 +26,7 @@ only the boundaries descriptions can't express. The roster itself is the live li
 | Cross-work duplication and errors | `watchdog` | Grades the work, not the agent |
 | Reviewing or improving an agent | `agent-improver` | Grades the agent, not the work |
 | Broad search where only the conclusion matters | `Explore` | State the breadth |
-| Personal planning against Justin's own mandate | `cos` | The subject decides: Justin's week is `cos`; which agent does a job is here |
+| Personal planning against Justin's own mandate | the `cos` skill | The subject decides: Justin's week is `cos`; which agent does a job is here |
 
 The user named an agent? Honour it. Flag a mismatch in one sentence only if it lacks the
 tools: `code-improver` cannot edit, `mc-reviewer` cannot execute.
