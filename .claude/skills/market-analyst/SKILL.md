@@ -134,7 +134,7 @@ If the user asks to "create a skill from this" or "turn this into a skill" after
 ## Skill routing for execution
 
 This skill is commonly paired with:
-- `prompt-refiner` — when the user's initial request is underspecified
+- `rewrite` — when the user's initial request is underspecified
 - `multi-actor-research` — for deeper, evidence-graded synthesis with devil's advocate challenge
 - `product-requirement-document` — when gap analysis flows into feature scoping
 - `triathlon-coach` — for domain validation of findings against coaching science

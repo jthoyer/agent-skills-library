@@ -1,53 +1,92 @@
 ---
 name: cpo
-description: Runs the CPO process in the main thread, where the Agent tool exists, so CPO can launch other agents for real. Use when the user says "launch CPO", "run CPO", "kick off this project", "who should work on this", or hands over a multi-part request with no executor named. A dispatched CPO subagent has no Agent tool, so it can only play the roles itself. This skill is the fix.
+description: The library's one front door. Frames a request, picks the right executor (do it directly, a skill, a conducting skill, specialist agents, or cos), dispatches real agents from the main thread, and reviews the work after so the library improves. Use for "launch CPO", "run CPO", "rewrite this prompt and run it", "refine then run", "kick off this project", "who should work on this", any multi-part request with no executor named, and portfolio questions ("should this agent exist", "are these two doing the same job", "retire this agent", "what should we improve next"). /rewrite launches it. Never dispatch it as a subagent.
 metadata:
-  version: 1.0.0
+  version: 2.0.0
 ---
 
-# CPO — main-thread launcher
+# cpo — the front door
 
-## Why this skill exists
+You run in the main thread. You hold the `Agent` tool, so you can dispatch real
+specialists. A subagent cannot start subagents, which is why this is a skill and never an
+agent. **Conductors are skills. Executors are agents.**
 
-The `CPO` agent lists `Agent` in its tools. A subagent still cannot start other subagents,
-so a *dispatched* CPO has no way to delegate. It plays every role itself ("embodied"),
-reviews work it produced, and loses the separation of duties the library rests on.
+One pass: **frame → route → do → review.** Each step scales to the stakes.
 
-You are the main thread. You hold the `Agent` tool. Run CPO's process here and delegate
-for real.
+## 1. Frame
 
-## What to do
+Restate the request so two people would do the same work. Write:
 
-1. **Read the process.** Locate `CPO.md` with `Glob '**/agents/CPO.md'`. Never assume a
-   path: `~/.claude/agents/` does not exist in a cloud session. Say which path you used.
-   If it is missing, say so in one line and follow the shortened steps below.
-2. **Follow `CPO.md` as written**: launch checks, PM frame, live inventory, routing, the
-   work sample, the close-out loop, and portfolio authority. This file adds only the
-   changes below.
+- **Objective** — one sentence.
+- **Done when** — checkable, not a vibe.
+- **Out of scope** — what you will not touch.
+- **Audience, format, length** — for anything written or shown to people.
+- **Stakes** — routine or high. High means members, the committee, leadership, external
+  readers, live data, or anything hard to undo.
 
-## What changes when CPO runs in the main thread
+**Ask first when stakes are high and a missing fact would change the output** (a price, a
+date, the decision sought). Use `AskUserQuestion`. One or two questions, then go.
+Routine stakes: assume, flag the assumption in one line, keep moving.
 
-- **Never dispatch `CPO` as a subagent.** Doing that recreates the problem. You *are* CPO.
-- **The dispatch probe is expected to pass.** Check the tool list. If `Agent` is there,
-  make one real dispatch. The `agent-improver` pass at the close is the natural one. Say
-  "delegated" only for a dispatch that returned.
-- **Delegate the work.** Send each piece to the specialist `CPO.md` routes it to, with a
-  self-contained brief, absolute paths, and a stated return format. Run independent
-  dispatches in one turn. Run `mc-reviewer` and `mc-verifier` as a pair from here.
-- **Keep review independent.** Run `agent-improver` and `watchdog` as dispatches, not as
-  roles you play. If the tool is missing, label the run "embodied CPO" with reduced
-  independence. That is a per-session fact, so state it in one line.
-- **Label every role** as delegated or embodied. Never blur the two.
+**Skip the frame** for a mechanical one-liner (fix a typo, convert a table). Do it.
+If the requester already framed it, restate it in one line and move on.
 
-## If there is no `CPO.md`
+## 2. Route
 
-State it, then do this: frame the request (objective, done, out of scope), list agents from
-the context listing, route to the smallest set that covers the work, delegate with
-self-contained briefs, and report which agents ran. Skip the ledger. It lives in the
-library repo only.
+Climb only as far as the blast radius needs. Each rung costs a cold start.
 
-## Scope
+| Rung | When | Route |
+|---|---|---|
+| 0 | Mechanical, obviously correct | Do it directly |
+| 1 | One piece of work a method covers: a draft, an answer, an edit, research | Do it directly, applying the skill(s). Stack them: domain → structure → voice → `humanizer` |
+| 2 | A skill that conducts its own agents fits | Run that skill: `research-to-ideas`, `multi-actor-strategy` |
+| 3 | One specialist's job: a bug of unknown cause, a security review, a design direction | Dispatch that agent |
+| 4 | Work that ships or gets merged, where no one should grade their own work | Sequence specialists, or the coding pipeline |
+| — | Personal planning: "what should I work on", "brief me" | `cos`, not this skill |
+| — | Portfolio: which agents exist, merge, retire, what to improve next | Stay here. Read `references/portfolio.md` |
 
-Use this for multi-part work. One piece of work that one skill covers runs inline, with no
-CPO. `CPO.md` owns the routing table, the ledger rules, and portfolio authority. Change the
-method there. Change only the main-thread rules here.
+**Inventory before you route.** The agent and skill listings in your context are the
+roster, not memory. A frontmatter `name:` is the address; a filename will not dispatch.
+For boundaries the descriptions don't settle, read `references/routing.md`.
+
+**Re-route when the brief grows.** A new write path to live data, a new backend or a
+member-facing surface changes the blast radius. Say so in one line and climb.
+
+If the requester names a review step ("get it reviewed"), that is a routing instruction.
+
+## 3. Do
+
+Dispatch with a self-contained brief. Agents start cold: no conversation, no cwd.
+Every brief carries:
+
+- absolute paths to each file and artefact,
+- the frame from step 1,
+- constraints (what not to touch, what already failed),
+- the return format and a word budget.
+
+Run independent dispatches in one turn. `mc-reviewer` and `mc-verifier` are the one
+concurrent pair; dispatch both from here with the same spec path. Continue a live agent
+rather than respawning it. Relay what matters: the user never sees an agent's report.
+
+**Label every role** "delegated" (a dispatch that returned) or "embodied" (you played
+it). Never blur the two. If this thread has no `Agent` tool, say so in one line, embody,
+and mark any review you run on your own work as reduced-independence.
+
+## 4. Review — scaled to the stakes
+
+| The work was | Review |
+|---|---|
+| Trivial or mechanical | Check it against "done when". Nothing else |
+| Done directly, routine stakes | Check against "done when" |
+| Going to members, the committee, leadership or production | Dispatch `watchdog` on the artefact |
+| Done by one or more agents | Dispatch `agent-improver` on each agent whose output mattered, with its work sample |
+| A portfolio decision | Record it per `references/portfolio.md` |
+
+Whenever an agent ran, close the loop per `references/close-out.md`: save the work
+sample, write one ledger entry, update the audit queue. That is how the library
+improves. A run that skips it leaves the next review with nothing to grade.
+
+## Output
+
+Open with the frame (when /rewrite launched you, its contract governs how it is shown).
+Then the work. Close with one line per review row: done, or skipped and why.

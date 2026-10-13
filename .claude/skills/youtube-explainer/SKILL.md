@@ -153,4 +153,4 @@ invoking this skill. If the Notion write fails, surface the error and offer to r
 
 - `notion-second-brain` — Content Capture db architecture and curation cadence
 - `first-principles` — apply for the first-principles check section
-- `prompt-refiner` — use when the user wants the analysis reframed before execution
+- `rewrite` — use when the user wants the analysis reframed before execution
