@@ -46,7 +46,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `agent-improver` | `changelog/2026-09-1.md`×4 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×5 |
 | `code-improver` | `changelog/2026-09-1.md`×2 | `CHANGELOG-ARCHIVE.md`×4 |
 | `cluster-analyst` | `changelog/2026-09-2.md`×2 | — |
-| `cody` | `changelog/2026-09-2.md`×2, `changelog/2026-09-1.md`×2 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×8 |
+| `cody` | `CHANGELOG.md`, `changelog/2026-09-2.md`×2, `changelog/2026-09-1.md`×2 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×8 |
 | `cos` | `changelog/2026-09-2.md`, `changelog/2026-09-1.md`×2 | — |
 | `evidence-auditor` | `changelog/2026-09-2.md`×2 | — |
 | `idea-challenger` | `CHANGELOG.md`, `changelog/2026-09-2.md`×2 | — |
@@ -68,6 +68,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-10-13 — cody (BalanceTRI-app feedback form; REDUCED INDEPENDENCE — embodied by CPO)
+- Verdict: Shipped working, tested code; three duplications and one guessed figure were found only after they were written.
+- Scores: Mandate Strong · Triggers Strong · Tools Strong · Model Adequate · Instructions Strong · Observed Adequate · Boundary Strong.
+- Why: Step 1's "search before you write a helper" covers functions that "format, label, derive or validate". It did not catch a re-implemented `setBusy` (`app.js:534`), and CSS is outside its wording, so `.auth-field` input rules and `.race-loading-eyebrow` were copied, not reused. A self-review and a watchdog pass caught all three. Separately, contrast figures went into a CSS comment before they were computed (6.1 → 5.86), against step 2's "a ratio you did not compute is an opinion".
+- Changed: no edits. Proposed (Medium): extend step 1's search rule to say "any helper, component or CSS rule block — grep for an existing rule with the same declarations before adding one". (Low): "write measured figures only after running the computation".
+- Expected effect: the next UI build reuses existing rules at write time, and self-review finds nothing to dedupe.
+- Follow-up: an independent `agent-improver` pass when dispatch is reachable. Dispatch probe: resolved-negative (no Agent/Task tool). No Notion tool in session. Sample: `work-samples/cody-2026-10-13.md`.
 
 ## 2026-10-09 — idea-challenger (intake mode: Impact-Effort grade and quick-win step)
 - Verdict: **extended, not reviewed.** No `agent-improver` pass and no real run behind the new mode yet.
