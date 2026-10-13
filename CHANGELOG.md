@@ -69,6 +69,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-13 — cody (Balance Bolt DNS / DNF; REDUCED INDEPENDENCE — embodied by CPO)
+- Verdict: Shipped and pushed (`BalanceBolt@1f794a4`): 205/205 checks, three mutations proved the new checks fail, 36 UI assertions at 375/760/1100px, Apps Script run against a fake sheet 13/13.
+- Scores: Mandate Strong · Triggers Strong · Tools Strong · Model Adequate · Instructions Strong · Observed Strong · Boundary Strong.
+- Why: This is the first observed run of this morning's deploy-order rule, and it worked. The order was stated before the build, and the backend half was executed rather than read. The gap is what happened to that execution: the Apps Script stub lived in the session scratchpad and was discarded. The next backend change will rebuild it from nothing, and until then `run-tests.mjs` checks only that action names match. That is the "evidence evaporates" pattern (`10X-LOG` 2026-09-05) at the level of a test harness.
+- Proposed (Medium, needs the owner's yes): one sentence in step 1. Where the project has a test runner, commit the stub that executed the unloaded half into it, rather than leaving it in a temp directory.
+- Case against my own grade: CPO framed, built and graded this run, so "Observed Strong" is self-assessed. The scratchpad loss is CPO's own miss as much as cody's.
+- Follow-up: an independent pass when dispatch is reachable. Dispatch probe: resolved-negative. No Notion tool in session. Sample: `work-samples/cody-2026-10-13-pass3.md`.
+
 ## 2026-10-13 — cody (Balance Bolt hand-set waves; REDUCED INDEPENDENCE — embodied by CPO)
 - Verdict: Built, tested and committed locally (`BalanceBolt@f1076d5`, not pushed). The riskiest defect, deploy order, surfaced only at review.
 - Scores: Mandate Strong · Triggers Strong · Tools Strong · Model Adequate · Instructions Adequate · Observed Strong · Boundary Strong.
