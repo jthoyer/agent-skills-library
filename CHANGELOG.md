@@ -69,6 +69,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-13 — cody (Balance Bolt hand-set waves; REDUCED INDEPENDENCE — embodied by CPO)
+- Verdict: Built, tested and committed locally (`BalanceBolt@f1076d5`, not pushed). The riskiest defect, deploy order, surfaced only at review.
+- Scores: Mandate Strong · Triggers Strong · Tools Strong · Model Adequate · Instructions Adequate · Observed Strong · Boundary Strong.
+- Why: The change spans two halves that deploy separately: GitHub Pages on merge, and Apps Script pasted in by hand. Nothing in `cody.md` asks the builder to state the deploy order, or to check what the new front end does against the old backend. Shipped front-first, a move is silently reverted by the next poll. The suite never loads `apps-script.gs`, so the backend was only executed at the verifier stage. Earlier today's search-before-writing fix held: existing helpers, `.timing-edit` and `.status-tag` were reused, and no CSS was copied.
+- Changed: applied 2026-10-13 with the owner's yes (High). A step-1 rule: when a change spans separately deployed halves, state the deploy order, test the new half against the old one, and execute any half the suite does not load.
+- Expected effect: deploy-order risk is named in cody's own summary, not found downstream.
+- Follow-up: an independent pass when dispatch is reachable. Dispatch probe: resolved-negative. No Notion tool. Sample: `work-samples/cody-2026-10-13-pass2.md`.
+
 ## 2026-10-13 — cody (BalanceTRI-app feedback form; REDUCED INDEPENDENCE — embodied by CPO)
 - Verdict: Shipped working, tested code; three duplications and one guessed figure were found only after they were written.
 - Scores: Mandate Strong · Triggers Strong · Tools Strong · Model Adequate · Instructions Strong · Observed Adequate · Boundary Strong.
