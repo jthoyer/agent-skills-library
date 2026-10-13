@@ -20,7 +20,7 @@ only the boundaries descriptions can't express. The roster itself is the live li
 | A spec that must be persisted and built from | `mc-planner` | Not `Plan`. If nothing downstream reads it, use `Plan` |
 | A quick "what's the approach", nothing consumes it | `Plan` | No `Write` tool; the plan lives only in the transcript |
 | A live defect, cause unknown | `investigator`, then `cody` | Investigator runs code, cannot edit. No fix without a demonstrated cause |
-| Security is the whole ask | `security-auditor`, then `cody` | For a quick inline pass use the `security-review` skill instead |
+| Security is the whole ask | `security-auditor`, then `cody` | For a quick inline pass use the `security-review` skill instead. Inside the coding pipeline, dispatch it beside `mc-reviewer` when the change touches auth, payments or member data |
 | A reviewed branch to prep for release | `release-engineer` | Asks the user directly before any push or PR. Never merges or deploys |
 | Read-only code quality pass, no spec | `code-improver` | Cannot edit |
 | Cross-work duplication and errors | `watchdog` | Grades the work, not the agent |
@@ -71,7 +71,7 @@ exists; say so rather than calling it unavailable.
 - **Justin-authored content:** `content-research-writer` → `justin-voice` → `humanizer`.
 - **High-stakes recommendation:** `multi-actor-strategy` → `red-team` → `scr-pyramid-communicator`.
 - **Customer or product discovery:** `customer-insight` → `positioning`.
-- **Club comms:** `balance-tri-club-brand` → `humanizer`.
+- **Club comms:** `content-research-writer` → `balance-tri-club-brand` → `humanizer`.
 
 ## Things that look like routes but are not
 

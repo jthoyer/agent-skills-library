@@ -37,7 +37,7 @@ for the library's ledger.
 1. **Save the work sample now**, in the repo, not the scratchpad: the brief verbatim, the
    output verbatim, and any disk-verified outcome. A sample in a temp directory is lost
    evidence.
-2. **Dispatch `agent-improver`** on each agent whose output mattered. Hand it four things:
+2. **Dispatch `agent-improver`** on each agent whose output mattered. A reviewer (`watchdog`, `agent-improver`) that only checked the work needs no review of its own unless a finding of its turned out wrong. Hand it four things:
    the definition's absolute path, the brief, the output (or the sample path), and the
    specific gap in one sentence. Paste the latest `Next audit targets:` line into the
    brief and say it is the queue. Press hardest when the output needed rework, ignored a
