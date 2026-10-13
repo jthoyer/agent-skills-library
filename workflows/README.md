@@ -4,8 +4,8 @@ One-page images of how the library's agents and skills fit together.
 
 | Image | Shows | Status |
 |---|---|---|
-| `dispatch-map-v9.png` | The 21 agents and 41 skills: hubs (with the new `cpo` skill), coding, research and strategy lanes, single-pass specialists, skills, open dates | Current |
-| `dispatch-map-v8.png` | The 21 agents before the `cpo` skill | Superseded by v9 |
+| `dispatch-map-v9.png` | The 20 agents and 40 skills after the 2026-10-13 redesign: `/rewrite` → the `cpo` skill as the one front door, the five rungs, the lanes, review scaled to stakes, open dates | Current |
+| `dispatch-map-v8.png` | The 21 agents with the `CPO` agent as hub, before the `cpo` skill | Superseded by v9 |
 | `dispatch-map-v7.png` | The 20 agents as of 2026-09-29, before the strategy lane and the `mc-implementer` fold | Superseded by v8 |
 | `research-to-ideas-map.png` | The `research-to-ideas` pipeline: stages, agents, who sees what | Current |
 | `multi-actor-strategy-map.png` | The agent design for `multi-actor-strategy`: blind challenger and jurors, a checker script, a rollout plan | Run 1 done; both agents on trial for run 2 |
