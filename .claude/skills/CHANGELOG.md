@@ -5,6 +5,19 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-13 — `cpo` skill added; `prompt-refiner` Phase 4 routes to it
+
+### Added
+- **`cpo`** (v1.0.0): runs CPO's process in the main thread. Why: a dispatched `CPO` agent has no
+  `Agent` tool, because subagents cannot start subagents. It could only embody its roles, as
+  `work-samples/CPO-2026-09-24.md` and `CHANGELOG.md` show. The skill is a thin launcher. `agents/CPO.md`
+  stays the single source for the process. Not tested live.
+
+### Updated
+- **`prompt-refiner`** (1.2.0 → 1.3.0): Phase 4 multi-part route now invokes the `cpo` skill, not a
+  dispatch. The fallback resolves `cpo`, `jh:cpo`, `anthropic-skills:cpo`, then `CPO.md`.
+- `agents/CPO.md`: description and a note point to the skill.
+
 ## 2026-10-02 — Anthropic skill-authoring guidance applied across the library
 
 Source: Google Doc "Transcript - Claude Skills Updates" (seven changes to Anthropic's guidance).
