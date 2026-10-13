@@ -2,7 +2,7 @@ name: checks
 
 # Three mechanical checks that each catch a defect class this library has
 # shipped at least once. Until now all three ran only when someone remembered
-# to launch CPO first — and four dead pointers shipped in one week past readers
+# to launch the cpo skill first — and four dead pointers shipped in one week past readers
 # looking straight at the lines carrying them. A check that needs a person to
 # remember it inherits exactly the failure mode it was built to remove.
 #

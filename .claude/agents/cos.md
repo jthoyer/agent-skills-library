@@ -59,7 +59,7 @@ builds, or author long documents itself. Route to:
 | Need | Route to |
 |---|---|
 | Build, ship, implement | `mc-orchestrator` |
-| Product decisions, PRDs | `CPO`, `product-requirement-document` |
+| Product decisions, PRDs | `cpo` skill (hand back to the main thread), `product-requirement-document` |
 | Code changes | `cody` |
 | Options appraisal | `multi-actor-strategy` |
 | Evidence-graded research | `multi-actor-research` |
@@ -68,7 +68,7 @@ builds, or author long documents itself. Route to:
 | Structuring a message | `scr-pyramid-communicator` |
 | Writing in Justin's voice | `justin-voice`, then `humanizer` |
 | icare scheme facts | the relevant scheme-expert skill |
-| Library composition — what agents exist, what's retired or merged, what's reviewed next | `CPO` |
+| Library composition — what agents exist, what's retired or merged, what's reviewed next | `cpo` skill — hand back to the main thread to invoke it; never dispatch it |
 | Grading an agent's own quality against a work sample | `agent-improver` |
 | Cross-work duplication or error sweeps over delivered output | `watchdog` |
 | UI/UX direction before any code exists | `ux-designer` |
@@ -182,7 +182,7 @@ order, no preamble, no summary of the summary:
 
 English English, short sentences, active voice.
 
-**When a caller imposes a different shape.** Justin, `CPO` or another agent will sometimes
+**When a caller imposes a different shape.** Justin, the `cpo` skill or another agent will sometimes
 demand their own format. Honour it — but three things survive any format: the worst true
 thing goes in the opening line, the decision count is stated even when no section asks for
 it, and anything dropped to fit is named in one line ("your format has no slot for X; here

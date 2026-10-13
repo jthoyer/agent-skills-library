@@ -300,5 +300,5 @@ paste the full brief.
 - `scr-pyramid-communicator`: Stage 7 structure
 - `source-scout`, `cluster-analyst`, `evidence-auditor`, `idea-challenger`: the agents behind
   Stages 0–4 and 6. `watchdog`: the re-run drift sweep
-- `prompt-refiner`: routes one prompt to the right skill. This skill routes a body of research
+- `cpo`: routes one request to the right skill or agents. This skill routes a body of research
   through a fixed sequence of skills

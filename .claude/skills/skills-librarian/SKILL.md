@@ -375,6 +375,6 @@ the database architecture; this skill governs what gets synced.
 
 - `notion-second-brain` — Notion database architecture and the backup workflow in detail
 - `red-team` — attack a skill's design before committing to it
-- `prompt-refiner` — routes to skills; keep its routing table current after any add, merge, or retire
+- `cpo` — routes to skills; keep `.claude/skills/cpo/references/routing.md` current after any add, merge, or retire
 - `/mnt/skills/examples/skill-creator` — canonical creation and evaluation protocol, plus reusable
   blind comparator, grader, and analyser agents
