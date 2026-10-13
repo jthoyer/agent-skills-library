@@ -13,6 +13,8 @@
 #                   routing failure nobody sees. Found security-auditor.md at
 #                   1,129 characters on 2026-09-05, in one command.
 #   NO-MODEL        the agent inherits a tier nobody chose.
+#   AGENT-TOOL      the agent lists Agent/Task, which a dispatched subagent never
+#                   gets: a conductor that should be a skill.
 #   NO-TOOLS        the agent inherits `*` — every tool, chosen by nobody.
 #   ARTEFACT        a stray authoring tag on the last line. Six of six mc-* files
 #                   ended with `</content>` from 2026-09-02, surviving four later
@@ -187,6 +189,10 @@ for f in "$agents_dir"/*.md; do
   [[ "$dl" -gt $DESC_CAP ]] && flags+=("DESC>$DESC_CAP($dl)")
   [[ -z "$m" ]]             && flags+=("NO-MODEL")
   [[ -z "$t" ]]             && flags+=("NO-TOOLS")
+  # A dispatched subagent never receives the Agent tool, so an agent that lists it
+  # is a conductor in the wrong form: it can only play the roles it means to dispatch.
+  # Conductors are skills (see .claude/skills/cpo/references/portfolio.md).
+  [[ ",${t// /}," == *",Agent,"* || ",${t// /}," == *",Task,"* ]] && flags+=("AGENT-TOOL")
   a="$(trailing_artefact "$f")"; [[ -n "$a" ]] && flags+=("$a")
 
   (( list_all )) && printf '%-20s %-20s %-8s %-6s %s\n' "$b" "$n" "${m:--}" "$dl" "${t:--}"

@@ -169,7 +169,7 @@ Compare phase 4 with phase 1 on the same decision:
 |---|---|
 | Challenger's strongest pick | MET on catches only. Its pick matched the preference. |
 | Juror spread | MET narrowly: one shared blind spot, no split. All three jurors bet 65%. |
-| Recommendation | MET: it changed and gained conditions. It lost the spec-on-disk gate, which was restored in `mc-orchestrator.md` on adoption. |
+| Recommendation | MET: it changed and gained conditions. It lost the spec-on-disk gate, which was restored in the `mc-orchestrator` playbook on adoption. |
 | Script | **NOT MET.** It caught no rule break in either run. It stays anyway (see the retire test). |
 
 The owner's decisions: keep `strategy-challenger` for run 2, and fix its path contradiction. Fix

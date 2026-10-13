@@ -39,10 +39,10 @@ Climb only as far as the blast radius needs. Each rung costs a cold start.
 |---|---|---|
 | 0 | Mechanical, obviously correct | Do it directly |
 | 1 | One piece of work a method covers: a draft, an answer, an edit, research | Do it directly, applying the skill(s). Stack them: domain → structure → voice → `humanizer` |
-| 2 | A skill that conducts its own agents fits | Run that skill: `research-to-ideas`, `multi-actor-strategy` |
+| 2 | A skill that conducts its own agents fits | Run that skill: `research-to-ideas`, `multi-actor-strategy`, `mc-orchestrator` |
 | 3 | One specialist's job, or a short hand-off: a bug of unknown cause (`investigator` → `cody`), a security review, a design direction | Dispatch that agent, then review per step 4 |
-| 4 | A new feature or change that will be merged, where no one should grade their own work | The coding pipeline. Touches auth, payments or member data: add `security-auditor` beside `mc-reviewer` |
-| — | Personal planning: "what should I work on", "brief me" | `cos`, not this skill |
+| 4 | A new feature or change that will be merged, where no one should grade their own work | The `mc-orchestrator` skill (the coding pipeline). Touches auth, payments or member data: add `security-auditor` beside `mc-reviewer` |
+| — | Personal planning: "what should I work on", "brief me" | the `cos` skill, not this one |
 | — | Portfolio: which agents exist, merge, retire, what to improve next | Stay here. Read `references/portfolio.md` |
 
 **Inventory before you route.** The agent and skill listings in your context are the
