@@ -5,6 +5,22 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-13 — `cpo` 2.0.0 absorbs `prompt-refiner`; `rewrite` 2.0.0
+
+### Merged
+- **`prompt-refiner` → `cpo`.** Its brief fields (audience, format, length) and its ask-first
+  gate for high stakes joined `cpo`'s frame. Its skill routing table and common stacks moved to
+  `cpo/references/routing.md`. Archived unmodified at `_retired/prompt-refiner/`.
+
+### Updated
+- **`cpo`** (1.0.0 → 2.0.0): now holds the process the retired `CPO` agent carried: `SKILL.md`
+  (frame, route ladder, dispatch, review scaled to stakes) plus `references/routing.md`,
+  `close-out.md` and `portfolio.md`. Blind tests: routing 8/8, intake 86/90 against 73 and 46.
+  Evidence: `work-samples/cpo-redesign-2026-10-13.md`.
+- **`rewrite`** (1.3.1 → 2.0.0): launches `cpo`. The contract is unchanged: the rewrite shows first.
+- Pointers updated in `terse-mode`, `research-to-ideas`, `youtube-explainer`, `market-analyst`,
+  `skills-librarian` and `multi-actor-strategy/references/cpo-launch-brief.md`.
+
 ## 2026-10-13 — `cpo` skill added; `prompt-refiner` Phase 4 routes to it
 
 ### Added

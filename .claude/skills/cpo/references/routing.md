@@ -69,7 +69,7 @@ exists; say so rather than calling it unavailable.
 ## Common skill stacks
 
 - **Justin-authored content:** `content-research-writer` → `justin-voice` → `humanizer`.
-- **High-stakes recommendation:** `multi-actor-strategy` → `red-team` → `scr-pyramid-communicator`.
+- **High-stakes recommendation:** `multi-actor-strategy` → `scr-pyramid-communicator`. The strategy skill already runs a blind challenger and jurors; add `red-team` only when it ran without agents.
 - **Customer or product discovery:** `customer-insight` → `positioning`.
 - **Club comms:** `content-research-writer` → `balance-tri-club-brand` → `humanizer`.
 
