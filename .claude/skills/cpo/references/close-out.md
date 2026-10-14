@@ -27,10 +27,10 @@ LIB=$(git -C "$(pwd)" rev-parse --show-toplevel 2>/dev/null); echo "library root
 There is no ledger inside `.claude/agents/`. `~/.claude/` does not resolve in a cloud
 session.
 
-**In a repo that vendors the agents but has no `CHANGELOG.md`** (for example
-`balancetri-app`), the ledger is unreachable. Do not create one there. Say "ledger
-unreachable from <root>", do the work, and return the sample and entry text to the user
-for the library's ledger.
+**When the library repo is not attached to the session** (an app repo on its own, for
+example `balancetri-app`), the ledger is unreachable. Do not create one in the app repo.
+Say "ledger unreachable from <root>", do the work, and return the sample and entry text to
+the user for the library's ledger. App repos keep no agent copies; attach the library.
 
 ## The four steps
 

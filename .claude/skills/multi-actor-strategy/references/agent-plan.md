@@ -187,8 +187,8 @@ survive in the skill as instructions either way. The script stays regardless.
 
 - **Agents that never run.** The same fate as `mar-*`. Guard: phase 1 and phase 4 are real runs,
   not definition reviews, and they come before any polishing.
-- **Agents missing from the working repo.** Agents are not account-synced. Run
-  `scripts/sync-agents.sh` into any repo where strategy work happens.
+- **Agents missing from the working repo.** Agents are not account-synced. Attach
+  agent-skills-library to any session where strategy work happens; app repos keep no copies.
 - **False blindness.** A juror who can Glob the run folder can read the preference. Brief with
   the anonymised cases inline, and forbid reading paths the brief does not name, as
   `idea-challenger` does.
