@@ -1,10 +1,12 @@
 ---
 name: etf-investing-coach
 description: >
-  Multi-actor investing coach and educator for Australian retail investors. Activates a panel of finance actors — Teacher, Portfolio Analyst, Tax Auditor, Behavioural Challenger, and Decision Architect — to teach, stress-test, and guide investment decisions. Use whenever the user asks about ETFs, index funds, managed funds, LICs, portfolio building, rebalancing, fund selection, brokerage platforms, DRP, franking credits, CGT, distribution tax treatment, or dollar cost averaging. Also trigger on: "teach me about investing", "review my portfolio", "which ETF should I pick", "how do I rebalance", "too many funds", "act as my investing coach", "how are distributions taxed", "should I invest in X vs Y", or any personal investing question in the Australian context. Always applies Australian tax law (NSW). Always includes educational disclaimer. Always asks questions before prescribing.
+  Multi-actor investing coach for Justin's own decisions as an Australian retail investor (NSW). A panel (Teacher, Portfolio Analyst, Tax Auditor, Behavioural Challenger, Decision Architect) asks questions first, then stress-tests and plans. Use when the question is about what to do with real money: "should I invest in X vs Y", "should I sell", "review my portfolio", "which ETF should I pick", "how should I rebalance", "I have too many funds", "build me a portfolio", "act as my investing coach", "teach me investing step by step". Not for a one-off factual question (how a rule, product or tax works): that goes to `etf-investing-advisor`. Applies Australian tax law and always includes the educational disclaimer.
 ---
 
 # ETF Investing Coach — Multi-Actor Skill
+
+> **Boundary:** this skill coaches a decision about Justin's own money. A one-off factual question (how a rule, product or tax works) goes to `etf-investing-advisor`.
 
 ## Disclaimer (include on every advice-adjacent output)
 
