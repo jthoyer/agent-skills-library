@@ -69,6 +69,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-14 — library — portfolio (app repos keep no agent copies; `sync-agents.sh` retired)
+- Decision (owner, 2026-10-14): the library is the only source of agents and references. Copies removed from BalanceTRI-app (#91), BalanceBolt (#27), tri-momentum (#14) and CLACFridays (#18); each now carries a one-line note to attach the library. `scripts/sync-agents.sh` is deleted (git history keeps it).
+- Evidence: three of four app repos held stale copies, including the three agents retired on 2026-10-13, and five more had drifted. The sync script never deletes, so every retirement left orphans behind.
+- Trade-off accepted: agents are not account-synced, so a session on an app repo alone has no library agents. Attaching the library restores them.
+- Rejected: re-syncing the copies. It keeps app-only sessions working but recreates the drift.
+- Reverses if: attaching the library to app sessions proves impractical, or the `jh` plugin loads in cloud sessions (then the plugin carries the agents).
+- Next audit targets: `cpo` (first app-repo run with the library attached), `cody` (first dispatch without a local copy).
+
 ## 2026-10-13 — library — portfolio (`cos` and `mc-orchestrator` agents become skills; CI flags conductors)
 - Decision: convert both agents to skills of the same name, archive the agents unmodified (`.claude/skills/_retired/cos/`, `.claude/skills/_retired/mc-orchestrator/`). Owner-approved second PR of the `cpo` redesign. Every conductor in the library is now a skill.
 - Evidence (delegated): a dispatched agent never holds `Agent` (live test, same day). Blind routing gate 8/8. Sample: `work-samples/cos-mc-orchestrator-skills-2026-10-13.md`.

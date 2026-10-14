@@ -16,8 +16,9 @@ This library serves several places, and they do not all sync with each other.
 
   This is the only surface that carries **agents**. Skills are account-synced and reach
   every session on their own; agents are not, and in a cloud container `~/.claude/agents`
-  does not exist at all. Until the plugin is installed, agents reach a repo only by being
-  committed into its `.claude/agents/` (see `scripts/sync-agents.sh`).
+  does not exist at all. Until the plugin is installed, agents reach a session only when this
+  library is attached to it. App repos keep no copies (decided 2026-10-14): attach the library
+  to any session whose work needs its agents.
 
   After adding or removing an agent, run `scripts/sync-plugin-manifest.sh`. `plugin.json`
   lists agent files explicitly — a directory fails validation — so a new agent will
