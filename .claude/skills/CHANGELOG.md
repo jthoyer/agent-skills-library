@@ -5,6 +5,22 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-14 — ETF skills: triggers split by job
+
+### Updated
+- **`etf-investing-advisor`** and **`etf-investing-coach`**: the two descriptions shared triggers
+  ("should I invest in X vs Y", "how are distributions taxed", franking, CGT, DRP, platforms), so
+  routing was a coin toss (backlog row 119). Now the advisor answers one factual or mechanical
+  question and stops; the coach takes any decision about the owner's own money (should I, which
+  to pick, review, rebalance, sell). Each description names the other, with a tie-break: a factual
+  question that quotes the owner's own numbers stays with the advisor. Each body opens with a
+  one-line boundary note; bodies otherwise unchanged.
+- Blind routing test, 6 prompts: 6/6 to one skill, 5 high and 1 medium before the tie-break.
+
+### Found, not fixed
+- The advisor's "Marginal tax rate reference (2024–25)" table shows the rates replaced on
+  1 July 2024 (19% and 32.5% bands). Logged as a backlog row for the owner to choose the tax year.
+
 ## 2026-10-13 — `cos` and `mc-orchestrator` added as skills
 
 ### Added
