@@ -1,6 +1,6 @@
 # Agents CHANGELOG
 
-The improvement ledger for this agent library. Every review by `agent-improver` appends a dated entry here. The goal: agents that are measurably better in three months than they are today.
+The improvement ledger for this agent library. Every review by `agent-improver` inserts a dated entry at the top, under the `New entries below this line` marker. The goal: agents that are measurably better in three months than they are today.
 
 **How to read this:** each entry records what changed, why, and how you'd know it worked. Before re-reviewing an agent, read its most recent entry and check whether the last fix actually helped. The index below says where that entry is.
 
@@ -9,6 +9,7 @@ The improvement ledger for this agent library. Every review by `agent-improver` 
 ```
 ## YYYY-MM-DD — <agent name>
 - Verdict: <one line>
+- Scores: Mandate · Triggers · Tools · Model · Instructions · Observed · Boundary (Strong / Adequate / Weak each)
 - Changed: <what was edited, or "no edits — proposed N fixes">
 - Why: <root cause>
 - Expected effect: <what should improve, and how you'd know>
@@ -68,6 +69,38 @@ Counts are entries whose **heading names** the agent — which includes creation
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-10-18 — library — portfolio (three merges; four skills retired; Low items closed)
+- Decision (owner, 2026-10-18: "complete low items and all merges"): JTBD + VPC into `customer-insight`; `scqa-framework` into `scr-pyramid-communicator`; `pre-mortem` into `six-thinking-hats`. Skills 42 → 38. Detail: `.claude/skills/CHANGELOG.md`.
+- Evidence (delegated): `watchdog` sweep, `work-samples/watchdog-2026-10-18.md` (F4, M1–M3). Merged skills shared triggers and, for JTBD and VPC, most of their content.
+- Against, recorded: the 2026-09-05 test found `pre-mortem` alone recognised when the technique did not fit. That redirect now lives in the `six-thinking-hats` module; JTBD's scoring rubric survives in `jtbd-deep.md`.
+- Low items, agents: `cody` counts matches before a scripted replace (P8); stale lines fixed in `release-engineer`, `watchdog`, `mc-reviewer`, `agent-improver` (hands the Notion mirror to the main thread). Ledger header says "inserts at the top" and its template carries `Scores:`.
+- Reverses if: a blind routing test sends a pre-mortem, SCQA or deep-JTBD prompt to the wrong skill, or `six-thinking-hats` runs a pre-mortem on something already shipped. Restore from `_retired/`.
+- Review (delegated): `watchdog` on the merge commit, 9 findings (3 Medium), all fixed: `work-samples/watchdog-2026-10-18-pass3.md`.
+- Owed by the owner: delete the four retired skills from claude.ai and upload the changed zips.
+- Next audit targets: `six-thinking-hats` (first pre-mortem after the merge), `scr-pyramid-communicator` (short-memo mode picked correctly?), `customer-insight` (does it reach the deep references?), plus the queue above.
+
+## 2026-10-18 — library — portfolio (High and Medium fixes applied; repo declared the source of truth)
+- Decision (owner, 2026-10-18): apply every High and Medium proposal from the review below; tax table to 2026–27. The repo is the only place agents and skills are reviewed or changed (new root `CLAUDE.md`).
+- Changed, agents: `watchdog` accepts a single member-facing artefact (P1). `cody`, `mc-planner`, `mc-verifier` use a skill only when they hold a `Skill` tool, else self-apply and say so (P2). Reference fallbacks in 11 agents and 2 skills (`cos`, `mc-orchestrator`) search every working directory (P3). `mc-integrator` rules on `security-auditor` findings (P4). `idea-challenger` intake states its inputs (P5). `cody` stale "step 5" and duplicate rule fixed (P6). `ux-designer` styleguide glob is recursive (P7).
+- Changed, skills: see `.claude/skills/CHANGELOG.md` 2026-10-18.
+- Account copies: 32 skills zipped for claude.ai upload. `editor` and `deep-research` on claude.ai are different products under the same names; uploading replaces them.
+- Evidence: this session started with the library beside two app repos; its agents and unprefixed skills loaded from the repo and reloaded live after edits. That is the launch method in `CLAUDE.md`.
+- Review: `watchdog` (delegated) on the diff before merge.
+- Not done (Low): P8, stale-reference list items, F9–F11.
+- Reverses if: the `jh` plugin loads in cloud sessions, making the plugin the delivery path.
+- Next audit targets: `cody` (first dispatch with P2/P3: does it say "self-read"?), `watchdog` (first single-artefact review), `idea-challenger` (first intake run), `mc-reviewer` + `mc-verifier` (retire test 2026-12-31).
+
+## 2026-10-18 — library — portfolio (full review: 18 agents, 42 skills, account-synced copies)
+- Verdict: health checks clean, but the account-synced skills have drifted and nine defects a static check can't see. Proposals only; nothing in `.claude/` edited, pending the owner's yes.
+- Evidence (delegated): `agent-improver` on the agents (`work-samples/agent-improver-2026-10-18.md`), `watchdog` on the skills (`work-samples/watchdog-2026-10-18.md`). Account drift measured by the main thread (`work-samples/account-sync-drift-2026-10-18.md`). Top findings re-checked against the cited lines.
+- Most urgent: the claude.ai copy of `rewrite` (1.3.1) launches retired `prompt-refiner`, and synced `cpo` (1.0.0) follows retired `CPO.md`. 24 synced skills differ from the repo.
+- High: `watchdog` refuses the single-artefact review `cpo` now sends it (P1). `cody` lists no Skill tool but must run `code-review` (P2). Reference fallbacks miss the library when it is a second working directory (P3). `etf-investing-advisor` still shows pre-2024 tax rates.
+- Medium: truncated descriptions (`pre-mortem`, `value-proposition-canvas`); dead scheme-expert routes in `cos` and `positioning`; trigger overlaps in research, writing, stress-test and SCQA/SCR skills.
+- Independent `cody` pass done: it disagrees with both 2026-10-13 self-reviews (Instructions and Observed drop to Adequate).
+- Merge candidates proposed, not decided: JTBD + VPC into `customer-insight`; `scqa-framework` into `scr-pyramid-communicator`; `pre-mortem` into `six-thinking-hats`.
+- Reverses if: the owner declines a proposal; record why here.
+- Next audit targets: `cody` (first dispatch from an app repo: Skill tool, reference paths), `watchdog` (first member-facing artefact after P1), `cpo` (first app-repo run), `mc-reviewer` + `mc-verifier` (retire test 2026-12-31), `idea-challenger` (first intake run), `ux-designer` (unreviewed since the archive).
 
 ## 2026-10-14 — library — portfolio (app repos keep no agent copies; `sync-agents.sh` retired)
 - Decision (owner, 2026-10-14): the library is the only source of agents and references. Copies removed from BalanceTRI-app (#91), BalanceBolt (#27), tri-momentum (#14) and CLACFridays (#18); each now carries a one-line note to attach the library. `scripts/sync-agents.sh` is deleted (git history keeps it).

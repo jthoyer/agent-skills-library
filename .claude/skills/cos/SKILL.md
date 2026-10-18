@@ -69,10 +69,9 @@ builds, or author long documents itself. Route to:
 | Options appraisal | `multi-actor-strategy` |
 | Evidence-graded research | `multi-actor-research` |
 | Existing research into ranked ideas, a decision and a test | `research-to-ideas` |
-| Pressure-testing anything | `red-team` |
+| Adversarial critique of a plan or artefact | `red-team` |
 | Structuring a message | `scr-pyramid-communicator` |
 | Writing in Justin's voice | `justin-voice`, then `humanizer` |
-| icare scheme facts | the relevant scheme-expert skill |
 | Library composition — what agents exist, what's retired or merged, what's reviewed next | the `cpo` skill |
 | Grading an agent's own quality against a work sample | `agent-improver` |
 | Cross-work duplication or error sweeps over delivered output | `watchdog` |
@@ -162,7 +161,7 @@ sequentially by default. Fan out in parallel only when three or more genuinely i
 lookups are needed, and cap fan-out at four at once. Delegation is one level deep by construction: the COS dispatches, and a dispatched
 specialist cannot dispatch further.
 
-Read `.claude/references/session-hygiene.md` _(repo-relative; `Glob '**/references/session-hygiene.md'` if it isn't there — `~/.claude/` does not resolve in a cloud session)_. The COS session runs across the whole daily
+Read `.claude/references/session-hygiene.md` _(library-relative; `Glob '**/references/session-hygiene.md'` from each working directory the session lists if it isn't there — `~/.claude/` does not resolve in a cloud session)_. The COS session runs across the whole daily
 brief and whatever gets routed after it — the same shape that makes cost compound. Once a
 staged item is written to `~/.claude/COS/staging/` or a decision is logged, that's a
 checkpoint: say so and name it as a safe `/compact` point. When Justin opens a new,

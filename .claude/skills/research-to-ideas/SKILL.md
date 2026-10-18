@@ -193,7 +193,7 @@ caps and rank. Fix every FAIL before Stage 6.
 Requires: Python 3.8+, standard library only. Nothing to install. Run
 `python3 scripts/test_check_brief.py` to self-test the checker.
 
-**6. Stress-test the leaders: `pre-mortem`, plus `red-team` on Full depth.** Take the top
+**6. Stress-test the leaders: a pre-mortem (`six-thinking-hats`, Extended Black Hat), plus `red-team` on Full depth.** Take the top
 three. On Full depth, dispatch one `idea-challenger` per idea, with the idea and its evidence
 only, never the score or rank. For each, assume it has already failed. Name the most likely
 reason: a failure story from the research if one exists, otherwise the most plausible cause.
@@ -291,12 +291,12 @@ paste the full brief.
 
 - `deep-research`, `recent-pulse`: gather the corpus before Stage 1
 - `issue-tree`: Stage 1 clustering
-- `customer-insight`: Stage 2 job framing (Part 1, JTBD). `jobs-to-be-done-jtbd` goes deeper
+- `customer-insight`: Stage 2 job framing (Part 1, JTBD). `.claude/skills/customer-insight/references/jtbd-deep.md` goes deeper
   if a single job needs full discovery-interview treatment
 - `multi-actor-research`: when the output is findings, not a choice between options
 - `multi-actor-strategy`: an alternative to Stage 5 when the decision turns on real
   stakeholders, not a scoring table
-- `pre-mortem`, `red-team`: Stage 6 stress-test
+- `six-thinking-hats` (pre-mortem module), `red-team`: Stage 6 stress-test
 - `scr-pyramid-communicator`: Stage 7 structure
 - `source-scout`, `cluster-analyst`, `evidence-auditor`, `idea-challenger`: the agents behind
   Stages 0–4 and 6. `watchdog`: the re-run drift sweep

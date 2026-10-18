@@ -1,7 +1,7 @@
 ---
 name: made-to-stick
 description: >
-  Apply Chip and Dan Heath's SUCCESs framework from "Made to Stick" to make any message more memorable, understood, and acted upon. Use when: crafting executive communications that need to land and be remembered, writing scheme narratives or participant stories for icare stakeholders, making a recommendation that needs to persuade not just inform, writing triathlon club communications that need to cut through, diagnosing why messaging is not resonating, or auditing any piece of communication for stickiness. Trigger on: "make this more memorable", "this isn't landing", "nobody's reading it", "make this stick", "tagline", "how do I frame this", "why isn't this resonating", "executive narrative", or "SUCCESs framework". For structural communication framing, pair with scr-pyramid-communicator.
+  Apply Chip and Dan Heath's SUCCESs framework from "Made to Stick" to make any message more memorable, understood, and acted upon. Use when: crafting executive communications that need to land and be remembered, writing scheme narratives or participant stories for icare stakeholders, making a recommendation that needs to persuade not just inform, writing triathlon club communications that need to cut through, diagnosing why messaging is not resonating, or auditing any piece of communication for stickiness. Trigger on: "make this more memorable", "this isn't landing", "nobody's reading it", "make this stick", "tagline", "why isn't this resonating", "executive narrative", or "SUCCESs framework". For structural communication framing, pair with scr-pyramid-communicator.
 ---
 
 # Made to Stick

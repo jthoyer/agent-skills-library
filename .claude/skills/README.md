@@ -56,7 +56,7 @@ skill-name/
 Supporting files belong under `references/`, not beside `SKILL.md`. `SKILL.md` addresses them
 by relative path (`references/<name>.md`), so a file left at the skill root will not resolve.
 
-## Skills (42)
+## Skills (38)
 
 Names below are the frontmatter `name:` field, which always matches the directory name.
 Each skill's own `description:` is the authoritative statement of when it fires — it is not
@@ -67,15 +67,13 @@ said 49 and still listed 11 icare skills and `content-writing` — all retired w
 until 2026-09-19, while `rewrite` had been live since 2026-09-11 and appeared nowhere. An
 index nobody verifies is worse than no index, because it is read as authoritative.
 
-**Strategy and problem-solving (8)** — `multi-actor-strategy`, `multi-actor-research`,
-`first-principles`, `issue-tree`, `six-thinking-hats`, `pre-mortem`, `red-team`,
-`research-to-ideas`
+**Strategy and problem-solving (7)** — `multi-actor-strategy`, `multi-actor-research`,
+`first-principles`, `issue-tree`, `six-thinking-hats`, `red-team`, `research-to-ideas`
 
-**Communication frameworks (4)** — `scr-pyramid-communicator`, `scqa-framework`, `made-to-stick`,
-`read-the-room`
+**Communication frameworks (3)** — `scr-pyramid-communicator`, `made-to-stick`, `read-the-room`
 
-**Product and customer insight (5)** — `customer-insight`, `jobs-to-be-done-jtbd`,
-`value-proposition-canvas`, `product-requirement-document`, `positioning`
+**Product and customer insight (3)** — `customer-insight`, `product-requirement-document`,
+`positioning`
 
 **Writing (6)** — `content-research-writer`, `editor`, `humanizer`,
 `justin-voice`, `youtube-explainer`, `terse-mode`
@@ -91,10 +89,10 @@ index nobody verifies is worse than no index, because it is read as authoritativ
 **Meta / library management (6)** — `cpo`, `rewrite`, `cos`, `mc-orchestrator`, `skills-librarian`,
 `notion-second-brain`
 
-Twelve skills carry a `references/` folder: `cpo`, `humanizer`, `job-scan`, `multi-actor-research`,
+Thirteen skills carry a `references/` folder: `cpo`, `customer-insight`, `humanizer`, `job-scan`, `multi-actor-research`,
 `multi-actor-strategy`, `product-requirement-document`, `project-management`, `read-the-room`,
 `research-to-ideas`, `resume-builder`, `scr-pyramid-communicator`, `skills-librarian`. Two carry
-`scripts/`: `recent-pulse`, `research-to-ideas`. The other 29 are a single `SKILL.md`.
+`scripts/`: `recent-pulse`, `research-to-ideas`. The other 24 are a single `SKILL.md`.
 
 Regenerate against disk rather than trusting any of the above:
 

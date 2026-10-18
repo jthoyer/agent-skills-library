@@ -37,6 +37,9 @@
 #                   filename — every SKILL.md is called SKILL.md.
 #   NO-DESC         no description means no trigger, so the skill never fires.
 #   DESC>1024       same hard cap, same silent truncation.
+#   DESC-TRUNCATED  the description ends in "..." or "…": text was cut off on
+#                   import, so part of the trigger surface is gone (pre-mortem
+#                   and value-proposition-canvas, found 2026-10-18).
 #   BODY>500        skills-librarian's own stated standard. The fix is moving
 #                   content into `references/` with a pointer, not deleting it.
 #   ARTEFACT        same class as the agents' `</content>` defect.
@@ -91,6 +94,22 @@ desc_len() {
     }
     END { printf "%s", out }
   ' "$1" | LC_ALL=C tr -d '\200-\277' | LC_ALL=C wc -c | tr -d ' '
+}
+
+# Does the description end in an ellipsis (cut off on import)?
+desc_truncated() {
+  awk '
+    /^---[[:space:]]*$/ { d++; if (d == 2) exit; next }
+    d != 1 { next }
+    /^description:/ { f = 1; sub(/^description:[[:space:]]*[>|]?-?[[:space:]]*/, ""); if ($0 != "") last = $0; next }
+    f && /^[A-Za-z_][A-Za-z0-9_-]*:/ { f = 0 }
+    f { if ($0 ~ /[^[:space:]]/) last = $0 }
+    END {
+      # strip trailing space and quotes; "\047" is a single quote, portable across awks
+      while (length(last) && index(" \t\"\047", substr(last, length(last), 1))) last = substr(last, 1, length(last) - 1)
+      if (last ~ /\.\.\.$/ || substr(last, length(last) - 2) == "…") print "DESC-TRUNCATED"
+    }
+  ' "$1"
 }
 
 # Does the frontmatter block actually parse as YAML?
@@ -187,6 +206,7 @@ for f in "$agents_dir"/*.md; do
   while IFS= read -r y || [[ -n "$y" ]]; do [[ -n "$y" ]] && flags+=("$y"); done < <(yaml_flags "$f")
   [[ "$n" != "$b" ]]        && flags+=("NAME!=FILENAME(declares '$n')")
   [[ "$dl" -gt $DESC_CAP ]] && flags+=("DESC>$DESC_CAP($dl)")
+  [[ -n "$(desc_truncated "$f")" ]] && flags+=("DESC-TRUNCATED")
   [[ -z "$m" ]]             && flags+=("NO-MODEL")
   [[ -z "$t" ]]             && flags+=("NO-TOOLS")
   # A dispatched subagent never receives the Agent tool, so an agent that lists it
@@ -240,6 +260,7 @@ if [[ -d "$skills_dir" ]]; then
     elif [[ "$dl" -gt $DESC_CAP ]]; then
       flags+=("DESC>$DESC_CAP($dl)")
     fi
+    [[ -n "$(desc_truncated "$s")" ]] && flags+=("DESC-TRUNCATED")
 
     bl="$(wc -l < "$s" | tr -d ' ')"
     [[ "$bl" -gt $BODY_CAP ]] && flags+=("BODY>$BODY_CAP($bl) — move content to references/")

@@ -1,6 +1,6 @@
 ---
 name: jobs-to-be-done-jtbd
-description: 'Strategic framework for discovering and designing product innovations based on Clayton Christensen''s Jobs to Be Done (JTBD) theory from "Competing Against Luck". Use when you need to: (1) understand customers'' true motivations, (2) design a new product or feature, (3) conduct customer discovery interviews, (4) analyze competition through the "jobs" lens, (5) diagnose why a product isn''t selling or customers are churning, (6) create positioning strategy, (7) build a jobs-oriented organization.'
+description: 'Strategic framework for discovering and designing product innovations based on Clayton Christensen''s Jobs to Be Done (JTBD) theory from "Competing Against Luck". Use when you need to: (1) understand customers'' true motivations, (2) design a new product or feature, (3) conduct customer discovery interviews, (4) analyze competition through the "jobs" lens, (5) diagnose why a product isn''t selling or customers are churning, (6) build a jobs-oriented organization. This is the deep JTBD method on its own, with job scoring and designing for the job. For customer discovery or general insight work, start with customer-insight, which combines JTBD and the Value Proposition Canvas. For positioning strategy, use positioning.'
 license: MIT
 metadata:
   author: wondelai

@@ -1,7 +1,22 @@
+# Short-memo mode: SCQA
+
+*Merged from the `scqa-framework` skill on 2026-10-18; the original is archived unmodified in `.claude/skills/_retired/scqa-framework/`. Read when SKILL.md § Short-memo mode sends you here.*
+
+## Contents
+
+- Instructions
+- Step 0: Clarify Before You Draft
+- Framework Overview
+- The Four Components in Depth
+- The 4 Orderings
+- 5 Common Mistakes
+- Output Formats
+- Output Process
+- Worked Examples
+- Notes
+
 ---
-name: scqa-framework
-description: "Apply the SCQA (Situation, Complication, Question, Answer) framework to structure business communication clearly and persuasively. Use whenever someone needs to write a strategy memo, executive email, product brief, presentation narrative, status update, or any document where clarity and conciseness matter. Trigger this skill for any request involving 'SCQA', 'Minto Pyramid', 'structured communication', 'executive summary', or when someone wants to rewrite rambling prose into a sharper, more decisive format."
----
+
 # SCQA Framework
 
 ## Instructions

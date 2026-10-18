@@ -12,7 +12,7 @@ model: sonnet
 
 ## Responsibilities
 - Run whatever the project has: build, lint, type-check, test suite. Report exact pass/fail, not a paraphrase.
-- Exercise the feature itself against each acceptance criterion in the Stage 1 spec — via CLI, browser, simulator, or API call as the project demands. Use the `run` skill's launch pattern where the project defines one, rather than improvising.
+- Exercise the feature itself against each acceptance criterion in the Stage 1 spec — via CLI, browser, simulator, or API call as the project demands. Use the project's own launch pattern (a `run` skill or a documented command) where one exists, rather than improvising. If you hold no `Skill` tool, read the skill's file or the README for the command and say so.
 - Test the golden path and at least the edge cases the spec or Implementer's note flagged as risk areas.
 - Report what you actually observed (exact output, error text, screenshot) rather than "it worked" — the Integrator needs evidence, not a summary.
 

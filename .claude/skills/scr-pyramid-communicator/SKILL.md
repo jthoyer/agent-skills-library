@@ -1,16 +1,17 @@
 ---
 name: scr-pyramid-communicator
 description: >
-  Structures any communication — emails, slide decks, briefs, recommendations, status updates,
-  escalations, or verbal pitches — using the McKinsey SCR framework (Situation–Complication–
+  Structures any communication — emails, slide decks, briefs, recommendations, escalations,
+  or verbal pitches — using the McKinsey SCR framework (Situation–Complication–
   Resolution) combined with Barbara Minto's Pyramid Principle (answer first, MECE supporting
   arguments, evidence last). Use this skill whenever the user wants to write something
   persuasive, structured, or executive-facing; whenever they mention SCR, Pyramid Principle,
   MECE, structured communication, or "how do I frame this?"; whenever they need to present a
-  recommendation, business case, status update, or problem–solution narrative; or whenever they
+  recommendation, business case, or problem–solution narrative; or whenever they
   say things like "help me structure this", "make this more executive-ready", "frame this for
-  leadership", or "how should I present this?". Always prefer this skill over ad-hoc drafting
-  when the output needs to be clear, logical, and persuasive.
+  leadership", or "how should I present this?". Includes a short-memo mode (SCQA:
+  Situation, Complication, Question, Answer) for memos and executive emails;
+  trigger on "SCQA" or "tighten this memo". For project status updates, use project-management; for a product spec or feature brief, use product-requirement-document.
 ---
 
 # SCR + Pyramid Principle Communicator
@@ -168,8 +169,24 @@ Before presenting a draft, run it through these checks:
 
 ---
 
+## Short-memo mode (SCQA)
+
+For a short piece — a strategy memo, an executive email, or a page of rambling
+prose that needs to lead with the answer — use SCQA instead of a full pyramid. SCQA is SCR with
+the question made explicit: **S**ituation, **C**omplication, the **Q**uestion the complication
+raises, and the **A**nswer (your Resolution). Read `references/scqa-short-memo.md` and follow it:
+the four orderings, its 1-pager format (use it, not the one-page brief above) and the compression
+test. If Step 1 above already settled audience, format and outcome, skip the reference's Step 0
+intake; ask only what is still missing.
+
+Pick the mode by length and stakes. One screen or less, one decision: short-memo mode. A deck,
+a long brief, or a recommendation that needs MECE supporting arguments: the full process above.
+
+---
+
 ## Reference files
 
+- `references/scqa-short-memo.md` — Short-memo mode: SCQA intake, orderings, formats and worked examples
 - `references/slide-principles.md` — Guidance on slide titles, layout, and deck structure using the Pyramid Principle
 - `references/worked-examples.md` — Full worked examples across email, deck, and brief formats
 

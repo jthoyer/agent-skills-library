@@ -1,6 +1,6 @@
 ---
 name: value-proposition-canvas
-description: "Use Osterwalder's Value Proposition Canvas to systematically achieve product-market fit by matching your products and services to customer jobs, pains, and gains Use when: **Launching a new product or service** and need to validate the value proposition; **Struggling with product-market fit** and need to diagnose why customers aren't buying; **Repositioning an existing offering** to better meet customer needs; **Entering a new market segment** with different customer requirements; **Developin..."
+description: "The full Value Proposition Canvas method on its own (Osterwalder): map customer jobs, pains and gains against products, pain relievers and gain creators, then test fit. Use when launching a product or service and validating its value proposition, diagnosing why customers are not buying, repositioning an offering, entering a new segment, or developing a new feature set. Trigger on: \"value proposition canvas\", \"pain relievers\", \"gain creators\", \"fit test\". For customer discovery or general insight work, start with customer-insight, which combines JTBD and the canvas. For positioning, use positioning."
 license: MIT
 metadata:
   author: ClawFu

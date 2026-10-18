@@ -2,11 +2,8 @@
 name: skills-librarian
 description: >
   Governs creation, maintenance, auditing, upgrading, and retirement of Justin's personal Claude
-  skills library at /mnt/skills/user/, and inventory of the read-only public, examples, and plugin
-  scopes. Use whenever the task involves: creating a skill, merging or trimming skills, fixing
-  malformed YAML frontmatter, validating the 1,024-character description limit, updating the
-  CHANGELOG, running a library audit, mapping trigger overlaps, backing up to Notion's AI Skills
-  DB, or testing whether a skill still earns its place. Trigger on: "create a skill", "merge these
+  skills library (source of truth: the agent-skills-library git repo; claude.ai is an upload
+  target), and inventory of the read-only public, examples, and plugin scopes. Trigger on: "create a skill", "merge these
   skills", "audit the library", "fix the frontmatter", "check the description length", "update the
   CHANGELOG", "backup to Notion", "trim this skill", "install this skill", "upgrade this skill",
   "benchmark this skill", "does this skill beat no skill", "should I retire this skill", or any
@@ -31,7 +28,7 @@ change to it — the answer determines what is possible.
 
 | Scope | Contents | Editable | Handling |
 |---|---|---|---|
-| `/mnt/skills/user/` | Justin's own skills | Yes, via outputs + reinstall | Authoritative. All upgrades land here. |
+| `/mnt/skills/user/` | Justin's own skills, as installed on claude.ai | Yes, via outputs + reinstall | The install surface, not the source. Upgrades land in the agent-skills-library repo first; upload the zip here after. |
 | `/mnt/skills/public/` | Anthropic-maintained | No | Cite and defer to. Fork only with an explicit reason recorded in the CHANGELOG. |
 | `/mnt/skills/examples/` | Anthropic examples | No | Mine for patterns and reusable agents. `skill-creator` is the canonical creation and eval protocol. |
 | `/mnt/skills/plugins/` | Installed plugin bundles | No | Namespaced `plugin:skill`. A user skill that duplicates a plugin skill is a retirement candidate. |
@@ -87,7 +84,7 @@ not a rewrite candidate. See `references/upgrade-gauntlet.md`.
 ### Directory structure
 
 ```
-/mnt/skills/user/<skill-name>/
+.claude/skills/<skill-name>/      (in the repo; /mnt/skills/user/<skill-name>/ once installed)
 └── SKILL.md          ← required; YAML frontmatter + markdown body
     references/       ← optional supporting files, loaded on demand
     scripts/          ← optional executable helpers
@@ -182,12 +179,13 @@ install.
 
 ## Change safety
 
-Do all four before editing any skill:
+Do all five before editing any skill:
 
-1. **Snapshot the original.** `cp -r /mnt/skills/user/<name> /home/claude/snapshots/<name>-<date>/`.
-   Every upgrade must be reversible from this copy.
-2. **Never edit in place** under `/mnt/skills/`. Build in `/home/claude/`, deliver to
-   `/mnt/user-data/outputs/`.
+1. **Edit in the library repo, on a branch.** The agent-skills-library repo is the source of
+   truth (its root `CLAUDE.md`). Git history is the snapshot: every upgrade is reversible from
+   the commit before it, and lands through a pull request.
+2. **Never edit in place** under `/mnt/skills/` (Claude Chat's install surface). Change the
+   repo first; the zip in step 5 carries it to claude.ai.
 3. **Version the frontmatter.** Increment `metadata.version` on every substantive change.
 4. **Record the change** in the CHANGELOG, including what was removed and why.
 5. **Zip the changed skill, inside its own folder**, ready for the claude.ai upload step (see
