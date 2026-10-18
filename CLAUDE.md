@@ -24,4 +24,5 @@ by side under the working directory, and this repo's agents and skills load for 
 session.
 
 Already in a session without the library? Ask Claude to attach `jthoyer/agent-skills-library`.
-It adds the repo, clones it, and registers it; the agents and skills load on the next turn.
+It adds the repo, clones it, and registers it; the agents and skills should load on the next
+turn. Not yet tested end to end (2026-10-18): if they don't, start a fresh session with both.

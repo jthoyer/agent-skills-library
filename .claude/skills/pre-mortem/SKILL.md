@@ -1,6 +1,6 @@
 ---
 name: pre-mortem
-description: "Imagine the project has already failed, then work backward to find why. Applies Gary Klein's prospective-hindsight technique to surface risks before they land. Use before launching a product, campaign or initiative; before an important decision (a hire, an investment, a partnership); at a project's start, to find risks the team has not considered; when everyone agrees the plan is great; or before committing significant resources. Trigger on: \"pre-mortem\", \"imagine this failed\", \"what will kill this\", \"prospective hindsight\". For an adversarial attack on an argument, use red-team. For strategic options appraisal, use multi-actor-strategy."
+description: "Imagine the project has already failed, then work backward to find why. Applies Gary Klein's prospective-hindsight technique to surface risks before they land. Use before launching a product, campaign or initiative; before an important decision (a hire, an investment, a partnership); at a project's start, to find risks the team has not considered; when everyone agrees the plan is great; or before committing significant resources. Trigger on: \"pre-mortem\", \"imagine this failed\", \"what will kill this\", \"prospective hindsight\". For the technique on its own, use this skill; for a full six-perspective session that includes it, use six-thinking-hats. For an adversarial attack on an argument, use red-team. For strategic options appraisal, use multi-actor-strategy."
 license: MIT
 metadata:
   author: ClawFu

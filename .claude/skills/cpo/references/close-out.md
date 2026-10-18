@@ -43,7 +43,7 @@ the user for the library's ledger. App repos keep no agent copies; attach the li
    brief and say it is the queue. Press hardest when the output needed rework, ignored a
    stated constraint, came back in the wrong shape, or stopped early.
 3. **Dispatch `watchdog`** on the artefact if it ships, merges, or goes to members, the
-   committee or leadership.
+   committee, leadership or production.
 4. **Write one ledger entry** (below). Confirm it landed.
 
 A Notion backlog row is owed only for a finding still open at the end of the run.

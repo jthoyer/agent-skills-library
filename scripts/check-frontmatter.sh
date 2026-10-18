@@ -104,7 +104,11 @@ desc_truncated() {
     /^description:/ { f = 1; sub(/^description:[[:space:]]*[>|]?-?[[:space:]]*/, ""); if ($0 != "") last = $0; next }
     f && /^[A-Za-z_][A-Za-z0-9_-]*:/ { f = 0 }
     f { if ($0 ~ /[^[:space:]]/) last = $0 }
-    END { gsub(/[[:space:]"\x27]+$/, "", last); if (last ~ /(\.\.\.|…)$/) print "DESC-TRUNCATED" }
+    END {
+      # strip trailing space and quotes; "\047" is a single quote, portable across awks
+      while (length(last) && index(" \t\"\047", substr(last, length(last), 1))) last = substr(last, 1, length(last) - 1)
+      if (last ~ /\.\.\.$/ || substr(last, length(last) - 2) == "…") print "DESC-TRUNCATED"
+    }
   ' "$1"
 }
 

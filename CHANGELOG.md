@@ -71,9 +71,9 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 ## 2026-10-18 — library — portfolio (High and Medium fixes applied; repo declared the source of truth)
 - Decision (owner, 2026-10-18): apply every High and Medium proposal from the review below; tax table to 2026–27. The repo is the only place agents and skills are reviewed or changed (new root `CLAUDE.md`).
-- Changed, agents: `watchdog` accepts a single member-facing artefact (P1). `cody`, `mc-planner`, `mc-verifier` use a skill only when they hold a `Skill` tool, else self-apply and say so (P2). Reference fallbacks in 10 agents search every working directory (P3). `mc-integrator` rules on `security-auditor` findings (P4). `idea-challenger` intake states its inputs (P5). `cody` stale "step 5" and duplicate rule fixed (P6). `ux-designer` styleguide glob is recursive (P7).
+- Changed, agents: `watchdog` accepts a single member-facing artefact (P1). `cody`, `mc-planner`, `mc-verifier` use a skill only when they hold a `Skill` tool, else self-apply and say so (P2). Reference fallbacks in 11 agents and 2 skills (`cos`, `mc-orchestrator`) search every working directory (P3). `mc-integrator` rules on `security-auditor` findings (P4). `idea-challenger` intake states its inputs (P5). `cody` stale "step 5" and duplicate rule fixed (P6). `ux-designer` styleguide glob is recursive (P7).
 - Changed, skills: see `.claude/skills/CHANGELOG.md` 2026-10-18.
-- Account copies: 31 skills zipped for claude.ai upload. `editor` and `deep-research` on claude.ai are different products under the same names; uploading replaces them.
+- Account copies: 32 skills zipped for claude.ai upload. `editor` and `deep-research` on claude.ai are different products under the same names; uploading replaces them.
 - Evidence: this session started with the library beside two app repos; its agents and unprefixed skills loaded from the repo and reloaded live after edits. That is the launch method in `CLAUDE.md`.
 - Review: `watchdog` (delegated) on the diff before merge.
 - Not done (Low): P8, stale-reference list items, F9–F11.
