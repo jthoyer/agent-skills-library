@@ -1,16 +1,17 @@
 ---
 name: scr-pyramid-communicator
 description: >
-  Structures any communication — emails, slide decks, briefs, recommendations, status updates,
-  escalations, or verbal pitches — using the McKinsey SCR framework (Situation–Complication–
+  Structures any communication — emails, slide decks, briefs, recommendations, escalations,
+  or verbal pitches — using the McKinsey SCR framework (Situation–Complication–
   Resolution) combined with Barbara Minto's Pyramid Principle (answer first, MECE supporting
   arguments, evidence last). Use this skill whenever the user wants to write something
   persuasive, structured, or executive-facing; whenever they mention SCR, Pyramid Principle,
   MECE, structured communication, or "how do I frame this?"; whenever they need to present a
-  recommendation, business case, status update, or problem–solution narrative; or whenever they
+  recommendation, business case, or problem–solution narrative; or whenever they
   say things like "help me structure this", "make this more executive-ready", "frame this for
   leadership", or "how should I present this?". Always prefer this skill over ad-hoc drafting
-  when the output needs to be clear, logical, and persuasive.
+  when the output needs to be clear, logical, and persuasive. For a short memo or email,
+  scqa-framework is lighter. For project status updates, use project-management.
 ---
 
 # SCR + Pyramid Principle Communicator

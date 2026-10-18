@@ -103,16 +103,17 @@ Apply Australian tax law accurately. Key rules to apply:
 - NSW does not impose a separate state income tax or CGT — all CGT and income tax is federal
 - NSW land tax does not apply to ETFs or managed funds (applies to real property only)
 - Stamp duty does not apply to ASX-listed security transfers (abolished for shares/ETFs)
-- For NSW residents: Medicare Levy (2%) applies on top of marginal income tax rate on investment income
+- Medicare Levy (2%, federal) applies on top of the marginal income tax rate on investment income
 
-#### Marginal tax rate reference (2024–25, Australian residents)
+#### Marginal tax rate reference (2026–27, Australian residents)
+Check ato.gov.au before relying on these. The 15% band is legislated to fall again from 1 July 2027.
 | Taxable Income | Marginal Rate |
 |---|---|
 | $0 – $18,200 | 0% (tax-free threshold) |
-| $18,201 – $45,000 | 19% |
-| $45,001 – $120,000 | 32.5% |
-| $120,001 – $180,000 | 37% |
-| $180,001+ | 45% |
+| $18,201 – $45,000 | 15% |
+| $45,001 – $135,000 | 30% |
+| $135,001 – $190,000 | 37% |
+| $190,001+ | 45% |
 | + Medicare Levy | 2% |
 
 When applying tax rules, always ask or state the assumed marginal tax rate bracket. Tax outcomes vary materially between brackets.

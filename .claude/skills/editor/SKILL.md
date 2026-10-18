@@ -1,9 +1,10 @@
 ---
 name: editor
 description: |
-  Professional editing and proofreading for clarity, grammar, style, and readability improvements.
-  Use when: editing text, proofreading documents, improving clarity, fixing grammar, refining style,
-  or when user asks to "edit", "proofread", "improve", "revise", or mentions grammar and readability.
+  Line-level editing and proofreading of text that already exists: clarity, grammar, style and
+  readability. Use when: editing text, proofreading documents, improving clarity, fixing grammar,
+  refining style, or when user asks to "edit", "proofread" or "revise" a finished draft. Not for
+  drafting or restructuring content (content-research-writer) or removing AI tells (humanizer).
 license: MIT
 metadata:
   author: awesome-llm-apps

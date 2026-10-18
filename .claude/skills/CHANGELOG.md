@@ -5,6 +5,32 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-18 — boundaries, truncated descriptions, 2026–27 tax rates
+
+### Updated
+- **`pre-mortem`**, **`value-proposition-canvas`**: descriptions were cut off mid-word on import
+  ("signific...", "Developin..."). Rewritten in full, with triggers and pointers to `red-team`,
+  `customer-insight` and `positioning`.
+- **`jobs-to-be-done-jtbd`**, **`value-proposition-canvas`**: each now says it is the deep method
+  on its own and that `customer-insight` is the default. JTBD drops "create positioning strategy".
+- **`deep-research`**, **`academic-researcher`**, **`editor`**, **`content-research-writer`**,
+  **`humanizer`**, **`scqa-framework`**, **`scr-pyramid-communicator`**: "Not for / use X" clauses
+  that mirror `cpo/references/routing.md`. "Status update" now belongs to `project-management`
+  only; `scqa-framework` is the short-memo skill and drops "Minto Pyramid".
+- **`six-thinking-hats`**: drops "play devil's advocate"; its body rules out adversarial debate.
+- **`cos`**, **`positioning`**: removed routes to the scheme-expert skills deleted 2026-09-11.
+  `cos` routes "adversarial critique" to `red-team`, matching routing.md.
+- **`etf-investing-advisor`**: tax table moved to 2026–27 resident rates (15% / 30% / 37% / 45%;
+  thresholds $45k, $135k, $190k). Medicare levy called federal, not NSW. Closes the 2026-10-14
+  "found, not fixed" item.
+- `scripts/check-frontmatter.sh` flags `DESC-TRUNCATED` on a description ending in "..." or "…".
+  Proven against the old `pre-mortem`.
+
+### Found, not fixed (Low)
+- Description padding near the 1,024 cap (red-team, recent-pulse, project-management,
+  skills-librarian); `skills-librarian:34` still calls `/mnt/skills/user/` authoritative;
+  `made-to-stick` shares "how do I frame this" with `scr-pyramid-communicator`.
+
 ## 2026-10-14 — ETF skills: triggers split by job
 
 ### Updated

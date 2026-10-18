@@ -69,6 +69,17 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-18 — library — portfolio (High and Medium fixes applied; repo declared the source of truth)
+- Decision (owner, 2026-10-18): apply every High and Medium proposal from the review below; tax table to 2026–27. The repo is the only place agents and skills are reviewed or changed (new root `CLAUDE.md`).
+- Changed, agents: `watchdog` accepts a single member-facing artefact (P1). `cody`, `mc-planner`, `mc-verifier` use a skill only when they hold a `Skill` tool, else self-apply and say so (P2). Reference fallbacks in 10 agents search every working directory (P3). `mc-integrator` rules on `security-auditor` findings (P4). `idea-challenger` intake states its inputs (P5). `cody` stale "step 5" and duplicate rule fixed (P6). `ux-designer` styleguide glob is recursive (P7).
+- Changed, skills: see `.claude/skills/CHANGELOG.md` 2026-10-18.
+- Account copies: 31 skills zipped for claude.ai upload. `editor` and `deep-research` on claude.ai are different products under the same names; uploading replaces them.
+- Evidence: this session started with the library beside two app repos; its agents and unprefixed skills loaded from the repo and reloaded live after edits. That is the launch method in `CLAUDE.md`.
+- Review: `watchdog` (delegated) on the diff before merge.
+- Not done (Low): P8, stale-reference list items, F9–F11.
+- Reverses if: the `jh` plugin loads in cloud sessions, making the plugin the delivery path.
+- Next audit targets: `cody` (first dispatch with P2/P3: does it say "self-read"?), `watchdog` (first single-artefact review), `idea-challenger` (first intake run), `mc-reviewer` + `mc-verifier` (retire test 2026-12-31).
+
 ## 2026-10-18 — library — portfolio (full review: 18 agents, 42 skills, account-synced copies)
 - Verdict: health checks clean, but the account-synced skills have drifted and nine defects a static check can't see. Proposals only; nothing in `.claude/` edited, pending the owner's yes.
 - Evidence (delegated): `agent-improver` on the agents (`work-samples/agent-improver-2026-10-18.md`), `watchdog` on the skills (`work-samples/watchdog-2026-10-18.md`). Account drift measured by the main thread (`work-samples/account-sync-drift-2026-10-18.md`). Top findings re-checked against the cited lines.

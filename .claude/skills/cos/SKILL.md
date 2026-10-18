@@ -69,10 +69,9 @@ builds, or author long documents itself. Route to:
 | Options appraisal | `multi-actor-strategy` |
 | Evidence-graded research | `multi-actor-research` |
 | Existing research into ranked ideas, a decision and a test | `research-to-ideas` |
-| Pressure-testing anything | `red-team` |
+| Adversarial critique of a plan or artefact | `red-team` |
 | Structuring a message | `scr-pyramid-communicator` |
 | Writing in Justin's voice | `justin-voice`, then `humanizer` |
-| icare scheme facts | the relevant scheme-expert skill |
 | Library composition — what agents exist, what's retired or merged, what's reviewed next | the `cpo` skill |
 | Grading an agent's own quality against a work sample | `agent-improver` |
 | Cross-work duplication or error sweeps over delivered output | `watchdog` |

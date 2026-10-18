@@ -1,6 +1,6 @@
 ---
 name: scqa-framework
-description: "Apply the SCQA (Situation, Complication, Question, Answer) framework to structure business communication clearly and persuasively. Use whenever someone needs to write a strategy memo, executive email, product brief, presentation narrative, status update, or any document where clarity and conciseness matter. Trigger this skill for any request involving 'SCQA', 'Minto Pyramid', 'structured communication', 'executive summary', or when someone wants to rewrite rambling prose into a sharper, more decisive format."
+description: "Apply the SCQA (Situation, Complication, Question, Answer) framework to a short piece: a strategy memo, an executive email, a product brief, or a page of rambling prose that needs to be sharper and more decisive. Trigger on: 'SCQA', 'situation complication question answer', 'tighten this memo', or a request to rewrite a short document so it leads with the answer. For decks, long briefs and recommendations that need a MECE pyramid of arguments, use scr-pyramid-communicator. For project status updates, use project-management."
 ---
 # SCQA Framework
 
