@@ -69,6 +69,17 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-18 — library — portfolio (full review: 18 agents, 42 skills, account-synced copies)
+- Verdict: health checks clean, but the account-synced skills have drifted and nine defects a static check can't see. Proposals only; nothing in `.claude/` edited, pending the owner's yes.
+- Evidence (delegated): `agent-improver` on the agents (`work-samples/agent-improver-2026-10-18.md`), `watchdog` on the skills (`work-samples/watchdog-2026-10-18.md`). Account drift measured by the main thread (`work-samples/account-sync-drift-2026-10-18.md`). Top findings re-checked against the cited lines.
+- Most urgent: the claude.ai copy of `rewrite` (1.3.1) launches retired `prompt-refiner`, and synced `cpo` (1.0.0) follows retired `CPO.md`. 24 synced skills differ from the repo.
+- High: `watchdog` refuses the single-artefact review `cpo` now sends it (P1). `cody` lists no Skill tool but must run `code-review` (P2). Reference fallbacks miss the library when it is a second working directory (P3). `etf-investing-advisor` still shows pre-2024 tax rates.
+- Medium: truncated descriptions (`pre-mortem`, `value-proposition-canvas`); dead scheme-expert routes in `cos` and `positioning`; trigger overlaps in research, writing, stress-test and SCQA/SCR skills.
+- Independent `cody` pass done: it disagrees with both 2026-10-13 self-reviews (Instructions and Observed drop to Adequate).
+- Merge candidates proposed, not decided: JTBD + VPC into `customer-insight`; `scqa-framework` into `scr-pyramid-communicator`; `pre-mortem` into `six-thinking-hats`.
+- Reverses if: the owner declines a proposal; record why here.
+- Next audit targets: `cody` (first dispatch from an app repo: Skill tool, reference paths), `watchdog` (first member-facing artefact after P1), `cpo` (first app-repo run), `mc-reviewer` + `mc-verifier` (retire test 2026-12-31), `idea-challenger` (first intake run), `ux-designer` (unreviewed since the archive).
+
 ## 2026-10-14 — library — portfolio (app repos keep no agent copies; `sync-agents.sh` retired)
 - Decision (owner, 2026-10-14): the library is the only source of agents and references. Copies removed from BalanceTRI-app (#91), BalanceBolt (#27), tri-momentum (#14) and CLACFridays (#18); each now carries a one-line note to attach the library. `scripts/sync-agents.sh` is deleted (git history keeps it).
 - Evidence: three of four app repos held stale copies, including the three agents retired on 2026-10-13, and five more had drifted. The sync script never deletes, so every retirement left orphans behind.
