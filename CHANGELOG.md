@@ -69,6 +69,17 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-18 — `security-auditor` (via `cpo`, BalanceTRI-app PII review)
+- Verdict: independent `agent-improver` pass. Fit for purpose. No rule separates traced facts from inferred ones, so one count and one deployment claim were overstated.
+- Scores: 1 S · 2 S · 3 S · 4 S · 5 A · 6 A · 7 S
+- Work sample: `work-samples/security-auditor-2026-10-18.md`. First observed run after four definition-only passes.
+- Run: `cpo` main thread, rung 3. `security-auditor` (delegated) → Notion review page + 8 backlog rows → `watchdog` (delegated) fact-check → 5 wording fixes applied (children stated as fact, H2 under-labelled, L3 "verified email", M2 cited an unapplied migration, overlaps with 6 existing rows). Supabase MCP refused; live DB unchecked.
+- Changed: no definition edits. Four fixes proposed (1 HIGH, 2 MED, 1 LOW); Notion backlog row "[security-auditor] Add a traced-vs-inferred rule…" (Rank 132).
+- Why: gates at `security-auditor.md:17-18` test code paths only. Agent said "about 180" names (≤155 on disk; single-line blob Grep can't count) and asserted Pages reachability it could not test. `:45` points to `review-gates.md`, which doesn't ship to app repos.
+- Expected effect: deployment/live-config premises labelled Plausible with a check; headline numbers counted or marked estimates; CRITICAL-row matches ranked lower name their mitigating control.
+- Follow-up: 2026-09-11 policy-sweep and 2026-09-06 false-positive fixes both held. Shipping `.claude/references/` to app repos is a `cpo` distribution decision.
+- Next audit targets: `cpo` (first app-repo run with the library attached), `cody` (first dispatch without a local copy), `security-auditor` (re-check after the HIGH fix).
+
 ## 2026-10-14 — library — portfolio (app repos keep no agent copies; `sync-agents.sh` retired)
 - Decision (owner, 2026-10-14): the library is the only source of agents and references. Copies removed from BalanceTRI-app (#91), BalanceBolt (#27), tri-momentum (#14) and CLACFridays (#18); each now carries a one-line note to attach the library. `scripts/sync-agents.sh` is deleted (git history keeps it).
 - Evidence: three of four app repos held stale copies, including the three agents retired on 2026-10-13, and five more had drifted. The sync script never deletes, so every retirement left orphans behind.
