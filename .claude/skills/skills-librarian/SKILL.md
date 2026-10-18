@@ -84,7 +84,7 @@ not a rewrite candidate. See `references/upgrade-gauntlet.md`.
 ### Directory structure
 
 ```
-/mnt/skills/user/<skill-name>/
+.claude/skills/<skill-name>/      (in the repo; /mnt/skills/user/<skill-name>/ once installed)
 └── SKILL.md          ← required; YAML frontmatter + markdown body
     references/       ← optional supporting files, loaded on demand
     scripts/          ← optional executable helpers
@@ -179,12 +179,13 @@ install.
 
 ## Change safety
 
-Do all four before editing any skill:
+Do all five before editing any skill:
 
-1. **Snapshot the original.** `cp -r /mnt/skills/user/<name> /home/claude/snapshots/<name>-<date>/`.
-   Every upgrade must be reversible from this copy.
-2. **Never edit in place** under `/mnt/skills/`. Build in `/home/claude/`, deliver to
-   `/mnt/user-data/outputs/`.
+1. **Edit in the library repo, on a branch.** The agent-skills-library repo is the source of
+   truth (its root `CLAUDE.md`). Git history is the snapshot: every upgrade is reversible from
+   the commit before it, and lands through a pull request.
+2. **Never edit in place** under `/mnt/skills/` (Claude Chat's install surface). Change the
+   repo first; the zip in step 5 carries it to claude.ai.
 3. **Version the frontmatter.** Increment `metadata.version` on every substantive change.
 4. **Record the change** in the CHANGELOG, including what was removed and why.
 5. **Zip the changed skill, inside its own folder**, ready for the claude.ai upload step (see

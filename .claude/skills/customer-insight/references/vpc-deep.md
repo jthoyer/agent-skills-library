@@ -129,7 +129,7 @@ The canvas is only as good as the input. These get at each half without leading 
 - Diagnosing why an existing offering isn't landing, by locating the mismatch
 
 ### What This Skill Cannot Do
-- Know the real customer without research — it structures the canvas, you (or `customer-insight`) supply the validated insight
+- Know the real customer without research — it structures the canvas, you (or JTBD discovery, Part 1 of customer-insight) supply the validated insight
 - Replace running the value proposition past actual customers
 - Guarantee product-market fit — it improves the odds of building the right thing, it doesn't test the market for you
 

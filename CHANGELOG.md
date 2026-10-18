@@ -76,6 +76,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 - Against, recorded: the 2026-09-05 test found `pre-mortem` alone recognised when the technique did not fit. That redirect now lives in the `six-thinking-hats` module; JTBD's scoring rubric survives in `jtbd-deep.md`.
 - Low items, agents: `cody` counts matches before a scripted replace (P8); stale lines fixed in `release-engineer`, `watchdog`, `mc-reviewer`, `agent-improver` (hands the Notion mirror to the main thread). Ledger header says "inserts at the top" and its template carries `Scores:`.
 - Reverses if: a blind routing test sends a pre-mortem, SCQA or deep-JTBD prompt to the wrong skill, or `six-thinking-hats` runs a pre-mortem on something already shipped. Restore from `_retired/`.
+- Review (delegated): `watchdog` on the merge commit, 9 findings (3 Medium), all fixed: `work-samples/watchdog-2026-10-18-pass3.md`.
 - Owed by the owner: delete the four retired skills from claude.ai and upload the changed zips.
 - Next audit targets: `six-thinking-hats` (first pre-mortem after the merge), `scr-pyramid-communicator` (short-memo mode picked correctly?), `customer-insight` (does it reach the deep references?), plus the queue above.
 

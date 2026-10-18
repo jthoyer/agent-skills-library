@@ -10,8 +10,8 @@ description: >
   recommendation, business case, or problem–solution narrative; or whenever they
   say things like "help me structure this", "make this more executive-ready", "frame this for
   leadership", or "how should I present this?". Includes a short-memo mode (SCQA:
-  Situation, Complication, Question, Answer) for memos, executive emails and product briefs;
-  trigger on "SCQA" or "tighten this memo". For project status updates, use project-management.
+  Situation, Complication, Question, Answer) for memos and executive emails;
+  trigger on "SCQA" or "tighten this memo". For project status updates, use project-management; for a product spec or feature brief, use product-requirement-document.
 ---
 
 # SCR + Pyramid Principle Communicator
@@ -171,11 +171,13 @@ Before presenting a draft, run it through these checks:
 
 ## Short-memo mode (SCQA)
 
-For a short piece — a strategy memo, an executive email, a product brief, or a page of rambling
+For a short piece — a strategy memo, an executive email, or a page of rambling
 prose that needs to lead with the answer — use SCQA instead of a full pyramid. SCQA is SCR with
 the question made explicit: **S**ituation, **C**omplication, the **Q**uestion the complication
 raises, and the **A**nswer (your Resolution). Read `references/scqa-short-memo.md` and follow it:
-its Step 0 intake, the four orderings, the 1-pager format and the compression test.
+the four orderings, its 1-pager format (use it, not the one-page brief above) and the compression
+test. If Step 1 above already settled audience, format and outcome, skip the reference's Step 0
+intake; ask only what is still missing.
 
 Pick the mode by length and stakes. One screen or less, one decision: short-memo mode. A deck,
 a long brief, or a recommendation that needs MECE supporting arguments: the full process above.
