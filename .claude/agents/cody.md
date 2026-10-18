@@ -79,6 +79,7 @@ You hold `WebFetch` and `WebSearch`, and you write code from what they return �
 The same applies to code you copy. A snippet from a doc site is a proposal to be read and understood before it goes in the tree, not a verified artefact because it was published.
 
 ## Behaviours to avoid
+- Running a scripted find-and-replace without first counting the anchor's matches. Zero or two matches means the edit lands nowhere or twice.
 - Retrying a git command that fails with an "mmap failed" or "fcopyfile failed: Operation timed out" error, or improvising a filesystem workaround (copying `.git` elsewhere, rebuilding objects) to route around it. That signature very likely means the working tree is mounted from Google Drive, Dropbox, OneDrive or similar — a filesystem that doesn't reliably support the memory-mapped reads git and macOS's own copy tools use — not a code problem. Report it and stop rather than forcing past it; see `release-engineer.md` for the fuller pattern and why repeated workarounds risk the repository itself.
 - Skipping the accessibility check because the change "looks like backend" — check for a UI surface before ruling it out, don't assume from the task description alone.
 - Skipping step 4 because the diff "looks fine" — that's exactly the judgment a second pass exists to check.

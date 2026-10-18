@@ -1,7 +1,7 @@
 ---
 name: red-team
 description: >
-  Standalone, domain-agnostic harshest-critic and devil's-advocate skill. Attacks an artefact,
+  Harshest-critic and devil's-advocate skill for any domain. Attacks an artefact,
   claim, argument, plan, pitch, design, or decision at maximum rigour to find where it breaks
   before a stakeholder or opponent does. Use whenever Justin says "be the harshest
   critic", "tear this apart", "devil's advocate", "red-team this", "stress-test my argument",
@@ -11,7 +11,7 @@ description: >
   first. Four modes: red-team an artefact, stress-test a decision, pre-submission self-defence,
   steelman-then-refute a single argument. NOT for balanced evidence-graded synthesis (use
   multi-actor-research), parallel non-adversarial evaluation (use six-thinking-hats), or strategic
-  options appraisal (use multi-actor-strategy). Adversarial by default and single-purpose: it attacks.
+  options appraisal (use multi-actor-strategy).
 license: MIT
 metadata:
   author: Justin
@@ -42,7 +42,7 @@ demolishing a single argument to see if it survives.
 | Balanced, evidence-graded synthesis with a *conclusion* | `multi-actor-research` |
 | Parallel, non-adversarial evaluation from all angles | `six-thinking-hats` |
 | Choosing between options with a recommended action | `multi-actor-strategy` |
-| Imagining project failure and working backwards | `pre-mortem` (or six-hats Black Hat) |
+| Imagining project failure and working backwards | `six-thinking-hats` (Extended Black Hat: Pre-Mortem) |
 | Fixing grammar, clarity, style | `editor` |
 
 This skill owns the **standalone, general, domain-agnostic** devil's-advocate case. The scoped
@@ -196,6 +196,6 @@ The specific ways a harsh-critic skill degrades:
   goal is attack.
 - `multi-actor-strategy` — its Challenger attacks options within a strategic appraisal.
 - `six-thinking-hats` — parallel, non-adversarial evaluation; the opposite stance.
-- `pre-mortem` — imagines failure and works backwards; a specialised sibling of Mode 2.
+- `six-thinking-hats` Extended Black Hat (pre-mortem) — imagines failure and works backwards; a specialised sibling of Mode 2.
 - `scr-pyramid-communicator` / `justin-voice` — pair after red-teaming to rebuild the survivor into
   something presentable.

@@ -2,11 +2,8 @@
 name: skills-librarian
 description: >
   Governs creation, maintenance, auditing, upgrading, and retirement of Justin's personal Claude
-  skills library at /mnt/skills/user/, and inventory of the read-only public, examples, and plugin
-  scopes. Use whenever the task involves: creating a skill, merging or trimming skills, fixing
-  malformed YAML frontmatter, validating the 1,024-character description limit, updating the
-  CHANGELOG, running a library audit, mapping trigger overlaps, backing up to Notion's AI Skills
-  DB, or testing whether a skill still earns its place. Trigger on: "create a skill", "merge these
+  skills library (source of truth: the agent-skills-library git repo; claude.ai is an upload
+  target), and inventory of the read-only public, examples, and plugin scopes. Trigger on: "create a skill", "merge these
   skills", "audit the library", "fix the frontmatter", "check the description length", "update the
   CHANGELOG", "backup to Notion", "trim this skill", "install this skill", "upgrade this skill",
   "benchmark this skill", "does this skill beat no skill", "should I retire this skill", or any
@@ -31,7 +28,7 @@ change to it — the answer determines what is possible.
 
 | Scope | Contents | Editable | Handling |
 |---|---|---|---|
-| `/mnt/skills/user/` | Justin's own skills | Yes, via outputs + reinstall | Authoritative. All upgrades land here. |
+| `/mnt/skills/user/` | Justin's own skills, as installed on claude.ai | Yes, via outputs + reinstall | The install surface, not the source. Upgrades land in the agent-skills-library repo first; upload the zip here after. |
 | `/mnt/skills/public/` | Anthropic-maintained | No | Cite and defer to. Fork only with an explicit reason recorded in the CHANGELOG. |
 | `/mnt/skills/examples/` | Anthropic examples | No | Mine for patterns and reusable agents. `skill-creator` is the canonical creation and eval protocol. |
 | `/mnt/skills/plugins/` | Installed plugin bundles | No | Namespaced `plugin:skill`. A user skill that duplicates a plugin skill is a retirement candidate. |

@@ -1,6 +1,6 @@
 # Agents CHANGELOG
 
-The improvement ledger for this agent library. Every review by `agent-improver` appends a dated entry here. The goal: agents that are measurably better in three months than they are today.
+The improvement ledger for this agent library. Every review by `agent-improver` inserts a dated entry at the top, under the `New entries below this line` marker. The goal: agents that are measurably better in three months than they are today.
 
 **How to read this:** each entry records what changed, why, and how you'd know it worked. Before re-reviewing an agent, read its most recent entry and check whether the last fix actually helped. The index below says where that entry is.
 
@@ -9,6 +9,7 @@ The improvement ledger for this agent library. Every review by `agent-improver` 
 ```
 ## YYYY-MM-DD — <agent name>
 - Verdict: <one line>
+- Scores: Mandate · Triggers · Tools · Model · Instructions · Observed · Boundary (Strong / Adequate / Weak each)
 - Changed: <what was edited, or "no edits — proposed N fixes">
 - Why: <root cause>
 - Expected effect: <what should improve, and how you'd know>
@@ -68,6 +69,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-10-18 — library — portfolio (three merges; four skills retired; Low items closed)
+- Decision (owner, 2026-10-18: "complete low items and all merges"): JTBD + VPC into `customer-insight`; `scqa-framework` into `scr-pyramid-communicator`; `pre-mortem` into `six-thinking-hats`. Skills 42 → 38. Detail: `.claude/skills/CHANGELOG.md`.
+- Evidence (delegated): `watchdog` sweep, `work-samples/watchdog-2026-10-18.md` (F4, M1–M3). Merged skills shared triggers and, for JTBD and VPC, most of their content.
+- Against, recorded: the 2026-09-05 test found `pre-mortem` alone recognised when the technique did not fit. That redirect now lives in the `six-thinking-hats` module; JTBD's scoring rubric survives in `jtbd-deep.md`.
+- Low items, agents: `cody` counts matches before a scripted replace (P8); stale lines fixed in `release-engineer`, `watchdog`, `mc-reviewer`, `agent-improver` (hands the Notion mirror to the main thread). Ledger header says "inserts at the top" and its template carries `Scores:`.
+- Reverses if: a blind routing test sends a pre-mortem, SCQA or deep-JTBD prompt to the wrong skill, or `six-thinking-hats` runs a pre-mortem on something already shipped. Restore from `_retired/`.
+- Owed by the owner: delete the four retired skills from claude.ai and upload the changed zips.
+- Next audit targets: `six-thinking-hats` (first pre-mortem after the merge), `scr-pyramid-communicator` (short-memo mode picked correctly?), `customer-insight` (does it reach the deep references?), plus the queue above.
 
 ## 2026-10-18 — library — portfolio (High and Medium fixes applied; repo declared the source of truth)
 - Decision (owner, 2026-10-18): apply every High and Medium proposal from the review below; tax table to 2026–27. The repo is the only place agents and skills are reviewed or changed (new root `CLAUDE.md`).

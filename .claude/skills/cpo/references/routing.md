@@ -41,7 +41,7 @@ tools: `code-improver` cannot edit, `mc-reviewer` cannot execute.
 | General research, no high-stakes decision riding on it | `deep-research` |
 | Academic literature, methodology critique, citations | `academic-researcher` |
 | What people are saying now, last 30 days | `recent-pulse` |
-| Structuring a recommendation or executive message | `scr-pyramid-communicator` (or `scqa-framework` for a short memo) |
+| Structuring a recommendation or executive message | `scr-pyramid-communicator` (its short-memo mode, SCQA, for a memo or email) |
 | Stakeholder or difficult-conversation prep | `read-the-room` |
 | Making a message memorable | `made-to-stick` |
 | Writing or editing content | `content-research-writer`, `editor` |
@@ -52,8 +52,8 @@ tools: `code-improver` cannot edit, `mc-reviewer` cannot execute.
 | Problem decomposition, root cause, MECE | `issue-tree` |
 | Challenging assumptions | `first-principles` |
 | Adversarial critique of a plan or artefact | `red-team` |
-| Multi-perspective stress test | `six-thinking-hats`, `pre-mortem` |
-| Customer motivation, JTBD, value proposition | `customer-insight` |
+| Multi-perspective stress test, or a pre-mortem | `six-thinking-hats` (its Extended Black Hat module is the pre-mortem) |
+| Customer motivation, JTBD, value proposition | `customer-insight` (deep JTBD and VPC in its references) |
 | Positioning an offering | `positioning` |
 | App-market landscape | `market-analyst` |
 | Team management, 1:1s, OKRs | `high-output-management` |

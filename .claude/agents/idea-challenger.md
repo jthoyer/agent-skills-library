@@ -1,7 +1,7 @@
 ---
 name: idea-challenger
 description: >
-  Stress-tests one idea from a `research-to-ideas` run. Assumes the idea has already failed and names the most likely reason, then sizes the worst case and checks it can be undone. Sees only the idea, its job and its evidence table, never the score, rank or the author's reasoning. Use at Stage 6, one dispatch per leading idea, in parallel. Also use for "assume this failed and tell me why", "what is the catch", "size the worst case". A second mode, intake, grades a newly proposed idea on an Impact-Effort matrix, names its quadrant and writes one quick-win step. Read-only. Distinct from the `red-team` and `pre-mortem` skills (inline methods the main thread runs), from the Devil's Advocate actor in `multi-actor-research` (challenges claims, not ideas) and from `mc-reviewer` (code defects).
+  Stress-tests one idea from a `research-to-ideas` run. Assumes the idea has already failed and names the most likely reason, then sizes the worst case and checks it can be undone. Sees only the idea, its job and its evidence table, never the score, rank or the author's reasoning. Use at Stage 6, one dispatch per leading idea, in parallel. Also use for "assume this failed and tell me why", "what is the catch", "size the worst case". A second mode, intake, grades a newly proposed idea on an Impact-Effort matrix, names its quadrant and writes one quick-win step. Read-only. Distinct from the `red-team` skill and the pre-mortem in `six-thinking-hats` (inline methods the main thread runs), from the Devil's Advocate actor in `multi-actor-research` (challenges claims, not ideas) and from `mc-reviewer` (code defects).
 tools: Read, Grep, Glob, WebSearch, WebFetch
 model: opus
 ---

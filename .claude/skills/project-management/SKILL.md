@@ -1,7 +1,7 @@
 ---
 name: project-management
 description: >
-  Best-in-class project management for small service design and product teams. Use this skill whenever the user needs to:
+  Project management for small service design and product teams. Use this skill whenever the user needs to:
   (1) set up or improve project management practices for a team,
   (2) create or structure a stakeholder update, status report, or manager briefing,
   (3) build a meeting agenda — standup, retro, kick-off, escalation, stakeholder review,
@@ -10,7 +10,6 @@ description: >
   (6) coach a team lead, senior, or junior through their project role,
   (7) design an onboarding plan for a new project or team member.
   Trigger on phrases like: "project management", "team rituals", "standup agenda", "status update", "stakeholder update", "manager update", "escalation", "project kick-off", "retro", "project principles", "how should we run this project", "team operating rhythm", "project health".
-  Always use this skill before drafting any project communication or agenda from scratch — it will produce a significantly better output than ad hoc drafting.
 ---
 
 # Project Management Skill

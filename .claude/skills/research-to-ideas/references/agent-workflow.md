@@ -131,7 +131,7 @@ new piece answers one.
 What the design does not do. It adds no conductor agent. The skill is the conductor, which keeps
 the run at one rung of the `cpo` ladder. It adds no scoring agent. Scoring reads the priority weights,
 which are the owner's judgment, so the main thread keeps it. It does not replace the skills
-behind the stages. `issue-tree`, `customer-insight`, `pre-mortem`, `red-team` and
+behind the stages. `issue-tree`, `customer-insight`, `six-thinking-hats` (pre-mortem), `red-team` and
 `scr-pyramid-communicator` still supply the thinking.
 
 Known risk. The library retired eight `mar-*` agents on 2026-08-18 because none had produced a

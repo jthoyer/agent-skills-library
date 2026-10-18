@@ -1,7 +1,7 @@
 ---
 name: six-thinking-hats
 description: >
-  Apply Edward de Bono's parallel thinking framework (1985) to examine decisions from six distinct perspectives simultaneously rather than through adversarial debate. Use when making complex decisions that require multiple viewpoints, evaluating strategies or plans before committing, running structured thinking sessions with a team, breaking out of analysis paralysis, or stress-testing an idea before launch. Also includes the Pre-Mortem technique (Gary Klein) as an extended Black Hat module — trigger this whenever the user wants to imagine project failure and work backward to find the causes. Trigger on: "six thinking hats", "parallel thinking", "stress-test this plan", "pre-mortem", "what could go wrong", "examine this from all angles", or "help me think through this decision". For a pre-mortem on its own, use pre-mortem. For strategic options appraisal with recommended action, use multi-actor-strategy instead.
+  Apply Edward de Bono's parallel thinking framework (1985) to examine decisions from six distinct perspectives simultaneously rather than through adversarial debate. Use when making complex decisions that require multiple viewpoints, evaluating strategies or plans before committing, running structured thinking sessions with a team, breaking out of analysis paralysis, or stress-testing an idea before launch. Also includes the Pre-Mortem technique (Gary Klein) as an extended Black Hat module — trigger this whenever the user wants to imagine project failure and work backward to find the causes. Trigger on: "six thinking hats", "parallel thinking", "stress-test this plan", "pre-mortem", "imagine this failed", "prospective hindsight", "what will kill this", "what could go wrong", "examine this from all angles", or "help me think through this decision". For a pre-mortem on its own, go straight to the Extended Black Hat module. For strategic options appraisal with recommended action, use multi-actor-strategy instead.
 ---
 
 # Six Thinking Hats + Pre-Mortem
@@ -100,6 +100,8 @@ Klein's research shows pre-mortems increase the accuracy of failure identificati
 - When the team is unanimously confident (a warning sign)
 - When risks feel vague rather than named
 
+**Not for something that already happened.** A pre-mortem interrogates a *pending* decision while the plan can still change cheaply. If the thing has shipped or the decision is executed, say so and redirect: to a post-mortem ("what *did* happen", limited to real events) if something concluded, or to the *upcoming* decision that is the right target.
+
 ### How to run it
 
 **Step 1 — Set the scenario**
@@ -123,15 +125,19 @@ Failure mode prompts:
 
 **Step 3 — Aggregate and cluster**
 
-Share causes without attribution. Group into themes. Vote on the highest-probability and highest-impact clusters.
+Share causes without attribution, one at a time, no debate yet. Group into themes. Rate each cluster on Likelihood, Impact and Detectability (early, late or never). High likelihood, high impact and late-or-never detection is what earns a mitigation; don't spread effort evenly.
 
 **Step 4 — Convert to mitigations**
 
-For each high-priority cluster: what would reduce its probability, and what would reduce its impact if it occurs anyway?
+For each high-priority cluster: what would reduce its probability, what would reduce its impact if it occurs anyway, who owns it, and a tripwire ("if we see X, we immediately do Y").
 
 **Step 5 — Update the plan**
 
-Add the top 3 mitigations to the project plan with owners and timelines. A pre-mortem that produces no plan changes was not done rigorously enough.
+Add the top 3 mitigations to the project plan with owners and timelines. A pre-mortem that produces no plan changes was not done rigorously enough. Close by returning to the decision: given this, do we commit, adjust, or need more information?
+
+**As a live workshop:** allow 45–90 minutes. Keep the silent writing silent (one cause per sticky note or line in a shared doc). Dot-vote clusters rather than debating each to consensus. If the room can't agree an owner or a date for a mitigation, name that as a finding.
+
+**Limits:** it structures the exercise; the people in the room supply the real risks. A solo pass misses what only others would raise. Sources: Klein, "Performing a Project Premortem", *HBR* (2007); Klein, *Sources of Power* (1998); Heath & Heath, *Decisive* (2013).
 
 ---
 

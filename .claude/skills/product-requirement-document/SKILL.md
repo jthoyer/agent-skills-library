@@ -7,8 +7,7 @@ description: >
   update, or escalation, (5) coach a junior or senior through their PRD contribution, or (6) position a PRD against
   the Lean Canvas or Value Proposition Canvas. Trigger on phrases like: "product requirement", "PRD", "product spec",
   "feature brief", "requirements document", "what does the team need to build", "document the requirements",
-  "write up the brief", "product definition", "scope the feature". Always use this skill before drafting any PRD from
-  scratch — it will produce a significantly better output than ad hoc writing.
+  "write up the brief", "product definition", "scope the feature".
 ---
 
 # Product Requirement Document Skill

@@ -5,6 +5,32 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-18 — three merges, four skills retired, Low items closed
+
+### Merged
+- **`jobs-to-be-done-jtbd`** and **`value-proposition-canvas`** → **`customer-insight`**. Bodies moved
+  verbatim to `customer-insight/references/jtbd-deep.md` and `vpc-deep.md` (contents lists added; VPC's
+  stale "Related Skills" dropped). SKILL.md gains a "Going deeper" pointer; the description absorbs
+  "job scoring", "pain relievers", "gain creators", "fit test".
+- **`scqa-framework`** → **`scr-pyramid-communicator`** as a short-memo mode. Body moved verbatim to
+  `references/scqa-short-memo.md`; SKILL.md gains a "Short-memo mode (SCQA)" section and picks the
+  mode by length and stakes.
+- **`pre-mortem`** → **`six-thinking-hats`** Extended Black Hat. Carried over what the module lacked:
+  the "not for something already done" redirect (the one thing `pre-mortem` won on in the 2026-09-05
+  test), Detectability, owners and tripwires, workshop mechanics, limits and sources.
+
+### Retired
+- All four moved unmodified to `.claude/skills/_retired/<name>/`. Pointers updated in `routing.md`,
+  `README.md` (42 → 38), `red-team`, `research-to-ideas` (+ `agent-workflow.md`), `idea-challenger`,
+  plugin manifests.
+
+### Updated (Low items from the 2026-10-18 review)
+- Description padding cut: `red-team`, `recent-pulse`, `project-management`,
+  `product-requirement-document`, `issue-tree`, `market-analyst`, `skills-librarian`.
+- `made-to-stick` drops "how do I frame this" (belongs to `scr-pyramid-communicator`).
+- `skills-librarian`: the git repo is the source; `/mnt/skills/user/` is the install surface.
+- `multi-actor-strategy/references/agent-plan.md`: portfolio call routes through the `cpo` skill.
+
 ## 2026-10-18 — boundaries, truncated descriptions, 2026–27 tax rates
 
 ### Updated

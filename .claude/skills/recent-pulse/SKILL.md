@@ -2,15 +2,11 @@
 name: recent-pulse
 description: >
   Research what people are actually saying about a topic over the last 30 days, using only
-  public, keyless APIs and WebSearch/WebFetch. Never reads browser cookies, the macOS Keychain,
-  or any credential store, and never runs a vendored client impersonating a platform's private
-  API. Pulls Hacker News via its public Algolia API, tries Reddit's public JSON search as a bonus
-  (often blocked — WebSearch site:reddit.com is the fallback), and uses WebSearch/WebFetch for
-  news, blogs, forums, YouTube, and X/Twitter. Use when the user asks what people are saying about
+  public, keyless sources (Hacker News, Reddit's public search, WebSearch/WebFetch for news,
+  blogs, forums, YouTube and X). Never touches cookies or credentials. Use when the user asks what people are saying about
   something recently, wants a 30-day sentiment pulse, says "what's the buzz on X", "what are
   people saying about Y", "recent reaction to Z", "last 30 days", or "last month" — a lightweight
-  recency brief, not a full literature review or market analysis. A real API key (YouTube, X) is
-  opt-in via an env var the user sets — never discovered. For deep multi-source synthesis use
+  recency brief, not a full literature review or market analysis. For deep multi-source synthesis use
   deep-research; for sports tech/fitness market analysis use market-analyst.
 license: MIT
 metadata:

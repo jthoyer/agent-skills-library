@@ -147,7 +147,7 @@ pass dispatches no agents. Nothing changes there.
    `idea-challenger` could be widened to cover it. Two agents doing near-identical pre-mortems is
    the overlap `watchdog` exists to catch.
 6. **Review and log.** Dispatch `agent-improver` on each agent with its work sample. Log one
-   `CHANGELOG.md` entry. Route the portfolio call through `CPO`. *Partly done 2026-09-29:*
+   `CHANGELOG.md` entry. Route the portfolio call through the `cpo` skill. *Partly done 2026-09-29:*
    `agent-improver` has run on both agents against the phase 4 work sample. Run 2 is pending.
 
 ## How we know it worked

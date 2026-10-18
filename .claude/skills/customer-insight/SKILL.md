@@ -1,7 +1,7 @@
 ---
 name: customer-insight
 description: >
-  Two complementary frameworks for understanding what customers truly need. Combines Clayton Christensen's Jobs to Be Done (JTBD) with Osterwalder's Value Proposition Canvas (VPC). Use whenever the user needs to: understand customer motivations and circumstances, diagnose why a product isn't selling or customers are churning, design or validate a value proposition, conduct customer discovery interviews, map customer jobs/pains/gains to product features, or achieve product-market fit. Also trigger on: "jobs to be done", "what job does this solve", "competing against luck", "customer discovery", "value proposition canvas", "jobs/pains/gains", "product-market fit", "why customers churn", "what do customers actually want", or "customer insight". Use JTBD to discover, VPC to design — run sequentially for full insight work. For positioning strategy, see the positioning skill.
+  Two complementary frameworks for understanding what customers truly need. Combines Clayton Christensen's Jobs to Be Done (JTBD) with Osterwalder's Value Proposition Canvas (VPC). Use whenever the user needs to: understand customer motivations and circumstances, diagnose why a product isn't selling or customers are churning, design or validate a value proposition, conduct customer discovery interviews, map customer jobs/pains/gains to product features, or achieve product-market fit. Also trigger on: "jobs to be done", "what job does this solve", "competing against luck", "customer discovery", "value proposition canvas", "jobs/pains/gains", "product-market fit", "why customers churn", "what do customers actually want", "customer insight", "job scoring", "pain relievers", "gain creators", or "fit test". Use JTBD to discover, VPC to design — run sequentially for full insight work. For positioning strategy, see the positioning skill.
 ---
 
 # Customer Insight
@@ -26,6 +26,11 @@ Two frameworks. One question: *what does the customer actually need, and does yo
 | Do both — deep discovery then structured mapping | Run JTBD first, feed findings into VPC |
 
 Use JTBD to *discover*. Use VPC to *design and map*. They are not alternatives — they are sequential.
+
+**Going deeper.** This file covers both methods at working depth. For either one on its own, in full, read its reference:
+
+- `references/jtbd-deep.md` — the full JTBD method: job scoring (0–10), the framework walk-through, designing for the job, a jobs-oriented organisation. Formerly the `jobs-to-be-done-jtbd` skill.
+- `references/vpc-deep.md` — the full canvas: seven steps, fit red flags, interview questions. Formerly the `value-proposition-canvas` skill.
 
 ---
 

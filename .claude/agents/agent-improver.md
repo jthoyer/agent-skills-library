@@ -172,4 +172,4 @@ The CHANGELOG is the record that lets a future review ask: *did last month's cha
 
 ## Optional backups (flag dependencies, do not assume)
 
-If the user maintains a Notion **AI Skills DB**, mirror each CHANGELOG entry there via the Notion connector. This requires the Notion connector to be authorised — if it isn't, note it and continue; do not fail the review over a backup step.
+If the user maintains a Notion **AI Skills DB**, each CHANGELOG entry can be mirrored there. You hold no Notion tool: when dispatched, say "Notion mirror owed" in your output and leave it to the main thread. Never fail a review over a backup step.
