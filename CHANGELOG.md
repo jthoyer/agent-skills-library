@@ -70,6 +70,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-19 — watchdog — delegated review (Notion PM 2.0 Library review prompt)
+- Run: `/rewrite` → `cpo`, rung 1 (main thread did the work directly). Turned the Notion database "Product Management 2.0" into a career library: 14 new fields, 5 views, 18 pages tagged to the two ontologies, a review prompt, a product plan, a Start here guide, 14 backlog rows ("PM 2.0 Library"). Additive only; the "Useful AI" tree untouched.
+- Review (delegated): `watchdog` on the review prompt before repeated use on live data. 9 findings (3 High: protected set could be skipped under a query limit; runs could overwrite owner-set fields; "ask before acting" implied approved deletion). All checked and fixed the same day: `work-samples/watchdog-2026-10-19.md`.
+- Verdict on `watchdog`: Strong. Every finding quoted its text, gave a scenario and a minimal fix, and stayed in scope. No `agent-improver` pass owed: a reviewer that only checked the work needs none.
+- Routing miss (main thread): `rewrite` is `disable-model-invocation: true`, so it is absent from the model's skill list. `/rewrite` was read as "launch `cpo`" (per `CLAUDE.md`), and the rewrite-first contract in `.claude/skills/rewrite/SKILL.md` was found only at close-out. The final reply still opened with it. Proposed fix, not applied: `cpo` line 91 should name `.claude/skills/rewrite/SKILL.md` as the contract's path.
+- Next audit targets: `cpo` (point line 91 at the `rewrite` contract), plus the queue above.
+
 ## 2026-10-18 — library — portfolio (three merges; four skills retired; Low items closed)
 - Decision (owner, 2026-10-18: "complete low items and all merges"): JTBD + VPC into `customer-insight`; `scqa-framework` into `scr-pyramid-communicator`; `pre-mortem` into `six-thinking-hats`. Skills 42 → 38. Detail: `.claude/skills/CHANGELOG.md`.
 - Evidence (delegated): `watchdog` sweep, `work-samples/watchdog-2026-10-18.md` (F4, M1–M3). Merged skills shared triggers and, for JTBD and VPC, most of their content.
