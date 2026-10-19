@@ -42,9 +42,9 @@ first PM run had to correct.
 ## Dreamwork
 
 - Same treatment as freehire: aggregator-only, snippet-level breadth source unless it resolves to
-  a direct employer ATS link. If used for a run's snippet-only tier (see Depth vs breadth in
-  `SKILL.md`), file any role it surfaces as "carried over, pending" or flag it plainly as
-  unconfirmed rather than presenting it as verified-live.
+  a direct employer ATS link. If used for a run's snippet-only tier (see Depth versus breadth in
+  `SKILL.md`), flag any role it surfaces ❓ and count it as unconfirmed rather than presenting it as
+  verified-live.
 
 ## designremotejobs
 
@@ -64,14 +64,16 @@ Justin, but only if the record is honest about the confidence level.
 
 - **SEEK** — blocks automated fetching of listing pages.
 - **LinkedIn** — blocks automated fetching of job postings.
-- **iworkfor.nsw.gov.au** — blocks automated fetching; relevant mainly where a state-government
-  role would otherwise be in scope (note the PM track's own `.gov.au` exclusion may make this moot
-  for that track — check the live prompt page's exclusion list rather than assuming).
+- **iworkfor.nsw.gov.au** — blocks automated fetching; relevant only where a state-government
+  role is in scope (the unified prompt's Track rules and exclusion list decide this, and they have
+  changed before — check the live page rather than assuming).
+- The platforms table's **Fetch** column records these. When a run proves a Fetch value wrong, say
+  so in the Platform review.
 
 If a role only exists on one of these sources and can't be corroborated elsewhere (the employer's
-own careers page, a cross-post on Ashby/Greenhouse), file it as unconfirmed with the blocking
-source named, or exclude it from the run entirely if the track's prompt page says to. Never
-present a blocked-source listing as verified.
+own careers page, a cross-post on Ashby/Greenhouse), file it flagged ❓ with the blocking source
+named, or exclude it from the run entirely if the prompt page says to. Never present a
+blocked-source listing as verified.
 
 ---
 

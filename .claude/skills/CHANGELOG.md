@@ -5,6 +5,27 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-19 — `job-scan` moved to the unified prompt
+
+### Updated
+- **`job-scan`** (1.2.0 → 2.0.0): reads the single "Unified job search prompt" Notion page instead of
+  separate SD and PM pages. Both tracks run by default; "SD scan" or "PM scan" filters to one track.
+  Honours the platforms table columns (Fetch, Cadence, Active) and the Target employers table.
+- Every run now opens with a Run summary (4–6 lines: verified-live count by track, top picks, closing
+  soon, decisions for Justin). Snapshot gains SD, PM, Both and Total columns. Market observations end
+  with a Platform review that suggests table changes and never edits them.
+- Per-role output gains Track, Fit, Type and term, Closes. Flags now have one meaning each: 🌐 Remote,
+  📍? location not stated, ❓ status unconfirmed, ⚠️ 30+ days, 🔁 re-listed. The old 🏢? flag is retired.
+- Filing: `Job Scan – [DD Mon YYYY]` under the unified prompt page, Role type `service design` and
+  `product manager`. The first run reads the latest SD v3.0 and PM v1.0 scans as its baseline.
+  Cross-track deduplication by employer and normalised title.
+- `references/run-template.md` and `references/verification-playbook.md` updated to match. The
+  lateral track keeps its own page and naming.
+
+### Open
+- The unified page had an empty Target employers table and no Recurring use note on 2026-10-19.
+  Recorded in the skill's open items for Justin to confirm.
+
 ## 2026-10-18 — three merges, four skills retired, Low items closed
 
 ### Merged
