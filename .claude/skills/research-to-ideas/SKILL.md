@@ -12,6 +12,8 @@ description: >
   test result", or any request to get from a pile of findings to a call. Not for gathering
   research from scratch (use deep-research or recent-pulse first), and not for evidence
   synthesis with no options to choose between (use multi-actor-research).
+metadata:
+  version: 1.1.0
 ---
 
 # Research → Ideas Pipeline
@@ -293,6 +295,8 @@ paste the full brief.
 - `issue-tree`: Stage 1 clustering
 - `customer-insight`: Stage 2 job framing (Part 1, JTBD). `.claude/skills/customer-insight/references/jtbd-deep.md` goes deeper
   if a single job needs full discovery-interview treatment
+- `discovery-loop`: the light, weekly version of Stage 8 for one product, using the same
+  Continue, Change and Stop ranges
 - `multi-actor-research`: when the output is findings, not a choice between options
 - `multi-actor-strategy`: an alternative to Stage 5 when the decision turns on real
   stakeholders, not a scoring table

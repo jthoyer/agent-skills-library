@@ -57,3 +57,4 @@ sealed/	created at run time by the upgrade gauntlet, per its own instructions
 
 # --- Third-party endpoints. -------------------------------------------------
 search.json	Reddit's search endpoint, named by recent-pulse — an API path, not a file
+phuryn/pm-skills	External GitHub repo credited in discovery-loop (MIT attribution), not a path in this library

@@ -9,7 +9,7 @@ description: >
   "feature brief", "requirements document", "what does the team need to build", "document the requirements",
   "write up the brief", "product definition", "scope the feature".
 metadata:
-  version: 1.1.0
+  version: 1.1.1
 ---
 
 # Product Requirement Document Skill
@@ -97,7 +97,7 @@ Every section of a PRD should trace back to that sentence. If a section cannot a
 
 **Use a PRD when**: the problem is understood well enough to define success, the solution has enough complexity that different people will interpret it differently without a document, and the work spans more than one sprint or one function.
 
-**Do not use a PRD when**: you're still in pure discovery (use a brief or a research plan), the work is a small, well-scoped bug fix or incremental change, or a conversation would resolve the ambiguity faster than a document.
+**Do not use a PRD when**: you're still in pure discovery (use `discovery-loop`, a brief or a research plan), the work is a small, well-scoped bug fix or incremental change, or a conversation would resolve the ambiguity faster than a document.
 
 ---
 
