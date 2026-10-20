@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-20 — library — setup (root tidy; four skills trimmed)
+- Trigger: points 2 and 4 of the 2026-10-20 setup review (points 1 and 3 are the hooks PR). Done directly in `cpo`, no agents dispatched.
+- Root tidy: `dispatch-map-v8`, `research-to-ideas-map`, `multi-actor-strategy-map` and `gated-member-accounts-map` HTML moved into `workflows/` beside their PNGs. Superseded `dispatch-map-v6/v7.html` moved to `z_Archive/`. Pointers updated in `workflows/README.md`, `dispatch-map-v8.html` and `multi-actor-strategy/references/agent-plan.md`. `CLAUDE.md` gains a "Where truth lives" table: one live ledger to write, the rest read only.
+- Trim: four skills near the 500-line cap moved content verbatim into `references/`. Detail: `.claude/skills/CHANGELOG.md`.
+- Left alone: the ledger split (`CHANGELOG.md`, `changelog/`, `CHANGELOG-ARCHIVE.md`) is deliberate, so it gets a map, not a move. `10X-LOG.md` stays at the root; `portfolio.md` points at it.
+- Checks: all six CI steps pass locally.
+- Next audit targets: `project-management` and `product-requirement-document` (do they open the new references when a task needs them?), plus the queue below.
+
 ## 2026-10-18 — library — portfolio (three merges; four skills retired; Low items closed)
 - Decision (owner, 2026-10-18: "complete low items and all merges"): JTBD + VPC into `customer-insight`; `scqa-framework` into `scr-pyramid-communicator`; `pre-mortem` into `six-thinking-hats`. Skills 42 → 38. Detail: `.claude/skills/CHANGELOG.md`.
 - Evidence (delegated): `watchdog` sweep, `work-samples/watchdog-2026-10-18.md` (F4, M1–M3). Merged skills shared triggers and, for JTBD and VPC, most of their content.

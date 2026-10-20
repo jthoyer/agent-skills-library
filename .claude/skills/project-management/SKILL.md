@@ -10,6 +10,8 @@ description: >
   (6) coach a team lead, senior, or junior through their project role,
   (7) design an onboarding plan for a new project or team member.
   Trigger on phrases like: "project management", "team rituals", "standup agenda", "status update", "stakeholder update", "manager update", "escalation", "project kick-off", "retro", "project principles", "how should we run this project", "team operating rhythm", "project health".
+metadata:
+  version: 1.1.0
 ---
 
 # Project Management Skill
@@ -26,12 +28,14 @@ This skill covers three interconnected areas. Read the section relevant to your 
 | Setting up project principles and rituals | → [Part 1: Principles and Ritual Stack](#part-1) |
 | Creating a meeting agenda | → [Part 2: Agenda Templates](#part-2) |
 | Writing a stakeholder or manager update | → [Part 3: Written Update Templates](#part-3) |
-| Handling an escalation | → [Part 2: Escalation Agenda](#escalation-agenda) + [Part 3: Escalation Pre-read](#escalation-pre-read) |
+| Handling an escalation | → Ad Hoc Escalation Meeting in `references/agendas.md` + Escalation Pre-read in `references/update-templates.md` |
 
 For full reference material on each section, see:
 - `references/principles.md` — Extended principles with rationale
 - `references/role-guide.md` — Lead, Senior, and Junior responsibilities
 - `references/prompts.md` — Prompts to generate agendas and updates from user input
+- `references/agendas.md` — Part 2: every agenda template
+- `references/update-templates.md` — Part 3: every written update template
 
 ---
 
@@ -134,217 +138,14 @@ Select rituals based on project phase and context. Not all rituals apply to all 
 <a name="part-2"></a>
 ## Part 2: Agenda Templates
 
-For each agenda type, see the prompt below to generate a customised version from user input. Blank templates follow.
-
----
-
-### Weekly Team Kick-off
-
-**When:** Monday morning | **Duration:** 30 minutes | **Attendees:** Full team
-
-| Time | Item | Owner |
-|------|------|-------|
-| 0–5 min | Context from lead — any stakeholder updates, changes to scope or priority | Lead |
-| 5–15 min | Each person names their top 2–3 deliverables for the week | All |
-| 15–25 min | Dependencies and blockers — anything the team needs from each other | All |
-| 25–30 min | Confirm one team-level focus or theme for the week | Lead |
-
-**Output:** Shared list of weekly priorities. Captured in team channel or doc.
-
----
-
-### Daily Stand-up
-
-**When:** Daily | **Duration:** 15 minutes (or async) | **Attendees:** Full team
-
-Each person covers:
-1. What I completed yesterday
-2. What I'm working on today
-3. Any blockers or dependencies
-
-> **Async version:** Post to team channel before 9:30am. Live stand-up reserved for days when blockers need real-time resolution.
-
-**Facilitator rule:** Anything that needs more than 2 minutes of discussion gets parked and handled in a separate conversation after the stand-up.
-
----
-
-### Weekly Retrospective
-
-**When:** Friday | **Duration:** 20 minutes | **Attendees:** Full team
-
-| Time | Item | Owner |
-|------|------|-------|
-| 0–3 min | Set the frame — this is about how we work, not what we delivered | Lead |
-| 3–10 min | What went well this week? (Each person contributes) | All |
-| 10–17 min | What was harder than it needed to be? | All |
-| 17–20 min | One thing we'll do differently next week (named owner) | Lead to facilitate |
-
-**Output:** One concrete change to try next week. Not a list — one thing.
-
----
-
-### Stakeholder Working Session
-
-**When:** Fortnightly or monthly | **Duration:** 45–60 minutes
-
-**Pre-read (sent 48 hours before):** Current written status update. Stakeholders arrive informed — this session is not for updates.
-
-| Time | Item | Owner |
-|------|------|-------|
-| 0–5 min | Recap — where we are in the project | Lead |
-| 5–20 min | Presentation of key findings or work in progress | Senior (Lead supports) |
-| 20–35 min | Discussion and feedback from stakeholders | Stakeholders lead |
-| 35–50 min | Decisions required — walk through open items | Lead |
-| 50–60 min | Confirm next steps, owners, and timelines | Lead |
-
-**Junior role:** Present a section where appropriate as a development opportunity. Brief them in advance.
-
----
-
-<a name="escalation-agenda"></a>
-### Ad Hoc Escalation Meeting
-
-**When:** Called as needed | **Duration:** 30 minutes maximum
-**Booked with:** 24–48 hours notice where possible; same day if critical
-**Attendees:** Lead + Manager (+ Senior if the issue requires their input)
-
-**Pre-read (sent when booking):** See [Escalation Pre-read template](#escalation-pre-read) in Part 3.
-
-| Time | Item | Owner |
-|------|------|-------|
-| 0–5 min | Issue recap — confirm shared understanding | Lead |
-| 5–15 min | Options on the table — 2–3 realistic responses with trade-offs | Lead / Senior |
-| 15–25 min | Discussion and decision | Manager leads |
-| 25–30 min | Confirm: decision made, owner, deadline, who else needs to know | Lead |
-
-**Critical discipline:** Arrive with a recommended option, not just a problem. Managers want to choose between options the team has already thought through — not be handed an open question.
-
-**Closing outputs (before leaving the room):**
-- Decision made: [what was agreed]
-- Owner: [who acts]
-- Deadline: [by when]
-- Communication: [who else needs to know, and how]
-
----
-
-### Fortnightly 1:1 — Lead with Junior
-
-**Duration:** 30 minutes | **Not a status check**
-
-| Time | Item | Owner |
-|------|------|-------|
-| 0–5 min | How are you finding things this week? | Junior leads |
-| 5–15 min | One piece of specific feedback from lead (prepared in advance) | Lead |
-| 15–22 min | What would you like to do more of / get better at? | Junior leads |
-| 22–28 min | Stretch opportunity or development goal for next fortnight | Lead to offer |
-| 28–30 min | Anything else — concerns, questions, support needed | Open |
-
-**Lead's preparation:** Come with one specific, recent example of something done well and one area to develop. Vague feedback ("you're doing great") is not useful.
+Read `references/agendas.md` for the template that matches the meeting: weekly kick-off, daily stand-up, weekly retrospective, stakeholder working session, ad hoc escalation, or the fortnightly lead–junior 1:1.
 
 ---
 
 <a name="part-3"></a>
 ## Part 3: Written Update Templates
 
----
-
-### Weekly Project Status Update (to Stakeholders)
-
-**Format:** Email or shared doc | **Sent:** Same day each week/fortnight
-
----
-
-**[Project Name] — Status Update**
-*Week ending [date] | Prepared by [Lead name]*
-
-**RAG Status:** 🟢 Green / 🟡 Amber / 🔴 Red
-*[One sentence explaining the status. Be honest — an Amber flag raised early is a sign of good judgement.]*
-
----
-
-**Progress this week**
-- [Specific and concrete — name the work, not the effort]
-- ["Completed synthesis of 12 user interviews" not "Did lots of research"]
-- [Call out any milestone reached]
-
-**Focus next week**
-- [What the team is prioritising]
-- [Flag any dependencies on stakeholders or third parties]
-
-**Risks and issues**
-- [Any emerging risks, even if not yet critical]
-- [What the team is doing about them]
-- [What, if anything, is needed from the reader]
-
-**Decisions required**
-- [List decisions needing stakeholder input, with a clear ask and deadline]
-- [If none: state "No decisions required this week"]
-
-**Coming up**
-- [Key milestones or events in the next 2–4 weeks]
-
----
-*Next update: [date] | Questions to [lead contact]*
-
----
-
-### Weekly Manager Update
-
-**Format:** Email or message | **Sent:** Same day each week | **Target length:** Under 200 words
-
----
-
-**[Project Name] — Manager Update | Week ending [date]**
-
-**RAG:** 🟢 Green
-*[One sentence on why.]*
-
-**This week**
-[2–3 bullets. Specific. What moved forward.]*
-
-**Next week**
-[What the team is prioritising.]*
-
-**Risks / decisions needed**
-[Anything requiring the manager's input, awareness, or action. Be explicit about what you need from them and by when. If none, state it.]*
-
-**Team note** *(optional)*
-[One line on team dynamics, development, or morale. Good managers value this.]*
-
----
-
-> **On honesty:** A manager update that is always green and always positive becomes noise — managers learn to ignore it. An update that occasionally surfaces Amber or Red, with clear context and a proposed response, builds trust and positions the lead as credible and self-aware.
-
----
-
-<a name="escalation-pre-read"></a>
-### Escalation Pre-read (sent when booking escalation meeting)
-
-**Format:** Single paragraph or short bullets | **Sent:** When the meeting is booked
-
----
-
-**[Project Name] — Escalation: [Issue Name]**
-*Prepared by [Lead] | [Date]*
-
-**The issue:** [One or two sentences. What is the problem?]
-
-**When it emerged:** [Date or timeframe]
-
-**Impact if unresolved:** [What breaks, gets delayed, or goes wrong?]
-
-**Options the team has considered:**
-1. [Option A — and the trade-off]
-2. [Option B — and the trade-off]
-3. [Option C if applicable]
-
-**Recommended option:** [Lead's view, with brief rationale]
-
-**What we need from this meeting:** A decision on which option to take, and confirmation of any communication needed.
-
----
-
-> **Why this matters:** The manager should arrive informed, not be briefed from scratch in the room. An escalation meeting where the first 15 minutes is scene-setting is a poorly run escalation.
+Read `references/update-templates.md` for the template that matches the update: the weekly stakeholder status update, the weekly manager update, or the escalation pre-read sent when booking an escalation meeting.
 
 ---
 
@@ -401,4 +202,4 @@ This skill directly supports:
 
 ---
 
-*Reference files: `references/principles.md` | `references/role-guide.md` | `references/prompts.md`*
+*Reference files: `references/principles.md` | `references/role-guide.md` | `references/prompts.md` | `references/agendas.md` | `references/update-templates.md`*

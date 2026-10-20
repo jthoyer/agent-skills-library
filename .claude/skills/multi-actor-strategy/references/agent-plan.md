@@ -4,7 +4,7 @@ Status: **phases 1–5 done (2026-09-29); phase 6 partly done; run 2 pending.** 
 `agent-improver` has run on both agents against the phase 4 work sample. Run 2 waits for the
 owner to name a new real decision (see "Run 1 results" below and the Run 2 note in
 `cpo-launch-brief.md`). `SKILL.md` points at `agent-workflow.md`, which points here. Visual map:
-`multi-actor-strategy-map.html` at the repo root, and `workflows/multi-actor-strategy-map.png`.
+`workflows/multi-actor-strategy-map.html`, and `workflows/multi-actor-strategy-map.png`.
 
 ## Contents
 
