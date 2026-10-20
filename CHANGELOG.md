@@ -71,15 +71,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 <!-- New entries below this line, newest first -->
 
 ## 2026-10-20 — mc-reviewer and watchdog (round 2, harder multi-file test) — 2 agents
-- Verdict: both fit for purpose; one Medium fix proposed for `mc-reviewer`, two for `watchdog`. `agent-improver`, delegated. Reduced independence: the main thread wrote the fixtures and keys and scored the runs.
+- Verdict: both fit for purpose; edits proposed, then applied (below). `agent-improver`, delegated. Reduced independence: the main thread wrote the fixtures and keys and scored the runs.
 - Evidence: `work-samples/agent-vs-house-round2-2026-10-20.md`. Eight runs, two per cell against `general-purpose` (opus). `mc-reviewer`: 3/3 planted defects, the shared-helper bug traced to all 3 call sites, 0 decoys flagged, both arms. `watchdog`: 5/5, 0 decoys flagged, both arms. Detection is at the ceiling again. The agents ran at about a third of the tokens.
 - What separated them: house-rule behaviour. Both `mc-reviewer` runs gave a per-AC and per-risk coverage close and guard proof; the house arm gave neither. Both `watchdog` runs labelled structural vs typo-level and kept the ride briefs out of the findings; the house arm padded (speculative deadline and "year" items, ride briefs listed).
-- Proposed, not applied (the library is the source of truth, so each is a PR edit when the owner agrees):
-  - `mc-reviewer` Medium: a finding with a failure scenario is a finding even when no AC covers it (grade it, verdict `should fix`, tag spec silent). Flagged areas gains a "spec questions for the Planner" slot, and "none" only after checking both. The same duplicate-booking item landed as a finding in run 1 and a gap in run 2. Low: Handoff Note must not repeat the findings.
-  - `watchdog` Medium: step 5 names every ledger it reads or skips (any `CHANGELOG.md` inside the swept scope, plus the library ledger for library work). Medium: the Notion-backlog line goes once at the close, not per finding. Low: honour the brief's length cap.
+- Applied the same day on the owner's go-ahead, then re-run on the same fixtures (general-purpose following the edited files, because the session roster loads at start; a dispatched run is owed):
+  - `mc-reviewer`: a finding with a failure scenario stays a finding when no AC covers it (verdict `should fix`, tag spec silent); Flagged areas gains a spec-questions slot; the Handoff Note must not repeat the findings. Re-run: duplicate booking landed in one place in both runs (it had split finding/gap), and both runs used both Flagged slots.
+  - `watchdog`: step 5 names every ledger read or skipped; the Notion-backlog line goes once at the close; honour the brief's length cap. Re-run: ledger naming and the single closing line worked in both runs.
+  - Did not work: the length cap. `mc-reviewer` 722 and 822 words on a 700 cap; `watchdog` 551 and 588 on 500 (it was 581 and 519). Open: say which parts to cut first, or let the brief make room for the coverage close.
 - Limits: the key was written by the same thread. `wc -w`: `mc-reviewer` 852 and 811 words on a 700 cap, `watchdog` 581 and 519 on 500; the house arm also ran over.
 - Follow-up: build a fixture where a house rule is needed to *find* the defect, with the ledger outside the swept folder. Then add blind judges.
-- Next audit targets: `mc-reviewer` (re-run the same fixture after the spec-silent edit: does duplicate booking land in one place?), `watchdog` (a swept folder whose ledger sits elsewhere), plus the queue below.
+- Next audit targets: `mc-reviewer` and `watchdog` (a dispatched run of each after the next session start; the length-cap fix), plus the queue below.
 
 ## 2026-10-20 — mc-reviewer (graded severity beside the verdict)
 - Verdict: fit to merge after two fixes (`agent-improver`, delegated; both fixed).

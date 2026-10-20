@@ -61,3 +61,29 @@ wrote the fixtures and the keys and scored the outputs.
 ## Files
 `agent-vs-house-round2-2026-10-20/`: `fixtures/`, `keys/`, `outputs/` (eight outputs, verbatim except one
 preamble line cut from `watchdog-house-run1.md`).
+
+## Re-run after the edits (same day)
+
+The edits proposed above were applied (`.claude/agents/mc-reviewer.md`, `.claude/agents/watchdog.md`) and the same
+fixtures re-run, two runs each. **These are not dispatched agents.** The session loads its agent roster at start, so a
+dispatch would have run the old text. Each run was `general-purpose` (opus) told to read and follow the edited file.
+Outputs: `outputs/reviewer-edited-run{1,2}.md`, `outputs/watchdog-edited-run{1,2}.md`. Same briefs, same keys, scored by the
+main thread (reduced independence).
+
+| Check | Before (agent runs) | After (edited file) |
+|---|---|---|
+| `mc-reviewer`: planted defects | 3/3, 3/3 | 3/3, 3/3 (R1 with all 3 sites both times) |
+| `mc-reviewer`: duplicate booking (spec silent) | Run 1 a medium finding, run 2 a completeness gap | **Both runs: finding 4, medium, `should fix`, tagged "spec silent: Planner decides"** |
+| `mc-reviewer`: Flagged areas | Run 1 "none left open"; run 2 one spec question | **Both runs use (a) sub-bar hunches and (b) spec questions** (promotion checks, cancel after start, `price_cents`) |
+| `mc-reviewer`: Handoff Note repeats findings | Run 1 did | Run 1: no. Run 2: no (lists tests to add and Planner rulings) |
+| `mc-reviewer`: words on a 700 cap | 852, 811 | 722, 822 |
+| `watchdog`: planted problems | 5/5, 5/5 | 5/5, 5/5, 0 decoys flagged |
+| `watchdog`: ledgers named read and skipped | Named the ledger read; neither named what it skipped | **Both runs name each ledger read and each skipped, with the reason** |
+| `watchdog`: Notion-backlog line | Inside findings 1 and 2 (run 2) | **Once at the close, both runs** |
+| `watchdog`: words on a 500 cap | 581, 519 | 551, 588 |
+
+Reading:
+- **Two of the three `mc-reviewer` edits and two of the three `watchdog` edits changed behaviour as intended,** in both runs each. The spec-silent item now lands in one place.
+- **The length-cap edit did not work.** `watchdog` run 2 went from 519 to 588 words; `mc-reviewer` run 2 stayed at 822 on a 700 cap. Both still run over. The coverage close and the ledger lines need room the cap does not allow. A brief that sets the cap should allow for them, or the definitions should say which parts to cut first. Open.
+- **New wrinkle:** `mc-reviewer` run 2 graded the expiry-day bug `medium, blocks merge` where every earlier run said `high`. The grade table permits it (a medium that breaks a stated AC blocks), but it is one run of inconsistency to watch.
+- **n = 2, not blinded, not the dispatched agent.** A dispatched run of each edited agent is owed after the next session start.
