@@ -3,7 +3,7 @@ name: discovery-loop
 description: >
   Weekly product-discovery loop for a live product or feature idea: one outcome, the
   opportunities under it, the riskiest assumptions behind a chosen solution, and the cheapest
-  test that measures behaviour, with the pass mark set before it runs. Builds and updates an
+  test that measures behaviour, with its decision ranges set before it runs. Builds and updates an
   Opportunity Solution Tree and a short loop log. Use when Justin says "should we build this",
   "test this idea first", "what's the riskiest assumption", "opportunity solution tree", "design
   an experiment", "fake door", "how do we validate this", "continuous discovery", or before an
@@ -35,7 +35,7 @@ build: a club-app feature, a work product change, a new service.
 
 | Intent | Use instead |
 |---|---|
-| A pile of research to turn into ranked, evidence-graded ideas | `research-to-ideas` (its Stage 8 tests only its top pick, once; this loop is the light, repeatable version) |
+| A pile of research to turn into ranked, evidence-graded ideas | `research-to-ideas` (its Stage 8 tests one pick, at the end of a heavy pipeline; this loop is the light, weekly version) |
 | Why customers act as they do; jobs, pains, gains; interview method | `customer-insight` |
 | Tear apart a plan or artefact | `red-team` |
 | Choose between strategic directions | `multi-actor-strategy` |
@@ -86,15 +86,17 @@ Then place each assumption on two axes:
 
 | | Little evidence | Strong evidence |
 |---|---|---|
-| **High impact** | **Test now.** These are the leap-of-faith assumptions | Proceed; note the evidence |
+| **High impact** | **Test now.** These are the leap-of-faith assumptions (Eric Ries's term) | Proceed; note the evidence |
 | **Low impact** | Park it; revisit if it grows | Ignore |
 
 Test the top one or two only. Testing everything is how discovery turns into delay.
 
 ## 5. Design the cheapest test that measures behaviour
 
-People are poor judges of what they will do. A test reads what they **do**: a click, a sign-up,
-a booking, money. A survey asking "would you use this?" is not a test of value.
+People are poor judges of what they will do. A value or usability test reads what they **do**:
+a click, a sign-up, a booking, money. A survey asking "would you use this?" is not a test of value.
+Feasibility and viability tests read different evidence: a spike that works or doesn't, a cost
+model, a yes or no from the person who owns the constraint.
 
 Read `references/experiments.md` for the menu of methods by risk type, the cost of each, and the
 traps.
@@ -105,23 +107,26 @@ Write every test as a card, **before** it runs:
 Assumption:   <what we believe, in one line>
 Method:       <what we will do>
 Metric:       <the one behaviour we will count>
-Pass mark:    <the number that means "true", set now>
-Kill mark:    <the number that means "false", set now>
+Continue:     <the range that means "true": build, or test the next assumption>
+Change:       <the range in between: adjust the solution and test again>
+Stop:         <the range that means "false": drop this solution>
 Duration:     <how long, or how many people>
-Decision:     <what we do on pass / on kill / in between>
 ```
 
 Two rules hold every card honest:
 
-- **Set the pass and kill marks before the test starts.** A mark chosen after seeing the data
-  will always be met.
+- **Set the ranges before the test starts, with no gap between them** (for example Stop under 5
+  clicks, Change 5 to 19, Continue 20 or more). Every result then lands in exactly one. A range
+  chosen after seeing the data will always be met. These are the same Continue, Change and Stop
+  ranges `research-to-ideas` uses at Stage 8.
 - **Name the decision it changes.** If both results lead to the same action, don't run it.
 
 ## 6. Decide, then log it
 
-When the test ends, compare the result with the card. Record one of three outcomes:
-**Pass** (build, or test the next assumption), **Kill** (drop the solution, try the next one),
-**Unclear** (the test was too small or too noisy; say what to change, don't round up).
+When the test ends, read which range the result landed in: **Continue**, **Change** or **Stop**.
+One more outcome is allowed, and it is about the test, not the idea: **Void**, when the test
+didn't run as designed (too few people, a broken link, the door was never shown). Say what to fix
+and run it again. Don't round a Void up to a Continue.
 
 Keep a loop log so next week's pass starts from this one, not from memory:
 
@@ -129,7 +134,7 @@ Keep a loop log so next week's pass starts from this one, not from memory:
 ## YYYY-MM-DD — <outcome>
 - Tree: <outcome> → <opportunity> → <solution>
 - Assumption tested: <one line>
-- Result: <metric value> vs pass <x> / kill <y> → Pass | Kill | Unclear
+- Result: <metric value> vs Continue <x> / Change <y> / Stop <z> → Continue | Change | Stop | Void
 - Decision: <what changes>
 - Next: <the next riskiest assumption, or "ready for PRD">
 ```
@@ -145,7 +150,7 @@ For a first pass, return:
 
 1. The tree, as an indented list: outcome → opportunities (with source tags) → solutions.
 2. The assumption table for the leading solution, with the test-now cell named.
-3. One or two test cards, complete, with marks set.
+3. One or two test cards, complete, with ranges set.
 4. The loop log entry to save.
 
 Keep it to one screen where you can. A tree that needs scrolling has too many branches; prune.
@@ -156,7 +161,8 @@ Keep it to one screen where you can. A tree that needs scrolling has too many br
 - [ ] Every opportunity has a source tag or is marked Assumed.
 - [ ] At least three solutions for each chosen opportunity, one with no code.
 - [ ] All four risks considered for the leading solution.
-- [ ] Every test reads behaviour, has pass and kill marks, and names the decision it changes.
+- [ ] Every value or usability test reads behaviour. Every test has Continue, Change and Stop
+  ranges with no gap, and names the decision it changes.
 
 ---
 
@@ -168,5 +174,6 @@ Keep it to one screen where you can. A tree that needs scrolling has too many br
 - `red-team`: attack the tree itself when the stakes are high.
 
 *Structure adapted from the `pm-product-discovery` plugin in `phuryn/pm-skills` (MIT, © Paweł
-Huryn), drawing on Teresa Torres' Opportunity Solution Tree and Marty Cagan's four risks. Text
+Huryn), drawing on Teresa Torres' Opportunity Solution Tree, Marty Cagan's four risks and David Bland's
+assumption mapping. Text
 rewritten for this library.*

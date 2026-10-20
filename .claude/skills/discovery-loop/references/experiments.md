@@ -36,7 +36,7 @@ Read this at step 5 of `discovery-loop`, to pick a method for the assumption you
 
 - **Opinion dressed as data.** "Would you use this?" measures politeness. Use it only to find
   who to test with.
-- **Moving the marks.** A pass mark set after seeing the result always passes.
+- **Moving the ranges.** A range set after seeing the result always passes.
 - **Friends and committee as the sample.** They want you to succeed. Test with ordinary members.
 - **Testing the easy assumption.** The one that is cheap to test is rarely the one that kills the
   idea. Go back to the test-now cell.
@@ -49,7 +49,9 @@ Read this at step 5 of `discovery-loop`, to pick a method for the assumption you
 For a small community, counts beat percentages. A rough guide:
 
 - **Usability:** five people find most of the big problems. Stop at five, fix, test again.
-- **Value, small group (under 500 people):** set the pass mark as a count of real actions, such as
+- **Value, small group (under 500 people):** set the Continue range as a count of real actions, such as
   "20 members click the door in two weeks", not a rate. Rates on small numbers swing wildly.
-- **A/B:** needs hundreds of people per version for a modest difference. Below that, use a
-  before-and-after with the marks set in advance, and call the result directional.
+- **A/B:** needs thousands of people per version to detect a modest difference (10% to 12% takes
+  about 3,800 each); a few hundred per version only detect big jumps (10% to 15% takes about 700).
+  Below that, use a before-and-after with the ranges set in advance, and call the result
+  directional.

@@ -21,6 +21,12 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
   boundary table against `research-to-ideas`, `customer-insight`, `red-team`,
   `multi-actor-strategy` and `product-requirement-document`.
 - `cpo/references/routing.md` gains its row. README index 38 → 39; plugin counts follow.
+- Reviewed by `watchdog` (delegated, `work-samples/watchdog-2026-10-20.md`): 0 High, 5 Medium, 5 Low,
+  all verified and fixed. The test card now uses `research-to-ideas`' Continue / Change / Stop ranges
+  with no gap, plus a Void outcome for a test that didn't run as designed.
+- Knock-on edits: `customer-insight` gains a NOT-for line (description 1,000 chars),
+  `research-to-ideas` and `product-requirement-document` point here, `routing.md`'s discovery stack
+  is split in two, and the README's references and scripts counts are corrected (15 and 3).
 
 ## 2026-10-20 — claude.ai upload: zip layout and menu path
 

@@ -91,10 +91,11 @@ index nobody verifies is worse than no index, because it is read as authoritativ
 **Meta / library management (6)** — `cpo`, `rewrite`, `cos`, `mc-orchestrator`, `skills-librarian`,
 `notion-second-brain`
 
-Fourteen skills carry a `references/` folder: `cpo`, `customer-insight`, `discovery-loop`, `humanizer`, `job-scan`, `multi-actor-research`,
+Fifteen skills carry a `references/` folder: `business-case-builder`, `cpo`, `customer-insight`, `discovery-loop`, `humanizer`, `job-scan`, `multi-actor-research`,
 `multi-actor-strategy`, `product-requirement-document`, `project-management`, `read-the-room`,
-`research-to-ideas`, `resume-builder`, `scr-pyramid-communicator`, `skills-librarian`. Two carry
-`scripts/`: `recent-pulse`, `research-to-ideas`. The other 24 are a single `SKILL.md`.
+`research-to-ideas`, `resume-builder`, `scr-pyramid-communicator`, `skills-librarian`. Three carry
+`scripts/`: `multi-actor-strategy`, `recent-pulse`, `research-to-ideas`. The other 23 are a single
+`SKILL.md`.
 
 Regenerate against disk rather than trusting any of the above:
 
