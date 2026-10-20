@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-20 — library — agents vs the house model (4 agents)
+- Question (owner): do the most-used agents beat plain Claude? Agents by delegated runs on record: `agent-improver`, `watchdog`, `cody`, `mc-reviewer`.
+- Method: each agent against `general-purpose` on the same model tier, identical brief, planted-defect fixtures with sealed keys, three blind opus judges (order randomised), `cody` scored on 8 hidden tests. Detail and all outputs: `work-samples/agent-vs-house-2026-10-20.md`.
+- Result: one win each, two ties. `agent-improver` slight win (caught the model field, made privacy a check); house slight win over `mc-reviewer` (graded severity tiers); `watchdog` and `cody` tied (6/6 and 8/8 both sides). Agents ran at about a quarter of the tokens.
+- Limits: ceiling effect (both arms found everything in three of four), n = 1, the token gap is mostly the house arm's overhead. Safety and house conventions not measured.
+- Proposed, not applied: graded severity inside "blocks merge" for `mc-reviewer` (owner's call).
+- Next audit targets: a harder multi-file round for `watchdog` and `mc-reviewer`, plus the queue below.
+
 ## 2026-10-20 — security-auditor (intent audit added; gap #2 of the pm-skills review)
 - Verdict: approve after fixes (`agent-improver`, delegated; reduced independence: the A/B was built and scored by the authoring thread).
 - Scores: Mandate Strong · Triggers Adequate · Tools Strong · Model Strong · Instructions Adequate → fixed · Observed Adequate (n=1) · Boundary Adequate → fixed.
