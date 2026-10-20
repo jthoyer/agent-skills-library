@@ -5,6 +5,20 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-20 — claude.ai upload: zip layout and menu path
+
+### Updated
+- **`skills-librarian`** 2.3.2. The step-5 zip command ran `cd <skill> && zip ... .`, which puts
+  `SKILL.md` at the top of the archive. claude.ai looks for `<skill-name>/SKILL.md` and does not
+  recognise a top-level one, so the command now zips the folder from `.claude/skills/` and adds an
+  `unzip -Z1` check. The step's pointer to README § "Two surfaces, one repo" now names § "Surfaces",
+  the section's current title.
+- **`README.md`**: the claude.ai upload path is Customize → Skills, not Settings → Capabilities →
+  Skills (help centre, checked 2026-10-20). Both upload lines now point at step 5 for the layout.
+- **`.gitignore`** gains `*.zip`, as step 5 already asked. Zips are build artefacts.
+- Evidence: the four zips built for #47 used the folder layout; `unzip -Z1` shows every entry under
+  the skill folder.
+
 ## 2026-10-20 — four heavy skills trimmed by moving, not cutting
 
 ### Updated
