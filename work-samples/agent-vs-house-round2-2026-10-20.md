@@ -46,6 +46,7 @@ wrote the fixtures and the keys and scored the outputs.
 - **The first round's one house win is closed.** `mc-reviewer` now grades severity (merged in #52).
   Both agent runs graded critical/high/low and blocked on three, which is what the key expects.
 - **Cost:** about a third of the tokens again.
+- **Length caps:** `wc -w` on the saved outputs. `mc-reviewer` 852 and 811 words against a 700 cap, house 737 and 719. `watchdog` 581 and 519 against 500, house 523 and 529. Everyone ran over; the agents ran over most, because the coverage close and Handoff Note add words the cap does not make room for.
 - **n = 2 per cell, scored by the author of the fixtures.** One more round should add a second
   fixture author or blind judges before anything is concluded about style.
 
