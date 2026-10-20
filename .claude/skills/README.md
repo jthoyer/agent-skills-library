@@ -27,9 +27,10 @@ This library serves several places, and they do not all sync with each other.
 - **Claude Code (local, interactive):** reads live from `~/.claude/skills/`. Point that
   path at a clone of this repo (clone directly there, or symlink into it). `git pull`
   updates it.
-- **Claude Chat (claude.ai):** reads whatever's uploaded under Settings → Capabilities →
-  Skills. Git does not reach that UI. After a skill changes here, re-upload the affected
-  folder(s) there as a batch — weekly, or after a meaningful change, not per commit.
+- **Claude Chat (claude.ai):** reads whatever's uploaded under Customize → Skills ("+", then
+  "Upload a skill"). Git does not reach that UI. After a skill changes here, re-upload the
+  affected folder(s) there as a batch, each zipped with the folder at the top of the archive
+  (`skills-librarian` §"Change safety", step 5) — weekly, or after a meaningful change, not per commit.
   **Deletions need doing by hand too**: a skill removed from this repo keeps loading in
   every session until it is also removed there.
 
@@ -40,7 +41,8 @@ This library serves several places, and they do not all sync with each other.
    body <500 lines, cross-references resolve, `scripts/check-skill-structure.sh` clean),
    then commit here.
 3. Add a `CHANGELOG.md` entry — Added / Merged / Updated / Retired.
-4. Batch re-upload changed folders to claude.ai Skills settings.
+4. Batch re-upload changed folders to claude.ai (Customize → Skills), zipped per step 5 of
+   `skills-librarian` §"Change safety".
 5. Optional: mirror to Notion's AI Skills DB per `skills-librarian` §9.
 
 ## Layout

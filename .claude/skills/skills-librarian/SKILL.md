@@ -10,7 +10,7 @@ description: >
   task touching the skills directory or library health. Always use before writing or modifying any
   SKILL.md — it enforces the standards that keep the library reliable.
 metadata:
-  version: 2.3.1
+  version: 2.3.2
 ---
 
 # Skills Librarian
@@ -189,16 +189,19 @@ Do all five before editing any skill:
 3. **Version the frontmatter.** Increment `metadata.version` on every substantive change.
 4. **Record the change** in the CHANGELOG, including what was removed and why.
 5. **Zip the changed skill, inside its own folder**, ready for the claude.ai upload step (see
-   `README.md` § "Two surfaces, one repo" — Claude Chat does not read this git repo, so the zip is
-   the actual delivery artifact for that surface). From the skill's own directory:
+   `README.md` § "Surfaces" — Claude Chat does not read this git repo, so the zip is the actual
+   delivery artifact for that surface). claude.ai looks for `<skill-name>/SKILL.md` inside the
+   archive and rejects a `SKILL.md` at the top level, so zip the folder, not its contents. From
+   `.claude/skills/`:
 
    ```bash
-   cd <skill-name> && zip -r -X "<skill-name>.zip" . -x ".*" "*.zip" && cd -
+   zip -r -X "<skill-name>.zip" "<skill-name>" -x "*/.*" "*.zip"
+   unzip -Z1 "<skill-name>.zip"    # every line must start with <skill-name>/
    ```
 
-   `-X` drops macOS resource forks and `-x ".*" "*.zip"` excludes dotfiles and any previous zip, so
-   the archive holds only `SKILL.md` and its `references/`/`scripts/`/`assets/` — no `__MACOSX/`
-   junk, no self-inclusion. The zip is a build artifact, not a versioned one: overwrite it in place
+   `-X` drops macOS resource forks and `-x "*/.*" "*.zip"` excludes dotfiles and any previous zip,
+   so the archive holds only the folder with `SKILL.md` and its `references/`/`scripts/`/`assets/`
+   — no `__MACOSX/` junk, no self-inclusion. The zip is a build artifact, not a versioned one: overwrite it in place
    on every change rather than dating the filename, and don't commit it (add `*.zip` to
    `.gitignore` at the library root if it isn't there already).
 
