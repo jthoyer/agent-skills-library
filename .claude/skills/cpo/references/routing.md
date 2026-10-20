@@ -37,6 +37,7 @@ tools: `code-improver` cannot edit, `mc-reviewer` cannot execute.
 |---|---|
 | Research feeding a strategy, investment or executive decision | `multi-actor-research` |
 | Research already held, ask is ranked ideas and a cheap test | `research-to-ideas` (conducts four agents) |
+| One product or idea: should we build it, what's the riskiest assumption, design the test | `discovery-loop` (light and weekly; no agents) |
 | "What should we do", options appraisal | `multi-actor-strategy` (conducts a blind challenger and jurors) |
 | General research, no high-stakes decision riding on it | `deep-research` |
 | Academic literature, methodology critique, citations | `academic-researcher` |
