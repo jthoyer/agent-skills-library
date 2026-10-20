@@ -70,6 +70,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-20 — security-auditor (intent audit added; gap #2 of the pm-skills review)
+- Verdict: approve after fixes (`agent-improver`, delegated; reduced independence: the A/B was built and scored by the authoring thread).
+- Scores: Mandate Strong · Triggers Adequate · Tools Strong · Model Strong · Instructions Adequate → fixed · Observed Adequate (n=1) · Boundary Adequate → fixed.
+- Changed: step 0 reads the app's intent docs and the new shared `.claude/references/intent-audit.md`; step 3 runs the documented-versus-enforced comparison at each boundary; output gains intent-doc scope wording and an *Owner questions* list. The reference defines five intent docs, the method, the four-part finding, and treatment of stale docs and missing tests (hardening only). Method adapted from `phuryn/pm-skills` (MIT, credited).
+- Why: the agent mapped trust boundaries from code alone, so "documented but not enforced" was invisible to it. Gated member accounts make this the highest-stakes class.
+- Evidence: `work-samples/security-auditor-2026-10-20.md`. On three planted gaps, both arms found the two exploitable ones; only the new step flagged the stale-docs gap and reported which intent docs exist.
+- Expected effect: on BalanceTRI-app, a scope line naming the intent docs, and findings that quote the permissions doc. If an app has no permissions doc, at most five inferred rows.
+- Follow-up: one dispatched run of the merged agent on BalanceTRI-app (the A/B arm was general-purpose following the file). The owner writes that app's permissions doc.
+- Next audit targets: `security-auditor` (first dispatched run after merge), `discovery-loop` (first real run), plus the queue below.
+
 ## 2026-10-20 — library — setup (root tidy; four skills trimmed)
 - Trigger: points 2 and 4 of the 2026-10-20 setup review (points 1 and 3 are the hooks PR). Done directly in `cpo`, no agents dispatched.
 - Root tidy: `dispatch-map-v8`, `research-to-ideas-map`, `multi-actor-strategy-map` and `gated-member-accounts-map` HTML moved into `workflows/` beside their PNGs. Superseded `dispatch-map-v6/v7.html` moved to `z_Archive/`. Pointers updated in `workflows/README.md`, `dispatch-map-v8.html` and `multi-actor-strategy/references/agent-plan.md`. `CLAUDE.md` gains a "Where truth lives" table: one live ledger to write, the rest read only.
