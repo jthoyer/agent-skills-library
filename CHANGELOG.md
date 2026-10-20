@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-20 — library — agents vs the house model (4 agents)
+- Question (owner): do the most-used agents beat plain Claude? Agents by delegated runs on record: `agent-improver`, `watchdog`, `cody`, `mc-reviewer`.
+- Method: each agent against `general-purpose` on the same model tier, identical brief, planted-defect fixtures with sealed keys, three blind opus judges (order randomised), `cody` scored on 8 hidden tests. Detail and all outputs: `work-samples/agent-vs-house-2026-10-20.md`.
+- Result: one win each, two ties. `agent-improver` slight win (caught the model field, made privacy a check); house slight win over `mc-reviewer` (graded severity tiers); `watchdog` and `cody` tied (6/6 and 8/8 both sides). Agents ran at about a quarter of the tokens.
+- Limits: ceiling effect (both arms found everything in three of four), n = 1, the token gap is mostly the house arm's overhead. Safety and house conventions not measured.
+- Proposed, not applied: graded severity inside "blocks merge" for `mc-reviewer` (owner's call).
+- Next audit targets: a harder multi-file round for `watchdog` and `mc-reviewer`, plus the queue below.
+
 ## 2026-10-20 — library — setup (root tidy; four skills trimmed)
 - Trigger: points 2 and 4 of the 2026-10-20 setup review (points 1 and 3 are the hooks PR). Done directly in `cpo`, no agents dispatched.
 - Root tidy: `dispatch-map-v8`, `research-to-ideas-map`, `multi-actor-strategy-map` and `gated-member-accounts-map` HTML moved into `workflows/` beside their PNGs. Superseded `dispatch-map-v6/v7.html` moved to `z_Archive/`. Pointers updated in `workflows/README.md`, `dispatch-map-v8.html` and `multi-actor-strategy/references/agent-plan.md`. `CLAUDE.md` gains a "Where truth lives" table: one live ledger to write, the rest read only.
