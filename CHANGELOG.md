@@ -70,6 +70,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-20 — security-auditor (first real run of the intent audit: BalanceTRI-app)
+- Verdict: the step works. Dispatched agent confirmed step 0 in its definition, so agent files are read at dispatch; the follow-up owed by the earlier entry is done.
+- Observed: 0 critical, 0 high, 2 medium, 1 low. Top finding is documented-but-unenforced (README: results "written by the entry's owner or an admin"; entries delete policy lets any approved member cascade-delete them). Main thread verified findings 1 and 3 against the migrations.
+- Evidence: `work-samples/security-auditor-2026-10-20-balancetri.md`.
+- Owed by the owner: decide the two owner questions (honour-system entries vs owner-only results; rename-equals-ownership), then fix in the app repo; write a permissions doc for BalanceTRI-app.
+- Next audit targets: `security-auditor` after the app fix (does the re-run clear finding 1?), plus the queue below.
+
 ## 2026-10-20 — mc-reviewer (graded severity beside the verdict)
 - Verdict: fit to merge after two fixes (`agent-improver`, delegated; both fixed).
 - Changed: `## Output` adds a grade (critical / high / medium / low) beside the unchanged verdict; findings sort by verdict, then grade. A `critical` grade, like `blocks merge`, needs the guard proof; without it, at most `high` / `should fix`. Rare-case findings step down one grade.
