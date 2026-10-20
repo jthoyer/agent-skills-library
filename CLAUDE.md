@@ -13,9 +13,11 @@ review, improve or fix an agent or skill, edit it **here** and open a pull reque
 - When a skill appears under both names, use the unprefixed one: it loads from this repo.
   Type `/cpo` and `/rewrite`, not `/anthropic-skills:cpo`.
 
-Before pushing, run the three health checks in `scripts/` (`check-frontmatter.sh`,
-`check-references.sh`, `check-skill-structure.sh`); CI runs the same three. Log every
-review in `CHANGELOG.md` per `.claude/skills/cpo/references/close-out.md`.
+A hook in `.claude/settings.json` runs the CI checks before every `git push` and blocks
+the push on a finding. Run them yourself while you work: `check-frontmatter.sh`,
+`check-references.sh`, `check-skill-structure.sh` in `scripts/`. `.claude/skills/` and
+`.claude-plugin/` each have a local CLAUDE.md with their rules. Log every review in
+`CHANGELOG.md` per `.claude/skills/cpo/references/close-out.md`.
 
 ## Starting a cloud session with this library and an app repo
 

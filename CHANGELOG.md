@@ -78,6 +78,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 - Checks: all six CI steps pass locally.
 - Next audit targets: `project-management` and `product-requirement-document` (do they open the new references when a task needs them?), plus the queue below.
 
+## 2026-10-20 — library — setup (push hook, retired-folder guard, two local CLAUDE.md files)
+- Trigger: owner asked, via `/rewrite`, whether the repo matches a post on Claude Code project anatomy (short CLAUDE.md, skills, hooks, docs, local CLAUDE.md). Review embodied in `cpo`, no agents dispatched. Hooks and local CLAUDE.md files were missing.
+- Changed: `.claude/settings.json` with two PreToolUse hooks. `.claude/hooks/pre-push-checks.sh` runs all six `checks.yml` steps before any `git push` and blocks on a finding. `.claude/hooks/protect-retired.sh` blocks edits inside `.claude/skills/_retired/`. New `.claude/skills/CLAUDE.md` (the CI rules for skills) and `.claude-plugin/CLAUDE.md` (manifest sync). Root `CLAUDE.md` said "CI runs the same three"; CI runs six. Fixed.
+- Why: the old rule was "run the checks before pushing", which relied on memory. `checks.yml` records that failure mode.
+- Tested: the push hook blocked a planted dead pointer and, on its first run, my own new `.claude/skills/CLAUDE.md`. Both fixed. A clean push passes in about 14 seconds.
+- Limit: `.claude/settings.json` loads only when this repo is the project root. In a session with an app repo beside it, CI is the only gate.
+- Deferred: root tidy (six HTML maps, four changelog locations) and trimming four skills near the 500-line cap.
+- Next audit targets: unchanged from the entry below.
+
 ## 2026-10-18 — library — portfolio (three merges; four skills retired; Low items closed)
 - Decision (owner, 2026-10-18: "complete low items and all merges"): JTBD + VPC into `customer-insight`; `scqa-framework` into `scr-pyramid-communicator`; `pre-mortem` into `six-thinking-hats`. Skills 42 → 38. Detail: `.claude/skills/CHANGELOG.md`.
 - Evidence (delegated): `watchdog` sweep, `work-samples/watchdog-2026-10-18.md` (F4, M1–M3). Merged skills shared triggers and, for JTBD and VPC, most of their content.
