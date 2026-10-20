@@ -13,4 +13,4 @@ One-page images of how the library's agents and skills fit together.
 | `gated-member-accounts-map.png` | BalanceTRI-app's gated member accounts: the join flow, the guards, build steps B0 to B10 and the review gates. `mc-reviewer` and `security-auditor` acting as the R1 and R2 gates on a real project | Snapshot of 2026-10-11: status rows go stale |
 | `Multi-actor-research_workflow.png` | The `multi-actor-research` skill: seven actors, four stages, registers, who does what | Current |
 
-The HTML sources for the dispatch maps (v8 is the one-page source; v9 and v10 are PNG only, with no HTML kept; v7 is the long-form page), the research-to-ideas map, the multi-actor-strategy map and the gated-member-accounts map stay at the repo root.
+The HTML sources sit here beside their images: `dispatch-map-v8.html` (the one-page source; v9 and v10 are PNG only, with no HTML kept), `research-to-ideas-map.html`, `multi-actor-strategy-map.html` and `gated-member-accounts-map.html`. Superseded sources, including the long-form `dispatch-map-v7.html` and v6, are in `z_Archive/`.

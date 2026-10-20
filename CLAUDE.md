@@ -28,3 +28,19 @@ session.
 Already in a session without the library? Ask Claude to attach `jthoyer/agent-skills-library`.
 It adds the repo, clones it, and registers it; the agents and skills should load on the next
 turn. Not yet tested end to end (2026-10-18): if they don't, start a fresh session with both.
+
+## Where truth lives
+
+| What | Where |
+|---|---|
+| Agents and skills | `.claude/agents/`, `.claude/skills/` (index: `.claude/skills/README.md`) |
+| Rules shared by several agents | `.claude/references/` |
+| Health checks (CI runs them) | `scripts/`, `.github/workflows/checks.yml` |
+| Review ledger, current month | `CHANGELOG.md`. Write here. |
+| Skills ledger | `.claude/skills/CHANGELOG.md` |
+| Past ledgers (read only) | `changelog/` (closed months), `CHANGELOG-ARCHIVE.md` (pre-2026-09-13) |
+| Evidence behind reviews | `work-samples/` |
+| Maps of how it all fits | `workflows/` (see its README for which is current) |
+| Superseded material | `z_Archive/`, `.claude/skills/_retired/`. Never edit; never cite as current. |
+
+`10X-LOG.md` is the daily leverage log, run only on request (`.claude/skills/cpo/references/portfolio.md`).

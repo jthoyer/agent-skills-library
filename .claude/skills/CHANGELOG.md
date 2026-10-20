@@ -5,6 +5,24 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-20 — four heavy skills trimmed by moving, not cutting
+
+### Updated
+- **`product-requirement-document`** 1.1.0, 487 → 332 lines. Parts 2, 4, 5 and 6 moved verbatim to
+  `references/framework-relationships.md`, `methods.md`, `team-integration.md`, `junior-guide.md`.
+  Part headings and anchors stay, each with a pointer saying when to read the file.
+- **`business-case-builder`** 1.1.0, 431 → 306. Step 4 to `references/financial-metrics.md`; formats,
+  pitfalls and audience tailoring to `references/formats-and-audiences.md`.
+- **`project-management`** 1.1.0, 404 → 201. Part 2 to `references/agendas.md`, Part 3 to
+  `references/update-templates.md` (both carry contents lists). The escalation row in "How to use"
+  now names the two files. One line changed inside moved text: the escalation agenda's link to the
+  pre-read now names `references/update-templates.md`, since the anchor left the file.
+- **`skills-librarian`** 2.3.1, 378 → 329. Workflow 4 (audit) to `references/audit.md`. SKILL.md keeps
+  the open-with-the-queue and close-with-the-next-line rules.
+- Nothing cut. Verified: every removed line is present in a new reference file. A move is not a
+  contested trim, so no A/B run. `metadata.version` added to the three that had none.
+- Owed by the owner: upload the four changed zips to claude.ai.
+
 ## 2026-10-18 — three merges, four skills retired, Low items closed
 
 ### Merged

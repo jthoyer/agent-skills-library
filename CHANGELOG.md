@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-20 — library — setup (root tidy; four skills trimmed)
+- Trigger: points 2 and 4 of the 2026-10-20 setup review (points 1 and 3 are the hooks PR). Done directly in `cpo`, no agents dispatched.
+- Root tidy: `dispatch-map-v8`, `research-to-ideas-map`, `multi-actor-strategy-map` and `gated-member-accounts-map` HTML moved into `workflows/` beside their PNGs. Superseded `dispatch-map-v6/v7.html` moved to `z_Archive/`. Pointers updated in `workflows/README.md`, `dispatch-map-v8.html` and `multi-actor-strategy/references/agent-plan.md`. `CLAUDE.md` gains a "Where truth lives" table: one live ledger to write, the rest read only.
+- Trim: four skills near the 500-line cap moved content verbatim into `references/`. Detail: `.claude/skills/CHANGELOG.md`.
+- Left alone: the ledger split (`CHANGELOG.md`, `changelog/`, `CHANGELOG-ARCHIVE.md`) is deliberate, so it gets a map, not a move. `10X-LOG.md` stays at the root; `portfolio.md` points at it.
+- Checks: all six CI steps pass locally.
+- Next audit targets: `project-management` and `product-requirement-document` (do they open the new references when a task needs them?), plus the queue below.
+
 ## 2026-10-20 — library — setup (push hook, retired-folder guard, two local CLAUDE.md files)
 - Trigger: owner asked, via `/rewrite`, whether the repo matches a post on Claude Code project anatomy (short CLAUDE.md, skills, hooks, docs, local CLAUDE.md). Review embodied in `cpo`, no agents dispatched. Hooks and local CLAUDE.md files were missing.
 - Changed: `.claude/settings.json` with two PreToolUse hooks. `.claude/hooks/pre-push-checks.sh` runs all six `checks.yml` steps before any `git push` and blocks on a finding. `.claude/hooks/protect-retired.sh` blocks edits inside `.claude/skills/_retired/`. New `.claude/skills/CLAUDE.md` (the CI rules for skills) and `.claude-plugin/CLAUDE.md` (manifest sync). Root `CLAUDE.md` said "CI runs the same three"; CI runs six. Fixed.

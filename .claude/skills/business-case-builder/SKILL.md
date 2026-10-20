@@ -9,6 +9,8 @@ description: >
   (6) present a strategic recommendation to leadership. Triggers on: "business case for",
   "justify this investment", "get approval for", "ROI on", "make the case for",
   "should we invest in", "build vs buy", "cost-benefit analysis", "payback period".
+metadata:
+  version: 1.1.0
 ---
 
 # Business Case Builder
@@ -200,58 +202,7 @@ Why not Alternative B: [Specific reason]
 
 ## Step 4: Calculate Key Metrics
 
-Decision-makers want specific financial metrics. Calculate these:
-
-### ROI (Return on Investment)
-```
-ROI = (Total Benefits - Total Costs) / Total Costs × 100%
-
-Example:
-Benefits over 3 years: $500,000
-Costs over 3 years: $200,000
-ROI = ($500K - $200K) / $200K = 150%
-```
-
-### Payback Period
-```
-Payback = Total Investment / Annual Net Benefit
-
-Example:
-Total investment: $100,000
-Annual net benefit: $40,000
-Payback = $100K / $40K = 2.5 years
-```
-
-### Net Present Value (NPV)
-For larger investments, account for time value of money:
-```
-NPV = Sum of (Cash Flow / (1 + discount rate)^year) - Initial Investment
-
-Use 10-15% discount rate for most corporate decisions.
-Positive NPV = good investment.
-```
-
-### Break-Even Analysis
-```
-At what point do cumulative benefits exceed cumulative costs?
-Month X: Cumulative benefits > Cumulative costs
-```
-
-**Output:**
-```
-FINANCIAL SUMMARY
-
-| Metric | Conservative | Expected | Optimistic |
-|--------|--------------|----------|------------|
-| Total 3-Year Investment | $X | $X | $X |
-| Total 3-Year Benefit | $X | $X | $X |
-| Net Benefit | $X | $X | $X |
-| ROI | X% | X% | X% |
-| Payback Period | X months | X months | X months |
-| NPV (at 10%) | $X | $X | $X |
-
-Break-even: Month X (expected case)
-```
+Decision-makers want specific numbers: ROI, payback period, NPV and break-even. Read `references/financial-metrics.md` for each formula and its output format before you calculate any of them.
 
 ---
 
@@ -352,80 +303,6 @@ DECISION NEEDED BY: [Date] — [Reason for timeline]
 
 ---
 
-## Business Case Formats
+## Formats, Pitfalls and Audiences
 
-### Quick Business Case (1 page)
-For smaller investments (<$50K) or time-sensitive decisions:
-- Decision requested
-- Cost and benefit summary (one table)
-- ROI and payback
-- Top 3 risks
-- Recommendation
-
-### Standard Business Case (2-3 pages)
-For medium investments ($50K-$500K):
-- Full workflow above
-- All sections included
-- Appendix with detailed assumptions
-
-### Comprehensive Business Case (5+ pages)
-For major investments (>$500K) or strategic decisions:
-- Full workflow with deep detail
-- Multiple scenario analyses
-- Sensitivity testing
-- Detailed implementation plan
-- Stakeholder analysis
-- Change management considerations
-
----
-
-## Common Pitfalls to Avoid
-
-**Overstating benefits:**
-- Don't double-count (e.g., time savings AND productivity gains from same source)
-- Be conservative on adoption rates
-- Discount "soft" benefits appropriately
-
-**Understating costs:**
-- Include fully-loaded headcount costs (1.3-1.5x salary)
-- Account for management time
-- Include transition/migration costs
-- Factor in training and change management
-
-**Ignoring alternatives:**
-- Always include "do nothing" option
-- Show you've considered other approaches
-- Explain why alternatives were rejected
-
-**Weak risk assessment:**
-- Don't just list risks — quantify impact
-- Include mitigation strategies
-- Define what would make you reverse the decision
-
----
-
-## Tailoring by Audience
-
-**For Finance/CFO:**
-- Lead with numbers
-- Show sensitivity analysis
-- Emphasize payback period and cash flow
-- Compare to hurdle rate / cost of capital
-
-**For Operations/COO:**
-- Lead with efficiency gains
-- Emphasize implementation feasibility
-- Show resource requirements clearly
-- Address change management
-
-**For CEO/Board:**
-- Lead with strategic alignment
-- Emphasize competitive implications
-- Show optionality created
-- Keep financial detail in appendix
-
-**For Technical leadership:**
-- Include technical risk assessment
-- Address integration complexity
-- Show build vs. buy analysis
-- Discuss technical debt implications
+Read `references/formats-and-audiences.md` before drafting. It sets the length by the size of the investment (1 page, 2–3 pages or 5+ pages), lists the common pitfalls, and says how to tailor the case to each audience.

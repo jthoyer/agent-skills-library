@@ -8,6 +8,8 @@ description: >
   the Lean Canvas or Value Proposition Canvas. Trigger on phrases like: "product requirement", "PRD", "product spec",
   "feature brief", "requirements document", "what does the team need to build", "document the requirements",
   "write up the brief", "product definition", "scope the feature".
+metadata:
+  version: 1.1.0
 ---
 
 # Product Requirement Document Skill
@@ -29,6 +31,10 @@ description: >
 For extended content, see:
 - `references/section-prompts.md` — Prompts to generate each PRD section from structured inputs
 - `references/failure-modes.md` — Common PRD failure modes with remedies
+- `references/framework-relationships.md` — Part 2 in full
+- `references/methods.md` — Part 4 in full
+- `references/team-integration.md` — Part 5 in full
+- `references/junior-guide.md` — Part 6 in full, with the PM curriculum links
 
 ---
 
@@ -98,52 +104,7 @@ Every section of a PRD should trace back to that sentence. If a section cannot a
 <a name="part-2"></a>
 ## Part 2: Framework Relationships
 
-### The Lean Canvas, Value Proposition Canvas, and PRD — Where Each Applies
-
-These three frameworks address different questions at different stages. A PRD written without the prior two is a document built on assumptions.
-
-```
-STAGE:        Problem         Solution          Build
-              Validation      Definition        Delivery
-
-FRAMEWORK:    Lean Canvas  →  Value Prop    →  PRD
-                              Canvas
-
-QUESTION:     Is there a      Does our         What exactly
-              problem worth   solution fit      are we building
-              solving?        the customer?     and for whom?
-```
-
-### What the PRD Inherits from Each Framework
-
-**From the Lean Canvas:**
-- The *problem* section (top 3 customer problems)
-- The *unique value proposition* — PRD's value statement should not contradict this
-- The *unfair advantage* — informs which solution constraints are non-negotiable
-- The *key metrics* — PRD success metrics should trace back here
-
-**From the Value Proposition Canvas:**
-- Customer jobs, pains, and gains — the PRD's user context section is built from these
-- Pain relievers and gain creators — the PRD's feature set should map explicitly to these
-- FIT assessment — if VPC fit is unvalidated, the PRD should flag this as a risk
-
-**What the PRD Adds:**
-- Functional specificity: *exactly* what gets built
-- Acceptance criteria: how the team knows the requirement is met
-- Constraints and non-scope: what is explicitly out
-- Dependencies: what else must be true for this to work
-- Rollout and measurement: how success will be tracked post-launch
-
-### First-Principles Check: Framework Alignment
-
-Before finalising a PRD, run this check:
-
-| Check | Question |
-|-------|----------|
-| Lean Canvas link | Does every PRD success metric trace to a Lean Canvas metric? |
-| VPC link | Does every major feature map to at least one customer pain or gain from the VPC? |
-| Contradiction check | Does anything in the PRD contradict the value proposition? |
-| Assumption exposure | Which PRD assumptions were validated by prior research, and which are untested? |
+Read `references/framework-relationships.md` when positioning a PRD against the Lean Canvas or Value Proposition Canvas: where each applies, what the PRD inherits from each, and the first-principles alignment check.
 
 ---
 
@@ -356,132 +317,22 @@ Owner: [who is accountable for delivery]
 <a name="part-4"></a>
 ## Part 4: Methods for Better PRDs
 
-### Increasing Speed
-
-**Use prompts, not blank pages.** For each section, answer structured questions first — then let the section write itself. See `references/section-prompts.md` for a prompt per section.
-
-**Time-box the draft.** A PRD written in 4 hours with open questions flagged is more useful than a PRD written in 2 weeks with false certainty. First draft = get it out of your head. Second draft = make it defensible.
-
-**Separate thinking from writing.** Use the diagnostic questions (top of this skill) before opening a document. A PRD written before you've answered "what decision does this enable?" will be rewritten.
-
-**Use the VPC and Lean Canvas as pre-work.** If these exist, import their outputs directly into Sections 2 and 3. Do not re-derive what has already been validated.
-
-### Increasing Completeness
-
-Run the **section purpose test** before finalising: for each section, ask "what decision does this enable?" If the answer is "none," either cut the section or identify what's missing from it.
-
-Use the **anti-metrics discipline**: for every success metric, name one thing that should not get worse. This surfaces trade-offs that are usually invisible.
-
-Check the **out-of-scope section last**: good things to defer often emerge only after the requirements are written.
-
-### Increasing Accuracy
-
-**Write acceptance criteria before requirements.** If you can't write a test for it, you don't understand it well enough to require it.
-
-**Run a contradiction check**: does any requirement contradict the value proposition, the Lean Canvas metrics, or the VPC pains and gains?
-
-**Flag assumptions explicitly**: distinguish between what has been validated (evidence-backed) and what is being assumed (hypothesis). A PRD with hidden assumptions is more dangerous than one with visible ones.
-
-### Increasing Impact
-
-**Write for the reader, not the author.** The lead knows everything; the PRD exists for everyone else. Test each section by asking: could a smart person who wasn't in any meeting make a good decision using only this?
-
-**Distribute before the meeting, not during it.** A PRD shared 48 hours before a review meeting creates alignment. One shared at the start of the meeting creates performance of alignment.
-
-**Make the open questions work for you.** A list of well-framed open questions with owners and dates is more valuable than a complete PRD with buried uncertainty.
-
-### First-Principles Checks for a Completed PRD
-
-| Check | Question |
-|-------|----------|
-| **Decision test** | Could a person who wasn't in any meeting make the right call on a feature trade-off using this PRD alone? |
-| **Specificity test** | Does any requirement contain a word like "easy," "fast," or "intuitive" without a measurable definition? |
-| **Scope test** | Is everything in the out-of-scope section actually something someone asked for? If not, what's missing? |
-| **Metric test** | Does every success metric have a baseline, a target, and a timeframe? |
-| **Assumption test** | Are all unvalidated assumptions explicitly flagged as assumptions? |
-| **Contradiction test** | Does anything in this PRD contradict the value proposition, Lean Canvas, or VPC? |
-| **Owner test** | Does every open question and dependency have a named owner? |
+Read `references/methods.md` when a PRD needs to be faster, more complete, more accurate or more useful, and run its first-principles checks on every completed PRD before it goes out.
 
 ---
 
 <a name="part-5"></a>
 ## Part 5: Integration with the Project Management Operating System
 
-### How the PRD Connects to the Ritual Stack
-
-| Ritual | PRD Role |
-|--------|----------|
-| **Project kick-off** | PRD context and problem section is the primary input to scope and goals discussion |
-| **Stakeholder working session** | PRD is the pre-read; sections 1–4 should be shared 48 hours before |
-| **Weekly status update** | PRD metrics feed directly into the RAG status and progress this week |
-| **Manager update** | PRD risks and open questions are the primary source for "risks / decisions needed" |
-| **Escalation pre-read** | High-severity PRD risks that the team cannot resolve are escalated using this protocol |
-| **Retrospective** | PRD open questions that were not resolved on time are retrospective inputs |
-
-### When the PRD Surfaces in Stakeholder Sessions
-
-- **Before the session:** Distribute Sections 1–4 as pre-read. Label clearly: "Please read before the session. We will spend the first 10 minutes on questions, then move to decisions."
-- **In the session:** Do not read the PRD aloud. Use it as a reference. Focus the session on decisions, not information transfer.
-- **After the session:** Update the PRD to reflect decisions made. Note what changed and why.
-
-### PRD and Manager Updates
-
-The manager update's *risks / decisions needed* section should be derived directly from PRD Section 8 (Dependencies and Risks) and Section 10 (Open Questions). If a risk in the PRD is not in the manager update, it is invisible to the people who could help resolve it.
-
-### PRD and Escalations
-
-When a PRD dependency cannot be resolved within the team, or a risk crosses the threshold of team authority, trigger the escalation protocol:
-1. Extract the risk from PRD Section 8
-2. Draft the escalation pre-read using the existing escalation template
-3. Arrive with a recommended option, not just the problem
+Read `references/team-integration.md` when a PRD has to fit the team's rituals: the ritual stack, stakeholder sessions, manager updates and escalations. Pair it with the `project-management` skill.
 
 ---
 
 <a name="part-6"></a>
 ## Part 6: Junior Development Guide
 
-### What the PRD Makes Possible
-
-The PRD is one of the most powerful development tools for a junior team member — not because they own it, but because contributing to it forces clarity of thinking that no amount of task completion can replicate.
-
-### Contribution Map by Role
-
-| PRD Section | Junior can... | Senior should... | Lead owns... |
-|------------|----------------|-------------------|--------------|
-| Context and problem | Draft the evidence section from research | Review and challenge | Sign off on problem statement |
-| Goals and success metrics | Propose initial metrics from VPC/Lean Canvas | Pressure-test with baseline and target | Approve and own accountability |
-| User and customer context | Draft from research outputs | Validate against VPC | Confirm persona specificity |
-| Functional requirements | Draft requirements in plain language | Convert to acceptance criteria format | Prioritise with MoSCoW |
-| Out of scope | Contribute a first list of deferred items | Check completeness | Validate with stakeholders |
-| Open questions | Own specific questions with support | Coach on framing | Escalate blockers |
-
-### Stretch Opportunities Within PRD Work
-
-- **Writing a problem statement**: requires the junior to synthesise research into a single defensible claim. A powerful thinking exercise.
-- **Drafting acceptance criteria**: forces precision. The lead or senior should review the first draft as a coaching conversation, not a correction exercise.
-- **Owning the open questions log**: a manageable responsibility with real accountability. Requires the junior to chase resolutions, which builds stakeholder communication skills.
-- **Presenting a PRD section in a stakeholder session**: with preparation support from lead. Builds presence and communication skills (curriculum areas 8 and 12).
-
-### Lead's Responsibility
-
-The PRD is not done when the document is complete. It is done when the junior can explain the product, its constraints, and its success criteria to a stakeholder without preparation. That standard is worth naming explicitly.
+Read `references/junior-guide.md` when coaching a junior through a PRD: what it makes possible, who contributes what, stretch opportunities, the lead's responsibility, and the links to PM curriculum areas.
 
 ---
 
-## Links to PM Curriculum Areas
-
-| Curriculum Area | PRD Relevance |
-|----------------|---------------|
-| 3. Product Strategy and Vision | PRD context and problem section should reflect the product vision |
-| 4. Requirements and Roadmapping | Core PRD discipline — functional requirements and roadmap integration |
-| 6. Analytics and Metrics | PRD success metrics and measurement plan |
-| 7. Product Launch and Go-to-Market | PRD rollout section |
-| 8. Executive Communications | PRD as stakeholder pre-read; distilling complexity for leadership |
-| 9. Stakeholder Influence Without Authority | PRD as an alignment tool; distributing before meetings |
-| 10. Team Communications | PRD open questions log; documentation that people actually read |
-| 11. Giving and Receiving Feedback | PRD review process as a structured feedback loop |
-| 14. Developing and Supporting Your Team | Junior contribution map; PRD as coaching artefact |
-
----
-
-*Reference files: `references/section-prompts.md` | `references/failure-modes.md`*
+*Reference files: `references/section-prompts.md` | `references/failure-modes.md` | `references/framework-relationships.md` | `references/methods.md` | `references/team-integration.md` | `references/junior-guide.md`*
