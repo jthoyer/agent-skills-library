@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-20 — mc-reviewer (graded severity beside the verdict)
+- Verdict: fit to merge after two fixes (`agent-improver`, delegated; both fixed).
+- Changed: `## Output` adds a grade (critical / high / medium / low) beside the unchanged verdict; findings sort by verdict, then grade. A `critical` grade, like `blocks merge`, needs the guard proof; without it, at most `high` / `should fix`. Rare-case findings step down one grade.
+- Why: the 2026-10-20 blind test (`work-samples/agent-vs-house-2026-10-20.md`) preferred plain Claude's graded tiers; mc-reviewer marked five of six findings "blocks merge" with nothing to rank them.
+- Review fixes applied: the grade now meets `review-gates.md` §2's proof bar (a critical without proof was possible); one sort order instead of two; the step-down rule; "Most" replaced by a rule.
+- Expected effect: `mc-integrator` reads the worst blocker first; no change to verdicts it acts on.
+- Next audit targets: `mc-reviewer` (first pipeline run: are grades consistent with verdicts?), plus the queue below.
+
 ## 2026-10-20 — library — agents vs the house model (4 agents)
 - Question (owner): do the most-used agents beat plain Claude? Agents by delegated runs on record: `agent-improver`, `watchdog`, `cody`, `mc-reviewer`.
 - Method: each agent against `general-purpose` on the same model tier, identical brief, planted-defect fixtures with sealed keys, three blind opus judges (order randomised), `cody` scored on 8 hidden tests. Detail and all outputs: `work-samples/agent-vs-house-2026-10-20.md`.

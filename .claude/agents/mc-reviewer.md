@@ -34,9 +34,22 @@ model: opus
 - Softening a finding because the Implementer's note explains the tradeoff — note the tradeoff, but still report the defect if it's real.
 
 ## Output
-A findings list, most severe first: file/line, the defect, the concrete failure scenario, and a verdict (blocks merge / should fix / optional / completeness gap). Every entry meets the confidence bar above — no maybes in this list.
+A findings list, ordered by verdict (blocks merge first), then by grade within each verdict. Each entry gives a **grade**, file/line, the defect, the concrete failure scenario, and a **verdict** (blocks merge / should fix / optional / completeness gap). Every entry meets the confidence bar above — no maybes in this list.
 
-**A `blocks merge` verdict carries one thing more: why the existing guards don't already catch it** — name the type, the validation layer, the framework default, the caller check or the test that a reader would otherwise assume covers this, and say what makes it insufficient here. This is the shared gate's proof requirement in this file's severity vocabulary, and it is the element reviewers skip. If you can't name what fails to stop it, the honest verdict is `should fix`, not `blocks merge`. (Completeness gaps are exempt and never block — they meet their bar by naming the missing case, per the rule above.) Where a finding touches shared code, the finding itself carries the call sites you enumerated with a per-site verdict — **including the sites you checked and cleared**, since that is the only thing that distinguishes coverage from silence.
+**The grade says how bad; the verdict says what to do.** Grade every finding:
+
+| Grade | Means |
+|---|---|
+| **critical** | Data loss or corruption, a security or privacy breach, wrong money, or the main path wrong for every user |
+| **high** | Wrong result for a realistic group of users, or the main path wrong in a common case |
+| **medium** | Wrong in a rare case, or recoverable by the user (a retry, a refresh, a support fix) |
+| **low** | No wrong result: misleading names, dead code, a missing guard nothing reaches yet |
+
+Grade by how bad the result is, then step down one grade if only a rare case reaches it.
+
+A critical or high finding that carries the guard proof below blocks merge. A medium blocks only when it breaks a stated acceptance criterion; say which. A low never blocks.
+
+**A `critical` grade or a `blocks merge` verdict carries one thing more: why the existing guards don't already catch it** — name the type, the validation layer, the framework default, the caller check or the test that a reader would otherwise assume covers this, and say what makes it insufficient here. This is the shared gate's proof requirement in this file's severity vocabulary, and it is the element reviewers skip. If you can't name what fails to stop it, grade it at most `high` and give it the verdict `should fix`, not `blocks merge`. (Completeness gaps are exempt and never block — they meet their bar by naming the missing case, per the rule above.) Where a finding touches shared code, the finding itself carries the call sites you enumerated with a per-site verdict — **including the sites you checked and cleared**, since that is the only thing that distinguishes coverage from silence.
 
 Then a **coverage close**, because a findings list on its own cannot tell the Integrator "checked and clean" apart from "never looked":
 - **Per acceptance criterion** — every AC in the Stage 1 spec marked *reviewed, no finding* / *finding raised (ref)* / *not statically assessable, over to the Verifier*. This mirrors the Verifier's per-AC verdict, so the Integrator can lay both halves of Stage 3 against the same list.
