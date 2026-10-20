@@ -37,6 +37,7 @@ tools: `code-improver` cannot edit, `mc-reviewer` cannot execute.
 |---|---|
 | Research feeding a strategy, investment or executive decision | `multi-actor-research` |
 | Research already held, ask is ranked ideas and a cheap test | `research-to-ideas` (conducts four agents) |
+| One product or idea: should we build it, what's the riskiest assumption, design the test | `discovery-loop` (light and weekly; no agents) |
 | "What should we do", options appraisal | `multi-actor-strategy` (conducts a blind challenger and jurors) |
 | General research, no high-stakes decision riding on it | `deep-research` |
 | Academic literature, methodology critique, citations | `academic-researcher` |
@@ -70,7 +71,8 @@ exists; say so rather than calling it unavailable.
 
 - **Justin-authored content:** `content-research-writer` → `justin-voice` → `humanizer`.
 - **High-stakes recommendation:** `multi-actor-strategy` → `scr-pyramid-communicator`. The strategy skill already runs a blind challenger and jurors; add `red-team` only when it ran without agents.
-- **Customer or product discovery:** `customer-insight` → `positioning`.
+- **Customer understanding and positioning:** `customer-insight` → `positioning`.
+- **Should we build it:** `customer-insight` (interviews) → `discovery-loop` → `product-requirement-document`.
 - **Club comms:** `content-research-writer` → `balance-tri-club-brand` → `humanizer`.
 
 ## Things that look like routes but are not

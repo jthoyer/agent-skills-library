@@ -5,6 +5,29 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-20 — `discovery-loop` added
+
+### Added
+- **`discovery-loop`** 1.0.0. A light, weekly loop for one product or idea: one outcome →
+  opportunities (source-tagged) → three or more solutions → riskiest assumptions across value,
+  usability, feasibility and viability → the cheapest test that reads behaviour, with pass and
+  kill marks set before it runs → a loop log. `references/experiments.md` holds the method menu,
+  traps and sizing for small communities.
+- Why: the 2026-10-20 gap review against `phuryn/pm-skills` found no skill between "decided" and
+  "build": nothing in the library designed an experiment. `research-to-ideas` tests only its top
+  pick, once, at the end of a heavy pipeline.
+- Built as one skill, not a copy of the seven thin `pm-product-discovery` skills. Structure
+  adapted from them (MIT, credited in the skill); text rewritten to house standards with a
+  boundary table against `research-to-ideas`, `customer-insight`, `red-team`,
+  `multi-actor-strategy` and `product-requirement-document`.
+- `cpo/references/routing.md` gains its row. README index 38 → 39; plugin counts follow.
+- Reviewed by `watchdog` (delegated, `work-samples/watchdog-2026-10-20.md`): 0 High, 5 Medium, 5 Low,
+  all verified and fixed. The test card now uses `research-to-ideas`' Continue / Change / Stop ranges
+  with no gap, plus a Void outcome for a test that didn't run as designed.
+- Knock-on edits: `customer-insight` gains a NOT-for line (description 1,000 chars),
+  `research-to-ideas` and `product-requirement-document` point here, `routing.md`'s discovery stack
+  is split in two, and the README's references and scripts counts are corrected (15 and 3).
+
 ## 2026-10-20 — claude.ai upload: zip layout and menu path
 
 ### Updated

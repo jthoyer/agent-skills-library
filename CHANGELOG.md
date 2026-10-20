@@ -70,6 +70,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-20 — library — new skill `discovery-loop` (gap #1 of the pm-skills review)
+- Trigger: owner asked to close gap #1 from the 2026-10-20 review of `phuryn/pm-skills`: nothing sat between "decided" and "build".
+- Changed: new skill `discovery-loop` (detail: `.claude/skills/CHANGELOG.md`). Routing, README, plugin counts, and pointers from `customer-insight`, `research-to-ideas` and `product-requirement-document`.
+- Review (delegated): `watchdog`, 10 findings (5 Medium), all verified and fixed: `work-samples/watchdog-2026-10-20.md`. No `agent-improver` pass: every finding held.
+- Reverses if: in real use the loop is skipped for `research-to-ideas`, or it never produces a test with ranges set before running.
+- Next audit targets: `discovery-loop` (first real run: were the ranges set in advance?), plus the queue below.
+
 ## 2026-10-20 — library — setup (root tidy; four skills trimmed)
 - Trigger: points 2 and 4 of the 2026-10-20 setup review (points 1 and 3 are the hooks PR). Done directly in `cpo`, no agents dispatched.
 - Root tidy: `dispatch-map-v8`, `research-to-ideas-map`, `multi-actor-strategy-map` and `gated-member-accounts-map` HTML moved into `workflows/` beside their PNGs. Superseded `dispatch-map-v6/v7.html` moved to `z_Archive/`. Pointers updated in `workflows/README.md`, `dispatch-map-v8.html` and `multi-actor-strategy/references/agent-plan.md`. `CLAUDE.md` gains a "Where truth lives" table: one live ledger to write, the rest read only.
