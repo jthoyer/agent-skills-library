@@ -56,7 +56,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `mc-integrator` | `changelog/2026-09-2.md`, `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `mc-orchestrator` (agent retired 2026-10-13 → skill) | `changelog/2026-09-2.md`, `changelog/2026-09-1.md` | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×5 |
 | `mc-planner` | `changelog/2026-08.md`×2 | `CHANGELOG-ARCHIVE.md`×5 |
-| `mc-reviewer` | `changelog/2026-09-1.md` | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×4 |
+| `mc-reviewer` | `CHANGELOG.md`×2, `changelog/2026-09-1.md` | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×4 |
 | `mc-verifier` | `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×2 |
 | `release-engineer` | `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `security-auditor` | `changelog/2026-09-1.md`×3 | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
@@ -64,11 +64,23 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `strategy-challenger` | `changelog/2026-09-2.md`×2 | — |
 | `strategy-juror` | `changelog/2026-09-2.md`×2 | — |
 | `ux-designer` | `CHANGELOG-ARCHIVE.md` | — |
-| `watchdog` | `changelog/2026-09-1.md`×2 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×3 |
+| `watchdog` | `CHANGELOG.md`, `changelog/2026-09-1.md`×2 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×3 |
 
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-10-20 — mc-reviewer and watchdog (round 2, harder multi-file test) — 2 agents
+- Verdict: both fit for purpose; edits proposed, then applied (below). `agent-improver`, delegated. Reduced independence: the main thread wrote the fixtures and keys and scored the runs.
+- Evidence: `work-samples/agent-vs-house-round2-2026-10-20.md`. Eight runs, two per cell against `general-purpose` (opus). `mc-reviewer`: 3/3 planted defects, the shared-helper bug traced to all 3 call sites, 0 decoys flagged, both arms. `watchdog`: 5/5, 0 decoys flagged, both arms. Detection is at the ceiling again. The agents ran at about a third of the tokens.
+- What separated them: house-rule behaviour. Both `mc-reviewer` runs gave a per-AC and per-risk coverage close and guard proof; the house arm gave neither. Both `watchdog` runs labelled structural vs typo-level and kept the ride briefs out of the findings; the house arm padded (speculative deadline and "year" items, ride briefs listed).
+- Applied the same day on the owner's go-ahead, then re-run on the same fixtures (general-purpose following the edited files, because the session roster loads at start; a dispatched run is owed):
+  - `mc-reviewer`: a finding with a failure scenario stays a finding when no AC covers it (verdict `should fix`, tag spec silent); Flagged areas gains a spec-questions slot; the Handoff Note must not repeat the findings. Re-run: duplicate booking landed in one place in both runs (it had split finding/gap), and both runs used both Flagged slots.
+  - `watchdog`: step 5 names every ledger read or skipped; the Notion-backlog line goes once at the close; honour the brief's length cap. Re-run: ledger naming and the single closing line worked in both runs.
+  - Did not work: the length cap. `mc-reviewer` 722 and 822 words on a 700 cap; `watchdog` 551 and 588 on 500 (it was 581 and 519). Open: say which parts to cut first, or let the brief make room for the coverage close.
+- Limits: the key was written by the same thread. `wc -w`: `mc-reviewer` 852 and 811 words on a 700 cap, `watchdog` 581 and 519 on 500; the house arm also ran over.
+- Follow-up: build a fixture where a house rule is needed to *find* the defect, with the ledger outside the swept folder. Then add blind judges.
+- Next audit targets: `mc-reviewer` and `watchdog` (a dispatched run of each after the next session start; the length-cap fix), plus the queue below.
 
 ## 2026-10-20 — library — PM 2.0 Library (Notion) independent check
 - Verdict: pass with fixes, then PASS on re-check (`general-purpose`, fresh context, read only). One blocking gap, now fixed: nothing showed craft growing.
