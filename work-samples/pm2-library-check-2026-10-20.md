@@ -42,4 +42,14 @@ Blocking finding: nothing shows craft growing. Non-blocking: rule 4 contradicted
 
 ## Re-check
 
-Pending: the same checker is re-verifying the fixes. Result to follow in this file.
+Verdict: PASS. The same checker re-read every fix, read only.
+
+| Item | Verdict |
+|---|---|
+| Craft growth view, prompt counts, plan signal | PASS, one caveat |
+| Prompt fixes (rules 3, 4, 7; Steps 1, 5) | PASS, no new contradiction |
+| Plan and backlog | PASS: pending ranks P1 134-136, P2 136.5-144, P3 145-150, all unique |
+| Start here | PASS |
+| Useful AI tree | PASS: last edits 2026-08-19 to 2026-09-27 |
+
+Caveat: queried through the tool, the Craft growth view returned 7 of 16 guides. Fixed: Step 1 now fetches each of the 16 guides to read Mastery. The plan's "5 views" line now says 8.

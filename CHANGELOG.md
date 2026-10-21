@@ -71,7 +71,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 <!-- New entries below this line, newest first -->
 
 ## 2026-10-20 — library — PM 2.0 Library (Notion) independent check
-- Verdict: pass with fixes (`general-purpose`, fresh context, read only). One blocking gap, now fixed: nothing showed craft growing.
+- Verdict: pass with fixes, then PASS on re-check (`general-purpose`, fresh context, read only). One blocking gap, now fixed: nothing showed craft growing.
 - Scope: the owner's brief to run the Notion database "Product Management 2.0" as a product. A 2026-10-19 session built fields, views, ontology tagging, plan, review prompt and backlog; only the prompt had been checked.
 - Changed (in Notion): new 📈 Craft growth view; review prompt counts growth each run, reads fields on the page before writing, caps Study slots at 4 per Monday, rule 4 no longer contradicts Step 4; plan signal, roadmap and run log updated; Start here explains field jobs; backlog re-ranked by priority plus one item for run 2's decisions.
 - Why: query tools returned blank fields that were set (topic guides 08-11, 14), so a run trusting them could overwrite owner values.
