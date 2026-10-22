@@ -32,6 +32,16 @@ only the boundaries descriptions can't express. The roster itself is the live li
 The user named an agent? Honour it. Flag a mismatch in one sentence only if it lacks the
 tools: `code-improver` cannot edit, `mc-reviewer` cannot execute.
 
+**Owed: audit of the first `cody` → `mc-verifier` pair** (the owner asked for it on
+2026-10-22). Run it on the first job routed by the row above, standalone or not.
+1. Save both briefs and reports to `work-samples/`.
+2. Dispatch `agent-improver` on the pair. Ask: did the Verifier find anything `cody`'s
+   report missed or overclaimed? What did the extra dispatch cost? Does the rule's
+   trigger (shared code, live data, auth, tests) match the job?
+3. Log it in `CHANGELOG.md`. It counts toward the rule's reversal condition: no catches
+   over five risky jobs (portfolio entry of 2026-10-22).
+4. Delete this paragraph in the same PR.
+
 ## Skills: which method for which work
 
 | The work is about | Skill |
