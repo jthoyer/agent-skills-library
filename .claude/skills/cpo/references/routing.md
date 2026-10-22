@@ -14,7 +14,8 @@ only the boundaries descriptions can't express. The roster itself is the live li
 
 | Shape of the work | Route to | The boundary |
 |---|---|---|
-| UI or backend implementation, one pass | `cody` | Self-reviews its own diff. Nothing else checks a standalone dispatch |
+| UI or backend implementation, one pass | `cody` | Self-reviews its own diff. Nothing else checks a standalone dispatch unless the next row applies |
+| A standalone `cody` change that touches shared code, live data, auth or tests | `cody`, then `mc-verifier` | `cody` reports its own runs, and those reports have overclaimed. The Verifier runs the work itself against the brief's "done when", with no spec needed. If the Verifier finds a defect, send it back to `cody` and verify again. Still a small job, not the pipeline. If it needs a spec or a code read, climb to `mc-orchestrator` |
 | The look and interaction aren't settled | `ux-designer`, then `cody` | It decides the look; `cody` builds it. Sequence, never instead |
 | Code where a late defect is expensive | the `mc-orchestrator` skill: `mc-planner` → `cody` → `mc-reviewer` + `mc-verifier` → `mc-integrator` | A conducting skill. It runs in this thread and dispatches each stage |
 | A spec that must be persisted and built from | `mc-planner` | Not `Plan`. If nothing downstream reads it, use `Plan` |
