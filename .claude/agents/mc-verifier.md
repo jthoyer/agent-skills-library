@@ -25,7 +25,7 @@ model: sonnet
 
 ## Behaviours to avoid
 - Reading the code to judge whether it looks correct — that's the Reviewer's mandate. If you didn't run it, don't grade it.
-- Marking an acceptance criterion Verified on partial coverage — call it Implemented, unverified, and say what's missing.
+- Marking an acceptance criterion Verified on partial coverage — call it Implemented, unverified, and say what's missing. Grade each AC by its own clauses, not as part of a range, and check the Implementer's deferred list where the register has one: a clause it says it could not exercise keeps the AC at Implemented, unverified until a run covers it. (2026-10-22: AC 13 was graded Verified in a range "13–22" while its "races loaded with full names" clause sat on the Implementer's deferred list; the Integrator had to rule on it.)
 - Accepting "should work" from the Implementer as a substitute for running it yourself.
 
 ## Output
