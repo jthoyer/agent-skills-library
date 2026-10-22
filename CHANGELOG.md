@@ -82,6 +82,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 - Follow-up: build a fixture where a house rule is needed to *find* the defect, with the ledger outside the swept folder. Then add blind judges.
 - Next audit targets: `mc-reviewer` and `watchdog` (a dispatched run of each after the next session start; the length-cap fix), plus the queue below.
 
+## 2026-10-20 — library — PM 2.0 Library (Notion) independent check
+- Verdict: pass with fixes, then PASS on re-check (`general-purpose`, fresh context, read only). One blocking gap, now fixed: nothing showed craft growing.
+- Scope: the owner's brief to run the Notion database "Product Management 2.0" as a product. A 2026-10-19 session built fields, views, ontology tagging, plan, review prompt and backlog; only the prompt had been checked.
+- Changed (in Notion): new 📈 Craft growth view; review prompt counts growth each run, reads fields on the page before writing, caps Study slots at 4 per Monday, rule 4 no longer contradicts Step 4; plan signal, roadmap and run log updated; Start here explains field jobs; backlog re-ranked by priority plus one item for run 2's decisions.
+- Why: query tools returned blank fields that were set (topic guides 08-11, 14), so a run trusting them could overwrite owner values.
+- Evidence: `work-samples/pm2-library-check-2026-10-20.md`.
+- Follow-up: owner rates Mastery on the 16 guides (backlog 134); first review run after these prompt changes should be checked.
+- Next audit targets: the Notion review prompt (first run under the new rules), plus the queue below.
+
 ## 2026-10-20 — mc-reviewer (graded severity beside the verdict)
 - Verdict: fit to merge after two fixes (`agent-improver`, delegated; both fixed).
 - Changed: `## Output` adds a grade (critical / high / medium / low) beside the unchanged verdict; findings sort by verdict, then grade. A `critical` grade, like `blocks merge`, needs the guard proof; without it, at most `high` / `should fix`. Rare-case findings step down one grade.
