@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Balance Bolt Service Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap">
+</head>
+<body>
+<style>/* Layout: a classic service blueprint — swimlanes down, stages across, dashed lines of interaction, visibility and internal interaction between lanes. Lane labels stick to the left while the stages scroll. Colours and faces follow the race app. */
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --ink: #182542;
+  --muted: #566177;
+  --line: #d9dfe8;
+  --member: #f8c44f;
+  --member-bg: #fff6df;
+  --member-ink: #6b4d00;
+  --front: #0070a8;
+  --front-bg: #eaf7fc;
+  --back: #182542;
+  --back-bg: #eef2fb;
+  --support: #566177;
+  --support-bg: #f1f3f6;
+  --risk: #9a3412;
+  --risk-bg: #fdeee6;
+  --phase-bg: #182542;
+  --phase-ink: #ffffff;
+  --display: "Outfit", "DM Sans", system-ui, sans-serif;
+  --body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --lane: 112px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1626; --surface: #172036; --ink: #e8edf7; --muted: #a3aec4; --line: #2b3754;
+    --member: #f8c44f; --member-bg: #3a3017; --member-ink: #f8d77f;
+    --front: #5cc6f0; --front-bg: #12324a;
+    --back: #c9d4ee; --back-bg: #222d48;
+    --support: #a3aec4; --support-bg: #1d2740;
+    --risk: #f4a37a; --risk-bg: #3a2016;
+    --phase-bg: #2b3a5c; --phase-ink: #e8edf7;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1626; --surface: #172036; --ink: #e8edf7; --muted: #a3aec4; --line: #2b3754;
+  --member: #f8c44f; --member-bg: #3a3017; --member-ink: #f8d77f;
+  --front: #5cc6f0; --front-bg: #12324a;
+  --back: #c9d4ee; --back-bg: #222d48;
+  --support: #a3aec4; --support-bg: #1d2740;
+  --risk: #f4a37a; --risk-bg: #3a2016;
+  --phase-bg: #2b3a5c; --phase-ink: #e8edf7;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 48px;
+}
+.page { max-width: none; margin: 0 auto; display: grid; gap: 20px; min-width: 0; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4.4vw, 38px); line-height: 1.1; }
+h2 { font-size: 17px; }
+p { margin: 0; }
+header { display: grid; gap: 10px; }
+.eyebrow { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--front); }
+.lede { color: var(--muted); max-width: 70ch; }
+.legend { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.sw-member { background: var(--member); }
+.sw-front { background: var(--front); }
+.sw-back { background: var(--back); }
+.sw-support { background: var(--support); }
+.sw-risk { background: var(--risk); }
+.hint { font-size: 12px; color: var(--muted); }
+
+.scroller { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); min-width: 0; }
+.scroller:focus-visible { outline: 2px solid var(--front); outline-offset: 2px; }
+.grid { display: grid; width: 100%; min-width: 1180px; }
+.cell { padding: 8px; border-right: 1px solid var(--line); min-width: 0; display: grid; gap: 6px; align-content: start; }
+.lanehead { position: sticky; left: 0; z-index: 2; background: var(--surface); border-right: 1px solid var(--line); box-shadow: 4px 0 8px -6px rgba(24, 37, 66, .25); }
+.lanehead strong { font-family: var(--display); font-size: 14px; }
+.lanehead span { font-size: 12px; color: var(--muted); }
+.corner span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.phase { background: var(--phase-bg); color: var(--phase-ink); border-right: 2px solid var(--surface); }
+.phase strong { font-family: var(--display); font-size: 16px; }
+.phase span { font-size: 12px; opacity: .8; }
+.stage { font-family: var(--display); font-weight: 600; font-size: 13px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
+.num { width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--surface); display: inline-grid; place-items: center; font-size: 12px; font-weight: 700; flex: none; font-variant-numeric: tabular-nums; }
+
+.card { margin: 0; padding: 6px 8px; border-radius: 6px; font-size: 12px; overflow-wrap: anywhere; line-height: 1.4; }
+.k-evidence { background: var(--surface); border: 1px dashed var(--line); color: var(--ink); }
+.k-member { background: var(--member-bg); color: var(--member-ink); border-left: 3px solid var(--member); }
+.k-front { background: var(--front-bg); color: var(--ink); border-left: 3px solid var(--front); }
+.k-back { background: var(--back-bg); color: var(--ink); border-left: 3px solid var(--back); }
+.k-support { background: var(--support-bg); color: var(--ink); border-left: 3px solid var(--support); font-size: 11.5px; }
+.k-risk { background: var(--risk-bg); color: var(--ink); border-left: 3px solid var(--risk); }
+.l-member strong { color: var(--member-ink); }
+.l-front strong { color: var(--front); }
+.l-risk strong { color: var(--risk); }
+.empty { background: repeating-linear-gradient(135deg, transparent 0 8px, var(--bg) 8px 9px); }
+
+.line { position: relative; height: 22px; border-top: 2px dashed var(--line); }
+.line span { position: sticky; left: 10px; display: inline-block; margin-top: 2px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); background: var(--surface); padding: 0 6px; }
+
+.notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.notes > div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 8px; min-width: 0; }
+.notes ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--ink); }
+footer { font-size: 12px; color: var(--muted); }
+code { font-size: 12px; }
+@media (min-width: 1240px) { .hint { display: none; } }
+@media (min-width: 1700px) { .card { font-size: 13px; } .k-support { font-size: 12px; } }
+.key { display: block; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 10px; font-weight: 600; letter-spacing: .02em; color: var(--muted); margin-bottom: 2px; font-variant-numeric: tabular-nums; }
+.lanehead .key { display: inline; font-size: 11px; margin: 0; }
+.stage .sname { display: grid; line-height: 1.2; }
+.stage .key { margin: 1px 0 0; }
+.keynote { font-size: 12.5px; color: var(--muted); max-width: 90ch; }
+.keynote code { font-size: 12px; color: var(--ink); }
+.card:target, .stage:target { outline: 2px solid var(--front); outline-offset: 2px; }
+</style>
+<div class="page">
+  <header>
+    <p class="eyebrow">Balance Tri Club · Balance Bolt</p>
+    <h1>From sign-up to series standings</h1>
+    <p class="lede">How a Balance Bolt race runs, end to end. Racers call their finish time before the gun, and the winner lands closest to their own call. It shows who does what at each stage, what the app does, what sits behind it, and what can go wrong. Source: the app's README on <code>main</code>, 22 October 2026.</p>
+    <ul class="legend" aria-label="Lanes">
+      <li><i class="sw sw-member"></i>Racer</li>
+      <li><i class="sw sw-front"></i>App, in view</li>
+      <li><i class="sw sw-back"></i>Timer</li>
+      <li><i class="sw sw-support"></i>Systems</li>
+      <li><i class="sw sw-risk"></i>Watch for</li>
+    </ul>
+    <p class="keynote"><strong>Keys.</strong> Every card has a permanent key: <code>BB-04-A2</code> is stage 4, lane A (App), card 2. Lanes: E Evidence, R Racer, C Timer, A App, S Systems, W Watch for. Keys are never renumbered or reused; new cards take the next free number.</p>
+  </header>
+  <p class="hint">On a narrower screen, scroll sideways to follow the 8 stages →</p>
+  <div class="scroller" tabindex="0" aria-label="Service blueprint, 8 stages">
+    <div class="grid" style="grid-template-columns: var(--lane) repeat(8, minmax(0, 1fr));">
+      <div class="cell lanehead corner"><span>Stage</span></div><div class="cell phase" style="grid-column: span 3"><strong>Before the gun</strong><span>From an empty sheet to a start list</span></div><div class="cell phase" style="grid-column: span 3"><strong>On the line</strong><span>From the first gun to the last racer home</span></div><div class="cell phase" style="grid-column: span 2"><strong>After the gun</strong><span>From race results to series standings</span></div>
+      <div class="cell lanehead corner"></div><div class="cell stage" id="BB-01"><span class="num">1</span><span class="sname">Set up<small class="key">BB-01</small></span></div><div class="cell stage" id="BB-02"><span class="num">2</span><span class="sname">Sign up<small class="key">BB-02</small></span></div><div class="cell stage" id="BB-03"><span class="num">3</span><span class="sname">Waves<small class="key">BB-03</small></span></div><div class="cell stage" id="BB-04"><span class="num">4</span><span class="sname">Start<small class="key">BB-04</small></span></div><div class="cell stage" id="BB-05"><span class="num">5</span><span class="sname">Finish<small class="key">BB-05</small></span></div><div class="cell stage" id="BB-06"><span class="num">6</span><span class="sname">Correct<small class="key">BB-06</small></span></div><div class="cell stage" id="BB-07"><span class="num">7</span><span class="sname">Results<small class="key">BB-07</small></span></div><div class="cell stage" id="BB-08"><span class="num">8</span><span class="sname">Series<small class="key">BB-08</small></span></div>
+      <div class="cell lanehead l-evidence"><strong>Evidence <small class="key">E</small></strong><span>What people see</span></div><div class="cell c-evidence"><p class="card k-evidence" id="BB-01-E1"><span class="key">BB-01-E1</span>Admin splash: buttons to sign-up, race control and the guide</p><p class="card k-evidence" id="BB-01-E2"><span class="key">BB-01-E2</span>Pill: Local only, Synced, Saving… or Offline</p></div><div class="cell c-evidence"><p class="card k-evidence" id="BB-02-E1"><span class="key">BB-02-E1</span>Sign-up form: name, minutes, seconds</p><p class="card k-evidence" id="BB-02-E2"><span class="key">BB-02-E2</span>Confirmation of race number and wave</p><p class="card k-evidence" id="BB-02-E3"><span class="key">BB-02-E3</span>Read-only start list</p></div><div class="cell c-evidence"><p class="card k-evidence" id="BB-03-E1"><span class="key">BB-03-E1</span>Wave numbers on the start list</p><p class="card k-evidence" id="BB-03-E2"><span class="key">BB-03-E2</span>Mismatched-wave mark</p></div><div class="cell c-evidence"><p class="card k-evidence" id="BB-04-E1"><span class="key">BB-04-E1</span>Wave start button and clock per wave</p><p class="card k-evidence" id="BB-04-E2"><span class="key">BB-04-E2</span>Target-start countdown, then “Start now”</p><p class="card k-evidence" id="BB-04-E3"><span class="key">BB-04-E3</span>Race clock stuck to the top</p></div><div class="cell c-evidence"><p class="card k-evidence" id="BB-05-E1"><span class="key">BB-05-E1</span>Finish button on each row</p><p class="card k-evidence" id="BB-05-E2"><span class="key">BB-05-E2</span>Finish by name box</p><p class="card k-evidence" id="BB-05-E3"><span class="key">BB-05-E3</span>Clocks frozen on the last finish</p></div><div class="cell c-evidence"><p class="card k-evidence" id="BB-06-E1"><span class="key">BB-06-E1</span>Edit racer panel: one Save changes</p><p class="card k-evidence" id="BB-06-E2"><span class="key">BB-06-E2</span>Red DNS or DNF tag with Put back</p></div><div class="cell c-evidence"><p class="card k-evidence" id="BB-07-E1"><span class="key">BB-07-E1</span>Medal cards: gold, silver, bronze</p><p class="card k-evidence" id="BB-07-E2"><span class="key">BB-07-E2</span>Dark navy card for furthest from the call</p><p class="card k-evidence" id="BB-07-E3"><span class="key">BB-07-E3</span>Ranked table, gap in minutes and seconds</p></div><div class="cell c-evidence"><p class="card k-evidence" id="BB-08-E1"><span class="key">BB-08-E1</span>Series panel with the rule printed</p><p class="card k-evidence" id="BB-08-E2"><span class="key">BB-08-E2</span>Dropped race struck through</p></div>
+      <div class="cell lanehead l-member"><strong>Racer <small class="key">R</small></strong><span>What they do</span></div><div class="cell c-member empty" aria-label="nothing at this stage"></div><div class="cell c-member"><p class="card k-member" id="BB-02-R1"><span class="key">BB-02-R1</span>Gives a name</p><p class="card k-member" id="BB-02-R2"><span class="key">BB-02-R2</span>Calls a finish time before the gun</p></div><div class="cell c-member"><p class="card k-member" id="BB-03-R1"><span class="key">BB-03-R1</span>Learns which wave they are in</p></div><div class="cell c-member"><p class="card k-member" id="BB-04-R1"><span class="key">BB-04-R1</span>Waits for their wave</p><p class="card k-member" id="BB-04-R2"><span class="key">BB-04-R2</span>Sets off on Start now</p></div><div class="cell c-member"><p class="card k-member" id="BB-05-R1"><span class="key">BB-05-R1</span>Crosses the line</p><p class="card k-member" id="BB-05-R2"><span class="key">BB-05-R2</span>Says their name to the timer</p></div><div class="cell c-member"><p class="card k-member" id="BB-06-R1"><span class="key">BB-06-R1</span>Spots a mistyped call</p><p class="card k-member" id="BB-06-R2"><span class="key">BB-06-R2</span>Tells the timer</p></div><div class="cell c-member"><p class="card k-member" id="BB-07-R1"><span class="key">BB-07-R1</span>Finds their gap and place</p></div><div class="cell c-member"><p class="card k-member" id="BB-08-R1"><span class="key">BB-08-R1</span>Races up to five times, under the same name</p></div>
+      <div class="line" style="grid-column: 1 / span 9"><span>Line of interaction</span></div>
+      <div class="cell lanehead l-front"><strong>App <small class="key">A</small></strong><span>What the app does</span></div><div class="cell c-front"><p class="card k-front" id="BB-01-A1"><span class="key">BB-01-A1</span>Keeps the picked race on the device and in the URL (?race=2)</p><p class="card k-front" id="BB-01-A2"><span class="key">BB-01-A2</span>Index and results are independent pages</p></div><div class="cell c-front"><p class="card k-front" id="BB-02-A1"><span class="key">BB-02-A1</span>Gives the next race number within that race</p><p class="card k-front" id="BB-02-A2"><span class="key">BB-02-A2</span>Adds the racer to a wave</p></div><div class="cell c-front"><p class="card k-front" id="BB-03-A1"><span class="key">BB-03-A1</span>Groups calls within five minutes of each other</p><p class="card k-front" id="BB-03-A2"><span class="key">BB-03-A2</span>Slowest calls are Wave 1</p><p class="card k-front" id="BB-03-A3"><span class="key">BB-03-A3</span>Caps at six waves by merging close neighbours</p><p class="card k-front" id="BB-03-A4"><span class="key">BB-03-A4</span>Re-groups on every sign-up until the first gun</p></div><div class="cell c-front"><p class="card k-front" id="BB-04-A1"><span class="key">BB-04-A1</span>Freezes the waves at the first gun</p><p class="card k-front" id="BB-04-A2"><span class="key">BB-04-A2</span>Counts down the target: first gun plus the gap between median calls</p><p class="card k-front" id="BB-04-A3"><span class="key">BB-04-A3</span>Late sign-ups join the next wave on the line</p></div><div class="cell c-front"><p class="card k-front" id="BB-05-A1"><span class="key">BB-05-A1</span>Stores the finish as epoch milliseconds</p><p class="card k-front" id="BB-05-A2"><span class="key">BB-05-A2</span>Stops the race clock and every wave clock when the last racer finishes</p></div><div class="cell c-front"><p class="card k-front" id="BB-06-A1"><span class="key">BB-06-A1</span>Before the gun, a changed call re-buckets the field</p><p class="card k-front" id="BB-06-A2"><span class="key">BB-06-A2</span>After it, waves stay locked and only the measured time changes</p><p class="card k-front" id="BB-06-A3"><span class="key">BB-06-A3</span>A racer who is out holds no clock open</p></div><div class="cell c-front"><p class="card k-front" id="BB-07-A1"><span class="key">BB-07-A1</span>Ranks by gap between actual and predicted</p><p class="card k-front" id="BB-07-A2"><span class="key">BB-07-A2</span>Awards medals automatically</p><p class="card k-front" id="BB-07-A3"><span class="key">BB-07-A3</span>Furthest from the call only when more than three racers are home</p></div><div class="cell c-front"><p class="card k-front" id="BB-08-A1"><span class="key">BB-08-A1</span>Matches people by name, trimmed and case-insensitive</p><p class="card k-front" id="BB-08-A2"><span class="key">BB-08-A2</span>Counts the best four of five</p><p class="card k-front" id="BB-08-A3"><span class="key">BB-08-A3</span>Needs four finishes to qualify</p><p class="card k-front" id="BB-08-A4"><span class="key">BB-08-A4</span>Grand prize and Most consistent</p></div>
+      <div class="cell lanehead l-back"><strong>Timer <small class="key">C</small></strong><span>What race control does</span></div><div class="cell c-back"><p class="card k-back" id="BB-01-C1"><span class="key">BB-01-C1</span>Opens admin.html</p><p class="card k-back" id="BB-01-C2"><span class="key">BB-01-C2</span>Picks Race 1–5 on boltresults.html</p><p class="card k-back" id="BB-01-C3"><span class="key">BB-01-C3</span>Pastes apps-script.gs and deploys it</p></div><div class="cell c-back"><p class="card k-back" id="BB-02-C1"><span class="key">BB-02-C1</span>Hands the phone round at sign-up</p><p class="card k-back" id="BB-02-C2"><span class="key">BB-02-C2</span>Watches the list grow</p></div><div class="cell c-back"><p class="card k-back" id="BB-03-C1"><span class="key">BB-03-C1</span>Sets a wave by hand, or hands it back to Auto</p></div><div class="cell c-back"><p class="card k-back" id="BB-04-C1"><span class="key">BB-04-C1</span>Presses each wave&#x27;s start button</p><p class="card k-back" id="BB-04-C2"><span class="key">BB-04-C2</span>Nudges a target −30s or +30s</p><p class="card k-back" id="BB-04-C3"><span class="key">BB-04-C3</span>Starts a wave on Start now</p></div><div class="cell c-back"><p class="card k-back" id="BB-05-C1"><span class="key">BB-05-C1</span>Stops each racer&#x27;s clock</p><p class="card k-back" id="BB-05-C2"><span class="key">BB-05-C2</span>Types a name into Finish by name</p><p class="card k-back" id="BB-05-C3"><span class="key">BB-05-C3</span>Undoes a finish if needed</p></div><div class="cell c-back"><p class="card k-back" id="BB-06-C1"><span class="key">BB-06-C1</span>Fixes a call in Edit racer</p><p class="card k-back" id="BB-06-C2"><span class="key">BB-06-C2</span>Marks DNS before the wave starts, DNF after</p><p class="card k-back" id="BB-06-C3"><span class="key">BB-06-C3</span>Puts someone back</p></div><div class="cell c-back"><p class="card k-back" id="BB-07-C1"><span class="key">BB-07-C1</span>Awards adhoc prizes</p><p class="card k-back" id="BB-07-C2"><span class="key">BB-07-C2</span>Clears times or wipes a race if needed</p></div><div class="cell c-back"><p class="card k-back" id="BB-08-C1"><span class="key">BB-08-C1</span>Reads out the standings</p></div>
+      <div class="line" style="grid-column: 1 / span 9"><span>Line of internal interaction</span></div>
+      <div class="cell lanehead l-support"><strong>Systems <small class="key">S</small></strong><span>What sits behind</span></div><div class="cell c-support"><p class="card k-support" id="BB-01-S1"><span class="key">BB-01-S1</span>core.js: API_URL at the top</p><p class="card k-support" id="BB-01-S2"><span class="key">BB-01-S2</span>Local storage by default</p></div><div class="cell c-support"><p class="card k-support" id="BB-02-S1"><span class="key">BB-02-S1</span>Racers tab, scoped by a race column</p><p class="card k-support" id="BB-02-S2"><span class="key">BB-02-S2</span>Outbox queues actions while offline</p></div><div class="cell c-support"><p class="card k-support" id="BB-03-S1"><span class="key">BB-03-S1</span>Waves tab</p><p class="card k-support" id="BB-03-S2"><span class="key">BB-03-S2</span>waveOverride column on Racers</p></div><div class="cell c-support"><p class="card k-support" id="BB-04-S1"><span class="key">BB-04-S1</span>Meta tab: nudge:&lt;race&gt;:&lt;wave&gt;</p><p class="card k-support" id="BB-04-S2"><span class="key">BB-04-S2</span>Times captured on the device</p></div><div class="cell c-support"><p class="card k-support" id="BB-05-S1"><span class="key">BB-05-S1</span>Outbox sends queued finishes when signal returns</p></div><div class="cell c-support"><p class="card k-support" id="BB-06-S1"><span class="key">BB-06-S1</span>status and statusNote columns on Racers</p><p class="card k-support" id="BB-06-S2"><span class="key">BB-06-S2</span>setStatus action in apps-script.gs</p></div><div class="cell c-support"><p class="card k-support" id="BB-07-S1"><span class="key">BB-07-S1</span>Prizes tab, scoped by race</p><p class="card k-support" id="BB-07-S2"><span class="key">BB-07-S2</span>Results computed to the millisecond, shown to the second</p></div><div class="cell c-support"><p class="card k-support" id="BB-08-S1"><span class="key">BB-08-S1</span>Series computed across all five races</p><p class="card k-support" id="BB-08-S2"><span class="key">BB-08-S2</span>Old single-race data loads into Race 1</p></div>
+      <div class="cell lanehead l-risk"><strong>Watch for <small class="key">W</small></strong><span>What can go wrong</span></div><div class="cell c-risk"><p class="card k-risk" id="BB-01-W1"><span class="key">BB-01-W1</span>Update the script as a New version, or the /exec URL changes</p></div><div class="cell c-risk"><p class="card k-risk" id="BB-02-W1"><span class="key">BB-02-W1</span>Two people spelling a name differently split one racer in two</p></div><div class="cell c-risk"><p class="card k-risk" id="BB-03-W1"><span class="key">BB-03-W1</span>Hand-set waves survive Clear times</p></div><div class="cell c-risk"><p class="card k-risk" id="BB-04-W1"><span class="key">BB-04-W1</span>Two phones nudging at once: the last to reach the sheet wins</p></div><div class="cell c-risk"><p class="card k-risk" id="BB-05-W1"><span class="key">BB-05-W1</span>Phones with different clocks give times a few seconds apart; start and finish from one device</p></div><div class="cell c-risk"><p class="card k-risk" id="BB-06-W1"><span class="key">BB-06-W1</span>Paste the new script before anyone marks a DNS or DNF</p></div><div class="cell c-risk"><p class="card k-risk" id="BB-07-W1"><span class="key">BB-07-W1</span>Per-race prizes ignore series eligibility, so one-off racers can win on the day</p><p class="card k-risk" id="BB-07-W2"><span class="key">BB-07-W2</span>Clear times sets a DNF back to racing and drops every nudge; a DNS stands</p></div><div class="cell c-risk"><p class="card k-risk" id="BB-08-W1"><span class="key">BB-08-W1</span>Best-four means the dropped race still shows, which racers will ask about</p></div>
+    </div>
+  </div>
+  <section class="notes">
+    <div>
+      <h2>Three things that hold it together</h2>
+      <ul>
+        <li><strong>The call is the whole game.</strong> Speed does not matter. Everyone is ranked by the gap between actual and predicted time, over or under.</li>
+        <li><strong>Waves freeze at the first gun.</strong> Until then the field regroups on every sign-up. After it, only the measured time can change.</li>
+        <li><strong>A time is never lost.</strong> Starts and finishes are stamped on the device, and an outbox holds them until the signal returns.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Gaps worth a look</h2>
+      <ul>
+        <li>The sign-up page and the timing page do not link to each other, so only admin.html connects them.</li>
+        <li>Two phones nudging a wave at once means the last write wins.</li>
+        <li>Device clocks must agree, or finish times drift by seconds.</li>
+        <li>Name matching is the only identity across the series, so a typo splits a racer.</li>
+      </ul>
+    </div>
+  </section>
+  <footer>Sources: the Balance Bolt README on <code>main</code>, 22 October 2026. Page and file names are the app's own, kept so the team can trace each step.</footer>
+</div>
+
+</body>
+</html>
