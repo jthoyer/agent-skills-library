@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Race App Service Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap">
+</head>
+<body>
+<style>/* Layout: a classic service blueprint — swimlanes down, stages across, dashed lines of interaction, visibility and internal interaction between lanes. Lane labels stick to the left while the stages scroll. Colours and faces follow the race app. */
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --ink: #182542;
+  --muted: #566177;
+  --line: #d9dfe8;
+  --member: #f8c44f;
+  --member-bg: #fff6df;
+  --member-ink: #6b4d00;
+  --front: #0070a8;
+  --front-bg: #eaf7fc;
+  --back: #182542;
+  --back-bg: #eef2fb;
+  --support: #566177;
+  --support-bg: #f1f3f6;
+  --risk: #9a3412;
+  --risk-bg: #fdeee6;
+  --phase-bg: #182542;
+  --phase-ink: #ffffff;
+  --display: "Outfit", "DM Sans", system-ui, sans-serif;
+  --body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --lane: 112px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1626; --surface: #172036; --ink: #e8edf7; --muted: #a3aec4; --line: #2b3754;
+    --member: #f8c44f; --member-bg: #3a3017; --member-ink: #f8d77f;
+    --front: #5cc6f0; --front-bg: #12324a;
+    --back: #c9d4ee; --back-bg: #222d48;
+    --support: #a3aec4; --support-bg: #1d2740;
+    --risk: #f4a37a; --risk-bg: #3a2016;
+    --phase-bg: #2b3a5c; --phase-ink: #e8edf7;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1626; --surface: #172036; --ink: #e8edf7; --muted: #a3aec4; --line: #2b3754;
+  --member: #f8c44f; --member-bg: #3a3017; --member-ink: #f8d77f;
+  --front: #5cc6f0; --front-bg: #12324a;
+  --back: #c9d4ee; --back-bg: #222d48;
+  --support: #a3aec4; --support-bg: #1d2740;
+  --risk: #f4a37a; --risk-bg: #3a2016;
+  --phase-bg: #2b3a5c; --phase-ink: #e8edf7;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 48px;
+}
+.page { max-width: none; margin: 0 auto; display: grid; gap: 20px; min-width: 0; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4.4vw, 38px); line-height: 1.1; }
+h2 { font-size: 17px; }
+p { margin: 0; }
+header { display: grid; gap: 10px; }
+.eyebrow { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--front); }
+.lede { color: var(--muted); max-width: 70ch; }
+.legend { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.sw-member { background: var(--member); }
+.sw-front { background: var(--front); }
+.sw-back { background: var(--back); }
+.sw-support { background: var(--support); }
+.sw-risk { background: var(--risk); }
+.hint { font-size: 12px; color: var(--muted); }
+
+.scroller { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); min-width: 0; }
+.scroller:focus-visible { outline: 2px solid var(--front); outline-offset: 2px; }
+.grid { display: grid; width: 100%; min-width: 1180px; }
+.cell { padding: 8px; border-right: 1px solid var(--line); min-width: 0; display: grid; gap: 6px; align-content: start; }
+.lanehead { position: sticky; left: 0; z-index: 2; background: var(--surface); border-right: 1px solid var(--line); box-shadow: 4px 0 8px -6px rgba(24, 37, 66, .25); }
+.lanehead strong { font-family: var(--display); font-size: 14px; }
+.lanehead span { font-size: 12px; color: var(--muted); }
+.corner span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.phase { background: var(--phase-bg); color: var(--phase-ink); border-right: 2px solid var(--surface); }
+.phase strong { font-family: var(--display); font-size: 16px; }
+.phase span { font-size: 12px; opacity: .8; }
+.stage { font-family: var(--display); font-weight: 600; font-size: 13px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
+.num { width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--surface); display: inline-grid; place-items: center; font-size: 12px; font-weight: 700; flex: none; font-variant-numeric: tabular-nums; }
+
+.card { margin: 0; padding: 6px 8px; border-radius: 6px; font-size: 12px; overflow-wrap: anywhere; line-height: 1.4; }
+.k-evidence { background: var(--surface); border: 1px dashed var(--line); color: var(--ink); }
+.k-member { background: var(--member-bg); color: var(--member-ink); border-left: 3px solid var(--member); }
+.k-front { background: var(--front-bg); color: var(--ink); border-left: 3px solid var(--front); }
+.k-back { background: var(--back-bg); color: var(--ink); border-left: 3px solid var(--back); }
+.k-support { background: var(--support-bg); color: var(--ink); border-left: 3px solid var(--support); font-size: 11.5px; }
+.k-risk { background: var(--risk-bg); color: var(--ink); border-left: 3px solid var(--risk); }
+.l-member strong { color: var(--member-ink); }
+.l-front strong { color: var(--front); }
+.l-risk strong { color: var(--risk); }
+.empty { background: repeating-linear-gradient(135deg, transparent 0 8px, var(--bg) 8px 9px); }
+
+.line { position: relative; height: 22px; border-top: 2px dashed var(--line); }
+.line span { position: sticky; left: 10px; display: inline-block; margin-top: 2px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); background: var(--surface); padding: 0 6px; }
+
+.notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.notes > div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 8px; min-width: 0; }
+.notes ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--ink); }
+footer { font-size: 12px; color: var(--muted); }
+code { font-size: 12px; }
+@media (min-width: 1240px) { .hint { display: none; } }
+@media (min-width: 1700px) { .card { font-size: 13px; } .k-support { font-size: 12px; } }
+.key { display: block; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 10px; font-weight: 600; letter-spacing: .02em; color: var(--muted); margin-bottom: 2px; font-variant-numeric: tabular-nums; }
+.lanehead .key { display: inline; font-size: 11px; margin: 0; }
+.stage .sname { display: grid; line-height: 1.2; }
+.stage .key { margin: 1px 0 0; }
+.keynote { font-size: 12.5px; color: var(--muted); max-width: 90ch; }
+.keynote code { font-size: 12px; color: var(--ink); }
+.card:target, .stage:target { outline: 2px solid var(--front); outline-offset: 2px; }
+</style>
+<div class="page">
+  <header>
+    <p class="eyebrow">Balance Tri Club · race calendar</p>
+    <h1>From joining to race results</h1>
+    <p class="lede">The member's path through the race app, end to end. It runs from a first visit to a posted race result, with what the app, the club admin and the systems behind them do at each step. It shows the app as it runs on 22 October 2026, after owner-only commitments went live.</p>
+    <ul class="legend" aria-label="Lanes">
+      <li><i class="sw sw-member"></i>Member</li>
+      <li><i class="sw sw-front"></i>App, in view</li>
+      <li><i class="sw sw-back"></i>Club admin</li>
+      <li><i class="sw sw-support"></i>Systems</li>
+      <li><i class="sw sw-risk"></i>Watch for</li>
+    </ul>
+    <p class="keynote"><strong>Keys.</strong> Every card has a permanent key: <code>RB-06-A2</code> is stage 6, lane A (App), card 2. Lanes: E Evidence, M Member, A App, C Club admin, S Systems, W Watch for. Cite a key in the backlog, or add it to this page's link after a <code>#</code> to jump to the card. Keys are never renumbered or reused; new cards take the next free number.</p>
+  </header>
+  <p class="hint">On a narrower screen, scroll sideways to follow the 10 stages →</p>
+  <div class="scroller" tabindex="0" aria-label="Service blueprint, 10 stages">
+    <div class="grid" style="grid-template-columns: var(--lane) repeat(10, minmax(0, 1fr));">
+      <div class="cell lanehead corner"><span>Stage</span></div><div class="cell phase" style="grid-column: span 4"><strong>Join</strong><span>From a visitor to an approved member</span></div><div class="cell phase" style="grid-column: span 3"><strong>Plan</strong><span>From first sign-in to a planned race</span></div><div class="cell phase" style="grid-column: span 3"><strong>Race</strong><span>From race day to club results</span></div><div class="cell lanehead corner"></div><div class="cell stage" id="RB-01"><span class="num">1</span><span class="sname">Discover<small class="key">RB-01</small></span></div><div class="cell stage" id="RB-02"><span class="num">2</span><span class="sname">Join<small class="key">RB-02</small></span></div><div class="cell stage" id="RB-03"><span class="num">3</span><span class="sname">Wait<small class="key">RB-03</small></span></div><div class="cell stage" id="RB-04"><span class="num">4</span><span class="sname">Approve<small class="key">RB-04</small></span></div><div class="cell stage" id="RB-05"><span class="num">5</span><span class="sname">Sign in<small class="key">RB-05</small></span></div><div class="cell stage" id="RB-06"><span class="num">6</span><span class="sname">Pick your races<small class="key">RB-06</small></span></div><div class="cell stage" id="RB-07"><span class="num">7</span><span class="sname">Plan the race<small class="key">RB-07</small></span></div><div class="cell stage" id="RB-08"><span class="num">8</span><span class="sname">Race day<small class="key">RB-08</small></span></div><div class="cell stage" id="RB-09"><span class="num">9</span><span class="sname">Add result<small class="key">RB-09</small></span></div><div class="cell stage" id="RB-10"><span class="num">10</span><span class="sname">Club results<small class="key">RB-10</small></span></div><div class="cell lanehead l-evidence"><strong>Evidence <small class="key">E</small></strong><span>What the member sees</span></div><div class="cell c-evidence"><p class="card k-evidence" id="RB-01-E1"><span class="key">RB-01-E1</span>Calendar of races</p><p class="card k-evidence" id="RB-01-E2"><span class="key">RB-01-E2</span>Cards show counts: committed, locked in</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RB-02-E1"><span class="key">RB-02-E1</span>Join form</p><p class="card k-evidence" id="RB-02-E2"><span class="key">RB-02-E2</span>Email shown back before submit</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RB-03-E1"><span class="key">RB-03-E1</span>Banner: “Your account is waiting for the club admin to approve it”</p><p class="card k-evidence" id="RB-03-E2"><span class="key">RB-03-E2</span>Save buttons turned off</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RB-04-E1"><span class="key">RB-04-E1</span>Nothing yet: the member sees the change on their next load</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RB-05-E1"><span class="key">RB-05-E1</span>Sign-in sheet</p><p class="card k-evidence" id="RB-05-E2"><span class="key">RB-05-E2</span>“Forgot your password? Ask the club admin.”</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RB-06-E1"><span class="key">RB-06-E1</span>“Pick your races” sheet</p><p class="card k-evidence" id="RB-06-E2"><span class="key">RB-06-E2</span>“Commitments will use your name”</p><p class="card k-evidence" id="RB-06-E3"><span class="key">RB-06-E3</span>“Not you? Tell an admin”</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RB-07-E1"><span class="key">RB-07-E1</span>Race card: Club commitments and Your commitment</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RB-08-E1"><span class="key">RB-08-E1</span>Card swaps Club commitments for Club results</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RB-09-E1"><span class="key">RB-09-E1</span>Reminder card for 14 days if locked in with no result</p><p class="card k-evidence" id="RB-09-E2"><span class="key">RB-09-E2</span>Result form</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RB-10-E1"><span class="key">RB-10-E1</span>Results list: fastest first, then DNF, DNS, no result</p><p class="card k-evidence" id="RB-10-E2"><span class="key">RB-10-E2</span>Places and PBs beside each name</p></div><div class="cell lanehead l-member"><strong>Member <small class="key">M</small></strong><span>What they do</span></div><div class="cell c-member"><p class="card k-member" id="RB-01-M1"><span class="key">RB-01-M1</span>Browses the calendar</p><p class="card k-member" id="RB-01-M2"><span class="key">RB-01-M2</span>Taps Join</p></div><div class="cell c-member"><p class="card k-member" id="RB-02-M1"><span class="key">RB-02-M1</span>Enters email, password, display name</p><p class="card k-member" id="RB-02-M2"><span class="key">RB-02-M2</span>Adds an optional note</p></div><div class="cell c-member"><p class="card k-member" id="RB-03-M1"><span class="key">RB-03-M1</span>Keeps browsing</p><p class="card k-member" id="RB-03-M2"><span class="key">RB-03-M2</span>Waits</p></div><div class="cell c-member empty" aria-label="nothing at this stage"></div><div class="cell c-member"><p class="card k-member" id="RB-05-M1"><span class="key">RB-05-M1</span>Signs in with email and password</p></div><div class="cell c-member"><p class="card k-member" id="RB-06-M1"><span class="key">RB-06-M1</span>Ticks the races they&#x27;re in</p><p class="card k-member" id="RB-06-M2"><span class="key">RB-06-M2</span>Saves, or skips</p></div><div class="cell c-member"><p class="card k-member" id="RB-07-M1"><span class="key">RB-07-M1</span>Sets level: Considering, Planning or Locked in</p><p class="card k-member" id="RB-07-M2"><span class="key">RB-07-M2</span>Chooses events</p></div><div class="cell c-member"><p class="card k-member" id="RB-08-M1"><span class="key">RB-08-M1</span>Races</p></div><div class="cell c-member"><p class="card k-member" id="RB-09-M1"><span class="key">RB-09-M1</span>Picks Finished, DNF or DNS</p><p class="card k-member" id="RB-09-M2"><span class="key">RB-09-M2</span>Types a time like 1:23:45</p><p class="card k-member" id="RB-09-M3"><span class="key">RB-09-M3</span>Adds places, PB and a note</p></div><div class="cell c-member"><p class="card k-member" id="RB-10-M1"><span class="key">RB-10-M1</span>Reads the results</p><p class="card k-member" id="RB-10-M2"><span class="key">RB-10-M2</span>Edits or removes their own</p></div><div class="line" style="grid-column: 1 / span 11"><span>Line of interaction</span></div><div class="cell lanehead l-front"><strong>App <small class="key">A</small></strong><span>What the app does in view</span></div><div class="cell c-front"><p class="card k-front" id="RB-01-A1"><span class="key">RB-01-A1</span>Shows every race to everyone</p><p class="card k-front" id="RB-01-A2"><span class="key">RB-01-A2</span>Hides names from visitors</p><p class="card k-front" id="RB-01-A3"><span class="key">RB-01-A3</span>Offers Sign in, Join or View Calendar once a visit</p></div><div class="cell c-front"><p class="card k-front" id="RB-02-A1"><span class="key">RB-02-A1</span>Password 12–72 characters, not one of 10,000 common ones</p><p class="card k-front" id="RB-02-A2"><span class="key">RB-02-A2</span>Bot check (hCaptcha)</p><p class="card k-front" id="RB-02-A3"><span class="key">RB-02-A3</span>Creates the account, then the request</p></div><div class="cell c-front"><p class="card k-front" id="RB-03-A1"><span class="key">RB-03-A1</span>Reads status: pending</p><p class="card k-front" id="RB-03-A2"><span class="key">RB-03-A2</span>Write buttons stay off</p></div><div class="cell c-front empty" aria-label="nothing at this stage"></div><div class="cell c-front"><p class="card k-front" id="RB-05-A1"><span class="key">RB-05-A1</span>Password sign-in with the bot check</p><p class="card k-front" id="RB-05-A2"><span class="key">RB-05-A2</span>Status: approved</p></div><div class="cell c-front"><p class="card k-front" id="RB-06-A1"><span class="key">RB-06-A1</span>Lists races after today, Sydney time, no Balance Bolt</p><p class="card k-front" id="RB-06-A2"><span class="key">RB-06-A2</span>One save per ticked race: own name, Considering, no event</p><p class="card k-front" id="RB-06-A3"><span class="key">RB-06-A3</span>Names any race that didn&#x27;t save, and keeps it ticked</p><p class="card k-front" id="RB-06-A4"><span class="key">RB-06-A4</span>Shown once per device; Menu reopens it</p></div><div class="cell c-front"><p class="card k-front" id="RB-07-A1"><span class="key">RB-07-A1</span>Edit and Remove only on your own row</p><p class="card k-front" id="RB-07-A2"><span class="key">RB-07-A2</span>A refused change gets a plain message</p></div><div class="cell c-front"><p class="card k-front" id="RB-08-A1"><span class="key">RB-08-A1</span>Results open on the race date, Sydney time</p><p class="card k-front" id="RB-08-A2"><span class="key">RB-08-A2</span>Never on Balance Bolt races</p></div><div class="cell c-front"><p class="card k-front" id="RB-09-A1"><span class="key">RB-09-A1</span>Add my time, I didn&#x27;t start, or Later</p><p class="card k-front" id="RB-09-A2"><span class="key">RB-09-A2</span>Save result, then “Result saved.”</p></div><div class="cell c-front"><p class="card k-front" id="RB-10-A1"><span class="key">RB-10-A1</span>Results shown to approved members only</p></div><div class="line" style="grid-column: 1 / span 11"><span>Line of visibility</span></div><div class="cell lanehead l-back"><strong>Club admin <small class="key">C</small></strong><span>Behind the scenes</span></div><div class="cell c-back empty" aria-label="nothing at this stage"></div><div class="cell c-back empty" aria-label="nothing at this stage"></div><div class="cell c-back"><p class="card k-back" id="RB-03-C1"><span class="key">RB-03-C1</span>Telegram message to the admin: name and a console link</p></div><div class="cell c-back"><p class="card k-back" id="RB-04-C1"><span class="key">RB-04-C1</span>Signs into the console with password and authenticator code</p><p class="card k-back" id="RB-04-C2"><span class="key">RB-04-C2</span>Requests panel: Approve or Reject, with an admin-only reason</p><p class="card k-back" id="RB-04-C3"><span class="key">RB-04-C3</span>Batch approve up to 50</p></div><div class="cell c-back"><p class="card k-back" id="RB-05-C1"><span class="key">RB-05-C1</span>Resets a password from the console</p><p class="card k-back" id="RB-05-C2"><span class="key">RB-05-C2</span>Temporary password shown once, valid 7 days</p></div><div class="cell c-back empty" aria-label="nothing at this stage"></div><div class="cell c-back"><p class="card k-back" id="RB-07-C1"><span class="key">RB-07-C1</span>Admin with two-factor can fix any commitment</p><p class="card k-back" id="RB-07-C2"><span class="key">RB-07-C2</span>Activity feed with Undo</p></div><div class="cell c-back empty" aria-label="nothing at this stage"></div><div class="cell c-back"><p class="card k-back" id="RB-09-C1"><span class="key">RB-09-C1</span>Admin can save or remove any member&#x27;s result</p></div><div class="cell c-back"><p class="card k-back" id="RB-10-C1"><span class="key">RB-10-C1</span>Result changes show in the activity feed</p></div><div class="line" style="grid-column: 1 / span 11"><span>Line of internal interaction</span></div><div class="cell lanehead l-support"><strong>Systems <small class="key">S</small></strong><span>Supabase, rules, Telegram</span></div><div class="cell c-support"><p class="card k-support" id="RB-01-S1"><span class="key">RB-01-S1</span>public_race_counts() gives counts only</p><p class="card k-support" id="RB-01-S2"><span class="key">RB-01-S2</span>Commitments readable by approved members only</p></div><div class="cell c-support"><p class="card k-support" id="RB-02-S1"><span class="key">RB-02-S1</span>Supabase Auth account</p><p class="card k-support" id="RB-02-S2"><span class="key">RB-02-S2</span>request_access() saves the name and a pending request</p><p class="card k-support" id="RB-02-S3"><span class="key">RB-02-S3</span>Name rules: 2–40 characters, one alphabet, no blank letters, unique</p></div><div class="cell c-support"><p class="card k-support" id="RB-03-S1"><span class="key">RB-03-S1</span>Request trigger calls the notifier</p><p class="card k-support" id="RB-03-S2"><span class="key">RB-03-S2</span>At most 20 alerts a day, Sydney time</p></div><div class="cell c-support"><p class="card k-support" id="RB-04-S1"><span class="key">RB-04-S1</span>admin_decide_request() moves the request and the allow-list together</p><p class="card k-support" id="RB-04-S2"><span class="key">RB-04-S2</span>Every decision logged in admin_actions</p></div><div class="cell c-support"><p class="card k-support" id="RB-05-S1"><span class="key">RB-05-S1</span>Allow-list checks a confirmed email from Auth</p></div><div class="cell c-support"><p class="card k-support" id="RB-06-S1"><span class="key">RB-06-S1</span>Insert rule: approved member, own display name only</p><p class="card k-support" id="RB-06-S2"><span class="key">RB-06-S2</span>Owner stamped on every new commitment</p><p class="card k-support" id="RB-06-S3"><span class="key">RB-06-S3</span>Bulk guard: 5 rows a request</p></div><div class="cell c-support"><p class="card k-support" id="RB-07-S1"><span class="key">RB-07-S1</span>Update and remove: owner or two-factor admin (can_change_entry)</p><p class="card k-support" id="RB-07-S2"><span class="key">RB-07-S2</span>Every change copied to change_history</p></div><div class="cell c-support"><p class="card k-support" id="RB-08-S1"><span class="key">RB-08-S1</span>can_write_result(): live race, dated today or earlier, not Bolt, owner or admin</p></div><div class="cell c-support"><p class="card k-support" id="RB-09-S1"><span class="key">RB-09-S1</span>One result per commitment</p><p class="card k-support" id="RB-09-S2"><span class="key">RB-09-S2</span>Finish time 1 second to 48 hours; places for finishers only</p><p class="card k-support" id="RB-09-S3"><span class="key">RB-09-S3</span>Owner is whoever made the commitment</p></div><div class="cell c-support"><p class="card k-support" id="RB-10-S1"><span class="key">RB-10-S1</span>Copied to change_history</p></div><div class="cell lanehead l-risk"><strong>Watch for <small class="key">W</small></strong><span>Fail points and limits</span></div><div class="cell c-risk"><p class="card k-risk" id="RB-01-W1"><span class="key">RB-01-W1</span>Visitors can&#x27;t see who is going. That&#x27;s by design.</p></div><div class="cell c-risk"><p class="card k-risk" id="RB-02-W1"><span class="key">RB-02-W1</span>Nothing is emailed, so a typo in the address can&#x27;t be caught later</p><p class="card k-risk" id="RB-02-W2"><span class="key">RB-02-W2</span>A name clash sends them back to the name step</p></div><div class="cell c-risk"><p class="card k-risk" id="RB-03-W1"><span class="key">RB-03-W1</span>If Telegram fails, the console marks “notification not sent”</p><p class="card k-risk" id="RB-03-W2"><span class="key">RB-03-W2</span>The pending count is the backstop</p></div><div class="cell c-risk"><p class="card k-risk" id="RB-04-W1"><span class="key">RB-04-W1</span>Rejected or removed accounts are signed out with a message</p></div><div class="cell c-risk"><p class="card k-risk" id="RB-05-W1"><span class="key">RB-05-W1</span>A temporary password forces a new one, and the step can&#x27;t be closed</p></div><div class="cell c-risk"><p class="card k-risk" id="RB-06-W1"><span class="key">RB-06-W1</span>Skipped on one device, it can show again on another, only while they have no commitments</p></div><div class="cell c-risk empty" aria-label="nothing at this stage"></div><div class="cell c-risk"><p class="card k-risk" id="RB-08-W1"><span class="key">RB-08-W1</span>Not on the roster: “If you raced, add yourself, then record your result.”</p></div><div class="cell c-risk"><p class="card k-risk" id="RB-09-W1"><span class="key">RB-09-W1</span>“Later” hides the card on that device only</p></div><div class="cell c-risk"><p class="card k-risk" id="RB-10-W1"><span class="key">RB-10-W1</span>Admin Undo doesn&#x27;t cover results</p></div>
+    </div>
+  </div>
+  <section class="notes">
+    <div>
+      <h2>Three things that hold it together</h2>
+      <ul>
+        <li><strong>The allow-list is the only door.</strong> A request never grants anything by itself. Approval adds the address to the allow-list, and every save checks it.</li>
+        <li><strong>Every commitment has an owner.</strong> All commitments were cleared on 22 October 2026, and each new one is stamped with whoever made it. Only that member, or an admin with two-factor, can change it or its result.</li>
+        <li><strong>Race day is Sydney time.</strong> Pick your races starts after today, and results open on the race date, both by the club's clock and not the phone's.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Gaps worth a look</h2>
+      <ul>
+        <li>Nothing is emailed to members, so a mistyped address is never caught by the member.</li>
+        <li>The race list on the calendar still uses the phone's date, not Sydney's.</li>
+        <li>Admin Undo covers commitments and races, not results.</li>
+        <li>"Shown once" and "Later" are remembered per device, so a second device can show them again.</li>
+      </ul>
+    </div>
+  </section>
+  <footer>Sources: the app's README, guide and code on <code>main</code>, 22 October 2026. Function names are the database's own, kept so the team can trace each step.</footer>
+</div>
+
+</body>
+</html>
