@@ -70,6 +70,18 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-22 — library — portfolio: a checker after standalone `cody`, no new agent
+- Decision: no new "counterpart" agent for `cody`. Routing rule added instead: a standalone `cody` change that touches shared code, live data, auth or tests is followed by `mc-verifier`. `mc-verifier` runs the work against the brief's "done when"; a defect goes back to `cody`, then gets verified again. `cpo`, routing authority (unaided), after the owner said yes. Reduced independence: the same thread conducted the run the evidence comes from.
+- Changed: `.claude/skills/cpo/references/routing.md` (new row; the `cody` row points to it). `.claude/agents/cody.md` step 4 notes the new check, and that `cody` must not rely on it.
+- Evidence: the 2026-10-22 pipeline entry below.
+  - Every `cody` overclaim in that run (a false mutation claim, two regressions introduced by a fix, "0 FAIL" from one flaky run) was caught by `mc-reviewer` or `mc-verifier`, never by `cody`'s self-review.
+  - Outside the pipeline, nothing would have caught them.
+- Rejected:
+  - A new checker agent. It would duplicate `mc-verifier`: same tools, same independence, same grading words. The portfolio rules count that as a duplicate.
+  - Always running the full pipeline. Too heavy for one-pass work.
+- Reverses if: two runs where `mc-verifier` cannot check the kind of work `cody` did (accessibility, visual states, a device-only target), or where the extra dispatch catches nothing over five risky standalone jobs.
+- Next audit targets: the first standalone `cody` → `mc-verifier` pair (did the Verifier find anything `cody`'s report missed?), plus the queue below.
+
 ## 2026-10-22 — coding pipeline, first full run on a live app (BalanceTRI-app onboarding) — 6 agents
 - Verdict: the pipeline caught what mattered. Across 3 fix rounds it found 13 defects or gaps, and none reached the merge. Weakest link: `cody`'s reports overclaimed. `agent-improver`, delegated; the main thread chose the samples.
 - Run: `cpo` → `mc-orchestrator`, every actor delegated. It merged as jthoyer/BalanceTRI-app#118; the migrations went live the same day and were synced in #119. Evidence: `work-samples/*-2026-10-22.md` (briefs and reports verbatim) and `work-samples/mc-orchestrator-2026-10-22-registers.md` (decisions D1–D14).
