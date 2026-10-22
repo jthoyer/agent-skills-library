@@ -29,6 +29,37 @@ Already in a session without the library? Ask Claude to attach `jthoyer/agent-sk
 It adds the repo, clones it, and registers it; the agents and skills should load on the next
 turn. Not yet tested end to end (2026-10-18): if they don't, start a fresh session with both.
 
+## Keys: cite them in commits and pull requests
+
+Two kinds of key point at the same work. Cite them so a commit leads back to its backlog
+item or blueprint card.
+
+**Backlog keys** are on every item in the Notion Product backlog, in the `Key` column.
+Format: product prefix, a dash, three digits. Example: `BT-017`.
+
+| Prefix | Product |
+|---|---|
+| `ASL` | Agent & Skills Library |
+| `BT` | BalanceTRI-app |
+| `BB` | Balance Bolt |
+| `CF` | CLACFridays-app |
+| `TM` | Tri-Momentum-app |
+| `PM` | PM 2.0 Library |
+| `GEN` | No single product |
+
+**Blueprint card keys** are on every card in `project-blueprints/`. Format:
+`BB-<stage>-<lane><number>`. Example: `BB-04-A2`. `BB-` here means a Balance Bolt blueprint
+card, not a backlog item: a backlog key has three digits and no lane letter, so the two
+never clash. The BalanceTRI blueprint uses `RB-`.
+
+Rules for both:
+
+- A key is permanent. Never renumber it. Never reuse a retired one.
+- A new item takes the next free number for its product (or stage and lane).
+- A new product takes a new prefix. Add it to this table and to the `Product Name` options
+  in the backlog.
+- Cite the key in the commit message or pull request title, for example `BT-017: escape names`.
+
 ## Where truth lives
 
 | What | Where |
