@@ -70,6 +70,29 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-22 — coding pipeline, first full run on a live app (BalanceTRI-app onboarding) — 6 agents
+- Verdict: the pipeline caught what mattered. Across 3 fix rounds it found 13 defects or gaps, and none reached the merge. Weakest link: `cody`'s reports overclaimed. `agent-improver`, delegated; the main thread chose the samples.
+- Run: `cpo` → `mc-orchestrator`, every actor delegated. It merged as jthoyer/BalanceTRI-app#118; the migrations went live the same day and were synced in #119. Evidence: `work-samples/*-2026-10-22.md` (briefs and reports verbatim) and `work-samples/mc-orchestrator-2026-10-22-registers.md` (decisions D1–D14).
+- Applied (High):
+  - `cody`: break a compound guard one condition at a time; a fix must be checked against every trigger and event it fires; run a timing-dependent suite at least 3 times.
+  - `mc-reviewer`: a medium that breaks an AC blocks merge; a cut order for word caps, with the coverage close cut last.
+  - `mc-verifier`: grade each AC by its own clauses and read the deferred list first.
+  - `security-auditor`: the intent-doc step is not cut for a word cap.
+  - Scripts clean.
+- Why:
+  - `cody` claimed a one-condition mutation failed a test, which was false.
+  - Its F2 fix shipped two regressions that only the second review caught.
+  - It reported "0 FAIL" from one run of a flaky suite.
+  - `mc-reviewer` marked medium AC breaks `should fix`.
+  - `security-auditor` skipped a changed `docs/permissions.md`.
+- Length caps: every one of 16 agent replies ran 20–110% over. `mc-reviewer` was about 760 on 500. The dispatched `watchdog` run owed by the queue came in at 678 words on 500, with all 6 findings real and fixed (`work-samples/watchdog-2026-10-22.md`). The fix has not held.
+- Proposed, not applied:
+  - `wc -w` before returning, for agents with Bash.
+  - `mc-planner`: list every path that writes a field the spec makes load-bearing.
+  - `mc-orchestrator`: a grade for Review-only ACs; caps sized to the brief.
+- Environment: the Supabase connector holds back statements it reads as destructive (`drop policy`, an explicit transaction with `delete`). The call times out and nothing reaches Postgres. `alter policy` worked.
+- Next audit targets: `mc-reviewer` and `cody` (next pipeline run: grade and verdict agree, per-AC close under cap, per-condition mutations, multi-run counts); `security-auditor` (intent docs read); `mc-orchestrator` (caps, Review-AC grade, Stage 3 Handoff Note); `watchdog` (length cap still failing), plus the queue below.
+
 ## 2026-10-20 — mc-reviewer and watchdog (round 2, harder multi-file test) — 2 agents
 - Verdict: both fit for purpose; edits proposed, then applied (below). `agent-improver`, delegated. Reduced independence: the main thread wrote the fixtures and keys and scored the runs.
 - Evidence: `work-samples/agent-vs-house-round2-2026-10-20.md`. Eight runs, two per cell against `general-purpose` (opus). `mc-reviewer`: 3/3 planted defects, the shared-helper bug traced to all 3 call sites, 0 decoys flagged, both arms. `watchdog`: 5/5, 0 decoys flagged, both arms. Detection is at the ceiling again. The agents ran at about a third of the tokens.
