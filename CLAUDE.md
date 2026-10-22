@@ -41,6 +41,7 @@ turn. Not yet tested end to end (2026-10-18): if they don't, start a fresh sessi
 | Past ledgers (read only) | `changelog/` (closed months), `CHANGELOG-ARCHIVE.md` (pre-2026-09-13) |
 | Evidence behind reviews | `work-samples/` |
 | Maps of how it all fits | `workflows/` (see its README for which is current) |
+| Project blueprints (HTML, images) | `project-blueprints/` (see its README) |
 | Superseded material | `z_Archive/`, `.claude/skills/_retired/`. Never edit; never cite as current. |
 
 `10X-LOG.md` is the daily leverage log, run only on request (`.claude/skills/cpo/references/portfolio.md`).
