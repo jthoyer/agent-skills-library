@@ -17,4 +17,5 @@ Edit `index.html` directly and follow the key rules. When the app changes, updat
 
 ## History
 
-- 2026-10-22: first version, 95 cards. Drawn from the README only; not yet checked against the code.
+- 2026-10-22: first version, 96 cards, drawn from the README.
+- 2026-10-22: checked against `core.js`, `results.js`, `apps-script.gs` and the pages. Fixed the admin splash card (BB-01-E1: three buttons, not two). Added BB-07-W2 (Clear times also resets a DNF and the nudges). Every other card held.
