@@ -56,7 +56,7 @@ The most dangerous PRDs are not the ones that are clearly wrong. They are the on
 - Engineering builds the right thing for the wrong user
 - Post-launch: "we didn't know users were going to do *that*"
 
-**Remedy:** For every claim in the user context and solution sections, mark it: Confirmed (evidence-backed), Inferred (reasonable extrapolation), or Assumed (no evidence). Assumed items become open questions or explicit risks.
+**Remedy:** For every claim in the user context and solution sections, mark it: Confirmed (evidence-backed), Inferred (reasonable extrapolation), or Asserted (one account, or no evidence). These are the grade words `research-to-ideas` uses. Asserted items become open questions or explicit risks.
 
 ---
 

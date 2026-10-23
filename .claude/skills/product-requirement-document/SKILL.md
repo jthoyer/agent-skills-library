@@ -9,7 +9,7 @@ description: >
   "feature brief", "requirements document", "what does the team need to build", "document the requirements",
   "write up the brief", "product definition", "scope the feature".
 metadata:
-  version: 1.1.1
+  version: 1.1.2
 ---
 
 # Product Requirement Document Skill
