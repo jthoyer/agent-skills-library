@@ -69,17 +69,19 @@ No **build new**. Six **integrate**, eleven **leave**. Every integrate is a miss
 skill or agent that already owns the job. None is applied here; each waits for the owner's
 go-ahead, as gaps #1 and #2 of the `phuryn/pm-skills` review did.
 
-**One extension of the decision rule, flagged:** L2, L5, L6 and L10 are left because the job does
-not recur, not because something duplicates them. The rule on ASL-067 has no slot for that. It
-is the mirror of the "job recurs" test for **build new**. The owner may want to add it.
+**One extension of the decision rule:** L2, L5, L6 and L10 are left because the job does not
+recur, not because something duplicates them. The rule on ASL-067 had no slot for that; it is
+the mirror of the "job recurs" test for **build new**. The owner added "Leave: no recurring job"
+to the rule on 2026-10-23.
 
 **Evidence words.** The library uses three scales: Confirmed / Inferred / Asserted
 (`research-to-ideas`, `idea-challenger`, `multi-actor-research`), Confirmed / Inferred / Assumed
 (`product-requirement-document/references/failure-modes.md:59`) and Supported / Reasoned /
 Assumed (`multi-actor-strategy`, for recommendations, a different job). I1 and I3 add no new
-scale: each uses the one its skill already has. Whether to rename the PRD skill's "Assumed" to
-"Asserted" is the owner's call; the 2026-10-20 `discovery-loop` review settled a similar clash
-by adopting `research-to-ideas`' words (`work-samples/watchdog-2026-10-20.md:12`).
+scale: each uses the one its skill already has. On 2026-10-23 the owner renamed the PRD skill's
+"Assumed" to "Asserted" (PRD skill 1.1.2), as the 2026-10-20 `discovery-loop` review did for a
+similar clash (`work-samples/watchdog-2026-10-20.md:12`). The PRD scale is now Confirmed /
+Inferred / Asserted, the same as `research-to-ideas`.
 
 | # | Gap | Verdict | File it touches | Priority |
 |---|---|---|---|---|
@@ -114,7 +116,7 @@ by adopting `research-to-ideas`' words (`work-samples/watchdog-2026-10-20.md:12`
   after drafting. Nothing ties how much PRD to write to how much evidence there is, before a word
   is written.
 - **Change:** wire the Assumption test into the Diagnostic. Label the core problem's evidence on
-  the skill's own scale (Confirmed / Inferred / Assumed). If it rests only on Assumed claims,
+  the skill's own scale (Confirmed / Inferred / Asserted). If it rests only on Asserted claims,
   write the discovery-phase PRD and send its riskiest assumption to `discovery-loop`. A build the
   committee has mandated is labelled "mandated, no evidence" rather than blocked (the source's
   Strategic Exception).

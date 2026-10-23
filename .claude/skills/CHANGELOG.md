@@ -5,6 +5,15 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-23 — `product-requirement-document` grade words
+
+### Updated
+- **`product-requirement-document`** 1.1.1 → 1.1.2. `references/failure-modes.md` (Failure Mode 3)
+  now grades claims Confirmed / Inferred / **Asserted**, not Assumed: the words `research-to-ideas`,
+  `idea-challenger` and `multi-actor-research` use. Asserted means one account, or no evidence.
+- Why: the 2026-10-23 pm-skills review found three evidence scales in the library
+  (`work-samples/pm-skills-rajann44-review-2026-10-23.md`). Owner's decision, 2026-10-23.
+
 ## 2026-10-20 — `discovery-loop` added
 
 ### Added

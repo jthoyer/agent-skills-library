@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-23 — library — owner decisions on the pm-skills review; dispatch map v11
+- Trigger: owner, after the review below: add "Leave: no recurring job" to the decision rule; rename the PRD skill's "Assumed" to "Asserted"; update the dispatch map, output it as an image, and archive older versions. Done directly in `cpo`, no agents dispatched.
+- Decision rule: ASL-067 gains "Leave: no recurring job", the mirror of build new's "job recurs" test. The rule lives on that Notion row only.
+- PRD skill 1.1.2: `references/failure-modes.md` grades Confirmed / Inferred / Asserted, as `research-to-ideas` does. Detail: `.claude/skills/CHANGELOG.md`. ASL-069 updated to match.
+- Map: new `workflows/dispatch-map-v11.png`, rendered from `workflows/dispatch-map-v11.html`. The HTML source is kept this time (v9 and v10 had none). New since v10: 39 skills after the 2026-10-18 merges and `discovery-loop`; a product lane; the checked `cody` → `mc-verifier` pass; the repo guards; four open dates. v7–v10 images and the v8 HTML moved to `z_Archive/`; `workflows/README.md` updated.
+- Checks: all three scripts pass. Facts on the map were checked against `check-frontmatter.sh --list`, `routing.md`, `portfolio.md` and this ledger.
+- Next audit targets: unchanged from the entry below.
+
 ## 2026-10-23 — library — rajann44/pm-skills gap review (ASL-067)
 - Trigger: owner, via `/rewrite`, ran ASL-067 "based on this week's work". The 2026-10-22 attempt could not read the source; today the git proxy served an anonymous clone (commit `06bdc38`).
 - Verdict: no build new; six integrate, eleven leave. Embodied in `cpo` (reduced independence); `watchdog` delegated.
