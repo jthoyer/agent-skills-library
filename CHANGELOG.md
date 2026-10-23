@@ -80,6 +80,30 @@ Counts are entries whose **heading names** the agent — which includes creation
 - Follow-up: owner decides PM-020 and PM-021 and rates Mastery (PM-014).
 - Next audit targets: `watchdog` (give it Notion read access, or keep routing Notion checks elsewhere), plus the queue below.
 
+## 2026-10-23 — library — owner decisions on the pm-skills review; dispatch map v11
+- Trigger: owner, after the review below: add "Leave: no recurring job" to the decision rule; rename the PRD skill's "Assumed" to "Asserted"; update the dispatch map, output it as an image, and archive older versions. Done directly, no agents dispatched.
+- Decision rule: ASL-067 gains "Leave: no recurring job", the mirror of build new's "job recurs" test. The rule lives on that Notion row only.
+- PRD skill 1.1.2: `references/failure-modes.md` grades Confirmed / Inferred / Asserted, as `research-to-ideas` does. Detail: `.claude/skills/CHANGELOG.md`. ASL-069 updated to match.
+- Map: new `workflows/dispatch-map-v11.png`, rendered from `workflows/dispatch-map-v11.html`. The HTML source is kept this time (v9 and v10 had none). New since v10: 39 skills after the 2026-10-18 merges and `discovery-loop`; a product lane; the checked `cody` → `mc-verifier` pass; the repo guards; four open dates. v7–v10 images and the v8 HTML moved to `z_Archive/`; `workflows/README.md` updated.
+- Checks: all three scripts pass. Facts on the map were checked against `check-frontmatter.sh --list`, `routing.md`, `portfolio.md` and this ledger.
+- Next audit targets: unchanged from the entry below.
+
+## 2026-10-23 — library — rajann44/pm-skills gap review (ASL-067)
+- Trigger: owner, via `/rewrite`, ran ASL-067 "based on this week's work". The 2026-10-22 attempt could not read the source; today the git proxy served an anonymous clone (commit `06bdc38`).
+- Verdict: no build new; six integrate, eleven leave. Embodied in `cpo` (reduced independence); `watchdog` delegated.
+- Integrate (backlog ASL-069 to ASL-074, none applied):
+  - I1 `product-requirement-document`: move the Assumption test into the Diagnostic (P2).
+  - I2 `investigator`: "a count changed: check the query first" as a known pattern.
+  - I3 `customer-insight/references/jtbd-deep.md`: read a leaver's usage before their reason.
+  - I4, I7 `discovery-loop`: outcomes doc first; each kill range cites its anchor. Both wait for its first real run.
+  - I6 `product-requirement-document`: a Pitch (fixed appetite) artefact.
+- Leave: install whole, strategy and metrics frameworks, roadmap scoring, Shape Up, decision journal, interview methods, templates, stakes tiers, scenario tests, MVP vs micro-tests. Recorded on ASL-067 with reversal conditions; no rows (`close-out.md:49`).
+- This week's lens: `discovery-loop` (2026-10-20) turned most of the source's discovery spine from "build new" into "covered".
+- Review: `watchdog`, 12 findings (5 Medium), all verified and applied; they changed 7 verdicts and added I7. No `agent-improver` pass: every finding held. Evidence: `work-samples/pm-skills-rajann44-review-2026-10-23.md`.
+- Open (owner): add "Leave: no recurring job" to the decision rule; rename the PRD skill's "Assumed" to "Asserted".
+- Reverses if: any integrate's own reversal condition in the work sample fires.
+- Next audit targets: `discovery-loop` (first real run, then I4 and I7), the first standalone `cody` → `mc-verifier` pair, plus the queue below.
+
 ## 2026-10-22 — library — portfolio: a checker after standalone `cody`, no new agent
 - Decision: no new "counterpart" agent for `cody`. Routing rule added instead: a standalone `cody` change that touches shared code, live data, auth or tests is followed by `mc-verifier`. `mc-verifier` runs the work against the brief's "done when"; a defect goes back to `cody`, then gets verified again. `cpo`, routing authority (unaided), after the owner said yes. Reduced independence: the same thread conducted the run the evidence comes from.
 - Changed: `.claude/skills/cpo/references/routing.md` (new row; the `cody` row points to it). `.claude/agents/cody.md` step 4 notes the new check, and that `cody` must not rely on it.
