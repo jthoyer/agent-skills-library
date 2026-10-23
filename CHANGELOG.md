@@ -70,6 +70,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-23 — library — PM 2.0 Library (Notion) review run 3, daily learning db added
+- Verdict: pass with fixes (`general-purpose`, fresh context, read only). No hard rule broken; the fixes were to the record, not the data. `watchdog` returned not checked: it has no Notion tools.
+- Scope: owner asked to add the 💊 daily learning db to the review, run the review prompt, and update the backlog. Run by `cpo` (/rewrite). Classification embodied; page reading delegated to `general-purpose` agents.
+- Changed (in Notion): prompt rule 8 and Step 6b (daily learning db, read only), Step 5 counts a Monday's rows from a view or by fetching; 25 rows classified (Keep 9, Rewrite 11, Merge 4, Archive candidate 1); run log entry; backlog PM-020, PM-021.
+- Changed (here): `cpo` step 4 names a read-only `general-purpose` checker for live Notion data.
+- Why: query tools undercount again (a date query missed one of four rows), and `watchdog` cannot reach Notion.
+- Evidence: `work-samples/pm2-library-run3-2026-10-23.md`.
+- Follow-up: owner decides PM-020 and PM-021 and rates Mastery (PM-014).
+- Next audit targets: `watchdog` (give it Notion read access, or keep routing Notion checks elsewhere), plus the queue below.
+
 ## 2026-10-22 — library — portfolio: a checker after standalone `cody`, no new agent
 - Decision: no new "counterpart" agent for `cody`. Routing rule added instead: a standalone `cody` change that touches shared code, live data, auth or tests is followed by `mc-verifier`. `mc-verifier` runs the work against the brief's "done when"; a defect goes back to `cody`, then gets verified again. `cpo`, routing authority (unaided), after the owner said yes. Reduced independence: the same thread conducted the run the evidence comes from.
 - Changed: `.claude/skills/cpo/references/routing.md` (new row; the `cody` row points to it). `.claude/agents/cody.md` step 4 notes the new check, and that `cody` must not rely on it.

@@ -39,6 +39,27 @@ Added to "— Library review prompt": the daily learning db as a source of truth
 - The worker restarted three times mid-run. A progress file in the scratchpad recorded each write, so no row was written twice.
 - Fetch omits empty properties. Agents reported "absent" as empty, which matches the schema.
 
-## Independent check (`watchdog`, read only)
+## Independent check
 
-Pending at time of writing; see the CHANGELOG entry.
+`watchdog` was dispatched first. It returned NOT CHECKED: it has no Notion tools, and app.notion.com did not resolve through WebFetch. The check was then re-run by a fresh, read-only `general-purpose` agent with the same brief.
+
+Verdict: **PASS WITH FIXES**. No hard rule was broken.
+
+| # | Check | Verdict |
+|---|---|---|
+| 1 | Protection | PASS: 14 parent chains walked to the top. None reaches Useful AI. |
+| 2 | Fields | PASS: only fields rule 3 allows; Mastery and Last reviewed empty |
+| 3 | Fidelity | PASS: 13 takeaways and proof tests drawn from their pages. Two calls differ: Claude Skills vs Projects is a full explainer (it would score 8, Keep), and the blank 01_Alignment hub got PM topics from its title and children (borderline under rule 4). |
+| 4 | Archive rules | PASS: nothing archived; the candidate meets every condition |
+| 5 | Scheduling | PASS, with a trap: a query on 2027-02-22 returned 3 rows; fetching showed the 4th |
+| 6 | Run log | FIX: 67 → 92 did not follow on from run 2's 71; some daily learning db claims went beyond the evidence |
+| 7 | Prompt edit | PASS: rule 8 and Step 6b are clear; the daily learning db shows no edits today |
+| 8 | Backlog | FIX: PM-020 and PM-021 overlap PM-005, PM-017, PM-018 and PM-009 without naming them |
+
+Fixes applied the same day:
+- Run log: count now 71 → 96, with why the view shows 67 → 92; wording on Claude Skills, the 2027-02-22 slot and the daily learning db corrected; check summary added.
+- Prompt Step 5: count a Monday's rows from a view or by fetching, never from a query. Change log line added.
+- PM-020 and PM-021 now name the items they overlap.
+- Not changed: Claude Skills vs Projects stays Rewrite (rule 3: a run never changes a set value). It is listed for the owner instead.
+
+Routing fix in this repo: `cpo` step 4 now says `watchdog` cannot read Notion, and to use a read-only `general-purpose` checker for live Notion data.
