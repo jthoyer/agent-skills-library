@@ -78,7 +78,7 @@ and mark any review you run on your own work as reduced-independence.
 |---|---|
 | Trivial or mechanical | Check it against "done when". Nothing else |
 | Done directly, routine stakes | Check against "done when" |
-| Going to members, the committee, leadership or production | Dispatch `watchdog` on the artefact |
+| Going to members, the committee, leadership or production | Dispatch `watchdog` on the artefact. It cannot read Notion: for live Notion data, dispatch a read-only `general-purpose` checker with the same brief |
 | Done by one or more agents | Dispatch `agent-improver` on each agent whose output mattered, with its work sample |
 | A portfolio decision | Record it per `references/portfolio.md` |
 

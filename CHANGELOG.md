@@ -70,6 +70,36 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-24 — library — PM 2.0 Library (Notion): study plans consolidated, run 3–4 decisions done
+- Verdict: pass with fixes (`general-purpose`, fresh context, read only). No hard limit broken.
+- Scope: the owner said "proceed with your recommendations; consolidate and simplify all study plans" (`/rewrite` → `cpo`). Done directly, on the owner's yes, in a chat session; review runs still may not merge, retitle or archive.
+- Changed (in Notion): one "— Study plan" page and one schedule (Next review, in the Study queue) replace seven competing plans; the 🗓 Study calendar view (archived rows hidden); 7 archives (2 merges, 3 blank or bare pages, the 12-week curriculum); 4 retitles; purpose lines on 13 hubs; Start here, prompt (Step 5, "never create a schedule"), plan and backlog updated.
+- Why: seven plans claimed the same weeks, and none recorded what was done.
+- Self-caught before or during the check: PM-017 marked Done too early (reopened); 22 Feb count after an archive; a name spelled differently from its page.
+- Evidence: `work-samples/pm2-library-consolidation-2026-10-24.md` (includes old titles for undo).
+- Follow-up: owner decides whether "— Useful AI Study" is protected, and the Build / ship with AI overlap (PM-017).
+- Next audit targets: the Notion review prompt (first run after consolidation should file study material as tracks, not schedules), plus the queue below.
+
+## 2026-10-24 — library — PM 2.0 Library (Notion) review run 4
+- Verdict: pass with fixes (`general-purpose`, fresh context, read only, per the new `cpo` step 4 row). No hard rule broken.
+- Scope: owner said "continue" after run 3. Run by `cpo`; classification embodied, page reading delegated to `general-purpose` agents.
+- Changed (in Notion): 25 rows classified (Keep 10, Rewrite 14, Archive candidate 1); run log entry; backlog PM-022; prompt Step 4 sends a blank page to rule 6 (Archive candidate), not rule 5.
+- Fixed after the check: the run log's date (writes landed 24 Oct UTC), the protected-set and G9 wording, the Step 5 note. The 2027-03-01 slot holds 4, counted by the checker.
+- Why it matters: the thread twice let a restart or a log stand in for a fresh count (Step 5 from run logs; "No response requested" mid-batch). Both are named in the work sample.
+- Evidence: `work-samples/pm2-library-run4-2026-10-24.md`.
+- Follow-up: owner decides PM-022 (is "— Useful AI Study" protected?) and adds a view filtered on Next review.
+- Next audit targets: the Notion review prompt (Step 5 still has no view to count from), plus the queue below.
+
+## 2026-10-23 — library — PM 2.0 Library (Notion) review run 3, daily learning db added
+- Verdict: pass with fixes (`general-purpose`, fresh context, read only). No hard rule broken; the fixes were to the record, not the data. `watchdog` returned not checked: it has no Notion tools.
+- Scope: owner asked to add the 💊 daily learning db to the review, run the review prompt, and update the backlog. Run by `cpo` (/rewrite). Classification embodied; page reading delegated to `general-purpose` agents.
+- Changed (in Notion): prompt rule 8 and Step 6b (daily learning db, read only), Step 5 counts a Monday's rows from a view or by fetching; 25 rows classified (Keep 9, Rewrite 11, Merge 4, Archive candidate 1); run log entry; backlog PM-020, PM-021.
+- Changed (here): `cpo` step 4 names a read-only `general-purpose` checker for live Notion data.
+- Why: query tools undercount again (a date query missed one of four rows), and `watchdog` cannot reach Notion.
+- Evidence: `work-samples/pm2-library-run3-2026-10-23.md`.
+- Follow-up: owner decides PM-020 and PM-021 and rates Mastery (PM-014).
+- Next audit targets: `watchdog` (give it Notion read access, or keep routing Notion checks elsewhere), plus the queue below.
+
 ## 2026-10-23 — library — owner decisions on the pm-skills review; dispatch map v11
 - Trigger: owner, after the review below: add "Leave: no recurring job" to the decision rule; rename the PRD skill's "Assumed" to "Asserted"; update the dispatch map, output it as an image, and archive older versions. Done directly, no agents dispatched.
 - Decision rule: ASL-067 gains "Leave: no recurring job", the mirror of build new's "job recurs" test. The rule lives on that Notion row only.

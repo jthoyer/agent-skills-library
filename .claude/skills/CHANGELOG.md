@@ -5,6 +5,15 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-23 — `cpo`: review table names the Notion gap
+
+### Changed
+- **`cpo`** step 4: the "going to production" row now says `watchdog` cannot read Notion,
+  and names a read-only `general-purpose` checker for live Notion data.
+- Why: `watchdog` has no Notion tools. On 2026-10-23 it returned "not checked" on PM 2.0
+  Library review run 3, and the 2026-10-20 check needed the same stand-in.
+  Evidence: `work-samples/pm2-library-run3-2026-10-23.md`.
+
 ## 2026-10-23 — `product-requirement-document` grade words
 
 ### Updated
