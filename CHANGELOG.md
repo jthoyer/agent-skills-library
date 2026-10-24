@@ -70,6 +70,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-24 — library — PM 2.0 Library (Notion) review run 4
+- Verdict: pass with fixes (`general-purpose`, fresh context, read only, per the new `cpo` step 4 row). No hard rule broken.
+- Scope: owner said "continue" after run 3. Run by `cpo`; classification embodied, page reading delegated to `general-purpose` agents.
+- Changed (in Notion): 25 rows classified (Keep 10, Rewrite 14, Archive candidate 1); run log entry; backlog PM-022; prompt Step 4 sends a blank page to rule 6 (Archive candidate), not rule 5.
+- Fixed after the check: the run log's date (writes landed 24 Oct UTC), the protected-set and G9 wording, the Step 5 note. The 2027-03-01 slot holds 4, counted by the checker.
+- Why it matters: the thread twice let a restart or a log stand in for a fresh count (Step 5 from run logs; "No response requested" mid-batch). Both are named in the work sample.
+- Evidence: `work-samples/pm2-library-run4-2026-10-24.md`.
+- Follow-up: owner decides PM-022 (is "— Useful AI Study" protected?) and adds a view filtered on Next review.
+- Next audit targets: the Notion review prompt (Step 5 still has no view to count from), plus the queue below.
+
 ## 2026-10-23 — library — PM 2.0 Library (Notion) review run 3, daily learning db added
 - Verdict: pass with fixes (`general-purpose`, fresh context, read only). No hard rule broken; the fixes were to the record, not the data. `watchdog` returned not checked: it has no Notion tools.
 - Scope: owner asked to add the 💊 daily learning db to the review, run the review prompt, and update the backlog. Run by `cpo` (/rewrite). Classification embodied; page reading delegated to `general-purpose` agents.
