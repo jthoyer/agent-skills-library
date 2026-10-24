@@ -70,6 +70,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-24 — library — PM 2.0 Library (Notion): study plans consolidated, run 3–4 decisions done
+- Verdict: pass with fixes (`general-purpose`, fresh context, read only). No hard limit broken.
+- Scope: the owner said "proceed with your recommendations; consolidate and simplify all study plans" (`/rewrite` → `cpo`). Done directly, on the owner's yes, in a chat session; review runs still may not merge, retitle or archive.
+- Changed (in Notion): one "— Study plan" page and one schedule (Next review, in the Study queue) replace seven competing plans; the 🗓 Study calendar view (archived rows hidden); 7 archives (2 merges, 3 blank or bare pages, the 12-week curriculum); 4 retitles; purpose lines on 13 hubs; Start here, prompt (Step 5, "never create a schedule"), plan and backlog updated.
+- Why: seven plans claimed the same weeks, and none recorded what was done.
+- Self-caught before or during the check: PM-017 marked Done too early (reopened); 22 Feb count after an archive; a name spelled differently from its page.
+- Evidence: `work-samples/pm2-library-consolidation-2026-10-24.md` (includes old titles for undo).
+- Follow-up: owner decides whether "— Useful AI Study" is protected, and the Build / ship with AI overlap (PM-017).
+- Next audit targets: the Notion review prompt (first run after consolidation should file study material as tracks, not schedules), plus the queue below.
+
 ## 2026-10-24 — library — PM 2.0 Library (Notion) review run 4
 - Verdict: pass with fixes (`general-purpose`, fresh context, read only, per the new `cpo` step 4 row). No hard rule broken.
 - Scope: owner said "continue" after run 3. Run by `cpo`; classification embodied, page reading delegated to `general-purpose` agents.
