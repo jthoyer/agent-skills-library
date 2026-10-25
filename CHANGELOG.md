@@ -75,7 +75,8 @@ Counts are entries whose **heading names** the agent — which includes creation
 - Finding: the library already verifies. `cody` step 1 runs the app and looks; `mc-verifier` drives it against each acceptance criterion; `cody` step 2 measures WCAG AA. Missing: nothing saved the setup that worked, so each run worked out launch, seeds and widths again. Past defects hid there (wrong viewport 2026-09-25, shared session 2026-08-31). Performance budgets were also missing; left to each app's recipe, not the library.
 - Decision (owner yes, 2026-10-25): `mc-verifier` ends its report with a verify recipe and stays without write tools. `mc-orchestrator` Stage 4 saves it as `.claude/skills/verify/SKILL.md` in the app repo, in the same PR. `cody` and `mc-verifier` read that file first; `cody` never edits it. The file is not a library copy, so the 2026-10-14 no-copies rule does not cover it; `CLAUDE.md` says so.
 - Rejected: a library-wide performance check (the apps are small); `cody` writing the recipe (the builder would write its own test steps).
-- Open: a standalone `cody` → `mc-verifier` pair (`routing.md`) has no step that saves the recipe yet.
+- Routing (owner yes, same day): the checked `cody` → `mc-verifier` row in `routing.md` now saves the recipe too, once the Verifier passes the change.
+- Map: `workflows/dispatch-map-v12.png`, rendered from `dispatch-map-v12.html`. New: the recipe on the coding and checked lanes, both agent rows, an open date for the first saved recipe. v11 image and HTML moved to `z_Archive/`; `workflows/README.md` updated.
 - Reverses if: recipes go stale faster than runs refresh them, or an app repo's recipe gets mistaken for a library copy.
 - Next audit targets: the first `mc-orchestrator` run that saves a recipe (did the next run use it?), plus the queue below.
 
