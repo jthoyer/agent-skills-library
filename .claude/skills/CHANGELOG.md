@@ -5,6 +5,15 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-25 — `mc-orchestrator` saves the verify recipe
+
+### Updated
+- **`mc-orchestrator`** 1.0.0 → 1.1.0. Stage 4 saves `mc-verifier`'s verify recipe in the app
+  repo as `.claude/skills/verify/SKILL.md`, in the same PR, or updates the steps that moved. The
+  Output section lists the recipe.
+- Why: each run worked out the app's launch, seeds and widths again. Owner's decision,
+  2026-10-25; detail in the root `CHANGELOG.md`.
+
 ## 2026-10-23 — `product-requirement-document` grade words
 
 ### Updated

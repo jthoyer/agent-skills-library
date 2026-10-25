@@ -53,6 +53,7 @@ balancetri-app/app.js	worked example from the 2026-09-13 ux-designer run — a f
 assets/	optional skill subdirectory in the documented layout — a shape, not a file
 __MACOSX/	the junk directory a zip command is told to exclude
 iteration/	created at run time by the upgrade gauntlet, per its own instructions
+.claude/skills/verify/SKILL.md	an app's saved verify recipe — target repo; mc-orchestrator Stage 4 creates it (2026-10-25)
 sealed/	created at run time by the upgrade gauntlet, per its own instructions
 
 # --- Third-party endpoints. -------------------------------------------------
