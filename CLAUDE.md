@@ -9,7 +9,8 @@ review, improve or fix an agent or skill, edit it **here** and open a pull reque
   `anthropic-skills:<name>` and can lag this repo by weeks (24 had drifted on 2026-10-18,
   see `work-samples/account-sync-drift-2026-10-18.md`). Refresh them by uploading the zip
   that `skills-librarian` builds.
-- App repos keep no copies (decided 2026-10-14).
+- App repos keep no copies (decided 2026-10-14). An app's own verify recipe,
+  `.claude/skills/verify/SKILL.md`, is not a copy: it describes that app only (decided 2026-10-25).
 - When a skill appears under both names, use the unprefixed one: it loads from this repo.
   Type `/cpo` and `/rewrite`, not `/anthropic-skills:cpo`.
 

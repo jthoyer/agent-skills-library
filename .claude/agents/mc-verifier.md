@@ -13,6 +13,8 @@ model: sonnet
 ## Responsibilities
 - Run whatever the project has: build, lint, type-check, test suite. Report exact pass/fail, not a paraphrase.
 - Exercise the feature itself against each acceptance criterion in the Stage 1 spec — via CLI, browser, simulator, or API call as the project demands. Use the project's own launch pattern (a `run` skill or a documented command) where one exists, rather than improvising. If you hold no `Skill` tool, read the skill's file or the README for the command and say so.
+- **Read the app's saved verify recipe first.** Look for `.claude/skills/verify/SKILL.md` in the app repo under test. A past run saved it: how to launch the app, seed it, which widths to check, and the traps in the test setup. Follow it rather than working the setup out again. It is a starting point, not a verdict: the spec's acceptance criteria still decide what you check. When a step fails or no longer matches the app, say which in your report. A stale recipe is a finding, not a reason to fail the change.
+- **Return a verify recipe** at the end of your report (format under Output). You have no write tools and keep none: the main thread saves the recipe into the app repo. Put in only steps you ran and saw work. Never put a credential, token or live-data address in it.
 - Test the golden path and at least the edge cases the spec or Implementer's note flagged as risk areas.
 - Report what you actually observed (exact output, error text, screenshot) rather than "it worked" — the Integrator needs evidence, not a summary.
 
@@ -30,3 +32,17 @@ model: sonnet
 
 ## Output
 A verification report: the baseline it ran against (commit SHA or working-tree state, per the behaviour above), what was run, exact result, and a per-acceptance-criterion verdict (Verified / Implemented, unverified / Failed — with the observed failure). Escalate to the Integrator when a failure's cause is ambiguous (real defect vs. environment/setup issue) or when Reviewer and Verifier findings conflict. Close with a five-line Handoff Note.
+
+After the Handoff Note, add the verify recipe. Each line holds what you ran, not what should work:
+
+```
+## Verify recipe
+- Saved recipe: <path read, or "none found">; steps that failed or moved: <list, or "none">
+- Launch: <command, port, env vars by name only>
+- Seed: <how sample data was loaded; stubs or copies, never a live store>
+- Widths: <each viewport checked, including every @media breakpoint the change touches>
+- Checks: <one line each: what was run, and the pass condition>
+- Traps: <test-setup defects met, e.g. a headless default viewport, a shared session>
+```
+
+If nothing could be run, write `Verify recipe: none — <why>` instead. An empty recipe beats a guessed one.

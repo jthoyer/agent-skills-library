@@ -70,6 +70,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-25 — library — saved verify recipes (`mc-verifier`, `cody`, `mc-orchestrator`)
+- Trigger: owner, via `/rewrite`: should the verify loop from the video "Building verification loops in Claude Code" be added to the library? Done directly in `cpo`, no agents dispatched. Reduced independence: the same thread proposed and built it.
+- Finding: the library already verifies. `cody` step 1 runs the app and looks; `mc-verifier` drives it against each acceptance criterion; `cody` step 2 measures WCAG AA. Missing: nothing saved the setup that worked, so each run worked out launch, seeds and widths again. Past defects hid there (wrong viewport 2026-09-25, shared session 2026-08-31). Performance budgets were also missing; left to each app's recipe, not the library.
+- Decision (owner yes, 2026-10-25): `mc-verifier` ends its report with a verify recipe and stays without write tools. `mc-orchestrator` Stage 4 saves it as `.claude/skills/verify/SKILL.md` in the app repo, in the same PR. `cody` and `mc-verifier` read that file first; `cody` never edits it. The file is not a library copy, so the 2026-10-14 no-copies rule does not cover it; `CLAUDE.md` says so.
+- Rejected: a library-wide performance check (the apps are small); `cody` writing the recipe (the builder would write its own test steps).
+- Open: a standalone `cody` → `mc-verifier` pair (`routing.md`) has no step that saves the recipe yet.
+- Reverses if: recipes go stale faster than runs refresh them, or an app repo's recipe gets mistaken for a library copy.
+- Next audit targets: the first `mc-orchestrator` run that saves a recipe (did the next run use it?), plus the queue below.
+
 ## 2026-10-23 — library — owner decisions on the pm-skills review; dispatch map v11
 - Trigger: owner, after the review below: add "Leave: no recurring job" to the decision rule; rename the PRD skill's "Assumed" to "Asserted"; update the dispatch map, output it as an image, and archive older versions. Done directly, no agents dispatched.
 - Decision rule: ASL-067 gains "Leave: no recurring job", the mirror of build new's "job recurs" test. The rule lives on that Notion row only.

@@ -2,7 +2,7 @@
 name: mc-orchestrator
 description: Runs the full multi-actor coding playbook end to end from the main thread, dispatching five actor agents (mc-planner, cody as Implementer, mc-reviewer and mc-verifier concurrently, mc-integrator) with a Stage Register at each handoff. Use when a coding task is non-trivial enough that getting it right matters more than getting it fast — new features, bug fixes touching shared code, anything that will be merged and relied on. Trigger on "run the coding playbook", "build this properly", "go through the coding stages", or a coding task handed over with a request for a robust, verified result rather than a single pass. Holds Integrator decision rights at impasse. Embodies the actors only when the Agent tool is absent.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 
@@ -57,6 +57,8 @@ Reviewer and Verifier are this playbook's adversarial pair, the direct analogue 
 
 **Stage 4 — Integration** *(Integrator).* Open from the Stage 3 Register only. Confirm every acceptance criterion is Verified, not merely Implemented. Resolve any outstanding Reviewer/Verifier conflict. Produce the final diff summary / PR description. Close with the archival Stage 4 Register and decision log.
 
+**Save the Verifier's recipe in the app repo, in the same PR.** `mc-verifier` ends its report with a verify recipe. If the app repo has no `.claude/skills/verify/SKILL.md`, create it from that block: frontmatter `name: verify` and a description naming the app, then the recipe. If the file exists and the Verifier flagged steps that failed or moved, update those steps only. Name the change in the PR description either way. Save nothing the Verifier did not run and see work, and no credential. Skip it when the recipe reads `none`. Next time, `cody` and `mc-verifier` start from this file instead of working the setup out again. The file describes one app and lives nowhere else, so it is not a library copy: the 2026-10-14 no-copies rule does not cover it (decided 2026-10-25).
+
 ## Stage Register discipline
 Every stage closes by producing a Stage Register (what's in play / what's resolved / what's still open) and opens by reading the prior register and Handoff Note — not the full prior stage's raw output. This keeps working memory tight and makes the process resumable.
 
@@ -79,7 +81,7 @@ The Handoff Note is five fixed lines: (1) what this stage established; (2) what 
 Roles are sequential, not hierarchical. A finding that can't be resolved with what's on hand gets logged as a known limitation, not silently dropped. Speed is a risk variable, not a success metric — an unverified "done" is a worse outcome than a slower verified one.
 
 ## Output
-A diff/PR ready for the user, with: the spec it was built against, the Reviewer's findings and their resolution, the Verifier's actual run output, and the Integrator's decision log. Finish with the Stage 4 (archival) Register.
+A diff/PR ready for the user, with: the spec it was built against, the Reviewer's findings and their resolution, the Verifier's actual run output, the saved or updated verify recipe, and the Integrator's decision log. Finish with the Stage 4 (archival) Register.
 
 ## Modes
 If the user wants a single actor rather than the full run, dispatch that actor (or embody it when the `Agent` tool is absent). If the user has a human team doing the work, act as Integrator and coach them through each stage's handoff.
