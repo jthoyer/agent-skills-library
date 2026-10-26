@@ -70,6 +70,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-26 — library — strategy pages for the six backlog products
+- Trigger: owner, via `/rewrite`: one north-star strategy page per backlog product, framed on the "2026 AI-Era PRD Template" and set above delivery detail. Done directly in `cpo` (rung 1). One question round settled four things: placement (Key `<PREFIX>-000`, P0), Tri Momentum as a personal tool first, club apps owned by the owner, and four strategy goals.
+- Output: BB-000, BT-000, TM-000, CF-000, ASL-000 and PM-000 in Product backlog-db. Sample: `work-samples/cpo-strategy-pages-2026-10-26.md`.
+- Check: `general-purpose` ran the `watchdog` brief, read only, because `watchdog` has no Notion tools. Five PASS WITH FIXES, one PASS. 16 findings, each verified on disk, all fixed or raised. The worst: a blind-test result stated backwards (`content-writing` lost 3 of 3, not "0 of 3"); a stop rule that skipped `portfolio.md`'s owner yes; a Balance Bolt prize that doesn't exist. Every rollout and stop rule is now marked "(proposed)".
+- Lesson: drafting from backlog titles carried their errors forward (ASL-043's title has the same backwards numbers). Check a number in its primary source, not the row that cites it.
+- Open: ASL-075 (`watchdog` can't read Notion). ASL-043's title is left for the owner. A Telegram bot token sits in plain text on GEN-001; raised with the owner.
+- No `agent-improver` run: only a built-in agent ran.
+- Next audit targets: `watchdog` (tools versus Notion artefacts, ASL-075), plus the queue below.
+
 ## 2026-10-25 — library — saved verify recipes (`mc-verifier`, `cody`, `mc-orchestrator`)
 - Trigger: owner, via `/rewrite`: should the verify loop from the video "Building verification loops in Claude Code" be added to the library? Done directly in `cpo`, no agents dispatched. Reduced independence: the same thread proposed and built it.
 - Finding: the library already verifies. `cody` step 1 runs the app and looks; `mc-verifier` drives it against each acceptance criterion; `cody` step 2 measures WCAG AA. Missing: nothing saved the setup that worked, so each run worked out launch, seeds and widths again. Past defects hid there (wrong viewport 2026-09-25, shared session 2026-08-31). Performance budgets were also missing; left to each app's recipe, not the library.
