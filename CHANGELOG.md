@@ -70,6 +70,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-26 — `watchdog` — tri club platform business plan summary
+- Trigger: owner, via `/rewrite`: a business plan summary for selling the club website, race calendar, Beat the clock and Icicles to tri clubs or TriNSW, with what would make them cohesive, posted to the committee's Notion database. Rung 1, written in `cpo` (embodied). `watchdog` delegated, as the page goes to the committee.
+- Result: ten findings (one High, five Medium, four Low), all applied before posting. The High: the bottom line said all four pieces run live while the table said Icicles is unknown. The most useful Medium: a proposed fix (put Beat the clock's pages behind sign-in) would not have closed the gap, because its Apps Script accepts anyone. Sample: `work-samples/watchdog-2026-10-26.md`.
+- Accuracy: one citation pointed at an `app.js` comment rather than `BalanceBolt/index.html:23`. The claim held, so no `agent-improver` pass is owed.
+- Gap: `watchdog` could not reach supabase.com or triathlon.org.au (DNS). The club counts rest on search results.
+- Next audit targets: unchanged from the entry below.
+
 ## 2026-10-25 — library — saved verify recipes (`mc-verifier`, `cody`, `mc-orchestrator`)
 - Trigger: owner, via `/rewrite`: should the verify loop from the video "Building verification loops in Claude Code" be added to the library? Done directly in `cpo`, no agents dispatched. Reduced independence: the same thread proposed and built it.
 - Finding: the library already verifies. `cody` step 1 runs the app and looks; `mc-verifier` drives it against each acceptance criterion; `cody` step 2 measures WCAG AA. Missing: nothing saved the setup that worked, so each run worked out launch, seeds and widths again. Past defects hid there (wrong viewport 2026-09-25, shared session 2026-08-31). Performance budgets were also missing; left to each app's recipe, not the library.
