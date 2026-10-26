@@ -70,6 +70,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-26 — `watchdog` — tri club platform business plan summary
+- Trigger: owner, via `/rewrite`: a business plan summary for selling the club website, race calendar, Beat the clock and Icicles to tri clubs or TriNSW, with what would make them cohesive, posted to the committee's Notion database. Rung 1, written in `cpo` (embodied). `watchdog` delegated, as the page goes to the committee.
+- Result: ten findings (one High, five Medium, four Low), all applied before posting. The High: the bottom line said all four pieces run live while the table said Icicles is unknown. The most useful Medium: a proposed fix (put Beat the clock's pages behind sign-in) would not have closed the gap, because its Apps Script accepts anyone. Sample: `work-samples/watchdog-2026-10-26.md`.
+- Accuracy: one citation pointed at an `app.js` comment rather than `BalanceBolt/index.html:23`. The claim held, so no `agent-improver` pass is owed.
+- Gap: `watchdog` could not reach supabase.com or triathlon.org.au (DNS). The club counts rest on search results.
+- Next audit targets: unchanged from the entry below.
+
 ## 2026-10-26 — library — strategy pages for the six backlog products
 - Trigger: owner, via `/rewrite`: one north-star strategy page per backlog product, framed on the "2026 AI-Era PRD Template" and set above delivery detail. Done directly in `cpo` (rung 1). One question round settled four things: placement (Key `<PREFIX>-000`, P0), Tri Momentum as a personal tool first, club apps owned by the owner, and four strategy goals.
 - Output: BB-000, BT-000, TM-000, CF-000, ASL-000 and PM-000 in Product backlog-db. Sample: `work-samples/cpo-strategy-pages-2026-10-26.md`.
