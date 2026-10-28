@@ -70,6 +70,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-28 — watchdog — strategy pages matched to code, committee deck
+- Trigger: owner, via `/rewrite`: match BT-000 and BB-000 to the code, rework the committee page (drop "committee first" and the later asks, add the Friday shout-out and club-email process), turn it into slides. Done directly in `cpo` (rung 1). The deck uses the Slides type and the Balance brand.
+- Check: `watchdog` (delegated) on the strategy-page edits against both READMEs, and on the deck against the page. Ship with fixes for both. Seven of eight findings accepted and applied. Sample: `work-samples/watchdog-2026-10-28-pass2.md`.
+- Rejected finding: #2 said the 12 Oct minutes don't mention waivers. They do. `cpo`'s sources file left the line out, so the miss was in the brief, not the agent.
+- Lesson: a hand-made sources file is a lossy copy. When a reviewer can't reach the source (ASL-075), paste the source sections whole, not a summary.
+- Closed: the earlier entry's open item (BT-000 and BB-000 out of date) is resolved.
+- Open: BB-000 question 5. Non-members can't sign up for Bolt without a club login, but the committee leans towards letting them race with a waiver.
+- No `agent-improver` run: no `watchdog` finding was wrong on the evidence it was given.
+- Next audit targets: `watchdog` (tools versus Notion artefacts, ASL-075), plus the queue below.
+
 ## 2026-10-28 — watchdog — committee page on the club's digital experience
 - Trigger: owner, via `/rewrite`: a light FYI strategy page for the committee on bringing the race calendar, Beat the Clock and Icicles into balancetriclub.com.au. Drafted directly in `cpo` (rung 1). Published to "balance committee notes".
 - Check: `watchdog` (delegated) on the draft, against a sources file copied from Notion plus both app READMEs. This bridges ASL-075: `watchdog` still can't read Notion. Verdict: publish with fixes. Eight findings, all accepted. Sample: `work-samples/watchdog-2026-10-28.md`.
