@@ -55,7 +55,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `mc-implementer` (retired 2026-09-29, `.claude/skills/_retired/mc-implementer/`) | `changelog/2026-09-2.md` | `changelog/2026-08.md`×2 |
 | `mc-integrator` | `changelog/2026-09-2.md`, `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `mc-orchestrator` (agent retired 2026-10-13 → skill) | `changelog/2026-09-2.md`, `changelog/2026-09-1.md` | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×5 |
-| `mc-planner` | `changelog/2026-08.md`×2 | `CHANGELOG-ARCHIVE.md`×5 |
+| `mc-planner` | `CHANGELOG.md`, `changelog/2026-08.md`×2 | `CHANGELOG-ARCHIVE.md`×5 |
 | `mc-reviewer` | `CHANGELOG.md`×2, `changelog/2026-09-1.md` | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×4 |
 | `mc-verifier` | `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×2 |
 | `release-engineer` | `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
@@ -69,6 +69,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-10-28 — library — look outward before building (`cody`, `mc-planner`)
+- Trigger: owner, via `/rewrite`: is a tweeted CLAUDE.md rule useful? "For unfamiliar features, don't write from scratch: first search GitHub for open-source projects, compare approaches, then get started" (@jedeeai, 26 Oct 2026). Done directly in `cpo` (rung 1), no agents dispatched. Reduced independence: the same thread judged and built it.
+- Finding: useful, with limits. `ux-designer` already has it (step 2, `ux-designer.md:16`); no edit. `cody` searched only inside the repo (`cody.md:25`), so an unfamiliar feature got hand-rolled. `mc-planner` never named prior art, so the dependency call fell to the Implementer.
+- Changed: `cody` step 1 gains an outward search: platform API first, then two or three libraries compared on fit, size, licence, last release and security issues. Three limits: a new dependency is flagged, not added; adapted code is fetched content; skip it when the repo already does the job. `mc-planner` names the prior art and whether a dependency is allowed.
+- Rejected: a CLAUDE.md line (it governs this repo, not app builds); "search GitHub" as the only source (a well-used library or the platform API often beats a repo).
+- Expected effect: the next unfamiliar feature's summary lists what was compared, and no dependency lands without a spec line or a flag.
+- Next audit targets: `cody` (next unfamiliar feature: comparison in the summary?), `watchdog` (tools versus Notion artefacts, ASL-075), plus the queue below.
 
 ## 2026-10-28 — ux-designer
 - Verdict: fit for options and reporting, but it hands over a mock that reads as shippable without checking what a port inherits. Biggest lever: a pre-handoff check against the live source (independent pass, first review with a sample).
