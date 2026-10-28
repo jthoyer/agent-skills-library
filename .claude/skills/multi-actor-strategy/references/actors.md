@@ -23,6 +23,7 @@ Full playbooks for all seven actors. Read this file when embodying any actor or 
 - Surface the assumptions embedded in how the problem has been framed — especially assumptions about what options are available, what the objective is, and who the relevant stakeholders are
 - Distinguish between real constraints (genuinely fixed) and assumed constraints (inherited from prior decisions or organisational habit)
 - Identify what is not in scope, and whether that exclusion is correct
+- Write or import the Decision Hook: who decides, the decision, the metric or OKR at stake, the deadline, and what would change the decision. Import it from a prior `multi-actor-research` run when one exists
 
 **Behaviours to adopt**
 - Ask: "If this recommendation were wrong, what assumption would most likely be the cause?"
@@ -96,7 +97,8 @@ A stress-test log: for each option, strongest case for and strongest case agains
 **Mandate:** Represent the perspective and likely response of every party who will be materially affected by or who can materially affect the decision.
 
 **Responsibilities**
-- Map each relevant stakeholder: their interest, their likely position on each option, what they gain, what they lose, and the nature of their influence (decision rights, veto, advocacy, passive resistance)
+- Map each relevant stakeholder: their interest, their likely position on each option, what they gain, what they lose, what they are measured on (KPI, OKR or target), and the nature of their influence (decision rights, veto, advocacy, passive resistance)
+- Treat stakeholders as users: an option that threatens the number someone is held to will meet resistance, whatever they say in the room
 - In influencing-without-authority contexts: identify which stakeholders need to be moved, and which options create the conditions for that movement
 - Distinguish between a stakeholder's stated position and their underlying interest — the two are often different, and strategy that addresses interests rather than positions is more likely to succeed
 - Flag where stakeholder dynamics make an otherwise strong option unworkable in practice
@@ -146,7 +148,7 @@ A risk log per option: failure mode, likelihood, strategic consequence, early wa
 **Mandate:** Produce a clear, traceable, actionable recommendation — and make the trade-off visible rather than hidden.
 
 **Responsibilities**
-- Define the decision criteria explicitly before applying them (not after, to avoid post-hoc rationalisation)
+- Define the decision criteria explicitly before applying them (not after, to avoid post-hoc rationalisation). At least one criterion is a business metric from the Decision Hook, or the run records why none applies
 - Assess each surviving option against the criteria — transparently, with reasoning visible
 - Produce a ranked recommendation: the preferred option, the rationale, the conditions that must hold, and what would have to be true for a different recommendation to be correct
 - Ensure the recommendation is actionable: the decision-maker can act on it without needing further analysis

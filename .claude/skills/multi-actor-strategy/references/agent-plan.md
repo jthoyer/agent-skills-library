@@ -103,6 +103,8 @@ mechanical, so a script runs them:
 - If the challenger's strongest pick differs from the preference, a written answer exists
 - `embodied: true` forbids the words "blind-reviewed" and "independently stress-tested" in the
   final brief
+- At least one decision criterion names a business metric, or the run says why none applies
+  (R9, added 2026-10-28)
 
 ### Persistence
 

@@ -67,7 +67,7 @@ Copy this checklist into your reply at the start of a full run and tick each lin
 handoff condition is met. A stage opens only when the line above it is ticked.
 
 ```
-- [ ] 1 Evidence Assembly: source and confidence registers complete; Stage Register written
+- [ ] 1 Evidence Assembly: Decision Hook written; source and confidence registers complete; Stage Register written
 - [ ] 2 Challenge and Validation: both outputs in; open challenges escalated; Stage Register written
 - [ ] 3 Synthesis: Evidence Auditor confirms clean; PM approves; Stage Register written
 - [ ] 4 Communication: PM reviews the note; changed claims sent back; Stage Register written
@@ -75,6 +75,18 @@ handoff condition is met. A stage opens only when the line above it is ticked.
 
 ### Stage 1 — Evidence Assembly
 *Owner: Researcher → reviewed by Evidence Auditor*
+
+**Decision Hook first.** Before any source is graded, the Project Manager writes five lines:
+who decides, which decision this research informs, which metric or OKR is at stake, the
+deadline, and what finding would change the decision. It opens the Stage 1 Register and
+travels through every stage. Without it, the Researcher collects what is interesting, not
+what is decisive. If no decision or metric exists, write "none: exploratory" and say so in
+the final output.
+
+**The hook shapes the question, never the grade.** The Evidence Auditor grades on evidence
+alone. Whether a finding matters to the decision is the Subject Matter Validator's call, not
+a grade. A grade that bends to what the business hopes is true is impact theatre with
+citations. A claim that a finding moves a metric is graded like any other claim.
 
 Build or update the source register. Grade each source (High / Moderate / Low confidence). Produce the initial confidence register with each claim graded: **Confirmed**, **Inferred**, or **Asserted**.
 
@@ -121,7 +133,8 @@ Produce the working draft from all Stage 1–2 outputs. Embed confidence markers
 
 Open by reading the Stage 3 Register and Handoff Note only.
 
-Adapt the working draft for the target audience. Never simplify a qualified finding into an unqualified one. Flag to Project Manager any claims that required significant softening.
+Adapt the working draft for the target audience. Open each key finding with its effect on the
+decision or metric in the Decision Hook, then the evidence. Never simplify a qualified finding into an unqualified one. Flag to Project Manager any claims that required significant softening.
 
 **Closing requirement:** Produce the final Stage 4 Register (final claim set as communicated, any softening flags, PM note) as an archival record of the complete process.
 
