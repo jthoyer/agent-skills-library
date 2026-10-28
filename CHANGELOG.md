@@ -63,7 +63,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `source-scout` | `changelog/2026-09-2.md`×2 | — |
 | `strategy-challenger` | `changelog/2026-09-2.md`×2 | — |
 | `strategy-juror` | `changelog/2026-09-2.md`×2 | — |
-| `ux-designer` | `CHANGELOG-ARCHIVE.md` | — |
+| `ux-designer` | `CHANGELOG.md` | `CHANGELOG-ARCHIVE.md` |
 | `watchdog` | `CHANGELOG.md`, `changelog/2026-09-1.md`×2 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×3 |
 
 ---
@@ -82,11 +82,28 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 ## 2026-10-28 — watchdog — committee page on the club's digital experience
 - Trigger: owner, via `/rewrite`: a light FYI strategy page for the committee on bringing the race calendar, Beat the Clock and Icicles into balancetriclub.com.au. Drafted directly in `cpo` (rung 1). Published to "balance committee notes".
-- Check: `watchdog` (delegated) on the draft, against a sources file copied from Notion plus both app READMEs. This bridges ASL-075: `watchdog` still can't read Notion. Verdict: publish with fixes. Eight findings, all accepted. Sample: `work-samples/watchdog-2026-10-28.md`.
+- Check: `watchdog` (delegated) on the draft, against a sources file copied from Notion plus both app READMEs. This bridges ASL-075: `watchdog` still can't read Notion. Verdict: publish with fixes. Eight findings, all accepted. Sample: `work-samples/watchdog-2026-10-28-committee-page.md`.
 - Best catch: the READMEs show the calendar and Bolt already sign in with the club website login, on club addresses. The Notion strategy pages of 26 Oct predate that, so the draft built on them undersold the work. One finding (#7) changed the page's story.
 - Lesson: the 26 Oct lesson again, one level up. A strategy page is a secondary source too. Check a status claim against the code, not the page that summarises it.
 - Open: BT-000 and BB-000 still describe GitHub Pages addresses and separate sign-ins. Raised with the owner.
 - No `agent-improver` run: `watchdog` was the reviewer, and no finding of its turned out wrong.
+- Next audit targets: `watchdog` (tools versus Notion artefacts, ASL-075), plus the queue below.
+
+## 2026-10-28 — ux-designer
+- Verdict: fit for options and reporting, but it hands over a mock that reads as shippable without checking what a port inherits. Biggest lever: a pre-handoff check against the live source (independent pass, first review with a sample).
+- Scores: 1 S · 2 A · 3 A · 4 S · 5 W · 6 A · 7 A
+- Changed: no edits (not authorised); proposed 3 fixes.
+- Why: Step 6 (`.claude/agents/ux-designer.md:30`) checks contrast, focus and tap targets only, and nothing says a mock built from a live file is not a port. Four of the five `watchdog` defects could be seen in the markup without a browser: missing head tags, 13 `<section aria-labelledby>` (`option-a.html:584`ff), a white banner with no print rule, and `scroll-behavior` moved out of its desktop-only query (`:268`). The 2.3:1 focus ring broke step 6's own 3:1 rule. Sample: `work-samples/ux-designer-2026-10-28.md`.
+- Expected effect: the next mock built from a live file lists what it preserved and what is unverified, and the port goes through `cody`. Test: `watchdog` finds no mock-origin defects on the next port.
+- Follow-up: HIGH: a derived-mock checklist in step 6. HIGH: step 7 marks mocks "not shippable", with a port list. MED, `cpo`: `routing.md:19` sends `ux-designer` then `cody`, yet the main thread ported. Add "porting a mock is a build". `Bash` would change the mandate; not proposed.
+- Next audit targets: `watchdog` (tools versus Notion artefacts, ASL-075), then `ux-designer` (next derived mock: checklist used?), plus the queue below.
+
+## 2026-10-28 — library — Balance Bolt guide refresh (`watchdog` review)
+- Trigger: owner, via `/rewrite`: fix balancetriclub/BalanceTRI-app#130, bring the Bolt guide up to date. Done directly in `cpo` (rung 1). The guide lives in `balancetriclub/BalanceBolt`, attached mid-session.
+- Output: balancetriclub/BalanceBolt#37 (both guide copies), balancetriclub/BalanceTRI-app#131 (calendar guide's Bolt address). Drafts, owner merges.
+- Check: `watchdog` delegated on all three guide files. Six findings, six verified on disk, all fixed. Two were errors in the new text (who refuses a member's change; "already signed in"). Sample: `work-samples/watchdog-2026-10-28.md`.
+- Lesson: "fix the guide for the latest updates" hid a second repo. The issue named the page, not its repo; `list_repos` found it.
+- No `agent-improver` run: `watchdog` only reviewed, and none of its findings was wrong.
 - Next audit targets: `watchdog` (tools versus Notion artefacts, ASL-075), plus the queue below.
 
 ## 2026-10-26 — library — strategy pages for the six backlog products
