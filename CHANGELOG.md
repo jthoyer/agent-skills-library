@@ -70,6 +70,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-28 — watchdog — committee page on the club's digital experience
+- Trigger: owner, via `/rewrite`: a light FYI strategy page for the committee on bringing the race calendar, Beat the Clock and Icicles into balancetriclub.com.au. Drafted directly in `cpo` (rung 1). Published to "balance committee notes".
+- Check: `watchdog` (delegated) on the draft, against a sources file copied from Notion plus both app READMEs. This bridges ASL-075: `watchdog` still can't read Notion. Verdict: publish with fixes. Eight findings, all accepted. Sample: `work-samples/watchdog-2026-10-28.md`.
+- Best catch: the READMEs show the calendar and Bolt already sign in with the club website login, on club addresses. The Notion strategy pages of 26 Oct predate that, so the draft built on them undersold the work. One finding (#7) changed the page's story.
+- Lesson: the 26 Oct lesson again, one level up. A strategy page is a secondary source too. Check a status claim against the code, not the page that summarises it.
+- Open: BT-000 and BB-000 still describe GitHub Pages addresses and separate sign-ins. Raised with the owner.
+- No `agent-improver` run: `watchdog` was the reviewer, and no finding of its turned out wrong.
+- Next audit targets: `watchdog` (tools versus Notion artefacts, ASL-075), plus the queue below.
+
 ## 2026-10-26 — library — strategy pages for the six backlog products
 - Trigger: owner, via `/rewrite`: one north-star strategy page per backlog product, framed on the "2026 AI-Era PRD Template" and set above delivery detail. Done directly in `cpo` (rung 1). One question round settled four things: placement (Key `<PREFIX>-000`, P0), Tri Momentum as a personal tool first, club apps owned by the owner, and four strategy goals.
 - Output: BB-000, BT-000, TM-000, CF-000, ASL-000 and PM-000 in Product backlog-db. Sample: `work-samples/cpo-strategy-pages-2026-10-26.md`.
