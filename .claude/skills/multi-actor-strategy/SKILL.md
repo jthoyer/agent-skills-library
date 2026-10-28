@@ -115,6 +115,7 @@ Before generating options, the Problem Framer must establish:
 - The decision horizon (immediate, medium-term, or directional)
 - The constraints that are real vs assumed
 - The assumptions embedded in how the problem has been presented
+- The Decision Hook: who decides, the decision, the metric or OKR at stake, the deadline, and what would change the decision. If a `multi-actor-research` run came first, import its hook from that Stage 1 Register rather than writing a new one
 
 The Strategist then generates a minimum of three genuine options — including at least one non-obvious option and one "do nothing / sustain current approach" option for comparison.
 
@@ -131,7 +132,7 @@ Open by reading the Stage 1 Register and Handoff Note only.
 
 In parallel:
 - Challenger produces an option stress-test: for each option, the strongest case for and the strongest case against, with the preferred option receiving the most rigorous challenge
-- Stakeholder Proxy produces a stakeholder response map: for each key party, their likely reaction to each option, what they gain, what they lose, and where resistance or advocacy will emerge
+- Stakeholder Proxy produces a stakeholder response map: for each key party, their likely reaction to each option, what they gain, what they lose, what they are measured on (KPI or OKR), and where resistance or advocacy will emerge. What people are measured on predicts resistance better than what they say
 
 Where a stakeholder position and a strategic challenge intersect, flag to Project Manager rather than resolve bilaterally.
 
@@ -175,7 +176,7 @@ Anonymise each surviving option's full case (Strategist's rationale + the Challe
 Feed the answers to the Decision Architect before the recommendation is drafted. Skip only if the user explicitly asks for a fast, low-stakes pass — state that the check was skipped and why.
 
 Decision Architect then produces the trade-off framework, incorporating the blind-review findings:
-- Criteria for the decision (explicit, not implicit)
+- Criteria for the decision (explicit, not implicit), with at least one stated as a business metric from the Decision Hook (rule R9). No metric applies? Record why in `skipped.metric`
 - How each surviving option performs against the criteria
 - A ranked recommendation with stated rationale
 - What would have to be true for a different recommendation to be correct
@@ -183,7 +184,7 @@ Decision Architect then produces the trade-off framework, incorporating the blin
 
 No Assumed rationale may survive to Stage 4. All reasoning must be Supported or Reasoned.
 
-**Conviction Bet — default step, closing gut-check before Stage 4.** A confidence grade is a label; a label can hide hedging. Before the recommendation is finalised, each surviving option's original advocate (Strategist, Challenger, or Stakeholder Proxy, whichever championed it) states what they'd bet on the outcome and at what confidence: "If I had $1,000 of my own on this, I'd bet on X, confidence Y%." With the Agent tool, the jurors place their bets blind, and the main thread records its own bet beside theirs. Record the bet alongside the confidence grade — don't let it replace the grade, and don't let vague "it depends" stand in for a bet. Skip only for a fast, low-stakes pass — state that it was skipped and why.
+**Conviction Bet — default step, closing gut-check before Stage 4.** A confidence grade is a label; a label can hide hedging. Before the recommendation is finalised, each surviving option's original advocate (Strategist, Challenger, or Stakeholder Proxy, whichever championed it) states what they'd bet on the outcome and at what confidence: "If I had $1,000 of my own on this, I'd bet on X moving [metric] by Z, confidence Y%." Name the metric from the Decision Hook where one exists. With the Agent tool, the jurors place their bets blind, and the main thread records its own bet beside theirs. Record the bet alongside the confidence grade — don't let it replace the grade, and don't let vague "it depends" stand in for a bet. Skip only for a fast, low-stakes pass — state that it was skipped and why.
 
 **Closing requirement:** Produce a Stage 3 Register (risk log per option + blind council check findings + conviction bets + trade-off assessment + preliminary recommendation with confidence grade) and a Handoff Note to Stage 4 before proceeding. Run `check_strategy.py` at stage 3.
 

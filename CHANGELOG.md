@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-28 — library — business hat for research and strategy (`multi-actor-research`, `multi-actor-strategy`)
+- Trigger: owner, via `/rewrite`: how should Nikki Anderson's "Put on your business hat" (15 Oct 2026) shape the two skills? Done directly in `cpo` (rung 1), no agents dispatched. Reduced independence: the same thread judged and built it. The article was blocked by the session network; the view rests on its teaser and the author's related work (Inferred). Detail: `work-samples/business-hat-review-2026-10-28.md`.
+- Finding: research started from evidence, not from the decision it serves; strategy mapped stakeholder reactions, not what each party is measured on.
+- Changed: research gains a Decision Hook (who decides, decision, metric, deadline, what would change it), written by the PM before grading. The Evidence Auditor grades on evidence alone; the Validator tests relevance; the Communicator leads with the effect on the metric. Strategy's Problem Framer writes or imports the hook; the Stakeholder Proxy adds "measured on"; the Decision Architect states one criterion as a metric, enforced by new checker rule R9 (escape: `skipped.metric`); the Conviction Bet names the metric. Tests: 26 pass.
+- Rejected: an eighth "Business Strategist" actor; any claim that a finding moves a metric without evidence.
+- Expected effect: the next research run's Stage 1 Register opens with a hook, and the next strategy run.json carries a metric criterion or a reason.
+- Next audit targets: `multi-actor-research` (first run with a hook: did the Auditor stay blind to it?), `strategy-challenger`, plus the queue below.
+
 ## 2026-10-28 — library — look outward before building (`cody`, `mc-planner`)
 - Trigger: owner, via `/rewrite`: is a tweeted CLAUDE.md rule useful? "For unfamiliar features, don't write from scratch: first search GitHub for open-source projects, compare approaches, then get started" (@jedeeai, 26 Oct 2026). Done directly in `cpo` (rung 1), no agents dispatched. Reduced independence: the same thread judged and built it.
 - Finding: useful, with limits. `ux-designer` already has it (step 2, `ux-designer.md:16`); no edit. `cody` searched only inside the repo (`cody.md:25`), so an unfamiliar feature got hand-rolled. `mc-planner` never named prior art, so the dependency call fell to the Implementer.

@@ -3,7 +3,7 @@
 
 Usage: check_strategy.py run.json      (exit 1 on any FAIL, 0 otherwise)
 
-Checks the eight rules in references/agent-plan.md ("What the script checks") that need no
+Checks the nine rules in references/agent-plan.md ("What the script checks") that need no
 judgment. Each rule applies from the stage where SKILL.md makes it due, so the same file can be
 checked after Stage 1, 2, 3 and 4 as the run fills it in. A malformed run is reported as FAIL
 lines, never as a traceback.
@@ -18,13 +18,15 @@ Rules, and the stage each starts at:
   R7 pick-gap     (3)  if the challenger's strongest pick is not the preference, a written answer
   R8 wording      (4)  an embodied run, or one whose agent reported NOT BLIND, may not claim
                        "blind" or "independently stress-tested" in the final brief
+  R9 metric       (3)  at least one decision criterion names a business metric, or
+                       skipped.metric says why none applies
 
 Input JSON (keys marked optional may be left out):
 {
   "stage": 4,                              # last stage completed, 1-4
   "embodied": false,                       # true if any role ran in the main thread
   "preference": "B",                       # option the main thread favoured entering Stage 2
-  "skipped": {"bets": "fast pass, owner asked"},   # optional: step -> reason (council, bets)
+  "skipped": {"bets": "fast pass, owner asked"},   # optional: step -> reason (council, bets, metric)
   "options": [{
     "id": "A", "name": "Sustain",
     "sustain": true,                       # optional: marks the sustain / do-nothing option
@@ -37,6 +39,8 @@ Input JSON (keys marked optional may be left out):
                  "blind": true,            # the agent's BLIND line: yes -> true
                  "strongest_pick": "A"},
   "pick_gap_answer": "",                   # required when strongest_pick != preference
+  "criteria": [{"criterion": "...",        # Decision Architect's criteria, from Stage 3
+                "metric": "90-day retention"}],   # at least one names a metric (R9)
   "council": {"mode": "dispatched",        # dispatched | embodied | skipped
               "answers": [{"by": "juror-1", "role": "juror", "blind": true,
                            "strongest": "A", "blind_spot": "B", "missed": "..."}]},
@@ -179,6 +183,17 @@ def r7_pick_gap(run, ids):
         flag("INFO", "R7", f"pick gap {pick} vs {pref} answered in writing")
 
 
+def r9_metric(run):
+    skipped = run.get("skipped")
+    if isinstance(skipped, dict) and text(skipped.get("metric")):
+        flag("INFO", "R9", f"no business metric: {skipped['metric']}")
+        return
+    crit = run.get("criteria")
+    if not isinstance(crit, list) or not any(isinstance(c, dict) and text(c.get("metric")) for c in crit):
+        flag("FAIL", "R9", "no decision criterion names a business metric; add one from the "
+             "Decision Hook, or say why none applies in skipped.metric")
+
+
 def r4_no_assumed(run):
     rec = run.get("recommendation")
     if not isinstance(rec, dict):
@@ -242,6 +257,7 @@ def check(run):
         r5_premortem(opts)
         r6_bets(run, ids)
         r7_pick_gap(run, ids)
+        r9_metric(run)
         council = run.get("council") or {}
         if council.get("mode") not in COUNCIL_MODES:
             flag("FAIL", "schema", f"council needs a mode from {sorted(COUNCIL_MODES)}")

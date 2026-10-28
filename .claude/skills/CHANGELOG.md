@@ -5,6 +5,17 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-28 — business hat for `multi-actor-research` and `multi-actor-strategy`
+
+### Updated
+- **`multi-actor-research`**: a Decision Hook opens Stage 1 (PM writes it before grading). It
+  shapes the question, never the grade. Validator and Communicator use it; templates updated.
+- **`multi-actor-strategy`**: the Problem Framer writes or imports the hook; the stakeholder map
+  adds "measured on"; one decision criterion must name a metric (`check_strategy.py` rule R9,
+  escape `skipped.metric`); the Conviction Bet names the metric.
+- Why: Nikki Anderson's "Put on your business hat" (15 Oct 2026). Owner's decision, 2026-10-28;
+  detail in the root `CHANGELOG.md`.
+
 ## 2026-10-25 — `mc-orchestrator` saves the verify recipe
 
 ### Updated
