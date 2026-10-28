@@ -76,7 +76,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 - Rejected finding: #2 said the 12 Oct minutes don't mention waivers. They do. `cpo`'s sources file left the line out, so the miss was in the brief, not the agent.
 - Lesson: a hand-made sources file is a lossy copy. When a reviewer can't reach the source (ASL-075), paste the source sections whole, not a summary.
 - Closed: the earlier entry's open item (BT-000 and BB-000 out of date) is resolved.
-- Open: BB-000 question 5. Non-members can't sign up for Bolt without a club login, but the committee leans towards letting them race with a waiver.
+- Decided by the owner: an admin signs non-members up for Bolt on the day (BB-000 question 5).
 - No `agent-improver` run: no `watchdog` finding was wrong on the evidence it was given.
 - Next audit targets: `watchdog` (tools versus Notion artefacts, ASL-075), plus the queue below.
 
