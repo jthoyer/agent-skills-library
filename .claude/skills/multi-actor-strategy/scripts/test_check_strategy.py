@@ -22,6 +22,9 @@ FIXTURE = os.path.join(ROOT, "work-samples", "multi-actor-strategy-2026-09-29-ba
 
 with open(FIXTURE, encoding="utf-8") as fh:
     BASE = json.load(fh)
+# The baseline predates R9 (2026-10-28). Add its criterion here, not in the fixture, so the
+# work sample stays the record of what that run produced.
+BASE.setdefault("criteria", [{"criterion": "Adoption by the owner", "metric": "weekly runs completed"}])
 
 
 def run(data):
@@ -104,7 +107,7 @@ class CheckStrategy(unittest.TestCase):
         code, out = run(edit(stage2))
         self.assertEqual(code, 0, out)
 
-    # --- one decoy per rule (R1-R8) ----------------------------------------------------
+    # --- one decoy per rule (R1-R9) ----------------------------------------------------
     def test_R1_no_sustain_option(self):
         self.only(edit(lambda b: opt(b, lambda o: o.get("sustain")).pop("sustain")), "R1", "sustain")
 
@@ -159,6 +162,21 @@ class CheckStrategy(unittest.TestCase):
 
     def test_R8_not_blind_agent_cannot_back_a_blind_claim(self):
         self.only(edit(lambda b: b["challenger"].update(blind=False), DISPATCHED), "R8", "NOT BLIND")
+
+    def test_R9_no_metric_criterion(self):
+        self.only(edit(lambda b: b.update(criteria=[{"criterion": "Feels right", "metric": ""}])),
+                  "R9", "business metric")
+
+    def test_R9_missing_criteria(self):
+        self.only(edit(lambda b: b.pop("criteria")), "R9", "business metric")
+
+    def test_R9_skipped_with_reason_passes(self):
+        def skip(b):
+            b.pop("criteria")
+            b["skipped"] = {"metric": "personal decision; no business metric applies"}
+        code, out = run(edit(skip))
+        self.assertEqual(code, 0, out)
+        self.assertIn("INFO [R9]", out)
 
     # --- malformed input is a FAIL line, never a traceback -------------------------------
     def test_bad_json(self):

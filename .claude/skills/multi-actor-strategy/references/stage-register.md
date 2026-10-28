@@ -68,6 +68,10 @@ Strategic question: [the precise, restated question]
 Decision horizon: [immediate / medium-term / directional]
 Date / version: [date, v1]
 
+--- DECISION HOOK (imported from multi-actor-research, or written here) ---
+Decides: [person or role] | Decision: [the choice] | Metric at stake: [KPI or OKR, or "none: why"]
+Deadline: [date] | Would change the decision: [the finding or event that would flip it]
+
 --- OPTIONS IN PLAY ---
 [Option A: name] | Reasoned | Core bet: [X] | Requires: [Y] | Forecloses: [Z]
 [Option B: name] | Reasoned | Core bet: [X] | Requires: [Y] | Forecloses: [Z]
@@ -107,7 +111,7 @@ Date / version: [date, v1]
 [Option D] | Supported | Retained as baseline
 
 --- STAKEHOLDER LANDSCAPE ---
-[Stakeholder 1] | Supports [Option A] | Neutral on [Option B] | Resists [Option D] | Influence: [type]
+[Stakeholder 1] | Supports [Option A] | Neutral on [Option B] | Resists [Option D] | Influence: [type] | Measured on: [KPI or OKR]
 [Stakeholder 2] | Resists all change options | Influence: [type] | Key interest: [X]
 [Stakeholder 3] | Position unclear — requires engagement before recommendation is finalised
 

@@ -55,7 +55,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `mc-implementer` (retired 2026-09-29, `.claude/skills/_retired/mc-implementer/`) | `changelog/2026-09-2.md` | `changelog/2026-08.md`×2 |
 | `mc-integrator` | `changelog/2026-09-2.md`, `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
 | `mc-orchestrator` (agent retired 2026-10-13 → skill) | `changelog/2026-09-2.md`, `changelog/2026-09-1.md` | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×5 |
-| `mc-planner` | `changelog/2026-08.md`×2 | `CHANGELOG-ARCHIVE.md`×5 |
+| `mc-planner` | `CHANGELOG.md`, `changelog/2026-08.md`×2 | `CHANGELOG-ARCHIVE.md`×5 |
 | `mc-reviewer` | `CHANGELOG.md`×2, `changelog/2026-09-1.md` | `changelog/2026-08.md`×2, `CHANGELOG-ARCHIVE.md`×4 |
 | `mc-verifier` | `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md`×2 |
 | `release-engineer` | `changelog/2026-09-1.md` | `changelog/2026-08.md`, `CHANGELOG-ARCHIVE.md` |
@@ -69,6 +69,22 @@ Counts are entries whose **heading names** the agent — which includes creation
 ---
 
 <!-- New entries below this line, newest first -->
+
+## 2026-10-28 — library — business hat for research and strategy (`multi-actor-research`, `multi-actor-strategy`)
+- Trigger: owner, via `/rewrite`: how should Nikki Anderson's "Put on your business hat" (15 Oct 2026) shape the two skills? Done directly in `cpo` (rung 1), no agents dispatched. Reduced independence: the same thread judged and built it. The article was blocked by the session network; the view rests on its teaser and the author's related work (Inferred). Detail: `work-samples/business-hat-review-2026-10-28.md`.
+- Finding: research started from evidence, not from the decision it serves; strategy mapped stakeholder reactions, not what each party is measured on.
+- Changed: research gains a Decision Hook (who decides, decision, metric, deadline, what would change it), written by the PM before grading. The Evidence Auditor grades on evidence alone; the Validator tests relevance; the Communicator leads with the effect on the metric. Strategy's Problem Framer writes or imports the hook; the Stakeholder Proxy adds "measured on"; the Decision Architect states one criterion as a metric, enforced by new checker rule R9 (escape: `skipped.metric`); the Conviction Bet names the metric. Tests: 26 pass.
+- Rejected: an eighth "Business Strategist" actor; any claim that a finding moves a metric without evidence.
+- Expected effect: the next research run's Stage 1 Register opens with a hook, and the next strategy run.json carries a metric criterion or a reason.
+- Next audit targets: `multi-actor-research` (first run with a hook: did the Auditor stay blind to it?), `strategy-challenger`, plus the queue below.
+
+## 2026-10-28 — library — look outward before building (`cody`, `mc-planner`)
+- Trigger: owner, via `/rewrite`: is a tweeted CLAUDE.md rule useful? "For unfamiliar features, don't write from scratch: first search GitHub for open-source projects, compare approaches, then get started" (@jedeeai, 26 Oct 2026). Done directly in `cpo` (rung 1), no agents dispatched. Reduced independence: the same thread judged and built it.
+- Finding: useful, with limits. `ux-designer` already has it (step 2, `ux-designer.md:16`); no edit. `cody` searched only inside the repo (`cody.md:25`), so an unfamiliar feature got hand-rolled. `mc-planner` never named prior art, so the dependency call fell to the Implementer.
+- Changed: `cody` step 1 gains an outward search: platform API first, then two or three libraries compared on fit, size, licence, last release and security issues. Three limits: a new dependency is flagged, not added; adapted code is fetched content; skip it when the repo already does the job. `mc-planner` names the prior art and whether a dependency is allowed.
+- Rejected: a CLAUDE.md line (it governs this repo, not app builds); "search GitHub" as the only source (a well-used library or the platform API often beats a repo).
+- Expected effect: the next unfamiliar feature's summary lists what was compared, and no dependency lands without a spec line or a flag.
+- Next audit targets: `cody` (next unfamiliar feature: comparison in the summary?), `watchdog` (tools versus Notion artefacts, ASL-075), plus the queue below.
 
 ## 2026-10-28 — watchdog — strategy pages matched to code, committee deck
 - Trigger: owner, via `/rewrite`: match BT-000 and BB-000 to the code, rework the committee page (drop "committee first" and the later asks, add the Friday shout-out and club-email process), turn it into slides. Done directly in `cpo` (rung 1). The deck uses the Slides type and the Balance brand.

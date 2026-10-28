@@ -67,6 +67,13 @@ STAGE 1 REGISTER
 Research question: [state the question]
 Date / version: [date, v1]
 
+--- DECISION HOOK (written by PM before grading; travels to every stage) ---
+Decides: [person or role]
+Decision informed: [the choice this research feeds]
+Metric at stake: [KPI or OKR, or "none: exploratory"]
+Deadline: [date the decision is made]
+Would change the decision: [the finding that would flip it]
+
 --- CLAIMS IN PLAY ---
 [Claim 1] | Confirmed | [source ref]
 [Claim 2] | Inferred  | [source ref + reasoning basis]
@@ -149,7 +156,8 @@ Date / version: [date, v1]
 
 --- AUDIENCE NOTE FOR COMMUNICATOR ---
 Primary audience: [e.g. executive / operational team / mixed]
-Decision they need to make: [state it precisely]
+Decision they need to make: [state it precisely, from the Decision Hook]
+Metric at stake: [from the Decision Hook; lead each key finding with its effect on it]
 Claims requiring most careful handling: [list — these are where distortion risk is highest]
 Confidence qualifications that must not be dropped: [list]
 

@@ -107,7 +107,7 @@ A run that dispatched one agent and embodied the other is embodied.
 the rules are `stage` (the last stage completed, so each rule waits for its stage), `embodied`,
 and `preference`. Per option they are `sustain`, `status`, `reason`, `challenge` and `premortem`.
 The rest are `challenger` (`mode`, `blind`, `strongest_pick`), `pick_gap_answer`, `council`,
-`bets`, `recommendation` (confidence and graded rationale) and `brief_text`. In an embodied run,
+`bets`, `criteria` (each with its `metric`), `recommendation` (confidence and graded rationale) and `brief_text`. In an embodied run,
 set `strongest_pick` to the preference: the author attacked what it favoured. The rules:
 
 | Rule | From stage | Fails when |
@@ -120,6 +120,7 @@ set `strongest_pick` to the preference: the author attacked what it favoured. Th
 | R6 | 3 | no main-thread bet, or a juror answered and did not bet |
 | R7 | 3 | the challenger's pick differs from the preference and no written answer exists |
 | R8 | 4 | an embodied or NOT BLIND run claims "blind" or "independently stress-tested" in the brief |
+| R9 | 3 | no decision criterion names a business metric, and `skipped.metric` gives no reason |
 
 `test_check_strategy.py` proves each rule with a decoy. CI runs it. The passing fixture is the
 phase 1 baseline, rendered at `work-samples/multi-actor-strategy-2026-09-29-baseline.json`. It

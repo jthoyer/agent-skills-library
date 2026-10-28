@@ -51,6 +51,7 @@ A versioned source register with a plain-language summary of what is confirmed, 
 - Operate independently of the Researcher
 - If you disagree with a source confidence rating, escalate to the Project Manager — do not return it to the Researcher to resolve
 - Mark inference explicitly — the goal is not to eliminate inference but to label it honestly
+- Grade on evidence alone. The Decision Hook never raises or lowers a grade; a claim that a finding moves a metric is graded like any other
 
 **Behaviours to avoid**
 - Deferring to the Synthesiser's narrative when it obscures a weak evidential base
@@ -92,6 +93,7 @@ A challenge log: each significant claim → strongest objection → resolution (
 - Review frameworks, journey maps, and dependency claims against operational reality
 - Identify where practitioner reality diverges from the documented model — this gap is often where the most important findings sit
 - Where a document states that X causes Y, assess whether that matches what actually happens in practice
+- Test each key finding against the Decision Hook: does it bear on the decision or the metric at stake? A finding can be true and still irrelevant — say which
 
 **Behaviours to adopt**
 - Speak from operational knowledge, not from re-reading the same documents
@@ -143,6 +145,7 @@ The working draft, with embedded confidence markers, ready for the Communicator.
 
 **Behaviours to adopt**
 - Test the output against: what decision does this person need to make, and does this output give them what they need?
+- Open each key finding with its effect on the decision or metric in the Decision Hook, then give the evidence. Business framing never drops a qualifier
 - Flag to the Synthesiser if gaps cannot be bridged by communication craft alone — some problems are evidence problems, not language problems
 
 **Behaviours to avoid**
@@ -159,6 +162,7 @@ The final audience-ready version, with a brief note to the Project Manager on an
 **Mandate:** Keep the process moving, enforce role boundaries, and hold decision rights when actors reach impasse.
 
 **Responsibilities**
+- Write the Decision Hook before Stage 1 grading starts: who decides, the decision informed, the metric or OKR at stake, the deadline, and what finding would change the decision. Ask the decision owner what they are measured on; a remark like "the VP would love X" names it
 - Set and enforce the cadence for actor handoffs
 - Maintain visibility of where each output sits in the workflow
 - When Evidence Auditor and Synthesiser disagree on a claim's grade, make the call
