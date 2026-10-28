@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-28 — library — Balance Bolt guide refresh (`watchdog` review)
+- Trigger: owner, via `/rewrite`: fix balancetriclub/BalanceTRI-app#130, bring the Bolt guide up to date. Done directly in `cpo` (rung 1). The guide lives in `balancetriclub/BalanceBolt`, attached mid-session.
+- Output: balancetriclub/BalanceBolt#37 (both guide copies), balancetriclub/BalanceTRI-app#131 (calendar guide's Bolt address). Drafts, owner merges.
+- Check: `watchdog` delegated on all three guide files. Six findings, six verified on disk, all fixed. Two were errors in the new text (who refuses a member's change; "already signed in"). Sample: `work-samples/watchdog-2026-10-28.md`.
+- Lesson: "fix the guide for the latest updates" hid a second repo. The issue named the page, not its repo; `list_repos` found it.
+- No `agent-improver` run: `watchdog` only reviewed, and none of its findings was wrong.
+- Next audit targets: `watchdog` (tools versus Notion artefacts, ASL-075), plus the queue below.
+
 ## 2026-10-26 — library — strategy pages for the six backlog products
 - Trigger: owner, via `/rewrite`: one north-star strategy page per backlog product, framed on the "2026 AI-Era PRD Template" and set above delivery detail. Done directly in `cpo` (rung 1). One question round settled four things: placement (Key `<PREFIX>-000`, P0), Tri Momentum as a personal tool first, club apps owned by the owner, and four strategy goals.
 - Output: BB-000, BT-000, TM-000, CF-000, ASL-000 and PM-000 in Product backlog-db. Sample: `work-samples/cpo-strategy-pages-2026-10-26.md`.
