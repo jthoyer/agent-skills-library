@@ -70,6 +70,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-28 — library — premise check before a build (`mc-planner`, `cpo`, `mc-orchestrator`)
+- Trigger: owner, via `/rewrite`: how is the BalanceTRI-app code after the 27 October hand-over better than what the library built? Then: "draft the premise check PR". Done directly in `cpo` (rung 1), no agents dispatched. Reduced independence: the same thread reviewed the app and drafted the rule.
+- Finding: the hand-over won on premise, not craft. Sign-in with the club website replaced about a month of membership work (allow-list, join requests, approvals, password resets). Net diff: +1,834 / −13,671 lines. The club already had two systems that knew who was a member: its website and JustGo. Admins were loading JustGo roster exports to approve requests. No stage asked "who already does this job?" Sample: `work-samples/balancetri-premise-2026-10-28.md`.
+- Changed: new `.claude/references/premise-check.md`, with three questions and an outcome of Borrow, Build or Unknown. `mc-planner` runs it first and puts the outcome at the top of the spec. An Unknown on sign-in, payments or member data blocks the spec. `cpo` 2.1.0 adds a Premise line to Frame. `mc-orchestrator` 1.2.0 adds it to Stage 1.
+- Not changed: `first-principles` stays a separate skill. The check is three questions, not a method.
+- Expected effect: the next build of sign-in, payments, forms or booking records Borrow, Build or Unknown before the spec. Check the first `mc-planner` spec after merge.
+- Reverses if: the check fires on fixes, or slows small builds without changing any outcome.
+- Next audit targets: `mc-planner` (first spec carrying a premise outcome), plus the queue below.
+
 ## 2026-10-26 — library — strategy pages for the six backlog products
 - Trigger: owner, via `/rewrite`: one north-star strategy page per backlog product, framed on the "2026 AI-Era PRD Template" and set above delivery detail. Done directly in `cpo` (rung 1). One question round settled four things: placement (Key `<PREFIX>-000`, P0), Tri Momentum as a personal tool first, club apps owned by the owner, and four strategy goals.
 - Output: BB-000, BT-000, TM-000, CF-000, ASL-000 and PM-000 in Product backlog-db. Sample: `work-samples/cpo-strategy-pages-2026-10-26.md`.
