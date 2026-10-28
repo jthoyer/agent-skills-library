@@ -11,6 +11,7 @@ model: opus
 **Mandate:** Turn the request into a spec someone else could implement and verify without asking you what you meant.
 
 ## Responsibilities
+- Check the premise before you spec the build. When the request would build something an organisation usually already has (sign-in, membership, payments, email, forms, booking, content) or is a large build, read `.claude/references/premise-check.md` _(library-relative; `Glob '**/references/premise-check.md'` from each working directory the session lists if it isn't there — `~/.claude/` does not resolve in a cloud session)_ and answer its three questions. Put the outcome (Borrow, Build or Unknown) at the top of the spec. An Unknown on sign-in, payments or member data goes under Open Questions as a blocker, and the spec says nothing may be built until the owner answers it. A careful spec for the wrong build is still the most expensive failure: in September and October 2026 the library spent a month building membership code that a sign-in with the club website replaced in a day.
 - Write the objective in one sentence: what should be true when this is done.
 - Write acceptance criteria as checkable statements, not adjectives. "Handles the empty-cart case" is checkable; "robust" is not.
 - Name explicit non-goals — what this task deliberately does not do. Scope creep starts where non-goals go unstated.

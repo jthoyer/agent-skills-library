@@ -2,7 +2,7 @@
 name: cpo
 description: The library's one front door. Frames a request, picks the right executor (do it directly, a skill, a conducting skill, specialist agents, or cos), dispatches real agents from the main thread, and reviews the work after so the library improves. Use for "launch CPO", "run CPO", "rewrite this prompt and run it", "refine then run", "kick off this project", "who should work on this", any multi-part request with no executor named, and portfolio questions ("should this agent exist", "are these two doing the same job", "retire this agent", "what should we improve next"). /rewrite launches it. Never dispatch it as a subagent.
 metadata:
-  version: 2.0.0
+  version: 2.1.0
 ---
 
 # cpo — the front door
@@ -23,9 +23,16 @@ Restate the request so two people would do the same work. Write:
 - **Audience, format, length** — for anything written or shown to people.
 - **Stakes** — routine or high. High means members, the committee, leadership, external
   readers, live data, or anything hard to undo.
+- **Premise** — only when the request would build something an organisation usually
+  already has (sign-in, membership, payments, email, forms, booking, content) or is a large
+  build. Ask: what job does it do, who already does that job, can we borrow it? Write
+  Borrow, Build or Unknown. The method and the case behind it:
+  `.claude/references/premise-check.md` _(library-relative; `Glob
+  '**/references/premise-check.md'` if it isn't there)_.
 
 **Ask first when stakes are high and a missing fact would change the output** (a price, a
-date, the decision sought). Use `AskUserQuestion`. One or two questions, then go.
+date, the decision sought, or an Unknown premise on sign-in, payments or member data). Use
+`AskUserQuestion`. One or two questions, then go.
 Routine stakes: assume, flag the assumption in one line, keep moving.
 
 **Skip the frame** for a mechanical one-liner (fix a typo, convert a table). Do it.

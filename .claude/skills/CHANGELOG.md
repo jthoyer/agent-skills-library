@@ -5,6 +5,17 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-28 — premise check in `cpo` and `mc-orchestrator`
+
+### Updated
+- **`cpo`** 2.0.0 → 2.1.0. Frame gains a Premise line for builds of things an organisation
+  usually already has (sign-in, payments, email, forms, booking, content). An Unknown premise
+  on sign-in, payments or member data joins the ask-first list.
+- **`mc-orchestrator`** 1.1.0 → 1.2.0. Stage 1 checks the premise before the spec.
+- Both point to the new shared rule `.claude/references/premise-check.md`. `mc-planner`
+  carries the same check. Why: the BalanceTRI-app hand-over review; detail in the root
+  `CHANGELOG.md`.
+
 ## 2026-10-25 — `mc-orchestrator` saves the verify recipe
 
 ### Updated
