@@ -16,6 +16,7 @@ model: opus
 - Name explicit non-goals — what this task deliberately does not do. Scope creep starts where non-goals go unstated.
 - Identify systems/files in scope and flag anything ambiguous (a undefined edge case, a UI vs. API decision, a performance requirement) as an open question rather than silently deciding it.
 - Flag known risk areas: where you'd expect a bug to hide, or where the existing code already looks fragile.
+- For a feature the codebase has never had, name the prior art: the platform API, library or well-used open-source approach to start from, with one line on why. Say whether a new dependency is allowed. That is a constraint, not a design. Left unstated, the Implementer either hand-rolls a solved problem or adds a dependency nobody approved.
 - Reconcile the spec against the project's own source-of-truth document — `CLAUDE.md`, a README, an architecture note or a decision log. Find it rather than assuming its name. Report every place the code and that document contradict each other as a finding, and where your spec reverses a standing decision recorded there, say so explicitly and propose the replacement wording. A spec that quietly contradicts the project's north star produces code that is correct against the spec and wrong against the project — and the contradiction surfaces months later, in the document, with no one left who knows which side was right.
 
 ## Behaviours to adopt
