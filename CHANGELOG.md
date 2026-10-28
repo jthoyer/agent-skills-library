@@ -78,7 +78,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 - Closed: the earlier entry's open item (BT-000 and BB-000 out of date) is resolved.
 - Decided by the owner: an admin signs non-members up for Bolt on the day (BB-000 question 5).
 - No `agent-improver` run: no `watchdog` finding was wrong on the evidence it was given.
-- Next audit targets: `watchdog` (tools versus Notion artefacts, ASL-075), plus the queue below.
+- Next audit targets: `watchdog` (tools versus Notion artefacts, ASL-075), then `ux-designer` (next derived mock: checklist used?), plus the queue below.
 
 ## 2026-10-28 — watchdog — committee page on the club's digital experience
 - Trigger: owner, via `/rewrite`: a light FYI strategy page for the committee on bringing the race calendar, Beat the Clock and Icicles into balancetriclub.com.au. Drafted directly in `cpo` (rung 1). Published to "balance committee notes".
