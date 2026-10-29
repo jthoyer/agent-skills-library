@@ -56,6 +56,13 @@ jobs:
       - name: Skill structure
         run: bash scripts/check-skill-structure.sh
 
+      # Does every agent and skill have a row in ADMISSIONS.md, and does every
+      # new one carry evidence that it beats plain Claude?
+      # Catches: a part added on a hunch. content-writing went in untested and
+      # lost to using no skill at all (6 Sep). Rule: .claude/references/admission-test.md.
+      - name: Admissions
+        run: bash scripts/check-admissions.sh
+
       # Does research-to-ideas' brief checker still enforce the skill's rules?
       # Catches: a checker that passes a Contested idea at Medium, a decision
       # rule with a gap, or a malformed brief that crashes instead of failing.

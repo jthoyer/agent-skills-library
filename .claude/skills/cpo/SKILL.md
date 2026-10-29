@@ -2,7 +2,7 @@
 name: cpo
 description: The library's one front door. Frames a request, picks the right executor (do it directly, a skill, a conducting skill, specialist agents, or cos), dispatches real agents from the main thread, and reviews the work after so the library improves. Use for "launch CPO", "run CPO", "rewrite this prompt and run it", "refine then run", "kick off this project", "who should work on this", any multi-part request with no executor named, and portfolio questions ("should this agent exist", "are these two doing the same job", "retire this agent", "what should we improve next"). /rewrite launches it. Never dispatch it as a subagent.
 metadata:
-  version: 2.0.0
+  version: 2.1.0
 ---
 
 # cpo — the front door
@@ -43,7 +43,7 @@ Climb only as far as the blast radius needs. Each rung costs a cold start.
 | 3 | One specialist's job, or a short hand-off: a bug of unknown cause (`investigator` → `cody`), a security review, a design direction | Dispatch that agent, then review per step 4 |
 | 4 | A new feature or change that will be merged, where no one should grade their own work | The `mc-orchestrator` skill (the coding pipeline). Touches auth, payments or member data: add `security-auditor` beside `mc-reviewer` |
 | — | Personal planning: "what should I work on", "brief me" | the `cos` skill, not this one |
-| — | Portfolio: which agents exist, merge, retire, what to improve next | Stay here. Read `references/portfolio.md` |
+| — | Portfolio: which agents exist, merge, retire, what to improve next, or adding a new one | Stay here. Read `references/portfolio.md`. Nothing is added until it beats plain Claude on a recorded test |
 
 **Inventory before you route.** The agent and skill listings in your context are the
 roster, not memory. A frontmatter `name:` is the address; a filename will not dispatch.
