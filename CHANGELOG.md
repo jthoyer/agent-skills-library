@@ -77,7 +77,7 @@ Counts are entries whose **heading names** the agent — which includes creation
 - Proposed, not approved: a house-rule test before any agent cut; the writing and research merge candidates; mc-planner, mc-integrator and code-improver reviews (`portfolio.md`, *Open composition items*).
 - Rejected: cutting by headcount; dropping `agent-improver`; folding framework skills into one.
 - Reversal: three admission tests in a row where both arms score full marks and the fixtures can't be made harder.
-- Reduced independence: the main thread wrote the rule. Owed: an independent `watchdog` pass on the rule and the script.
+- Checked: delegated `watchdog`, ship after fixes. All 8 findings fixed: the `tested`/`passed` word, the gauntlet's self-graded mode excluded from admission, `mc-verifier` filed twice, the verbatim report saved, the evidence path tightened, agent-name fallback, the rename rule, and the overclaim.
 - Next audit targets: `watchdog`, `mc-reviewer`, `code-improver` (house-rule admission test), plus the queue below.
 
 ## 2026-10-28 — library — business hat for research and strategy (`multi-actor-research`, `multi-actor-strategy`)

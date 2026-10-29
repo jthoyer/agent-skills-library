@@ -95,13 +95,14 @@ skill.
     fixture author score it. Order: `watchdog`, `mc-reviewer`, `code-improver`. Lost: nothing
     until a part fails. Reversal: both arms at full marks again means rebuild the fixture, not
     cut.
-  - **Keep, no test due:** `agent-improver` (it runs the improvement loop, and won 20 Oct
-    round 1), `security-auditor` and `mc-verifier` (real findings on 22 Oct, BalanceTRI-app
-    #118), and the blind roles (`evidence-auditor`, `idea-challenger`, `strategy-challenger`,
+  - **Keep, test last:** `agent-improver` (it runs the improvement loop, and won 20 Oct
+    round 1), `security-auditor` (real findings on 22 Oct, BalanceTRI-app #118), and the blind
+    roles (`evidence-auditor`, `idea-challenger`, `strategy-challenger`,
     `strategy-juror`), whose value is independence. Reversal: an admission test where plain
     Claude does as well and enforces the same rules.
   - **`mc-reviewer` + `mc-verifier`:** left to the 31 Dec retire test above. The 22 Oct
-    verifier finding counts towards its bar.
+    verifier finding (22 Oct, #118) and the four defects `mc-reviewer` caught that self-review
+    had passed (tri-momentum, decisions 32 and 34) both count towards its bar.
   - **`mc-planner`, `mc-integrator`:** one production run each (22 Oct). Read
     `work-samples/mc-planner-2026-10-22.md` and `mc-integrator-2026-10-22.md` for what each
     changed before proposing anything. Lost if cut: the written spec and the merge gate.

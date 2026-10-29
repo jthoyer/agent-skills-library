@@ -20,7 +20,7 @@ editable definition).
 >
 > Return (≤900 words): steelman; findings Fatal/Major/Minor with mechanism, evidence and what it should have said; verified-facts table; what survives; bottom line.
 
-## Output (summary of the verbatim report; findings and evidence kept whole)
+## Output: summary (the verbatim report is in the next file)
 
 **Steelman.** Upkeep is real (18 agents, 39 skills, drifting copies, ledgers). The owner's own
 tests found no detection advantage. Reliable "always" behaviour needs enforcement.
@@ -73,3 +73,6 @@ rules block, narrow the privacy check, check plugin reach before stopping upload
 Every amendment went into the revised plan. The library changes it led to (the admission
 rule, `ADMISSIONS.md`, `scripts/check-admissions.sh`, the audit proposals in `portfolio.md`)
 are logged in `CHANGELOG.md`, 2026-10-29.
+
+The verbatim report is in `red-team-skills-vs-agents-2026-10-29-report.md`, restored from the
+main thread's context after `watchdog` flagged the summary-only sample.

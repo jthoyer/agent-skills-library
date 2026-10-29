@@ -223,14 +223,12 @@ Deliver the reverting copy alongside the upgrade so a rollback needs no reconstr
 5. Validate: description character count, frontmatter parses, name matches directory, cross-
    references resolve.
 6. Test against realistic prompts, including at least one where the skill should *not* fire.
-7. **Run the admission test before it goes in.** No skill against the candidate, the same brief
-   saved for both, a fixture that needs what the skill adds, decoys, a sealed key, a blind grader
-   who didn't write the fixture, and at least two runs each. Use `references/upgrade-gauntlet.md`
-   for the mechanics. It passes only if it does the work better, or enforces a rule that no skill
-   broke on the same test. Save everything in `work-samples/admission-<name>-<YYYY-MM-DD>/`. If it
-   fails, it doesn't go in. The full rule is `.claude/references/admission-test.md` in the library
-   repo.
-8. Add a `passed` row to `ADMISSIONS.md` at the library root, pointing at that work sample. CI
+7. **Run the admission test before it goes in.** It has to beat no skill. The method is in
+   `.claude/references/admission-test.md` in the library repo: follow that file rather than
+   this summary. The gauntlet's self-graded mode doesn't count, so run it from Claude Code or
+   have the owner grade blind. If it fails, it doesn't go in.
+8. Commit the evidence to `work-samples/admission-<name>-<YYYY-MM-DD>/` in the repo, then add a
+   `passed` row to `ADMISSIONS.md` at the library root, pointing at it. CI
    fails on a skill without one. Then deliver to `/mnt/user-data/outputs/<skill-name>/` and add
    a CHANGELOG entry.
 

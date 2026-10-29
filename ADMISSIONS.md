@@ -1,19 +1,15 @@
 # Admissions
 
 Every agent and skill in this library, and the evidence that it beats plain Claude. The rule is
-in `.claude/references/admission-test.md`. CI (`scripts/check-admissions.sh`) fails when:
-
-- an agent or skill has no row here,
-- a row names something that no longer exists,
-- a `passed` row's evidence isn't a path under `work-samples/` that exists,
-- a `grandfathered` row is added after 2026-10-29. The frozen list lives in the script, so any change to it shows up in review.
+in `.claude/references/admission-test.md`. `scripts/check-admissions.sh` enforces it in CI;
+its header lists what it fails on.
 
 **Status values.** `passed`: cleared the admission test. `grandfathered`: existed on 2026-10-29
 and **has not passed** the test. Notes record any partial evidence. Testing the
 grandfathered parts is the audit queue in `.claude/skills/cpo/references/portfolio.md`.
 
 Adding a row: one line per part, kept in alphabetical order within its table. Evidence for
-`passed` is the work-sample path alone.
+`passed` is the work-sample path alone, under `work-samples/admission-<name>-`.
 
 ## Agents
 
@@ -28,7 +24,7 @@ Adding a row: one line per part, kept in alphabetical order within its table. Ev
 | investigator | grandfathered | Not tested |
 | mc-integrator | grandfathered | Not tested |
 | mc-planner | grandfathered | Not tested |
-| mc-reviewer | grandfathered | Tied on detection. Lost round 1 slightly, then won on house rules in round 2, author-scored (work-samples/agent-vs-house-2026-10-20.md, work-samples/agent-vs-house-round2-2026-10-20.md) |
+| mc-reviewer | grandfathered | Tied on detection. Lost round 1 slightly, then won on house rules in round 2, author-scored (work-samples/agent-vs-house-2026-10-20.md, work-samples/agent-vs-house-round2-2026-10-20.md). Real work: caught four defects self-review had passed (tri-momentum CLAUDE.md, decisions 32 and 34) |
 | mc-verifier | grandfathered | No head-to-head. Real-work finding on 22 Oct: work-samples/mc-orchestrator-2026-10-22-registers.md |
 | release-engineer | grandfathered | Not tested |
 | security-auditor | grandfathered | No head-to-head. Real-work findings on 22 Oct: work-samples/mc-orchestrator-2026-10-22-registers.md |

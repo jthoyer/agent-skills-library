@@ -8,12 +8,14 @@
 #
 #   MISSING      an agent or skill on disk has no row in ADMISSIONS.md
 #   STALE        a row names something that no longer exists
-#   NO-EVIDENCE  a `passed` row whose evidence isn't an existing path under work-samples/
+#   NO-EVIDENCE  a `passed` row whose evidence isn't an existing work-samples/admission-<name>-… path
+#   NO-NAME      an agent file whose name can't be read (falls back to the filename)
 #   NEW-GRANDFATHER  a `grandfathered` row not in the frozen 2026-10-29 list below
 #   BAD-STATUS   a status other than `passed` or `grandfathered`
 #
 # The frozen list is meant to stay frozen. Removing a name (it passed, or it
-# was retired) is fine. Adding one is the defect this script exists to catch.
+# was retired) is fine. Adding one is the defect this script exists to catch. A rename
+# moves the name here in the same commit, so it shows up in review.
 #
 # Requires: bash, awk, grep.
 set -uo pipefail
@@ -51,7 +53,11 @@ rows="$(awk -F'|' '
 
 on_disk=""
 for f in "$root"/.claude/agents/*.md; do
-  n="$(grep -m1 '^name:' "$f" | awk '{print $2}')"
+  n="$(grep -m1 '^name:' "$f" | sed -e 's/^name:[[:space:]]*//' -e 's/[[:space:]"'"'"'\r]*$//' -e 's/^["'"'"']//')"
+  if [[ -z "$n" ]]; then
+    n="$(basename "$f" .md)"
+    flag NO-NAME "agent $n: no readable name: line, using the filename"
+  fi
   on_disk+="agent	$n"$'\n'
 done
 for d in "$root"/.claude/skills/*/; do
@@ -70,8 +76,8 @@ while IFS=$'\t' read -r kind name status evidence; do
   printf '%s' "$on_disk" | grep -q "^$kind	$name$" || flag STALE "$kind $name: listed but not on disk"
   case "$status" in
     passed)
-      if [[ "$evidence" != work-samples/* || ! -e "$root/$evidence" ]]; then
-        flag NO-EVIDENCE "$kind $name: evidence must be an existing work-samples/ path, got '$evidence'"
+      if [[ "$evidence" != work-samples/admission-"$name"-* || "$evidence" == *..* || ! -e "$root/$evidence" ]]; then
+        flag NO-EVIDENCE "$kind $name: evidence must be an existing work-samples/admission-$name-... path, got '$evidence'"
       fi ;;
     grandfathered)
       [[ "$GRANDFATHERED" == *" $name "* ]] || flag NEW-GRANDFATHER "$kind $name: new parts must pass the admission test, not be grandfathered" ;;
