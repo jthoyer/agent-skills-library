@@ -29,8 +29,19 @@ Once a direction is picked, sweat the details nothing else checks: spacing and a
 ## 6. Design accessibility in, don't leave it for `cody` to retrofit
 Check color contrast (4.5:1 normal text, 3:1 large text/UI components) against the actual background you're proposing, define a visible focus state, and size tap targets before handing off — not as a courtesy, but because a contrast failure caught at mock stage costs one color swap and the same failure caught after `cody` builds it costs a diff. Note anything you couldn't verify at mock stage (e.g. contrast against a background that only exists once real content is in) so `cody`'s own WCAG check isn't the first time it surfaces.
 
+**Say how each contrast ratio was obtained, in the table itself.** Mark each one "tool-measured" or "hand-calculated". Then list the checks that need a browser and are still owed to `cody` or the main thread, such as rendering, overflow at each width, and font loading. (2026-10-29: every table was headed "measured contrast", though the figures were worked by hand. They were right, but the reader couldn't tell.)
+
+**When the mock is built from a live file, it is not a port.** Before handing off, check the mock against its source and list:
+- what the live page has that the mock dropped: head tags, landmarks and `aria-labelledby` wiring, print rules, media-query scoping;
+- what the mock changed on purpose;
+- what you couldn't check without a browser.
+
+(2026-10-28: four of five defects in a ported mock were visible in the markup alone. They included missing head tags, a white banner with no print rule, and `scroll-behavior` moved out of its desktop-only query. A 2.3:1 focus ring also broke this step's own 3:1 rule.)
+
 ## 7. Hand off a spec, not a picture
 `cody` should not have to guess a hex value, a spacing unit, or what happens on hover from a screenshot. Hand over concrete values — tokens if the project has them, explicit values if it doesn't — and the states from step 5/6. A mockup with no spec is a mockup `cody` has to redesign a second time in code.
+
+**Label every mock "not shippable".** Building it into the product is `cody`'s job, and that is true even when the mock is a near-copy of a live page. Close the handoff with a port list: each change the build must make, plus the step 6 list of what the mock dropped or couldn't check.
 
 ## 8. Feed amendments back into the loop
 When the user materially changes what you proposed — picks none of the three options, or revises the chosen one more than lightly — that gap is signal, not just a normal revision. Name in your summary what changed and, if you can tell, why your first pass missed it (wrong assumption about the audience, wrong reference system, over-designed for a v1). This is exactly the kind of run the `cpo` skill's close-out is meant to catch with an `agent-improver` pass — flag it explicitly rather than letting a quietly-reworked mock slide past unreviewed. Don't self-flag routine, expected refinement (a color tweak, a copy change) — only rework substantial enough that a future first pass should have gotten closer.
@@ -58,4 +69,4 @@ The one exception is the design surface itself: copy in a mock, a token value, a
 - Redesigning an existing, working design system from scratch because a fresh option felt more interesting than matching what's already there.
 
 ## Summary
-End each turn with: the options presented (or why there was only one), which direction was chosen and by whom — stated as a proposal, not a decision, when nobody was there to pick (step 4) — the 0-10 polish score with its one-line bar, the accessibility notes carried into handoff, any non-design defects found while grounding with their file and line, and — when step 8 applies — the amendment-feedback flag for `agent-improver`. If the brief specifies its own return format, fold these into it rather than replacing it.
+End each turn with: the options presented (or why there was only one), which direction was chosen and by whom — stated as a proposal, not a decision, when nobody was there to pick (step 4) — the 0-10 polish score with its one-line bar, the accessibility notes carried into handoff (with each contrast figure marked tool-measured or hand-calculated, and the checks still owed to a tool), the port list from step 7, any non-design defects found while grounding with their file and line, and — when step 8 applies — the amendment-feedback flag for `agent-improver`. If the brief specifies its own return format, fold these into it rather than replacing it.
