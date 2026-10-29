@@ -70,6 +70,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-29 — ux-designer and cpo: proposals applied
+- Trigger: owner, "progress all open items", 29 Oct 2026. It signs off the open `ux-designer` proposals from 28 Oct (2 HIGH, 1 MED) and 29 Oct (1 MED, 1 LOW).
+- Changed:
+  - `ux-designer.md` step 6 has a derived-mock checklist (what the live page has that the mock dropped, what changed on purpose, what needs a browser). It also marks each contrast ratio "tool-measured" or "hand-calculated" in the table, and lists the checks still owed.
+  - Step 7 labels every mock "not shippable", with a port list. The Summary carries both.
+  - `cpo` `routing.md`: porting a mock is a build, so it goes to `cody` (`cpo` 2.1.1).
+- Not changed: `Bash` for `ux-designer`, still not proposed. Its hand figures held 16/16.
+- Expected effect: the next mock built from a live file arrives with its port list, and `watchdog` finds no mock-origin defects on the port.
+- Next audit targets: `ux-designer` (next derived mock: checklist and port list used?), `mc-verifier` (runner counts quoted?), plus the queue below.
+
 ## 2026-10-29 — mc-orchestrator run, BBallSkills Phase 1 (5 agents: mc-verifier, mc-reviewer, mc-planner, cody, mc-integrator; plus the conductor skill)
 - Independence: this is a separate dispatched context that produced none of the run. Sample: `work-samples/mc-orchestrator-bballskills-2026-10-29.md`. Scores marked – were not re-scored this pass.
 

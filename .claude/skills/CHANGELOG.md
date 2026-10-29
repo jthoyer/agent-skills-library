@@ -5,6 +5,12 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-29 — `cpo` routes mock ports to `cody`
+
+### Updated
+- **`cpo`** 2.1.0 → 2.1.1. In `routing.md`, the `ux-designer` row now says porting a mock into the product is a build. It goes to `cody`, never to the main thread.
+- Why: on 28 Oct the main thread ported a mock itself, and `watchdog` found four mock-origin defects. Owner signed off, 29 Oct 2026; detail in the root `CHANGELOG.md`.
+
 ## 2026-10-29 — `mc-orchestrator` re-reviews fix rounds
 
 ### Updated
