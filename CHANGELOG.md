@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-29 — watchdog (races site header, BalanceTRI-app#154)
+- Trigger: owner, via `/rewrite`: give races.balancetriclub.com.au the club website's menu, keep signed-in items. Done directly in `cpo` (rung 1); `watchdog` delegated as the production review. Sample: `work-samples/watchdog-2026-10-29.md`.
+- Verdict: earned its dispatch. 9 findings, none wrong; 4 real defects the main thread's screenshots at 1280/1000/390px missed (overflow at 1061–1100px, no way back on phones, menu under the sticky guide list, README wrong per sign-in state). All fixed in the same PR.
+- Observed: it had no Bash, said so, and marked its one width claim as an estimate. The main thread measured it before acting: confirmed.
+- No edits to the definition. `agent-improver` skipped: only a reviewer ran, and no finding was wrong.
+- Lesson for briefs: name the breakpoint edges to test (just above and below each), not only common widths.
+- Next audit targets: `watchdog` (does an estimate-flagged claim hold up as often next time?), plus the queue above.
+
 ## 2026-10-29 — library — portfolio: admission test, and the audit proposed
 - Trigger: owner, via `/rewrite`: from scratch, skills, agents or plain Claude? Main thread answered "cut to about a third". A delegated `general-purpose` red team (`work-samples/red-team-skills-vs-agents-2026-10-29.md`) found the cuts unsupported: 20 Oct hit a ceiling, and 22 Oct real work favoured agents. The owner then asked for the proposals only, plus the beat-Claude rule.
 - Decision (owner): nothing new joins until it beats plain Claude on a recorded test, or enforces a rule plain Claude broke. Added `.claude/references/admission-test.md`, `ADMISSIONS.md` (every part `grandfathered`, partial evidence noted) and `scripts/check-admissions.sh` in CI and the push hook. Five mutations each caught: missing row, new grandfather, bad evidence path, stale row, and clean again.
