@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-29 — watchdog (race calendar onboarding guide, pass 2)
+- Trigger: owner, via `/rewrite`: design an onboarding from balancetriclub.com.au's **Club Race Calendar** link to a set-up account, in the style of the owner's quick-start PDF. Done directly in `cpo` (rung 1) with `balance-tri-club-brand`; the PDF's look won over the brand skill's all-caps headlines, at the owner's request. `watchdog` delegated as the member-facing review. Sample: `work-samples/watchdog-2026-10-29-pass2.md`.
+- Verdict: earned its dispatch. 8 findings, none wrong. The best catch was a stale screenshot: the main thread reused the racer guide's welcome screen without checking `app.js`. 5 fixed, 1 overtaken by the owner's own wording, 2 left (crop; app-repo guide text).
+- Network: the session could not reach balancetriclub.com.au, so two cards are drawn and flagged in the page for real screenshots.
+- No edits to the definition. `agent-improver` skipped: only a reviewer ran, and no finding was wrong.
+- Lesson for the main thread: check every reused screenshot against the current code before building on it.
+- Next audit targets: `watchdog` (does it keep finding stale assets when a brief names the code as a source?), plus the queue above.
+
 ## 2026-10-29 — watchdog (races site header, BalanceTRI-app#154)
 - Trigger: owner, via `/rewrite`: give races.balancetriclub.com.au the club website's menu, keep signed-in items. Done directly in `cpo` (rung 1); `watchdog` delegated as the production review. Sample: `work-samples/watchdog-2026-10-29.md`.
 - Verdict: earned its dispatch. 9 findings, none wrong; 4 real defects the main thread's screenshots at 1280/1000/390px missed (overflow at 1061–1100px, no way back on phones, menu under the sticky guide list, README wrong per sign-in state). All fixed in the same PR.
