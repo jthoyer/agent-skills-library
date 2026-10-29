@@ -70,6 +70,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-29 — ux-designer
+- Verdict: fit for purpose with no rework; having no shell is a deliberate boundary, and the one lever is labelling hand-calculated checks where readers see them (independent pass, with sample).
+- Scores: 1 S · 2 A · 3 S · 4 S · 5 A · 6 S · 7 A
+- Changed: no edits (not authorised); proposed 2 fixes.
+- Why: Every brief constraint was met, and all 16 hand-calculated ratios matched the main thread's script to 2 dp (`work-samples/ux-designer-2026-10-29.md`). The method is disclosed in the report and at `bballskills-styles.html:154`, but each token table is headed "measured contrast" (`:208`, `:269`, `:329`). Step 6 (`.claude/agents/ux-designer.md:30`) asks what is unverified, not how each figure was obtained.
+- Expected effect: the next mock labels each ratio "hand-calculated" or "tool-measured" and lists the render checks still owed. Test: the main thread knows what to re-run without hunting for the caveat.
+- Follow-up: MED: step 6 adds "say how each ratio was obtained, in the table itself, and list render-dependent checks owed to `cody` or the main thread". LOW: Summary (`:61`) names "checks owed to a tool". `Bash` not proposed: hand figures held 16/16, and a shell would blur design-not-build (`:46`). The 10-28 HIGH fixes are still unsigned and untested here (no derived mock).
+- Next audit targets: `watchdog` (does an estimate-flagged claim hold up as often next time?), `ux-designer` (next derived mock; 10-28 fixes signed off?), plus the queue above.
+
 ## 2026-10-29 — watchdog (races site header, BalanceTRI-app#154)
 - Trigger: owner, via `/rewrite`: give races.balancetriclub.com.au the club website's menu, keep signed-in items. Done directly in `cpo` (rung 1); `watchdog` delegated as the production review. Sample: `work-samples/watchdog-2026-10-29.md`.
 - Verdict: earned its dispatch. 9 findings, none wrong; 4 real defects the main thread's screenshots at 1280/1000/390px missed (overflow at 1061–1100px, no way back on phones, menu under the sticky guide list, README wrong per sign-in state). All fixed in the same PR.
