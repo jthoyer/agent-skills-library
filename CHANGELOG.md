@@ -100,6 +100,7 @@ Counts are entries whose **heading names** the agent — which includes creation
   - MED, `SKILL.md` Stage 3: "Reviewer and Verifier are read-only; briefs ask them to return text, and the main thread pastes it verbatim."
   - MED, `mc-reviewer.md:19`: "for data and content findings, list every field per record as the sites."
   - LOW, `mc-verifier.md:24`: apply the can-it-fail check to your own suite too.
+- Applied 2026-10-29 on owner sign-off (ASL-076): all five. Wording in the MED orchestrator edit kept to the definitions: neither actor holds write tools.
 - Next audit targets: `mc-verifier` (next run: are its own runner's counts quoted?), `mc-reviewer` (content findings enumerated per field?), `watchdog`, `code-improver`, plus the queue above.
 
 ## 2026-10-29 — ux-designer
