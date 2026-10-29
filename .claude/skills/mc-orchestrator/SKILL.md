@@ -2,7 +2,7 @@
 name: mc-orchestrator
 description: Runs the full multi-actor coding playbook end to end from the main thread, dispatching five actor agents (mc-planner, cody as Implementer, mc-reviewer and mc-verifier concurrently, mc-integrator) with a Stage Register at each handoff. Use when a coding task is non-trivial enough that getting it right matters more than getting it fast — new features, bug fixes touching shared code, anything that will be merged and relied on. Trigger on "run the coding playbook", "build this properly", "go through the coding stages", or a coding task handed over with a request for a robust, verified result rather than a single pass. Holds Integrator decision rights at impasse. Embodies the actors only when the Agent tool is absent.
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 
@@ -54,6 +54,10 @@ Reviewer and Verifier are this playbook's adversarial pair, the direct analogue 
 **When the work starts with code already in the tree that you did not write** — an abandoned or interrupted prior attempt, a half-finished branch, a colleague's draft — Stage 2 is a *triage*, not a build, and it must produce an explicit disposition for every affected unit: **keep** (and state what verified it), **fix** (and state what was wrong), **rewrite**, or **delete**. Untrusted code that is merely plausible is the most dangerous input this playbook handles, because it reads like finished work and carries no signal that it was never run — its presence in the file is not evidence it works, and inherited comments asserting a measurement or a guarantee are claims to re-check, not facts to inherit. Two failure modes deserve specific attention: code the prior attempt *added* (audit against the spec) and code it *modified in passing*, which is where a silent regression to an already-shipped feature hides. Record the disposition list in the Stage 2 Register — "audited the prior attempt" without a per-unit verdict is not a handoff, and the Integrator cannot arbitrate what was never itemised.
 
 **Stage 3 — Challenge** *(Reviewer + Verifier, concurrent, coordinated by Integrator).* Open from the Stage 2 Register only. If the change touches auth, payments or member data, dispatch `security-auditor` in the same turn as the Reviewer, with the same spec path. Each brief, Reviewer and Verifier alike, carries the absolute path to the persisted Stage 1 spec: both check the code against that file, not against a summary of it. Reviewer produces a findings list (static defects, ranked by severity). Verifier produces a verification report (what was actually run, pass/fail against each acceptance criterion). Where their findings conflict or either blocks on ambiguity, escalate to the Integrator. Close with a Stage 3 Register + Handoff Note.
+
+**Reviewer and Verifier hold no write tools by design.** Brief them to return their report as text, never to append to the registers file. The main thread pastes each report into the registers word for word, marked as pasted.
+
+**After a fix round, send the Reviewer back over the fix diff before Stage 4.** A fix is new code, and passing tests is not a second reader. Brief the Reviewer with the fix diff, the findings it addresses, and the spec path. (2026-10-29: a fix commit went to Stage 4 with no reader. The Integrator caught it, and the re-review found residue of a finding the fix had claimed to close.)
 
 **Stage 4 — Integration** *(Integrator).* Open from the Stage 3 Register only. Confirm every acceptance criterion is Verified, not merely Implemented. Resolve any outstanding Reviewer/Verifier conflict. Produce the final diff summary / PR description. Close with the archival Stage 4 Register and decision log.
 

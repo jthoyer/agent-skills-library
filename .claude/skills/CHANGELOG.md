@@ -5,6 +5,12 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-29 — `mc-orchestrator` re-reviews fix rounds
+
+### Updated
+- **`mc-orchestrator`** 1.1.0 → 1.2.0. Stage 3 now says two things. Reviewer and Verifier return text, and the main thread pastes it into the registers. After a fix round, the Reviewer goes back over the fix diff before Stage 4.
+- Why: in the BBallSkills Phase 1 run, a fix commit reached Stage 4 unread, and the read-only Reviewer was briefed to write a file it couldn't. Owner signed off ASL-076, 2026-10-29; detail in the root `CHANGELOG.md`.
+
 ## 2026-10-29 — admission test: beat no skill before adding
 
 ### Updated

@@ -70,6 +70,48 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-29 — mc-orchestrator run, BBallSkills Phase 1 (5 agents: mc-verifier, mc-reviewer, mc-planner, cody, mc-integrator; plus the conductor skill)
+- Independence: this is a separate dispatched context that produced none of the run. Sample: `work-samples/mc-orchestrator-bballskills-2026-10-29.md`. Scores marked – were not re-scored this pass.
+
+**mc-verifier**
+- Verdict: not fit as it stands, because it reported "FAIL: none" while its own suite asserts a threshold the page cannot meet; the biggest lever is to quote its own runner's summary verbatim.
+- Scores: 1 S · 2 S · 3 S · 4 A · 5 W · 6 W · 7 S
+- Changed: no edits; proposed 2 fixes.
+- Why: `v.cjs:105` requires `cards.length>=10`. The zone page has 8 cards (`results.json:69`, FAIL), and the register says that content did not change since 813988f. The report gives exact counts for the repo scripts, none for `v.cjs`, and closes "Verified: all 25 ACs" with AC17's PR-body half NOT RUN. It also used PASS/FAIL, not the Output vocabulary. The mutation rule (`mc-verifier.md:24`) was applied to repo scripts only, never to its own new suite.
+- Expected effect: the next report quotes each runner's own fail count, and a FAIL in its own suite is reported as a defect or a test defect, never left out.
+- Follow-up: `results.json` was overwritten by the main thread's re-run, so whether the first run failed cannot be told from disk.
+
+**mc-reviewer**
+- Verdict: fit; it found M1–M3, which were real, but M1 named one line per drill, and the fix closed only those lines.
+- Scores: 1 S · 2 S · 3 S · 4 S · 5 A · 6 A · 7 S
+- Changed: no edits; proposed 1 fix.
+- Why: Gap 2 is a brief and skill defect, not a tool gap. Write would break read-only, and `mc-orchestrator/SKILL.md` never says that a read-only actor returns text for the main thread to save. Gap 3: both were too narrow. M1 cited one field per drill, and cody trimmed titles and teaches only. The generalise rule (`mc-reviewer.md:19`) is framed as call sites, not as every field of a content record.
+- Expected effect: a content finding lists every field per record, so the next fix round leaves no residue.
+
+**cody, mc-planner, mc-integrator**
+- Scores (each): 1 – · 2 – · 3 – · 4 – · 5 – · 6 S · 7 –
+- cody did mutation-proof every fix (Stage 2b). The planner's D1–D4 held. The integrator caught that b884442 had no second reader (decision 7) and ruled on the AC8 test defect. No faults found.
+
+**mc-orchestrator (skill)**
+- The fix round had no Reviewer re-read until the Integrator caught it, and `SKILL.md` has no fix-loop step.
+- Proposed (user signs off):
+  - HIGH, `mc-verifier.md` Output: "for every suite run, quote the runner's own summary or fail count; a FAIL in a suite you wrote is reported as Failed or as a test defect, never omitted."
+  - HIGH, `SKILL.md` Stage 3: "after a fix round, re-dispatch the Reviewer on the fix diff before Stage 4."
+  - MED, `SKILL.md` Stage 3: "Reviewer and Verifier are read-only; briefs ask them to return text, and the main thread pastes it verbatim."
+  - MED, `mc-reviewer.md:19`: "for data and content findings, list every field per record as the sites."
+  - LOW, `mc-verifier.md:24`: apply the can-it-fail check to your own suite too.
+- Applied 2026-10-29 on owner sign-off (ASL-076): all five. Wording in the MED orchestrator edit kept to the definitions: neither actor holds write tools.
+- Next audit targets: `mc-verifier` (next run: are its own runner's counts quoted?), `mc-reviewer` (content findings enumerated per field?), `watchdog`, `code-improver`, plus the queue above.
+
+## 2026-10-29 — ux-designer
+- Verdict: fit for purpose with no rework; having no shell is a deliberate boundary, and the one lever is labelling hand-calculated checks where readers see them (independent pass, with sample).
+- Scores: 1 S · 2 A · 3 S · 4 S · 5 A · 6 S · 7 A
+- Changed: no edits (not authorised); proposed 2 fixes.
+- Why: Every brief constraint was met, and all 16 hand-calculated ratios matched the main thread's script to 2 dp (`work-samples/ux-designer-2026-10-29.md`). The method is disclosed in the report and at `bballskills-styles.html:154`, but each token table is headed "measured contrast" (`:208`, `:269`, `:329`). Step 6 (`.claude/agents/ux-designer.md:30`) asks what is unverified, not how each figure was obtained.
+- Expected effect: the next mock labels each ratio "hand-calculated" or "tool-measured" and lists the render checks still owed. Test: the main thread knows what to re-run without hunting for the caveat.
+- Follow-up: MED: step 6 adds "say how each ratio was obtained, in the table itself, and list render-dependent checks owed to `cody` or the main thread". LOW: Summary (`:61`) names "checks owed to a tool". `Bash` not proposed: hand figures held 16/16, and a shell would blur design-not-build (`:46`). The 10-28 HIGH fixes are still unsigned and untested here (no derived mock).
+- Next audit targets: `watchdog` (does an estimate-flagged claim hold up as often next time?), `ux-designer` (next derived mock; 10-28 fixes signed off?), plus the queue above.
+
 ## 2026-10-29 — watchdog (races site header, BalanceTRI-app#154)
 - Trigger: owner, via `/rewrite`: give races.balancetriclub.com.au the club website's menu, keep signed-in items. Done directly in `cpo` (rung 1); `watchdog` delegated as the production review. Sample: `work-samples/watchdog-2026-10-29.md`.
 - Verdict: earned its dispatch. 9 findings, none wrong; 4 real defects the main thread's screenshots at 1280/1000/390px missed (overflow at 1061–1100px, no way back on phones, menu under the sticky guide list, README wrong per sign-in state). All fixed in the same PR.
