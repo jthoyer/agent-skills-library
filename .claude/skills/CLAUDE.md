@@ -15,8 +15,12 @@ the rules CI enforces, so you meet them before the push, not after.
   `references/` folder. Never point into the home `.claude` folder, other than its skills
   folder; it doesn't exist in a cloud session.
 - **Add each new skill to `README.md`**, the index. A skill missing from it fails CI.
+- **A new skill has to beat no skill first.** Run the admission test
+  (`.claude/references/admission-test.md`), then add a `passed` row to `ADMISSIONS.md` that
+  points at its work sample. A skill without a row fails CI, and so does a new `grandfathered`
+  row.
 - **`_retired/` is an archive.** Don't edit inside it; a hook blocks that. Retire a skill with
   `git mv`, and log it in `CHANGELOG.md` in this folder.
 
-Check before you push: `bash scripts/check-frontmatter.sh`, `bash scripts/check-references.sh`
-and `bash scripts/check-skill-structure.sh`, from the repo root. The push hook runs them anyway.
+Check before you push: `bash scripts/check-frontmatter.sh`, `bash scripts/check-references.sh`,
+`bash scripts/check-skill-structure.sh` and `bash scripts/check-admissions.sh`, from the repo root. The push hook runs them anyway.

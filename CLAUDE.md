@@ -16,9 +16,14 @@ review, improve or fix an agent or skill, edit it **here** and open a pull reque
 
 A hook in `.claude/settings.json` runs the CI checks before every `git push` and blocks
 the push on a finding. Run them yourself while you work: `check-frontmatter.sh`,
-`check-references.sh`, `check-skill-structure.sh` in `scripts/`. `.claude/skills/` and
+`check-references.sh`, `check-skill-structure.sh`, `check-admissions.sh` in `scripts/`. `.claude/skills/` and
 `.claude-plugin/` each have a local CLAUDE.md with their rules. Log every review in
 `CHANGELOG.md` per `.claude/skills/cpo/references/close-out.md`.
+
+**Nothing new goes in until it beats plain Claude.** A new agent or skill needs a recorded test
+showing it does the work better, or enforces a rule plain Claude broke
+(`.claude/references/admission-test.md`), and a `passed` row in `ADMISSIONS.md`.
+`scripts/check-admissions.sh` blocks the push otherwise.
 
 ## Starting a cloud session with this library and an app repo
 
@@ -36,6 +41,7 @@ turn. Not yet tested end to end (2026-10-18): if they don't, start a fresh sessi
 |---|---|
 | Agents and skills | `.claude/agents/`, `.claude/skills/` (index: `.claude/skills/README.md`) |
 | Rules shared by several agents | `.claude/references/` |
+| Admission evidence for every agent and skill | `ADMISSIONS.md` (rule: `.claude/references/admission-test.md`) |
 | Health checks (CI runs them) | `scripts/`, `.github/workflows/checks.yml` |
 | Review ledger, current month | `CHANGELOG.md`. Write here. |
 | Skills ledger | `.claude/skills/CHANGELOG.md` |

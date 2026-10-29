@@ -5,6 +5,13 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-29 — admission test: beat no skill before adding
+
+### Updated
+- **`skills-librarian`** 2.3.2 → 2.4.0. Creating a skill now runs the admission test (no skill against the candidate, a saved brief, decoys, a sealed key, a blind grader, two runs each) and adds a `passed` row to `ADMISSIONS.md`. Merge and retire keep that file true.
+- **`cpo`** 2.0.0 → 2.1.0. `portfolio.md` gains *Admission: beat plain Claude first* and the 2026-10-29 audit proposals. The routing table's portfolio row says nothing is added untested.
+- Why: on 6 Sep, `content-writing` lost to using no skill at all on 2 of 3 tasks, and it had never been tested. Owner's decision, 2026-10-29; detail in the root `CHANGELOG.md`.
+
 ## 2026-10-28 — business hat for `multi-actor-research` and `multi-actor-strategy`
 
 ### Updated

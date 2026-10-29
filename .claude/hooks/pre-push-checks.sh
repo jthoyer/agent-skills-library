@@ -44,6 +44,7 @@ run "References resolve"                bash scripts/check-references.sh
 run "Plugin manifest current"           bash scripts/sync-plugin-manifest.sh --check
 run "Frontmatter and trailing lines"    bash scripts/check-frontmatter.sh
 run "Skill structure"                   bash scripts/check-skill-structure.sh
+run "Admissions"                        bash scripts/check-admissions.sh
 run "research-to-ideas checker tests"   python3 .claude/skills/research-to-ideas/scripts/test_check_brief.py
 run "multi-actor-strategy checker tests" python3 .claude/skills/multi-actor-strategy/scripts/test_check_strategy.py
 

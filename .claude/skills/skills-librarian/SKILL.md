@@ -10,7 +10,7 @@ description: >
   task touching the skills directory or library health. Always use before writing or modifying any
   SKILL.md — it enforces the standards that keep the library reliable.
 metadata:
-  version: 2.3.2
+  version: 2.4.0
 ---
 
 # Skills Librarian
@@ -217,11 +217,20 @@ Deliver the reverting copy alongside the upgrade so a rollback needs no reconstr
 2. Gather: name, trigger intent, output format, related skills, boundaries.
 3. Check for overlap against all four scopes before writing a line. A near-duplicate of an existing
    skill competes with it and both fire unreliably.
+   Then ask whether plain Claude already does the job. A skill goes in only if it beats no skill
+   on a recorded test (the admission test, below).
 4. Draft in `/home/claude/<skill-name>/`, applying the "what belongs in a skill" test to every line.
 5. Validate: description character count, frontmatter parses, name matches directory, cross-
    references resolve.
 6. Test against realistic prompts, including at least one where the skill should *not* fire.
-7. Deliver to `/mnt/user-data/outputs/<skill-name>/`, add a CHANGELOG entry.
+7. **Run the admission test before it goes in.** It has to beat no skill. The method is in
+   `.claude/references/admission-test.md` in the library repo: follow that file rather than
+   this summary. The gauntlet's self-graded mode doesn't count, so run it from Claude Code or
+   have the owner grade blind. If it fails, it doesn't go in.
+8. Commit the evidence to `work-samples/admission-<name>-<YYYY-MM-DD>/` in the repo, then add a
+   `passed` row to `ADMISSIONS.md` at the library root, pointing at it. CI
+   fails on a skill without one. Then deliver to `/mnt/user-data/outputs/<skill-name>/` and add
+   a CHANGELOG entry.
 
 ### 2. Merge two skills
 
@@ -233,6 +242,8 @@ Deliver the reverting copy alongside the upgrade so a rollback needs no reconstr
 5. Rewrite the description to cover both trigger sets; validate the character count.
 6. Name the merged skill after the primary use case.
 7. CHANGELOG the merge with rationale; mark the absorbed skill for removal and keep its snapshot.
+8. Update `ADMISSIONS.md`: remove the absorbed skill's row. If the merged skill claims new
+   behaviour, run the admission test on it first.
 
 ### 3. Trim a bloated skill
 
@@ -286,7 +297,8 @@ evidence:
 - It has not fired in real use and no realistic trigger can be written for it
 
 Archive rather than delete: keep the snapshot, archive the Notion page, and CHANGELOG the removal
-with the evidence that justified it.
+with the evidence that justified it. Remove the skill's row from `ADMISSIONS.md` in the same
+commit; CI flags a row with nothing on disk behind it.
 
 ### 8. Update the CHANGELOG
 

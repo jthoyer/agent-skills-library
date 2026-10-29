@@ -70,6 +70,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-29 — library — portfolio: admission test, and the audit proposed
+- Trigger: owner, via `/rewrite`: from scratch, skills, agents or plain Claude? Main thread answered "cut to about a third". A delegated `general-purpose` red team (`work-samples/red-team-skills-vs-agents-2026-10-29.md`) found the cuts unsupported: 20 Oct hit a ceiling, and 22 Oct real work favoured agents. The owner then asked for the proposals only, plus the beat-Claude rule.
+- Decision (owner): nothing new joins until it beats plain Claude on a recorded test, or enforces a rule plain Claude broke. Added `.claude/references/admission-test.md`, `ADMISSIONS.md` (every part `grandfathered`, partial evidence noted) and `scripts/check-admissions.sh` in CI and the push hook. Five mutations each caught: missing row, new grandfather, bad evidence path, stale row, and clean again.
+- Wired into `skills-librarian` 2.4.0 (create, merge, retire), `cpo` 2.1.0 (routing, `portfolio.md`), and the root, skills and plugin CLAUDE.md files. No agent definition edited.
+- Proposed, not approved: a house-rule test before any agent cut; the writing and research merge candidates; mc-planner, mc-integrator and code-improver reviews (`portfolio.md`, *Open composition items*).
+- Rejected: cutting by headcount; dropping `agent-improver`; folding framework skills into one.
+- Reversal: three admission tests in a row where both arms score full marks and the fixtures can't be made harder.
+- Checked: delegated `watchdog`, ship after fixes. All 8 findings fixed: the `tested`/`passed` word, the gauntlet's self-graded mode excluded from admission, `mc-verifier` filed twice, the verbatim report saved, the evidence path tightened, agent-name fallback, the rename rule, and the overclaim.
+- Next audit targets: `watchdog`, `mc-reviewer`, `code-improver` (house-rule admission test), plus the queue below.
+
 ## 2026-10-28 — library — business hat for research and strategy (`multi-actor-research`, `multi-actor-strategy`)
 - Trigger: owner, via `/rewrite`: how should Nikki Anderson's "Put on your business hat" (15 Oct 2026) shape the two skills? Done directly in `cpo` (rung 1), no agents dispatched. Reduced independence: the same thread judged and built it. The article was blocked by the session network; the view rests on its teaser and the author's related work (Inferred). Detail: `work-samples/business-hat-review-2026-10-28.md`.
 - Finding: research started from evidence, not from the decision it serves; strategy mapped stakeholder reactions, not what each party is measured on.
