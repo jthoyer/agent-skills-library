@@ -70,6 +70,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-30 — ux-designer, cody (design principles reference)
+- Verdict: both agents scored visual quality 0–10 against a bar they had to invent each run; a shared set of design principles now sets that bar.
+- Scores: not re-scored; a user-requested edit, not a review.
+- Changed: new `.claude/references/design-principles.md` (Rams's ten principles read for screens, craft basics, how to use them in a trade-off or score). `ux-designer.md` step 2 points to it, step 5 sets its polish bar from it, and one avoid-line covers added decoration. `cody.md` step 2's visual score sets its bar from it; a `ux-designer` spec still wins.
+- Why: the user asked for timeless design principles in the UI agents. One shared file, not two drifting copies (the `review-gates.md` pattern).
+- Expected effect: the next mock or UI score names the principle that cost points, and option trade-offs cite principles, not taste.
+- Follow-up: the two source pages (welchdesignstudio.com, ixdf.org) were blocked by the session's network policy. Rams's list is from his published text; re-check both pages when allowed. `balance-tri-club-brand` not pointed at it: skills ship to the account as zips, where a library-relative pointer would be dead.
+- Next audit targets: `ux-designer` (next mock: trade-offs name principles?), `cody` (next UI score: principle named?), plus the queue above.
+
 ## 2026-10-29 — mc-orchestrator run, BBallSkills Phase 1 (5 agents: mc-verifier, mc-reviewer, mc-planner, cody, mc-integrator; plus the conductor skill)
 - Independence: this is a separate dispatched context that produced none of the run. Sample: `work-samples/mc-orchestrator-bballskills-2026-10-29.md`. Scores marked – were not re-scored this pass.
 
