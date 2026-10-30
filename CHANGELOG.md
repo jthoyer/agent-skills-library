@@ -70,6 +70,18 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-30 — mc-planner (BBallSkills light redesign; mc-orchestrator run, merged as BBallSkills#3)
+- Verdict: fit, with one weakness. It dropped an input target (the designer's 120px filter height) as a non-goal, not as a declared decision, so the user's reason for choosing compact filters was lost. That cost a user-visible fix round. Independent pass by `agent-improver`; sample `work-samples/mc-orchestrator-bballskills-redesign-2026-10-30.md`.
+- Scores: 1 S · 2 S · 3 S · 4 S · 5 A · 6 A · 7 S
+- Changed: no edits; proposed 3 fixes.
+- Why: `spec.md:281` dropped the target. It never joined D-a to D-g or the open questions, so the Integrator never saw it. Half the cause was the brief: cpo's `decisions.md` called 131px a "risk" and omitted the user's reason ("alot of screen realestate"). Done well: 30 checkable ACs, every check-script change listed by line, no blocking questions left open.
+- Run notes: cody built all 30 ACs on the first pass; Reviewer 0 blocking in 3 passes; Verifier 0 defects. The Integrator rightly held merge (D-I7) until AC4 and the docs were independently checked, which found 2 doc errors.
+- Follow-up (needs sign-off):
+  - HIGH: `mc-planner.md:32`. Any target or limit dropped from an input is a declared decision, with the user's reason, up for Integrator sign-off.
+  - MED: `cpo/SKILL.md` brief bullet. Carry the user's reason for each choice in their words; a risk that reason makes binding is a requirement.
+  - LOW: `mc-orchestrator/SKILL.md` Stage 1. Red-team each non-goal against the user's motive.
+- Next audit targets: `mc-planner` (next spec: dropped constraints declared?), `cpo` (briefs carry user reasons?), `ux-designer` (sign off the 10-28 to 10-30 fixes), plus the queue above.
+
 ## 2026-10-30 — ux-designer (BBallSkills three options)
 - Verdict: fit for purpose; every trade-off named a Rams principle, so the design-principles reference worked. Three slips needed main-thread correction. Independent pass by `agent-improver`; sample `work-samples/ux-designer-2026-10-30.md`.
 - Scores: 1 S · 2 A · 3 S · 4 S · 5 A · 6 A · 7 A
