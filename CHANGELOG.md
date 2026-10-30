@@ -70,6 +70,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-30 — ux-designer (BBallSkills three options)
+- Verdict: fit for purpose; every trade-off named a Rams principle, so the design-principles reference worked. Three slips needed main-thread correction. Independent pass by `agent-improver`; sample `work-samples/ux-designer-2026-10-30.md`.
+- Scores: 1 S · 2 A · 3 S · 4 S · 5 A · 6 A · 7 A
+- Changed: no edits; proposed 3 fixes.
+- Why: (1) it reported a deliberate alt-text fallback (`components.css:141-142`) as a duplicate rule; the defects section never asks it to rule out intent. (2) Its HTML mock overflowed 16px at 390px; it cannot render, and step 6 asks for no checks from the markup. (3) It treated blocked YouTube thumbnails, a sandbox artefact the brief named, as a critique point.
+- Expected effect: next run labels each defect confirmed or suspected, lists static layout checks for any mock, and keeps environment notes out of the critique. Test: the main thread strikes nothing.
+- Follow-up: HIGH: step 6 adds static layout checks (fixed widths fit, `min-width:0` on flex children, no sideways scroll) and lists render checks owed. HIGH: defects section adds "rule out intent; else label suspected". MED: step 1 adds "what the brief says is blocked is a note, not a finding". Fold the first into the unsigned 10-28 derived-mock checklist. All need sign-off.
+- Next audit targets: `ux-designer` (sign off the 10-28, 10-29 and 10-30 fixes together), `cody` (next UI score: principle named?), plus the queue above.
+
 ## 2026-10-30 — ux-designer, cody (design principles reference)
 - Verdict: both agents scored visual quality 0–10 against a bar they had to invent each run; a shared set of design principles now sets that bar.
 - Scores: not re-scored; a user-requested edit, not a review.
