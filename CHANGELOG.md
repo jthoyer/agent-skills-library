@@ -70,6 +70,32 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-30 — ux-designer, mc-planner (pending fixes applied, user sign-off)
+- Verdict: the user signed off every pending fix from the 10-28, 10-29 and 10-30 reviews. All are applied as proposed.
+- Changed:
+  - `mc-planner.md`: an avoid-line says a dropped input target or limit is a declared decision with the user's reason, up for Integrator sign-off, never only a non-goal.
+  - `ux-designer.md` step 1: something the brief says is blocked is a session note, not a finding.
+  - `ux-designer.md` step 6: label each ratio hand-calculated or tool-measured. Check the mock from its markup (fixed widths, `min-width:0`, no sideways scroll, no invented colour). For a mock derived from a live file, check head tags, landmarks, print, media queries and focus rings. List render checks owed.
+  - `ux-designer.md` step 7: every mock is "not shippable", with a port list.
+  - `ux-designer.md` defects section: rule out intent, or label the finding "suspected".
+  - `ux-designer.md` Summary: names render checks owed to a tool.
+  - Skills side (`cpo`, its routing, `mc-orchestrator`) is logged in `.claude/skills/CHANGELOG.md`.
+- Why: see the 10-28, 10-29 and 10-30 `ux-designer` entries and today's `mc-planner` entry.
+- Expected effect: a derived mock reaches `watchdog` with no mock-origin defects; the main thread strikes nothing from a `ux-designer` report; no spec drops a user's target silently.
+- Next audit targets: `ux-designer` (next mock: markup checks and port list present?), `mc-planner` (next spec: dropped constraints declared?), plus the queue above.
+
+## 2026-10-30 — mc-planner (BBallSkills light redesign; mc-orchestrator run, merged as BBallSkills#3)
+- Verdict: fit, with one weakness. It dropped an input target (the designer's 120px filter height) as a non-goal, not as a declared decision, so the user's reason for choosing compact filters was lost. That cost a user-visible fix round. Independent pass by `agent-improver`; sample `work-samples/mc-orchestrator-bballskills-redesign-2026-10-30.md`.
+- Scores: 1 S · 2 S · 3 S · 4 S · 5 A · 6 A · 7 S
+- Changed: no edits; proposed 3 fixes.
+- Why: `spec.md:281` dropped the target. It never joined D-a to D-g or the open questions, so the Integrator never saw it. Half the cause was the brief: cpo's `decisions.md` called 131px a "risk" and omitted the user's reason ("alot of screen realestate"). Done well: 30 checkable ACs, every check-script change listed by line, no blocking questions left open.
+- Run notes: cody built all 30 ACs on the first pass; Reviewer 0 blocking in 3 passes; Verifier 0 defects. The Integrator rightly held merge (D-I7) until AC4 and the docs were independently checked, which found 2 doc errors.
+- Follow-up (needs sign-off):
+  - HIGH: `mc-planner.md:32`. Any target or limit dropped from an input is a declared decision, with the user's reason, up for Integrator sign-off.
+  - MED: `cpo/SKILL.md` brief bullet. Carry the user's reason for each choice in their words; a risk that reason makes binding is a requirement.
+  - LOW: `mc-orchestrator/SKILL.md` Stage 1. Red-team each non-goal against the user's motive.
+- Next audit targets: `mc-planner` (next spec: dropped constraints declared?), `cpo` (briefs carry user reasons?), `ux-designer` (sign off the 10-28 to 10-30 fixes), plus the queue above.
+
 ## 2026-10-30 — ux-designer (BBallSkills three options)
 - Verdict: fit for purpose; every trade-off named a Rams principle, so the design-principles reference worked. Three slips needed main-thread correction. Independent pass by `agent-improver`; sample `work-samples/ux-designer-2026-10-30.md`.
 - Scores: 1 S · 2 A · 3 S · 4 S · 5 A · 6 A · 7 A

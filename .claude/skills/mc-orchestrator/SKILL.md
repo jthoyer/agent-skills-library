@@ -2,7 +2,7 @@
 name: mc-orchestrator
 description: Runs the full multi-actor coding playbook end to end from the main thread, dispatching five actor agents (mc-planner, cody as Implementer, mc-reviewer and mc-verifier concurrently, mc-integrator) with a Stage Register at each handoff. Use when a coding task is non-trivial enough that getting it right matters more than getting it fast — new features, bug fixes touching shared code, anything that will be merged and relied on. Trigger on "run the coding playbook", "build this properly", "go through the coding stages", or a coding task handed over with a request for a robust, verified result rather than a single pass. Holds Integrator decision rights at impasse. Embodies the actors only when the Agent tool is absent.
 metadata:
-  version: 1.2.0
+  version: 1.3.0
 ---
 
 
@@ -45,7 +45,7 @@ Reviewer and Verifier are this playbook's adversarial pair, the direct analogue 
 **A known-good past state is a third source of evidence — use it before reasoning or execution.** Reviewer attacks from reasoning and Verifier from reality, but neither can cheaply prove the *absence* of a behaviour change: static reading of a refactor cannot establish that nothing moved, and execution only samples the inputs you thought to try. Version control can settle it directly. When the task touches code that already shipped — especially a refactor, an extraction, or an edit to a shared function that other features depend on — find the last state where that code was known good (`git show <ref>:<path>` into a scratch file, even if the working tree is uncommitted) and compare the old and new implementations line-by-line against each other. If the change is a strict extract-method or pure move, say so and show why; if it is not, you have found the regression before running anything. This is **distinct from Parity-reviewed**, which compares against a *sibling precedent* when code cannot be executed at all — this compares against the *same code's own history*, and it applies even when execution is fully available. Report it as its own evidence line, naming the reference you diffed against.
 
 ## The four stages
-**Stage 1 — Definition** *(Planner).* Turn the request into a testable spec: objective, acceptance criteria (each one checkable, not aspirational), explicit non-goals, systems/files in scope, known risk areas. Close with a Stage 1 Register + Handoff Note.
+**Stage 1 — Definition** *(Planner).* Turn the request into a testable spec: objective, acceptance criteria (each one checkable, not aspirational), explicit non-goals, systems/files in scope, known risk areas. Check each non-goal against the user's stated reason for the work: a non-goal that undoes it is a decision for the Integrator, not a scope line. Close with a Stage 1 Register + Handoff Note.
 
 **Canonical source:** this summary mirrors `mc-planner.md`'s Responsibilities section. `mc-planner.md` is the source of truth — if the two diverge, update this line to match it, not the reverse.
 
