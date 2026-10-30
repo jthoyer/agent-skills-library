@@ -20,3 +20,13 @@ Frame: three distinct, buildable options (visual + flow), each with thesis, visu
 - Mock overflowed by 16px at 390px (flex child without `min-width:0`). Main thread fixed. Agent did not render its own mock (it has no browser).
 - Every principle citation names a specific Rams number with a reason; trade-offs cite principles, not taste. That was the 10-30 reference's expected effect.
 - Mock video lengths and the plan total (4:19) match `content.js`.
+
+---
+
+# Pass 2 — light-theme redesign from user references (same day)
+
+Brief: one direction, not three. The user's two reference images (NBL news cards, NBL schedule cards), "remove About", Option A flow. Main-thread assumptions stated (light theme, About → footer, Option A). The brief carried agent-improver's three proposed fixes inline (static layout checks, list render checks owed, environment ≠ finding).
+
+Output: `redesign-mock.html` (4 phone screens + desktop home) and `redesign-spec.md` (~900 words). Bright orange is restricted to fills; dark orange #B93C0A carries text (5.20 on the page, 5.65 on cards). Barlow Condensed dropped, with a reason. It pushed back on four assumptions, including a true one: "no tracking" is not fully true while thumbnails load from YouTube.
+
+Disk-verified (main thread): no sideways scroll at 390px or 1400px, no external requests. A rendered contrast sweep found a text floor of 4.74:1 (muted on the thumbnail placeholder), matching the agent's hand-computed figure. Nothing struck or fixed. Evidence that the inline fixes work when the brief carries them; they are still not in the definition.
