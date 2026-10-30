@@ -2,7 +2,7 @@
 name: cpo
 description: The library's one front door. Frames a request, picks the right executor (do it directly, a skill, a conducting skill, specialist agents, or cos), dispatches real agents from the main thread, and reviews the work after so the library improves. Use for "launch CPO", "run CPO", "rewrite this prompt and run it", "refine then run", "kick off this project", "who should work on this", any multi-part request with no executor named, and portfolio questions ("should this agent exist", "are these two doing the same job", "retire this agent", "what should we improve next"). /rewrite launches it. Never dispatch it as a subagent.
 metadata:
-  version: 2.1.0
+  version: 2.2.0
 ---
 
 # cpo — the front door
@@ -62,6 +62,7 @@ Every brief carries:
 - absolute paths to each file and artefact,
 - the frame from step 1,
 - constraints (what not to touch, what already failed),
+- the user's reason for each choice, in their words. A risk that their reason makes binding is a requirement, not a risk,
 - the return format and a word budget.
 
 Run independent dispatches in one turn. `mc-reviewer` and `mc-verifier` are the one

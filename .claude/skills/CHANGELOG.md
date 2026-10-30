@@ -5,6 +5,13 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-10-30 — briefs carry the user's reasons
+
+### Updated
+- **`cpo`** 2.1.0 → 2.2.0. Every dispatch brief now carries the user's reason for each choice, in their words. A risk that their reason makes binding is a requirement, not a risk. In `references/routing.md`, porting a mock into the product is a build: it goes to `cody`.
+- **`mc-orchestrator`** 1.2.0 → 1.3.0. Stage 1 checks each non-goal against the user's stated reason. A non-goal that undoes it is a decision for the Integrator.
+- Why: in the BBallSkills redesign run, the brief called a 131px filter height a "risk" and left out the user's reason (screen space). The Planner dropped the 120px target as a non-goal, and the build needed a fix round. The routing line is the 10-28 `ux-designer` review's MED fix. Owner signed off on 2026-10-30; detail in the root `CHANGELOG.md`.
+
 ## 2026-10-29 — `mc-orchestrator` re-reviews fix rounds
 
 ### Updated
