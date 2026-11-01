@@ -70,6 +70,56 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-01 — mc-orchestrator run, BalanceTRI duplicate-race warning, PR 165 (5 agents: ux-designer, mc-planner, cody, mc-reviewer, mc-verifier; plus the conductor skill)
+- Independence: the five reviews come from a separate dispatched context (`agent-improver`, proposing only) that produced none of the run. The conductor's own part is reduced-independence (see Conductor). Sample: `work-samples/duplicate-race-warning-2026-11-01-registers.md` (raw hand-backs at the end) and `-spec.md`.
+
+**ux-designer**
+- Verdict: good analysis, but for the third run in a row it shipped a mock that was never run, this time blank because of a script error, and still scored itself 8/10.
+- Scores: 1 S · 2 A · 3 W · 4 S · 5 W · 6 A · 7 A
+- Changed: no edits; proposed 3 fixes.
+- Why: the content was good. It found two real defects (spec:153) and recommended B. But its script declared `function top(d)`, which clashes with `window.top`, and the page rendered blank (sample, raw evidence). It cannot render anything (`ux-designer.md:4`), and step 6 (`:32`) still has no static checks, because the 10-28 and 10-30 HIGH fixes were never signed off.
+- Expected effect: a mock with script either goes to a render step or is labelled "script unrun", and its score is capped. Test: the main thread does not have to repair the next mock.
+- Follow-up: HIGH: step 6 adds static script checks (no top-level names that shadow window globals such as `top`, `name`, `status`, `parent`, `self`, `length`; every handler reference resolves). HIGH: the step 5 score is capped at 6 while the mock is unrendered, and the summary says so. MED, to `cpo`: decide whether any interactive mock goes through a mandatory render step (main thread or `cody`); giving it `Bash` would change its mandate. All need sign-off; fold in with the 10-28 and 10-30 fixes.
+
+**mc-planner**
+- Verdict: fit; Risk 3 predicted the defect review later found, but no acceptance criterion turned that risk into a check, so the Verifier's AC-driven run passed over it.
+- Scores: 1 S · 2 S · 3 S · 4 S · 5 A · 6 S · 7 S
+- Changed: no edits; proposed 1 fix.
+- Why: the spec has 28 checkable ACs (spec:77–135), 8 open questions with defaults (:207–216), and a stubbed-harness route for the browser ACs that could not be tested signed in (:174–177). Risk 3 (:182) names the async gap where M1 sat. AC18 covers only repeated presses and AC20 only a stale panel, so close-and-reopen during a write had no AC. `mc-planner.md:18` treats risks as prose, with no rule turning one into a check. It did not foresee `main` moving under the build; that belongs to the conductor.
+- Expected effect: every risk that can be tested has an AC, so the Verifier's per-AC list reaches it.
+- Follow-up: MED, `:18`: "where a risk names a testable sequence, add an AC for it or say why not." Needs sign-off.
+
+**cody**
+- Verdict: strong proof discipline, but it named the M1 path as the place it expected a bug and shipped it untested; the biggest lever is a scenario for every bug it predicts.
+- Scores: 1 S · 2 S · 3 S · 4 S · 5 A · 6 A · 7 S
+- Changed: no edits; proposed 2 fixes.
+- Why: each fix came with a scenario failing on the old tree and passing on the new (registers:30, 32, 34). It ran 5 mutations and repeated its suite three times (:21), as `cody.md:102` requires. But "`toggleAdd(false)` pressed mid-write clears `dupBusy`" sat under "where I'd expect a bug" (sample, raw evidence) and became M1. `cody.md:14` asks for that list, but nothing requires a check for each item. Round 2's `finally` then cleared a second write's guard (:33). It also built on a base that had moved; nothing in `cody.md` checks the branch against its base.
+- Expected effect: a predicted bug path arrives with a scenario or under `Not verified:`, and the summary states the base. Test: no Reviewer finding repeats cody's own prediction.
+- Follow-up: HIGH, `:14`: "each path under 'where I'd expect a bug' gets a scenario, or is moved to Not verified with the reason; a concurrency fix is re-run with two overlapping writes." MED, step 1: "in a spec run, fetch and state the base commit before building; report if it moved." Both need sign-off.
+
+**mc-reviewer**
+- Verdict: fit; it caught M1 and two real defects across two re-reads with no false positives, but it skipped a read its own definition requires.
+- Scores: 1 S · 2 S · 3 S · 4 S · 5 S · 6 A · 7 S
+- Changed: no edits; proposed 1 fix.
+- Why: M1 came with file:line, the AC it broke and a fix (registers:28). Re-read 1 found two real Lows (:31), and re-read 2 caught a defect in the fix itself (:33). It passed browser-only items to the Verifier, as `mc-reviewer.md:17` requires. It said review-gates.md "was not read" (sample, raw evidence), though `:26` makes the read mandatory and the file is in the library. Saying so beats silence; it is still a skip, and only "not on disk after the Glob" is allowed.
+- Expected effect: the coverage close says review-gates.md was read, or gives the Glob that missed it.
+- Follow-up: LOW, `:26`: "'not read' is not an allowed outcome; read it or report the Glob that missed." Needs sign-off.
+
+**mc-verifier**
+- Verdict: not fit as it stands: it marked AC18 passed and said nothing looked wrong in the app while M1 broke AC18; the biggest lever is a per-risk verdict list.
+- Scores: 1 S · 2 S · 3 S · 4 A · 5 A · 6 W · 7 S
+- Changed: no edits; proposed 3 fixes.
+- Why: the 10-29 fix held: runner counts were quoted (registers:29), the mutation check went red as it should, and it owned its 3 test defects. But AC18 tested only double-click plus Enter. It never ran close-and-reopen during a write, though spec Risk 3 (:182) names that gap and `mc-verifier.md:18` requires a test of each named risk. Its Output (`:34`) has no per-risk verdict list, which the Reviewer's has (`mc-reviewer.md:56`). Its recipe pointed at scratchpad paths, so it was not saved (registers:40). Model fit is A only because the Reviewer found by reading what this run missed; the cause looks like the instructions, not the model.
+- Expected effect: each Stage 1 risk gets Exercised, Not exercised or Out of reach, and no report claims a clean app. Test: no Reviewer-only defect sits on a named risk.
+- Follow-up: HIGH, Output: "a per-risk verdict for each Stage 1 risk item, beside the per-AC list." MED: "report what ran and passed; never 'nothing wrong'", as `cody.md:121` already says. MED, `:17`: "recipe steps cite only files committed to the app repo; list scratchpad-only steps as not saveable." All need sign-off.
+
+**Conductor (`mc-orchestrator` skill, not scored; for `cpo`)**
+- `mc-orchestrator/SKILL.md` never checks the branch against its base. PR 165 opened conflicted with PR 164, which rewrote the same submit handler. `release-engineer` was not used. The main thread resolved the conflict and read the last one-line fix itself, with no independent Reviewer (registers:35): treat both as unreviewed until an independent pass reads them.
+- HIGH, sign-off: Stage 1 records the base SHA and open PRs on the same files; Stage 4 re-syncs or hands to `release-engineer`; any post-review change goes back to the Reviewer.
+- Outcome: merged as 65b6801; no real signed-in test.
+
+- Next audit targets: `ux-designer` (sign off the 10-28, 10-30 and 11-01 fixes together, plus the `cpo` render-step decision), `mc-verifier` (next run: a per-risk list, no "nothing wrong"), `cody` (every predicted bug has a scenario; base stated), `mc-orchestrator` skill (base check; re-read after post-review changes), `release-engineer` (unused here), plus the queue above.
+
 ## 2026-10-30 — ux-designer (BBallSkills three options)
 - Verdict: fit for purpose; every trade-off named a Rams principle, so the design-principles reference worked. Three slips needed main-thread correction. Independent pass by `agent-improver`; sample `work-samples/ux-designer-2026-10-30.md`.
 - Scores: 1 S · 2 A · 3 S · 4 S · 5 A · 6 A · 7 A
