@@ -70,6 +70,42 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-01 — ux-designer, mc-planner, cody, mc-reviewer (Finish your races run; 4 agents, 1,000 words)
+- Run: a new wizard for balancetriclub/BalanceTRI-app (PR 166), built through `cpo` then `mc-orchestrator`. Samples: `work-samples/{ux-designer,mc-planner,cody,mc-reviewer}-2026-11-01*.md`. `agent-improver` reviewed from a separate context. The main thread wrote every brief and the Integrator rulings, so brief quality is in scope below. `mc-verifier` and `security-auditor` were not reviewed: they only checked the work and their findings held. Samples are saved.
+- Changed: no edits to any definition. Proposed 2 + 2 + 4 + 2 fixes, below, for the owner to apply or not.
+
+**ux-designer.** Verdict: set the direction well, but claimed test coverage from a file it never opened.
+- Scores: Mandate S · Triggers A · Tools S · Model S · Instructions A · Observed A · Boundary S
+- Why: the spec says `check-race-form.mjs` covers the card form (0 matches; sample:151) while admitting it had not read that form (:71). It marked level chips but not event chips, so pressed events were colour-only. Full-width stacking pushed the exit buttons below the 375px fold.
+- Proposed: HIGH, step 7: "A claim about a file you did not open is cut or marked 'not opened'." HIGH, step 6, merged with the unsigned 10-30 layout fix: every pressed state gets a non-colour mark in every toggle group; at 375×667 add up the stack and name the actions above the fold.
+- Expected effect: no unopened-file claim in the next spec, and the verifier finds no colour-only or fold issue the spec left out.
+- Follow-up: the 10-28, 10-29 and 10-30 fixes are still not on disk. Sign them off together with these two.
+
+**mc-planner.** Verdict: strongest of the run. It overturned a false premise in its own brief.
+- Scores: Mandate S · Triggers S · Tools S · Model S · Instructions A · Observed S · Boundary S
+- Why: AC 22 (a new test), AC 20 (stale Menu) and README:35 (`event` against `events`) all held on disk. The report ran 439 words on a budget of 300, mostly earned by four file:line answers, but it listed the six open questions twice. AC 18 gave two outcomes for one sequence; the reviewer flagged it. My brief repeated the false `check-race-form` premise and left out the session's pinned branch (AC 30 override).
+- Proposed: MED, self-review: "For an AC that maps an item's states to outcomes, walk every sequence an item can go through; each lands on exactly one outcome." LOW: cite code by function name beside the line number (PR 165 made every line number stale).
+- Follow-up: the 10-22 "list every write path" proposal was never applied, yet the planner did it. Consider dropping it.
+
+**cody.** Verdict: a strong builder whose UI checks thinned out under a Stage 2 brief.
+- Scores: Mandate A · Triggers S · Tools S · Model S · Instructions A · Observed A · Boundary S
+- Why: round 1 needed a fix round (focus lost on close, a caught error never logged, a style-guide specimen outside the scope its CSS needs). A watchdog pass then found five doc and copy drifts (04fafa4). The 10-22 mutation-testing fixes held. No principle and no 0-10 score appeared; contrast was an "estimate" (`cody.md:44` says measure).
+- Proposed: HIGH, Summary: "Under a brief's format, steps 2-4 still return one line each: measured ratios (or 'not measured'), the score and principle, the style-guide file, and the review type." MED, step 2: assert `document.activeElement` after every close, re-render or removal of the opener. MED, step 3: open a rendered style guide and confirm each new specimen picks up the new rules. LOW: no "Fix round is done" opener (`cody.md:14`).
+- Follow-up: the queue item "cody: principle named?" is not settled. None was named.
+
+**mc-reviewer.** Verdict: fit. M1, L1 and L2 were real, and M1 was traced to three sites. It ignored its own length rule.
+- Scores: Mandate S · Triggers S · Tools S · Model S · Instructions A · Observed A · Boundary S
+- Why: 907 words on a budget of 500, then 428 on 300. Neither added the `Over cap` line the definition requires (`mc-reviewer.md:59`). Pass 1 kept two duplicate sections. A static read missed that event chips show selection by colour only. The picker catch at `app.js:905` surfaced only in pass 2. My attack list repeated the Stage 1 risks.
+- Proposed: HIGH, :59: "Cleared items go one line each, by range. Merge the brief's attack list into the per-risk close. At most 4 lines per finding. The `Over cap` line is mandatory." MED, :21: name use of colour for selected and pressed states.
+- Expected effect: the next review fits its budget and ends with `Over cap`.
+
+**Run-level.**
+- Word budgets: all seven reports ran 30-80% over (counted, in each sample). The briefs are more at fault than the agents. Only `mc-reviewer`, `security-auditor` and `watchdog` have a length rule. The `mc-orchestrator` skill has none (0 matches), though `cpo/SKILL.md:65` says every brief carries a budget. Budgets were not sized to what each brief asked for. Counter-example: the last `mc-reviewer` brief set a hard 150-word limit and required an `Over cap` line. It came back 15 words over. The 10-22 proposals (`wc -w`, budgets sized to the brief) remain unapplied.
+- `watchdog` on PR 166: 7 findings. Five were true and fixed in 04fafa4. Left: two wordings for one refused write, and a stale "Change password" specimen that predates the PR. Both fix rounds went back to `mc-reviewer`. The second found one low, my own wording slip in the CONTRIBUTING table (8725cdd), now fixed.
+- No Notion backlog rows written: the request was for this ledger only. The proposals above are the rows if you want them.
+
+Next audit targets: `mc-orchestrator` (every report over budget, budgets not sized to the brief), `ux-designer` (after sign-off of the five fixes, a run that derives a mock), `cody` (next Stage 2 report: four step lines, principle named), `mc-verifier` (found both pixel defects; check the 10-29 count fix held).
+
 ## 2026-10-30 — ux-designer (BBallSkills three options)
 - Verdict: fit for purpose; every trade-off named a Rams principle, so the design-principles reference worked. Three slips needed main-thread correction. Independent pass by `agent-improver`; sample `work-samples/ux-designer-2026-10-30.md`.
 - Scores: 1 S · 2 A · 3 S · 4 S · 5 A · 6 A · 7 A
