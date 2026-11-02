@@ -34,7 +34,7 @@ Edit `index.html` directly and follow the key rules. It started from a generator
 
 ## Open decisions
 
-- D1 Design direction: A, B or C. Recommended: B's toolbox, with C's race card as what every tool saves to.
+- ~~D1 Design direction~~ Decided 2026-11-02: Option A's race plan, with C's race card as what every step writes to and what prints.
 - D2 Restoring a purchase with no accounts.
 - D3 Analytics that count without collecting health data.
 - D4 Email tool, offline copy, hosting.
@@ -43,6 +43,7 @@ Edit `index.html` directly and follow the key rules. It started from a generator
 ## History
 
 - 2026-11-02: first version, 108 cards, drawn from the strategy and tool pages and the three design options.
+- 2026-11-02: owner chose Option A plus C's race card (D1). Rewrote RD-05-E2 for the race card. Added RD-02-A4 (a guide opens one step on its own; saving it starts a race plan) and RD-02-W3 (A is weakest for guide visitors), so A's weak spot has a card to measure against.
 
 ## Changes
 
