@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-02 — ux-designer
+- Verdict: good at producing distinct options, not fit to mock a live product. The mock skipped the product's style guide, loaded no fonts, added a dark theme the app lacks and invented a "Sign out" button. The user had to ask for a restyle.
+- Scores: Mandate Strong · Triggers Adequate · Tools Strong · Model Adequate · Instructions Weak · Observed Weak · Boundary Adequate
+- Changed: no edits — proposed 5 fixes (3 High, 1 Medium, 1 Low). Not applied: library agents change only on sign-off.
+- Why: step 1 says to look for a styleguide but never requires reading it before drawing, and nothing covers fonts, invented elements or adding a mode. The brief already said "read style-guide.html" and "reuse its tokens", so the brief alone did not stop it. The brief's "dark-mode-safe" invited the dark theme; that wording is a `cpo` brief defect, separate from the definition. The 10-28 derived-mock checklist would have caught this but never landed in `ux-designer.md`.
+- Expected effect: next mock of an existing product loads the live fonts, uses only live tokens, lists what it invented, and names any file it skipped at the top of its report. Check by grepping the delivered file for the font link and for `prefers-color-scheme` when the product has none.
+- Follow-up: (1) HIGH, step 1: read every file the brief lists, the live stylesheet and font links first; a skipped file goes at the top of the report. (2) HIGH: avoid adding a mode, theme or control the product lacks; list every invented element. (3) HIGH: apply the 10-28 checklist and 10-30 layout checks to step 6, plus "fonts load, no unsourced colours". (4) MED: summary adds "files read / skipped; elements invented". (5) LOW: description trigger "mock up changes to this existing screen". Sample: `work-samples/ux-designer-2026-11-02.md`. Same run, `cody` built the tabs and two independent reviewers then found a z-index clash and a focus gap it missed; no `cody` review owed beyond the queue. Next audit targets: `ux-designer` (sign off the fixes above and the 10-28 to 10-30 ones), `cody` (next UI score: principle named?), plus the queue above.
+
 ## 2026-10-30 — ux-designer (BBallSkills three options)
 - Verdict: fit for purpose; every trade-off named a Rams principle, so the design-principles reference worked. Three slips needed main-thread correction. Independent pass by `agent-improver`; sample `work-samples/ux-designer-2026-10-30.md`.
 - Scores: 1 S · 2 A · 3 S · 4 S · 5 A · 6 A · 7 A
