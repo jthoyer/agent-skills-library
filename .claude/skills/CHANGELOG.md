@@ -5,6 +5,13 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-02 — structure check covers reference subfolders
+
+### Updated
+- **`scripts/check-skill-structure.sh`**: the ORPHAN and CONTENTS checks now walk subfolders of `references/`. A subfolder file counts as named when SKILL.md names it, or gives a bracketed pattern for its folder (`references/commands/[command].md`). Top-level files are still named one by one. Name matching is now literal, not a regex.
+- **`.claude/skills/CLAUDE.md`**: the rule text says the same.
+- Why: `interview-coach` is the first skill with a subfolder, and the old loop skipped its 25 command files. Found by `watchdog` on 2026-11-02; the owner chose the pattern rule. Tested on six cases, each of which now flags as expected.
+
 ## 2026-11-02 — `interview-coach` added
 
 ### Added
