@@ -8,6 +8,10 @@
 #   2. ORPHAN    — every file in a skill's references/ must be named in that
 #      skill's SKILL.md. A file reachable only through another reference is two
 #      levels deep, and nested files are the ones Claude reads partially.
+#      Subfolders are checked too. A file in a subfolder also counts as named
+#      when SKILL.md gives a pattern for its folder, with the variable part in
+#      brackets: `references/commands/[command].md` names every .md file in
+#      references/commands/. Top-level files must be named one by one.
 #   3. REQUIRES  — a skill that ships scripts/ must state what they need, on a
 #      line starting "Requires:", next to where SKILL.md runs them. Environments
 #      differ; an unstated dependency fails silently in the one that lacks it.
@@ -32,20 +36,28 @@ for dir in "$skills"/*/; do
   [[ -f "$skill_md" ]] || continue
 
   if [[ -d "$dir/references" ]]; then
-    for ref in "$dir"/references/*; do
-      [[ -f "$ref" ]] || continue
-      base="$(basename "$ref")"
-      rel="$name/references/$base"
+    while IFS= read -r ref; do
+      sub="${ref#"$dir"/references/}"        # path inside references/
+      rel="$name/references/$sub"
 
-      grep -q "references/$base" "$skill_md" \
-        || flag ORPHAN "$rel — not named in $name/SKILL.md"
+      if ! grep -qF "references/$sub" "$skill_md"; then
+        folder="$(dirname "$sub")"
+        ext="${sub##*.}"
+        pattern_named=false
+        if [[ "$folder" != "." && "$sub" == *.* ]]; then
+          # A pattern line names the whole subfolder, e.g. references/commands/[command].md
+          esc_folder="$(printf '%s' "$folder" | sed 's/[.[\*^$]/\\&/g')"
+          grep -qE "references/${esc_folder}/\[[^]/]+\]\.${ext}" "$skill_md" && pattern_named=true
+        fi
+        $pattern_named || flag ORPHAN "$rel — not named in $name/SKILL.md"
+      fi
 
       if [[ "$ref" == *.md ]] && (( $(wc -l < "$ref") > 100 )); then
         head -40 "$ref" \
           | grep -qiE '^#+ +(contents|table of contents)\b|^\*\*contents\*\*' \
           || flag CONTENTS "$rel — $(wc -l < "$ref") lines, no contents list in the first 40"
       fi
-    done
+    done < <(find "$dir/references" -type f | sort)
   fi
 
   if [[ -d "$dir/scripts" ]]; then

@@ -11,6 +11,20 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 - **`cpo`** 2.1.0 → 2.1.1. Step 3 gains a rule for briefs on a product that already exists: name the files to read first, say to copy its tokens and fonts, and state what the product lacks in plain words. `routing.md`'s `ux-designer` row points at it.
 - Why: the `ux-designer` mock for the BalanceTRI-app admin console added a dark theme the app does not have, after the brief said "dark-mode-safe". The agent's own fixes landed in the same change; detail in the root `CHANGELOG.md` entry for 2026-11-02.
 
+## 2026-11-02 — structure check covers reference subfolders
+
+### Updated
+- **`scripts/check-skill-structure.sh`**: the ORPHAN and CONTENTS checks now walk subfolders of `references/`. A subfolder file counts as named when SKILL.md names it, or gives a bracketed pattern for its folder (`references/commands/[command].md`). Top-level files are still named one by one. Name matching is now literal, not a regex.
+- **`.claude/skills/CLAUDE.md`**: the rule text says the same.
+- Why: `interview-coach` is the first skill with a subfolder, and the old loop skipped its 25 command files. Found by `watchdog` on 2026-11-02; the owner chose the pattern rule. Tested on six cases, each of which now flags as expected.
+
+## 2026-11-02 — `interview-coach` added
+
+### Added
+- **`interview-coach`** 1.0.0, adapted from noamseg/interview-coach-skill at `634a8dd` (MIT). Interview prep, transcript scoring, mocks, storybank and offer negotiation: 25 commands, 43 reference files.
+- Local changes: a description with boundaries against `resume-builder`, `positioning` and `job-scan`; a routing section that sends resume work to `resume-builder` unless typed; a rule that personal files (`coaching_state.md`, `job-search/`, `materials/`) never live in a repo; contents lists on long reference files. Upstream's README, release notes and settings file are left out.
+- Why: it beat no skill on a blind-graded admission test, 10/10 against 8/10 on both runs (`work-samples/admission-interview-coach-2026-11-02/`). Detail in the root `CHANGELOG.md`.
+
 ## 2026-10-29 — `mc-orchestrator` re-reviews fix rounds
 
 ### Updated
