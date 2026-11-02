@@ -9,7 +9,10 @@ the rules CI enforces, so you meet them before the push, not after.
 - **Body: 500 lines at most.** Over that, move detail into `references/` with a pointer. Don't
   delete it.
 - **Every `references/` file is named in its own SKILL.md.** A file reached only through
-  another reference is too deep. Over 100 lines, it opens with a contents list.
+  another reference is too deep. Over 100 lines, it opens with a contents list. Both rules
+  cover subfolders. A file in a subfolder may instead be named by a pattern for its folder,
+  with the variable part in brackets. In `interview-coach`, `references/commands/[command].md`
+  names every `.md` file in its commands folder. Top-level files are named one by one.
 - **Scripts state their needs** on a line starting `Requires:`, next to where SKILL.md runs them.
 - **Every pointer resolves.** A reference file named in skill A must exist in skill A's own
   `references/` folder. Never point into the home `.claude` folder, other than its skills
