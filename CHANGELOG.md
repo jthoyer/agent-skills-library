@@ -70,6 +70,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-02 — library — portfolio: `interview-coach` admitted
+- Decision: add `interview-coach` (noamseg/interview-coach-skill at `634a8dd`, MIT). The owner asked for it via `/rewrite` and chose "run the test, add only if it passes".
+- Evidence: admission test `work-samples/admission-interview-coach-2026-11-02/`. Transcript analysis, skill against no skill, two runs each, sealed key, blind dispatched grader. Skill 10/10 twice, no skill 8/10 twice. The grader ranked both skill runs first and second. The skill won on linking two answers to one root cause and on naming one first move.
+- Who produced it: four `general-purpose` arms and one `general-purpose` grader, all delegated. The cpo skill wrote the fixture and key after reading the skill: reduced independence on design.
+- Rejected: testing only the core and dropping the `resume`, `linkedin` and `pitch` commands (the owner chose the whole skill). Using it outside the library.
+- Adapted: description with boundaries, a state-file rule (`coaching_state.md` never lives in a repo; gitignored here), contents lists, routing row, allowlist entries.
+- Reverses if: an owner-written test of another command (`mock` or `stories`) finds no skill does as well, or it takes a standalone resume request from `resume-builder`.
+- Follow-up: owner fixture for `mock`; upload the zip to claude.ai.
+- Next audit targets: `interview-coach` (owner-written `mock` test), `resume-builder` (overlap with `interview-coach resume`), plus the queue above.
+
 ## 2026-10-30 — ux-designer (BBallSkills three options)
 - Verdict: fit for purpose; every trade-off named a Rams principle, so the design-principles reference worked. Three slips needed main-thread correction. Independent pass by `agent-improver`; sample `work-samples/ux-designer-2026-10-30.md`.
 - Scores: 1 S · 2 A · 3 S · 4 S · 5 A · 6 A · 7 A

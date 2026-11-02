@@ -58,7 +58,7 @@ skill-name/
 Supporting files belong under `references/`, not beside `SKILL.md`. `SKILL.md` addresses them
 by relative path (`references/<name>.md`), so a file left at the skill root will not resolve.
 
-## Skills (39)
+## Skills (40)
 
 Names below are the frontmatter `name:` field, which always matches the directory name.
 Each skill's own `description:` is the authoritative statement of when it fires — it is not
@@ -85,13 +85,13 @@ index nobody verifies is worse than no index, because it is read as authoritativ
 
 **Research (4)** — `academic-researcher`, `deep-research`, `market-analyst`, `recent-pulse`
 
-**Personal (6)** — `triathlon-coach`, `etf-investing-advisor`, `etf-investing-coach`,
-`balance-tri-club-brand`, `resume-builder`, `job-scan`
+**Personal (7)** — `triathlon-coach`, `etf-investing-advisor`, `etf-investing-coach`,
+`balance-tri-club-brand`, `resume-builder`, `job-scan`, `interview-coach`
 
 **Meta / library management (6)** — `cpo`, `rewrite`, `cos`, `mc-orchestrator`, `skills-librarian`,
 `notion-second-brain`
 
-Fifteen skills carry a `references/` folder: `business-case-builder`, `cpo`, `customer-insight`, `discovery-loop`, `humanizer`, `job-scan`, `multi-actor-research`,
+Sixteen skills carry a `references/` folder: `business-case-builder`, `cpo`, `customer-insight`, `discovery-loop`, `humanizer`, `interview-coach`, `job-scan`, `multi-actor-research`,
 `multi-actor-strategy`, `product-requirement-document`, `project-management`, `read-the-room`,
 `research-to-ideas`, `resume-builder`, `scr-pyramid-communicator`, `skills-librarian`. Three carry
 `scripts/`: `multi-actor-strategy`, `recent-pulse`, `research-to-ideas`. The other 23 are a single
