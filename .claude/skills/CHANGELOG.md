@@ -5,6 +5,13 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-02 — structure check walks reference subfolders
+
+### Updated
+- **`skills-librarian`** 2.4.0 → 2.4.1. The one-level rule now allows a subfolder to be named by one pattern line, such as `references/commands/[command].md`, if `SKILL.md` names each file's stem in backticks. `audit.md` says the same.
+- **Rules** (`CLAUDE.md` in this folder): the contents and orphan rules cover subfolders, and the pattern rule is written down.
+- Why: `scripts/check-skill-structure.sh` never looked inside subfolders, so `interview-coach`'s 25 command files went unchecked. The owner chose the pattern with a stem guard over naming all 25. Detail in the root `CHANGELOG.md`.
+
 ## 2026-11-02 — `interview-coach` added
 
 ### Added

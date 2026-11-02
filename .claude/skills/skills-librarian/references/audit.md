@@ -16,7 +16,7 @@ commands, they exit non-zero on a finding, and they run in CI on every push:
 ```bash
 scripts/check-frontmatter.sh --list    # per-skill inventory, then the flags
 scripts/check-references.sh            # every asserted path, resolved against disk
-scripts/check-skill-structure.sh       # contents lists, one-level references, Requires: lines
+scripts/check-skill-structure.sh       # contents lists, named or patterned references, Requires: lines
 ```
 
 Between them they cover description length, YAML validity, name-matches-directory, body length,
@@ -38,7 +38,7 @@ the table below by hand — and note in the CHANGELOG that the numbers were hand
 | Negative framing | Prohibitions that should be positive directives | no — judgement |
 | Staleness | Hardcoded counts, dates, or "as of" snapshots inside skill bodies | partly |
 | Contents lists | Every reference file over 100 lines has `## Contents` near the top | yes |
-| One level deep | Every `references/` file is named in its own `SKILL.md` | yes |
+| One level deep | Every `references/` file, subfolders included, is named in its own `SKILL.md`, or by a subfolder pattern plus its stem in backticks | yes |
 | Dependencies stated | Every skill with `scripts/` has a `Requires:` line | yes |
 | Degrees of freedom | Detail matches fragility: no scripted drafting, no loose migrations | no — judgement |
 | Checklists and loops | Ordered workflows have a checklist; guided outputs have a check-fix loop | no — judgement |

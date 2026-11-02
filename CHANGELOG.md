@@ -70,6 +70,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-02 — library — portfolio: structure check reaches reference subfolders
+- Decision: `scripts/check-skill-structure.sh` walks `references/` recursively for the contents and orphan rules. A subfolder file passes the orphan rule if `SKILL.md` names it in full, or has a pattern line such as `references/commands/[command].md` and names the file's stem in backticks.
+- Evidence: `watchdog` on the "Add interview-coach skill" PR found the loop read only `references/*`, so the 25 files in `interview-coach/references/commands/` were never checked. All 22 over 100 lines already carry contents lists. Every one of the 25 stems is named in `SKILL.md`.
+- Owner's choice: pattern plus stem guard. Rejected: the pattern alone (any stray file passes), and naming all 25 files (23 new mentions of files `SKILL.md` already routes to).
+- Tested: five planted faults in a scratch copy, each caught: a stray command file, a long file with no contents list, the pattern line removed (23 findings, as the watchdog predicted), one stem removed, a top-level orphan. All four checks pass on the branch.
+- Changed: the script; `.claude/skills/CLAUDE.md`; `skills-librarian` 2.4.1 (`SKILL.md`, `audit.md`); one comment line in `cpo/references/portfolio.md`.
+- Reverses if: Claude skips a command file that the stem and pattern route to, or a second skill needs a pattern the regex rejects.
+- Next audit targets: `interview-coach` (owner-written `mock` test), `resume-builder` (overlap with `interview-coach resume`), plus the queue above.
+
 ## 2026-11-02 — library — portfolio: `interview-coach` admitted
 - Decision (reduced independence: the cpo skill wrote the fixture, key and grader brief): add `interview-coach` (noamseg/interview-coach-skill at `634a8dd`, MIT). The owner asked for it via `/rewrite` and chose "run the test, add only if it passes".
 - Evidence: admission test `work-samples/admission-interview-coach-2026-11-02/`. Transcript analysis, skill against no skill, two runs each, sealed key, blind dispatched grader. Skill 10/10 twice, no skill 8/10 twice. The grader ranked both skill runs first and second. The skill won on linking two answers to one root cause and on naming one first move.

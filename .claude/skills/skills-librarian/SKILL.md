@@ -10,7 +10,7 @@ description: >
   task touching the skills directory or library health. Always use before writing or modifying any
   SKILL.md — it enforces the standards that keep the library reliable.
 metadata:
-  version: 2.4.0
+  version: 2.4.1
 ---
 
 # Skills Librarian
@@ -126,7 +126,9 @@ Run this before installing any new or modified skill.
 - Keep `SKILL.md` under 500 lines and use it as a directory. Move anything beyond ~100 lines of
   supporting content into `references/` with an explicit pointer stating when to read it.
 - Link every reference file directly from `SKILL.md`, one level deep. A file reachable only
-  through another reference is the kind Claude reads partially or misses.
+  through another reference is the kind Claude reads partially or misses. A subfolder may be
+  named by one pattern line, such as `references/commands/[command].md`, if `SKILL.md` names
+  each file's stem in backticks.
 - Give any reference file over 100 lines a `## Contents` list near the top. Claude often previews
   only the first 100 lines; the list lets it jump to the section it needs.
 - State each script's dependencies on a `Requires:` line beside the command that runs it: runtime
