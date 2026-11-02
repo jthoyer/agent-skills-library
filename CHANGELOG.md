@@ -70,6 +70,14 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-02 — library — portfolio: `ste` dumped, its rules for instructions go into `editor`
+- Decision (reduced independence: the main thread wrote the candidate, fixture and key): do not add `ste`, an uploaded skill for ASD-STE100 Simplified Technical English. It targets aerospace manuals, forces American spelling, runs only when typed, and plain Claude knows the standard. Keep its rules for instructions as a new `editor` section instead. The owner said "use it to improve my agents or skills, or dump it".
+- Evidence: `work-samples/editor-upgrade-2026-11-02/`. `skills-librarian` workflow 6, original against candidate, two runs each, sealed key, blind dispatched grader. Candidate 21/21 twice, original 17/21 twice; ranked first and second. Both original runs left a "may" in an agent prompt, gave a `--force` risk with no command, and made an optional step compulsory. All four runs left the decoy member update alone.
+- Who produced it: four `general-purpose` arms and one `general-purpose` grader. No `agent-improver` review owed: no agent's output was judged.
+- Rejected: adding `ste` as is (admission test cost for a niche skill); a shared house-style reference (no reader yet).
+- Reverses if: an owner-written fixture of instructions shows 1.0.0 doing as well, or `editor` starts turning prose into steps.
+- Next audit targets: `editor` (no-skill arm; it is still `grandfathered`), plus the queue above.
+
 ## 2026-11-02 — ux-designer
 - Verdict: good at producing distinct options, not fit to mock a live product. The mock skipped the product's style guide, loaded no fonts, added a dark theme the app lacks and invented a "Sign out" button. The user had to ask for a restyle.
 - Scores: Mandate Strong · Triggers Adequate · Tools Strong · Model Adequate · Instructions Weak · Observed Weak · Boundary Adequate

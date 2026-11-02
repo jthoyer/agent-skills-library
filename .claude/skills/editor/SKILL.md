@@ -3,12 +3,13 @@ name: editor
 description: |
   Line-level editing and proofreading of text that already exists: clarity, grammar, style and
   readability. Use when: editing text, proofreading documents, improving clarity, fixing grammar,
-  refining style, or when user asks to "edit", "proofread" or "revise" a finished draft. Not for
-  drafting or restructuring content (content-research-writer) or removing AI tells (humanizer).
+  refining style, tightening instructions, procedures or agent prompts, or when user asks to
+  "edit", "proofread" or "revise" a finished draft. Not for drafting or restructuring content
+  (content-research-writer) or removing AI tells (humanizer).
 license: MIT
 metadata:
   author: awesome-llm-apps
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Editor
@@ -24,6 +25,7 @@ Use this skill when:
 - Refining style and tone
 - Making content more concise
 - Enhancing flow and structure
+- Tightening instructions, procedures and agent prompts (see *Instructions and procedures*)
 
 ## Editing Levels
 
@@ -131,6 +133,41 @@ Use this skill when:
 ✅ "When the manager met with the employee, the manager was upset"
 ✅ "The manager was upset when meeting with the employee"
 ```
+
+## Instructions and procedures
+
+Use this section when the text tells someone what to do: steps, setup guides, race-day
+briefings, runbooks, checklists and prompts for agents. The rules come from ASD-STE100
+Simplified Technical English, cut to the parts that help any reader. Do not apply them to
+stories, essays or member news. There they make prose flat and robotic.
+
+1. **One action per step.** Split a step that hides two actions. Two actions share a step
+   only when they happen at the same time.
+2. **Condition before command.** "If the light flashes, stop the pump," not "Stop the pump
+   if the light flashes."
+3. **Imperative mood.** "Open the panel," not "You should open the panel" or "The panel
+   should be opened."
+4. **Each modal has one meaning.** *Must* means required. *Can* means possible. *Will* means
+   future. Replace *should*, *may*, *might* and *could* with the one the writer means. If you
+   cannot tell, flag it in Key Improvements. Do not guess.
+5. **One name for each thing.** Pick one term for each object or role and repeat it. If
+   "config file", "settings file" and ".env" name one file, choose one name.
+6. **Keep the small words.** "Insert the pin in the bracket," not "Insert pin in bracket."
+7. **Verbs, not nouns.** "Compress the logs," not "perform compression of the logs."
+8. **Order the steps as the reader does them.** A check that must come first goes first.
+9. **Warnings give the command first, then the risk.** WARNING means risk of injury.
+   CAUTION means risk of damage or lost data. "CAUTION: Do not run `--force` on production.
+   It deletes rows that do not match the source."
+10. **Notes never instruct.** Move an instruction out of a note and into a numbered step.
+11. **Short sentences.** A step has 20 words at most. An explanation has 25 at most.
+12. **Exact text stays exact.** Code, commands, file paths, error messages and UI labels stay
+    as written.
+
+Common swaps: utilise → use; ensure → make sure that; prior to → before; in the event that →
+if; approximately → about; commence → start; terminate → stop; e.g. → for example; i.e. →
+that is; etc. → name the items or cut it.
+
+Keep the writer's spelling. British stays British.
 
 ## Editing Output Format
 

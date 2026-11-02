@@ -5,6 +5,15 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-02 — `editor` gains rules for instructions; `ste` dumped
+
+### Updated
+- **`editor`** 1.0.0 → 1.1.0. New section, *Instructions and procedures*, for steps, guides, briefings, runbooks and agent prompts: one action per step, condition before command, one meaning per modal (*must*, *can*, *will*), one name for each thing, steps in the order the reader does them, warnings that give the command before the risk, notes that never instruct, short sentences, exact text left exact. A short list of word swaps. The writer's spelling stays. The section says not to apply these rules to stories or member news. The description gains the trigger.
+- Why: it beat 1.0.0 on a blind A/B, 21/21 against 17/21 on both runs (`work-samples/editor-upgrade-2026-11-02/`). The original left a "may" in an agent prompt, gave a `--force` risk with no command, and made an optional step compulsory.
+
+### Not added
+- **`ste`** (ASD-STE100 Simplified Technical English), uploaded by the owner. The standalone skill targets aerospace manuals, forces American spelling and runs only when typed. Its rules for instructions went into `editor` instead.
+
 ## 2026-11-02 — `cpo` briefs for existing products
 
 ### Updated
