@@ -9,7 +9,7 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 ### Added
 - **`interview-coach`** 1.0.0, adapted from noamseg/interview-coach-skill at `634a8dd` (MIT). Interview prep, transcript scoring, mocks, storybank and offer negotiation: 25 commands, 43 reference files.
-- Local changes: a description with boundaries against `resume-builder`, `positioning` and `job-scan`; a rule that `coaching_state.md` never lives in a repo; contents lists on long reference files. Upstream's README, release notes and settings file are left out.
+- Local changes: a description with boundaries against `resume-builder`, `positioning` and `job-scan`; a routing section that sends resume work to `resume-builder` unless typed; a rule that personal files (`coaching_state.md`, `job-search/`, `materials/`) never live in a repo; contents lists on long reference files. Upstream's README, release notes and settings file are left out.
 - Why: it beat no skill on a blind-graded admission test, 10/10 against 8/10 on both runs (`work-samples/admission-interview-coach-2026-11-02/`). Detail in the root `CHANGELOG.md`.
 
 ## 2026-10-29 — `mc-orchestrator` re-reviews fix rounds

@@ -21,8 +21,12 @@ The blind grader ranked both skill runs as most useful to the candidate.
   before grading.
 - **Grading:** a separate fresh `general-purpose` agent (`briefs/grader-brief.md`) saw only the
   transcript, the key and the four replies, labelled A–D in shuffled order (`blind-map.txt`).
-  Command names (`stories`, `kickoff`, `help`) were cut from the blinded copies (`blinded/`)
-  because they named the skill. The verbatim replies are in `outputs/`.
+  Lines naming the skill's commands were cut from the blinded copies (`blinded/`): skill
+  run 1's "Next Step" section, and skill run 2's "Recommended next" line and closing
+  question. The verbatim replies are in `outputs/`.
+- **The skill under test was the upstream copy** at the commit above, not the adapted copy in
+  this PR. The adapted description, the personal-files rule and the routing section were
+  never exercised.
 
 ## Scores
 
@@ -31,11 +35,13 @@ The blind grader ranked both skill runs as most useful to the candidate.
 | Total (of 10) | 8 | 8 | 10 | 10 |
 | Holistic rank | 4 | 3 | 2 | 1 |
 
-All four found the same answer-level faults and avoided both decoys. The skill won on the two
-points the fixture built to separate the arms:
+All four found the same answer-level faults and avoided both decoys. The key marked K3 and K4
+as the separating points. K3 separated the arms; K4 didn't (all four scored 2). The skill's
+other win came on K6, a quality point:
 
-- **K3, one root cause across answers.** Both skill runs tied "we didn't really have
-  disagreements" and "didn't want to rock the boat" together as one pattern. Neither no-skill run did.
+- **K3, one root cause across answers.** Both skill runs named conflict avoidance as the one
+  cause behind "we didn't really have disagreements" and "didn't want to rock the boat".
+  Neither no-skill run named it as the shared cause. No-skill run 2 came close and scored 1.
 - **K6, one first move.** Both skill runs gave a single priority. Both no-skill runs gave a
   ranked list whose first item fixed one answer, not the pattern.
 
@@ -47,6 +53,11 @@ Full grader output: `scores.md`. Costs and rule breaks: `process-notes.md`.
   separating points, and those points reward what the skill does by design. The grader was
   independent; the fixture wasn't. The rule asks for a point that needs what the candidate
   adds, so this is by design, but an owner-written fixture would be stronger.
+- **The grader's brief was written after the outputs.** The key was sealed first; the
+  grader's scoring rules were not. Two rules were written with the outputs in view: the
+  tightened K6 test, and "praise plus a small optional addition is not a penalty", which
+  waived D2 for skill run 2. Without that waiver skill run 2 scores 9, still above 8. A
+  rerun should seal the grader brief with the key.
 - **Narrow margin, narrow scope.** Two points of ten, on one of 25 commands. The `resume`,
   `linkedin` and `pitch` commands, which overlap `resume-builder` and `positioning`, were not tested.
 - **Blinding was partial.** The skill's scorecard table marks its replies as different in kind.

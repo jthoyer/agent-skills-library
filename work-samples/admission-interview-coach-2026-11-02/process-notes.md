@@ -13,3 +13,10 @@
   coaching profile. 140.3k tokens, 15 tool calls, 168 s. About 900 words.
 - **Both skill runs broke the same brief rule** (no files) in the same harmless way. Both
   no-skill runs broke the 900-word limit by 10–15%. Neither breach is scored.
+- **Order of work:** the answer key was sealed (hash recorded) before any arm ran. The
+  grader brief (`briefs/grader-brief.md`) was written after all four outputs were in, so its
+  scoring rules could have been shaped by them. Disclosed in the README.
+- **Watchdog review, 2026-11-02:** a dispatched `watchdog` checked the PR before merge. No
+  blockers; five should-fix findings, all fixed in the PR. They were: K4 mislabelled, K3
+  overstated, grader-brief timing, three different resume boundaries, and gaps in the
+  personal-files rule.

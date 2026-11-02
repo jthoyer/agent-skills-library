@@ -1,6 +1,6 @@
 ---
 name: interview-coach
-description: "Interview coaching for job seekers: scores interview answers on five dimensions, names the root cause behind weak answers, and coaches one priority fix. Use when someone wants to prepare for an interview, analyse an interview transcript, run a mock interview or practice drills, build a storybank of STAR stories, debrief after an interview, prepare questions for the interviewer, handle salary questions or negotiate an offer. Trigger on: 'interview prep', 'mock interview', 'analyse my interview', 'how did my interview go', 'practice behavioural questions', 'tell me about yourself', 'storybank', 'debrief', 'kickoff', or any of its commands (prep, analyze, mock, practice, stories, concerns, hype, negotiate). Covers PM, Engineering, Design, Data Science, Research, Marketing and Operations. Not for writing a resume from scratch or tailoring one to a job (resume-builder), positioning a product or offering (positioning), or finding and filing job listings (job-scan)."
+description: "Interview coaching for job seekers: scores interview answers on five dimensions, names the root cause behind weak answers, and coaches one priority fix. Use when someone wants to prepare for an interview, analyse an interview transcript, run a mock interview or practice drills, build a storybank of STAR stories, debrief after an interview, prepare questions for the interviewer, build a personal pitch, optimise a LinkedIn profile, handle salary questions or negotiate an offer. Trigger on: 'interview prep', 'mock interview', 'analyse my interview', 'how did my interview go', 'practice behavioural questions', 'tell me about yourself', 'storybank', 'debrief', 'kickoff', or any of its commands (prep, analyze, mock, practice, stories, concerns, hype, negotiate). Not for writing, tailoring or reviewing a resume (resume-builder; this skill's resume command runs only when typed in a coaching session), positioning a product, service or practice (positioning), or finding and filing job listings (job-scan)."
 license: MIT
 metadata:
   author: Noam Segal (noamseg/interview-coach-skill), adapted for this library
@@ -27,16 +27,21 @@ When instructions compete for attention, follow this priority order:
 
 This skill maintains continuity across sessions using a persistent `coaching_state.md` file.
 
-### Where the state file lives (library rule)
+### Where personal files live (library rule)
 
-`coaching_state.md` holds the candidate's personal data: stories, scores, target companies and
-concerns. Keep it out of every git repository.
+`coaching_state.md`, the `job-search/` application files and the `materials/` folder hold the
+candidate's personal data: stories, scores, target companies, concerns and draft answers. This
+rule overrides every other line in this skill and its references about where to read or write
+them, including kickoff's first write and "write the file silently".
 
-- Never write it inside a repository the session works in, including `agent-skills-library`.
-  Ask the candidate where to keep it, and default to a folder outside any repository.
-- In a cloud session the container is deleted when the session ends. At session end, give the
-  candidate the file's full text, or save it where they choose, so nothing is lost.
-- If the candidate asks to commit it, say once that it holds personal data, then do as they say.
+- **Keep them out of every git repository**, including `agent-skills-library`.
+- **Before the first save,** ask the candidate where to keep them. Default to a folder outside
+  any repository. Later saves can be silent, but only to that place.
+- **At session start,** if `coaching_state.md` isn't in the agreed place, ask once whether the
+  candidate has one: where it is, or paste it in. Only then treat them as a new candidate.
+- **In a cloud session** the container is deleted when the session ends. At session end, give
+  the candidate the full text of each file written, or save it where they choose.
+- If the candidate asks to commit one, say once that it holds personal data, then do as they say.
 
 ### Session Start Protocol
 
@@ -152,6 +157,16 @@ When executing a command, read the required reference files first:
 
 When no explicit command is given, detect the user's intent and route to the correct command. See `references/mode-detection.md` for the full priority list and multi-step intent detection rules.
 
+### Library routing (overrides mode-detection.md)
+
+- **Resume work goes to `resume-builder`** unless the candidate types `resume` during a coaching
+  session. That covers writing, tailoring, reviewing and "optimise my application". A
+  multi-step flow in `references/mode-detection.md` that reaches `resume` stops there and
+  suggests `resume-builder`.
+- **Personal positioning stays here.** A pitch, "tell me about yourself" or "how do I introduce
+  myself" runs `pitch`. Positioning a product, service or practice goes to `positioning`.
+- **LinkedIn profiles stay here** (`linkedin`). No other library skill covers them.
+
 ## Core Rubric (Always Use)
 
 Five dimensions scored 1-5:
@@ -200,6 +215,7 @@ Local changes, kept small so upstream updates merge cleanly:
 
 - The frontmatter description, with triggers and boundaries against `resume-builder`,
   `positioning` and `job-scan`.
-- *Where the state file lives*, under Session State System.
+- *Where personal files live*, under Session State System.
+- *Library routing*, under Mode Detection: resume work goes to `resume-builder` unless typed.
 - Contents lists at the top of every reference file over 100 lines.
 - This section. Upstream's README, release notes and settings file are left out.

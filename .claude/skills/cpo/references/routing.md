@@ -73,7 +73,7 @@ tools: `code-improver` cannot edit, `mc-reviewer` cannot execute.
 | Training, race prep | `triathlon-coach` |
 | ETF investing and tax | `etf-investing-advisor`, `etf-investing-coach` |
 | Resume, CV, cover letter | `resume-builder` |
-| Interview prep, mock interviews, transcript feedback, offer negotiation | `interview-coach` (its `resume` and `pitch` commands serve interview prep; a standalone resume still goes to `resume-builder`) |
+| Interview prep, mock interviews, transcript feedback, a personal pitch, a LinkedIn profile, offer negotiation | `interview-coach`. Any resume request goes to `resume-builder` unless typed as `resume` in a coaching session. Positioning a product or practice goes to `positioning` |
 | The skills library itself | `skills-librarian` |
 
 Check the session's skill listing before naming one. A skill on disk but not listed
