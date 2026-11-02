@@ -48,6 +48,7 @@ Edit `index.html` directly and follow the key rules. It started from a generator
 - 2026-11-02: first version, 108 cards, drawn from the strategy and tool pages and the three design options.
 - 2026-11-02: owner chose Option A plus C's race card (D1). Rewrote RD-05-E2 for the race card. Added RD-02-A4 (a guide opens one step on its own; saving it starts a race plan) and RD-02-W3 (A is weakest for guide visitors), so A's weak spot has a card to measure against.
 - 2026-11-02: added the set-up flow (RP-01 to RP-07, 74 cards) from the canvas screens F1 to F7. Added RD-05-A4 (points to the flow), RD-05-W3 and decision D6 (paywall). The worked example's finish range is now 5:15–5:30, so the legs add up; the canvas boards that said 5:05–5:25 were corrected to match.
+- 2026-11-02: merged a version published from another session, which added the Concept wireframes section (four sketches, figures are placeholders) and made the page light only. Both are kept. The wireframes' pacing figures (FTP 230 W, finish 5:20–5:42) differ from the worked example in the set-up flow; align them when the wireframes are next touched.
 
 ## Changes
 

@@ -35,32 +35,7 @@
   --display: "Outfit", "DM Sans", system-ui, sans-serif;
   --body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --lane: 112px;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f1626; --surface: #172036; --ink: #e8edf7; --muted: #a3aec4; --line: #2b3754;
-    --member: #f8c44f; --member-bg: #3a3017; --member-ink: #f8d77f;
-    --front: #5cc6f0; --front-bg: #12324a;
-    --back: #c9d4ee; --back-bg: #222d48;
-    --support: #a3aec4; --support-bg: #1d2740;
-    --measure: #6fd3a0; --measure-bg: #123326;
-    --risk: #f4a37a; --risk-bg: #3a2016;
-    --phase-bg: #2b3a5c; --phase-ink: #e8edf7;
-    --gate: #f8d77f; --gate-bg: #3a3017;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0f1626; --surface: #172036; --ink: #e8edf7; --muted: #a3aec4; --line: #2b3754;
-  --member: #f8c44f; --member-bg: #3a3017; --member-ink: #f8d77f;
-  --front: #5cc6f0; --front-bg: #12324a;
-  --back: #c9d4ee; --back-bg: #222d48;
-  --support: #a3aec4; --support-bg: #1d2740;
-  --measure: #6fd3a0; --measure-bg: #123326;
-  --risk: #f4a37a; --risk-bg: #3a2016;
-  --phase-bg: #2b3a5c; --phase-ink: #e8edf7;
-  --gate: #f8d77f; --gate-bg: #3a3017;
-  color-scheme: dark;
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
 body {
@@ -153,6 +128,30 @@ code { font-size: 12px; }
 .keynote { font-size: 12.5px; color: var(--muted); max-width: 90ch; }
 .keynote code { font-size: 12px; color: var(--ink); }
 .card:target, .stage:target { outline: 2px solid var(--front); outline-offset: 2px; }
+.concepts { display: grid; gap: 12px; }
+.wires { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.wire { margin: 0; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.wire figcaption { font-size: 13px; color: var(--muted); }
+.wire figcaption strong { color: var(--ink); font-family: var(--display); font-size: 14px; display: block; }
+.tag { display: inline-block; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--risk); background: var(--risk-bg); border-radius: 999px; padding: 1px 8px; margin-right: 6px; }
+.frame { background: var(--surface); border: 2px solid var(--ink); border-radius: 16px; padding: 12px; display: grid; gap: 8px; font-size: 12px; max-width: 340px; width: 100%; }
+.frame .bar { height: 8px; width: 40%; background: var(--line); border-radius: 4px; }
+.frame h3 { margin: 0; font-family: var(--display); font-size: 14px; line-height: 1.25; }
+.frame .ln { height: 6px; background: var(--line); border-radius: 3px; }
+.frame .ln.s { width: 70%; }
+.panel { border: 1px dashed var(--muted); border-radius: 8px; padding: 8px; display: grid; gap: 6px; background: var(--bg); }
+.fld { display: flex; justify-content: space-between; gap: 8px; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 4px 8px; color: var(--muted); }
+.fld b { color: var(--ink); font-weight: 600; }
+.out { background: var(--front-bg); border-left: 3px solid var(--front); border-radius: 6px; padding: 6px 8px; color: var(--ink); }
+.btn { text-align: center; border-radius: 6px; padding: 6px; font-weight: 700; background: var(--ink); color: var(--surface); }
+.btn.alt { background: var(--surface); color: var(--ink); border: 1px solid var(--ink); }
+.row2 { display: grid; grid-template-columns: 1fr auto auto; gap: 4px 10px; padding: 3px 0; border-bottom: 1px solid var(--line); }
+.row2:last-child { border-bottom: 0; }
+.row2.head { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.pin { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--front); color: #fff; font-size: 10px; font-weight: 700; margin-right: 4px; }
+.legendw { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; font-size: 12px; color: var(--muted); }
+.legendw li { display: flex; gap: 6px; align-items: baseline; }
+.legendw code { font-size: 11px; color: var(--ink); }
 .flow { display: grid; gap: 12px; }
 .flow h2 { font-size: 20px; }
 .flowgrid { min-width: 1120px; }
@@ -198,6 +197,84 @@ code { font-size: 12px; }
 <div class="cell lanehead l-measure"><strong>Measure <small class="key">M</small></strong><span>What to count</span></div><div class="cell c-measure"><p class="card k-measure" id="RD-01-M1"><span class="key">RD-01-M1</span>Impressions, clicks and click rate per guide</p><p class="card k-measure" id="RD-01-M2"><span class="key">RD-01-M2</span>Monthly visitors. Gate 1: ~1,000</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-02-M1"><span class="key">RD-02-M1</span>Readers who open the tool. Assumed ~25%</p><p class="card k-measure" id="RD-02-M2"><span class="key">RD-02-M2</span>Tool users who finish a plan</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-03-M1"><span class="key">RD-03-M1</span>Email sign-ups a month. Gate 1: ~100 by week 11</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-04-M1"><span class="key">RD-04-M1</span>Tool users who pay. Assumed ~4%; Gate 2: ≥3%</p><p class="card k-measure" id="RD-04-M2"><span class="key">RD-04-M2</span>Lifetime against annual mix</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-05-M1"><span class="key">RD-05-M1</span>Buyers who use two or more tools</p><p class="card k-measure" id="RD-05-M2"><span class="key">RD-05-M2</span>Plans saved per race</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-06-M1"><span class="key">RD-06-M1</span>Return visits in race week</p><p class="card k-measure" id="RD-06-M2"><span class="key">RD-06-M2</span>Countdown users who later buy</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-07-M1"><span class="key">RD-07-M1</span>Cards printed</p><p class="card k-measure" id="RD-07-M2"><span class="key">RD-07-M2</span>Race-week support emails</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-08-M1"><span class="key">RD-08-M1</span>Debriefs per race planned</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-09-M1"><span class="key">RD-09-M1</span>Second race plans per buyer</p><p class="card k-measure" id="RD-09-M2"><span class="key">RD-09-M2</span>Annual renewal rate</p></div>
 <div class="cell lanehead l-risk"><strong>Watch for <small class="key">W</small></strong><span>What can go wrong</span></div><div class="cell c-risk"><p class="card k-risk" id="RD-01-W1"><span class="key">RD-01-W1</span>AI-spam penalty: one reviewed guide a day, no more</p><p class="card k-risk" id="RD-01-W2"><span class="key">RD-01-W2</span>The ontology’s ranges are unchecked</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-02-W1"><span class="key">RD-02-W1</span>Hyponatraemia: fluid and sodium advice needs care</p><p class="card k-risk" id="RD-02-W2"><span class="key">RD-02-W2</span>Product specs change: people’s own entries beat a built-in list</p><p class="card k-risk" id="RD-02-W3"><span class="key">RD-02-W3</span>Option A is weakest for guide visitors: the step must work alone</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-03-W1"><span class="key">RD-03-W1</span>Clearing the browser loses saved details</p><p class="card k-risk" id="RD-03-W2"><span class="key">RD-03-W2</span>The email address is the only personal data: keep it that way</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-04-W1"><span class="key">RD-04-W1</span>No accounts makes restoring a purchase hard</p><p class="card k-risk" id="RD-04-W2"><span class="key">RD-04-W2</span>The niche may cap revenue below target</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-05-W1"><span class="key">RD-05-W1</span>The finish prediction will be wrong for some</p><p class="card k-risk" id="RD-05-W2"><span class="key">RD-05-W2</span>Free brand calculators exist: win on the joined-up loop</p><p class="card k-risk" id="RD-05-W3"><span class="key">RD-05-W3</span>Where the paywall sits in pace set-up is undecided (D6)</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-06-W1"><span class="key">RD-06-W1</span>People pay little for checklists: free or bundled, never sold alone</p><p class="card k-risk" id="RD-06-W2"><span class="key">RD-06-W2</span>Contingency advice must stay general</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-07-W1"><span class="key">RD-07-W1</span>Many venues have no signal</p><p class="card k-risk" id="RD-07-W2"><span class="key">RD-07-W2</span>Printing from a phone is fiddly</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-08-W1"><span class="key">RD-08-W1</span>A Fatigue Check would lift weekly use but edges toward health advice: parked</p><p class="card k-risk" id="RD-08-W2"><span class="key">RD-08-W2</span>Feedback must be opt-in</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-09-W1"><span class="key">RD-09-W1</span>The loop is the reason to stay annual: few debriefs means weak renewals</p></div>
 </div></div>
+<section class="concepts" aria-labelledby="concepts-h">
+<h2 id="concepts-h">Concept wireframes</h2>
+<p class="small">Rough sketches of four screens, drawn to show the idea. Nothing here is built, and every figure is a placeholder. Each wireframe lists the cards it shows, so you can trace it back to the blueprint.</p>
+<div class="wires">
+<figure class="wire">
+<div class="frame" role="img" aria-label="Wireframe: a guide page with the fuel tool inside it, an output panel, a not-medical-advice note and two buttons">
+<div class="bar"></div>
+<h3>How many gels for a 70.3?</h3>
+<div class="ln"></div><div class="ln s"></div>
+<div class="panel">
+<div class="fld"><span>Race</span><b>70.3</b></div>
+<div class="fld"><span>Bike split</span><b>2:45</b></div>
+<div class="fld"><span>Heat · weight</span><b>Warm · 72 kg</b></div>
+<div class="fld"><span>Gut tolerance</span><b>60 g/h</b></div>
+<div class="out"><span class="pin">1</span>Bike: about 1 gel + 500 ml every 30 min</div>
+<div class="ln s"></div>
+<span style="color:var(--muted)"><span class="pin">2</span>Not medical advice</span>
+</div>
+<div class="btn"><span class="pin">3</span>Save as race plan</div>
+<div class="btn alt">Email me this plan</div>
+</div>
+<figcaption><strong><span class="tag">Concept</span>Fuel tool inside a guide</strong>Stages 2 and 3: the tool opens in the page, with no app-store hop.<ul class="legendw"><li><span class="pin">1</span><code>RD-02-A1</code> caps carbs at the gut tolerance entered</li><li><span class="pin">2</span><code>RD-02-A2</code> note beside every plan</li><li><span class="pin">3</span><code>RD-02-A4</code> saving starts a race plan</li><li>Email button: <code>RD-03-E1</code></li></ul></figcaption>
+</figure>
+<figure class="wire">
+<div class="frame" role="img" aria-label="Wireframe: pacing inputs with a heart rate or RPE toggle, a table of target paces per leg with a finish range, and a send-to-fuel button">
+<div class="bar"></div>
+<h3>Pace targets</h3>
+<div class="panel">
+<div class="fld"><span>FTP</span><b>230 W</b></div>
+<div class="fld"><span>CSS</span><b>1:45 /100 m</b></div>
+<div class="fld"><span>Run threshold</span><b>4:30 /km</b></div>
+<div class="fld"><span>No numbers?</span><b>Heart rate · RPE</b></div>
+</div>
+<div class="panel">
+<div class="row2 head"><span>Leg</span><span>Target</span><span>Range</span></div>
+<div class="row2"><span>Swim</span><span>1:50</span><span>±2%</span></div>
+<div class="row2"><span>Bike</span><span>185 W</span><span>±3%</span></div>
+<div class="row2"><span>Run</span><span>4:55</span><span>±3%</span></div>
+<div class="out"><span class="pin">1</span>Finish: 5:20 to 5:42</div>
+</div>
+<div class="btn"><span class="pin">2</span>Send splits to fuel plan</div>
+</div>
+<figcaption><strong><span class="tag">Concept</span>Pacing planner</strong>Stage 5: pace sets the splits, and the splits set the fuel.<ul class="legendw"><li><span class="pin">1</span><code>RD-05-A2</code> a finish range, never one time</li><li><span class="pin">2</span><code>RD-05-T2</code>, <code>RD-05-A1</code> splits feed the fuel plan</li><li>Inputs: <code>RD-05-T1</code></li></ul></figcaption>
+</figure>
+<figure class="wire">
+<div class="frame" role="img" aria-label="Wireframe: a race card with pace and fuel for each leg, an offline badge and a print button">
+<div class="bar"></div>
+<h3>Race card · 70.3</h3>
+<div class="panel">
+<div class="row2 head"><span>Leg</span><span>Pace</span><span>Fuel</span></div>
+<div class="row2"><span>Swim</span><span>1:50</span><span>1 gel pre</span></div>
+<div class="row2"><span>Bike</span><span>185 W</span><span>60 g/h</span></div>
+<div class="row2"><span>Run</span><span>4:55</span><span>40 g/h</span></div>
+</div>
+<div class="out"><span class="pin">1</span>If gut trouble: drop to water, restart at 30 g/h</div>
+<div class="fld"><span><span class="pin">2</span>Saved on this phone</span><b>Works offline</b></div>
+<div class="btn"><span class="pin">3</span>Print top-tube card</div>
+</div>
+<figcaption><strong><span class="tag">Concept</span>Race card and offline view</strong>Stages 5 to 7: pace and fuel on one card that the plan writes to.<ul class="legendw"><li><span class="pin">1</span><code>RD-06-A2</code> contingency tree</li><li><span class="pin">2</span><code>RD-07-A1</code> offline once loaded</li><li><span class="pin">3</span><code>RD-07-A2</code> sized for the top tube</li><li>Card: <code>RD-05-E2</code></li></ul></figcaption>
+</figure>
+<figure class="wire">
+<div class="frame" role="img" aria-label="Wireframe: a debrief comparing plan and race for each leg, one suggested change, and a button to carry it to the next race">
+<div class="bar"></div>
+<h3>Debrief</h3>
+<div class="panel">
+<div class="row2 head"><span>Leg</span><span>Plan</span><span>Race</span></div>
+<div class="row2"><span>Swim</span><span>35:00</span><span>36:10</span></div>
+<div class="row2"><span>Bike</span><span>2:45</span><span>2:48</span></div>
+<div class="row2"><span>Run</span><span>1:45</span><span>1:58</span></div>
+</div>
+<div class="out"><span class="pin">1</span>One change: start run fuel 10 min earlier</div>
+<div class="btn"><span class="pin">2</span>Plan the next race with this change</div>
+</div>
+<figcaption><strong><span class="tag">Concept</span>Debrief</strong>Stages 8 and 9: five questions, one change, carried forward.<ul class="legendw"><li><span class="pin">1</span><code>RD-08-A2</code> picks one change</li><li><span class="pin">2</span><code>RD-09-A1</code> carries it into fuel and pace</li><li>Comparison: <code>RD-08-E1</code></li></ul></figcaption>
+</figure>
+</div>
+</section>
+
 <section class="flow" aria-labelledby="flow-h">
 <h2 id="flow-h">Set-up flow: adding details and setting pace targets</h2>
 <p class="keynote">A zoom into stage 5, <a href="#RD-05">Plan the race</a>, under the chosen design: Option A’s race plan plus C’s race card. Each step is a screen on the design canvas, F1 to F7. F7 is the other way in: a guide visitor who saves starts at F1 with their numbers kept. Keys: <code>RP-05-A1</code> is step 5, lane A, card 1, with the same lane letters and rules as above. The Owner lane is left out because you do nothing during set-up.</p>
