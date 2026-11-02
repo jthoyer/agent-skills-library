@@ -5,12 +5,19 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
-## 2026-11-02 — structure check walks reference subfolders
+## 2026-11-02 — subfolder pattern needs each stem named
 
 ### Updated
-- **`skills-librarian`** 2.4.0 → 2.4.1. The one-level rule now allows a subfolder to be named by one pattern line, such as `references/commands/[command].md`, if `SKILL.md` names each file's stem in backticks. `audit.md` says the same.
-- **Rules** (`CLAUDE.md` in this folder): the contents and orphan rules cover subfolders, and the pattern rule is written down.
-- Why: `scripts/check-skill-structure.sh` never looked inside subfolders, so `interview-coach`'s 25 command files went unchecked. The owner chose the pattern with a stem guard over naming all 25. Detail in the root `CHANGELOG.md`.
+- **`scripts/check-skill-structure.sh`**: a subfolder pattern such as `references/commands/[command].md` now covers a file only when SKILL.md also names its stem in backticks (`analyze`). A stray file in the folder flags.
+- **`skills-librarian`** 2.4.0 → 2.4.1. The one-level rule in `SKILL.md` and `audit.md` states the pattern and the stem check. **Rules** (`CLAUDE.md` in this folder) say the same.
+- Why: the entry below lets a pattern name every file in its folder, so any file dropped there passes unchecked. The owner chose the pattern with a stem check. Detail in the root `CHANGELOG.md`.
+
+## 2026-11-02 — structure check covers reference subfolders
+
+### Updated
+- **`scripts/check-skill-structure.sh`**: the ORPHAN and CONTENTS checks now walk subfolders of `references/`. A subfolder file counts as named when SKILL.md names it, or gives a bracketed pattern for its folder (`references/commands/[command].md`). Top-level files are still named one by one. Name matching is now literal, not a regex.
+- **`.claude/skills/CLAUDE.md`**: the rule text says the same.
+- Why: `interview-coach` is the first skill with a subfolder, and the old loop skipped its 25 command files. Found by `watchdog` on 2026-11-02; the owner chose the pattern rule. Tested on six cases, each of which now flags as expected.
 
 ## 2026-11-02 — `interview-coach` added
 

@@ -10,10 +10,11 @@ the rules CI enforces, so you meet them before the push, not after.
   delete it.
 - **Every `references/` file is named in its own SKILL.md.** A file reached only through
   another reference is too deep. Over 100 lines, it opens with a contents list. Both rules
-  cover subfolders too.
-- **A subfolder can be named by pattern.** One line such as `references/commands/[command].md`
-  covers the files in that subfolder, if SKILL.md also names each file's stem in
+  cover subfolders. A file in a subfolder may instead be named by a pattern for its folder,
+  with the variable part in brackets. In `interview-coach`, `references/commands/[command].md`
+  names every `.md` file in its commands folder, if SKILL.md also names each file's stem in
   backticks (`analyze`, or `apply [company]`). A file with no matching stem is an orphan.
+  Top-level files are named one by one.
 - **Scripts state their needs** on a line starting `Requires:`, next to where SKILL.md runs them.
 - **Every pointer resolves.** A reference file named in skill A must exist in skill A's own
   `references/` folder. Never point into the home `.claude` folder, other than its skills

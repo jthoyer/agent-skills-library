@@ -8,15 +8,17 @@
 #   2. ORPHAN    — every file in a skill's references/ must be named in that
 #      skill's SKILL.md. A file reachable only through another reference is two
 #      levels deep, and nested files are the ones Claude reads partially.
-#      A subfolder file may instead be covered by a pattern line in SKILL.md,
-#      such as `references/commands/[command].md`, as long as its stem also
-#      appears in SKILL.md in backticks (`analyze`). The pattern tells Claude how
-#      to build the path; the stem proves SKILL.md routes to that file.
+#      Subfolders are checked too. A file in a subfolder also counts as named
+#      when SKILL.md gives a pattern for its folder, with the variable part in
+#      brackets: `references/commands/[command].md` names every .md file in
+#      references/commands/, as long as SKILL.md also names the file's stem in
+#      backticks (`analyze`, `apply [company]`). The pattern tells Claude how to
+#      build the path; the stem shows SKILL.md routes to that file, so a stray
+#      file in the folder still flags. Top-level files must be named one by one.
 #   3. REQUIRES  — a skill that ships scripts/ must state what they need, on a
 #      line starting "Requires:", next to where SKILL.md runs them. Environments
 #      differ; an unstated dependency fails silently in the one that lacks it.
 #
-# CONTENTS and ORPHAN walk references/ recursively, dotfiles aside.
 # _retired/ stays excluded as an unmodified archive.
 #
 # Usage:
@@ -28,7 +30,6 @@ skills="$(cd "$script_dir/.." && pwd)/.claude/skills"
 
 findings=0
 flag() { printf '%-10s %s\n' "$1" "$2"; findings=$((findings + 1)); }
-re_escape() { printf '%s' "$1" | sed 's/[][\.^$*+?(){}|]/\\&/g'; }
 bt='`'
 
 for dir in "$skills"/*/; do
@@ -40,27 +41,26 @@ for dir in "$skills"/*/; do
 
   if [[ -d "$dir/references" ]]; then
     while IFS= read -r ref; do
-      ref_path="${ref#"$dir"/}"            # references/commands/analyze.md
-      rel="$name/$ref_path"
+      sub="${ref#"$dir"/references/}"        # path inside references/
+      rel="$name/references/$sub"
 
-      if ! grep -qF "$ref_path" "$skill_md"; then
-        sub="$(dirname "$ref_path")"       # references/commands
-        if [[ "$sub" == references ]]; then
+      if ! grep -qF "references/$sub" "$skill_md"; then
+        folder="$(dirname "$sub")"
+        ext="${sub##*.}"
+        pattern_named=false
+        if [[ "$folder" != "." && "$sub" == *.* ]]; then
+          # A pattern line names the whole subfolder, e.g. references/commands/[command].md
+          esc_folder="$(printf '%s' "$folder" | sed 's/[.[\*^$]/\\&/g')"
+          grep -qE "references/${esc_folder}/\[[^]/]+\]\.${ext}" "$skill_md" && pattern_named=true
+        fi
+        if ! $pattern_named; then
           flag ORPHAN "$rel — not named in $name/SKILL.md"
         else
-          base="$(basename "$ref_path")"
-          stem="${base%.*}"
-          ext=""; [[ "$base" == *.* ]] && ext=".${base##*.}"
-          # Pattern: the subfolder, a [placeholder], the same extension.
-          # Guard: the stem in backticks, e.g. `analyze` or `apply [company]`.
-          sub_re="$(re_escape "$sub")"
-          ext_re="$(re_escape "$ext")"
-          stem_re="$(re_escape "$stem")"
-          if ! grep -qE "${sub_re}/\[[A-Za-z0-9_-]+\]${ext_re}" "$skill_md"; then
-            flag ORPHAN "$rel — not named in $name/SKILL.md, and no $sub/[name]$ext pattern line"
-          elif ! grep -qE "${bt}${stem_re}[${bt} ]" "$skill_md"; then
-            flag ORPHAN "$rel — $sub/[name]$ext pattern found, but ${bt}${stem}${bt} is not named in $name/SKILL.md"
-          fi
+          # The pattern covers the folder; the stem must be named too.
+          stem="$(basename "$sub" ".$ext")"
+          esc_stem="$(printf '%s' "$stem" | sed 's/[.[\*^$+?(){}|]/\\&/g')"
+          grep -qE "${bt}${esc_stem}[${bt} ]" "$skill_md" \
+            || flag ORPHAN "$rel — its folder's pattern is in $name/SKILL.md, but ${bt}${stem}${bt} is not"
         fi
       fi
 
@@ -69,7 +69,7 @@ for dir in "$skills"/*/; do
           | grep -qiE '^#+ +(contents|table of contents)\b|^\*\*contents\*\*' \
           || flag CONTENTS "$rel — $(wc -l < "$ref") lines, no contents list in the first 40"
       fi
-    done < <(find "$dir/references" -type f ! -name '.*' | sort)
+    done < <(find "$dir/references" -type f | sort)
   fi
 
   if [[ -d "$dir/scripts" ]]; then

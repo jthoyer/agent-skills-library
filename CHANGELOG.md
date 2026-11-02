@@ -70,13 +70,13 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
-## 2026-11-02 — library — portfolio: structure check reaches reference subfolders
-- Decision: `scripts/check-skill-structure.sh` walks `references/` recursively for the contents and orphan rules. A subfolder file passes the orphan rule if `SKILL.md` names it in full, or has a pattern line such as `references/commands/[command].md` and names the file's stem in backticks.
-- Evidence: `watchdog` on the "Add interview-coach skill" PR found the loop read only `references/*`, so the 25 files in `interview-coach/references/commands/` were never checked. All 22 over 100 lines already carry contents lists. Every one of the 25 stems is named in `SKILL.md`.
-- Owner's choice: pattern plus stem guard. Rejected: the pattern alone (any stray file passes), and naming all 25 files (23 new mentions of files `SKILL.md` already routes to).
-- Tested: five planted faults in a scratch copy, each caught: a stray command file, a long file with no contents list, the pattern line removed (23 findings, as the watchdog predicted), one stem removed, a top-level orphan. All four checks pass on the branch.
+## 2026-11-02 — library — portfolio: subfolder pattern needs each stem named
+- Decision: in `scripts/check-skill-structure.sh`, a subfolder pattern such as `references/commands/[command].md` covers a file only when `SKILL.md` also names its stem in backticks (`analyze`, `apply [company]`). Builds on PR #85, which added the recursive walk and the pattern rule.
+- Evidence: `watchdog` on the "Add interview-coach skill" PR found the command files unchecked. With the pattern alone, any file dropped into `references/commands/` passes. All 25 interview-coach stems are already named in `SKILL.md`, so nothing new flags.
+- Owner's choice: pattern plus stem check, asked in this session. Rejected: naming all 25 files (23 new mentions of files `SKILL.md` already routes to). PR #85, from a parallel session, merged the pattern alone first; this adds the check on top.
+- Tested: in a scratch copy, a stray command file, one stem removed, the pattern line removed (23 findings) and a top-level orphan each flag. All four checks pass.
 - Changed: the script; `.claude/skills/CLAUDE.md`; `skills-librarian` 2.4.1 (`SKILL.md`, `audit.md`); one comment line in `cpo/references/portfolio.md`.
-- Reverses if: Claude skips a command file that the stem and pattern route to, or a second skill needs a pattern the regex rejects.
+- Reverses if: Claude skips a command file the pattern and stem route to, or a second skill needs a stem the check rejects.
 - Next audit targets: `interview-coach` (owner-written `mock` test), `resume-builder` (overlap with `interview-coach resume`), plus the queue above.
 
 ## 2026-11-02 — library — portfolio: `interview-coach` admitted
