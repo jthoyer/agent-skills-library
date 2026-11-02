@@ -132,7 +132,7 @@ is a result you can quote. They also run in CI on every push and pull request.
 ```bash
 scripts/check-frontmatter.sh --list   # names, models, tools, description length, skills index
 scripts/check-references.sh           # every asserted path resolves
-scripts/check-skill-structure.sh      # contents lists, one-level references, Requires: lines
+scripts/check-skill-structure.sh      # contents lists, named or patterned references, Requires: lines
 ```
 
 A non-empty flag is a live defect: `NAME!=FILENAME` will not dispatch, `DESC>1024` is

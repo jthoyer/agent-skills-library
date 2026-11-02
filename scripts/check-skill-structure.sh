@@ -11,7 +11,10 @@
 #      Subfolders are checked too. A file in a subfolder also counts as named
 #      when SKILL.md gives a pattern for its folder, with the variable part in
 #      brackets: `references/commands/[command].md` names every .md file in
-#      references/commands/. Top-level files must be named one by one.
+#      references/commands/, as long as SKILL.md also names the file's stem in
+#      backticks (`analyze`, `apply [company]`). The pattern tells Claude how to
+#      build the path; the stem shows SKILL.md routes to that file, so a stray
+#      file in the folder still flags. Top-level files must be named one by one.
 #   3. REQUIRES  — a skill that ships scripts/ must state what they need, on a
 #      line starting "Requires:", next to where SKILL.md runs them. Environments
 #      differ; an unstated dependency fails silently in the one that lacks it.
@@ -27,6 +30,7 @@ skills="$(cd "$script_dir/.." && pwd)/.claude/skills"
 
 findings=0
 flag() { printf '%-10s %s\n' "$1" "$2"; findings=$((findings + 1)); }
+bt='`'
 
 for dir in "$skills"/*/; do
   dir="${dir%/}"
@@ -49,7 +53,15 @@ for dir in "$skills"/*/; do
           esc_folder="$(printf '%s' "$folder" | sed 's/[.[\*^$]/\\&/g')"
           grep -qE "references/${esc_folder}/\[[^]/]+\]\.${ext}" "$skill_md" && pattern_named=true
         fi
-        $pattern_named || flag ORPHAN "$rel — not named in $name/SKILL.md"
+        if ! $pattern_named; then
+          flag ORPHAN "$rel — not named in $name/SKILL.md"
+        else
+          # The pattern covers the folder; the stem must be named too.
+          stem="$(basename "$sub" ".$ext")"
+          esc_stem="$(printf '%s' "$stem" | sed 's/[.[\*^$+?(){}|]/\\&/g')"
+          grep -qE "${bt}${esc_stem}[${bt} ]" "$skill_md" \
+            || flag ORPHAN "$rel — its folder's pattern is in $name/SKILL.md, but ${bt}${stem}${bt} is not"
+        fi
       fi
 
       if [[ "$ref" == *.md ]] && (( $(wc -l < "$ref") > 100 )); then
@@ -71,4 +83,4 @@ if (( findings > 0 )); then
   echo "$findings structural finding(s)."
   exit 1
 fi
-echo "Skill structure clean: contents lists, one-level references, stated dependencies."
+echo "Skill structure clean: contents lists, named or patterned references, stated dependencies."

@@ -5,6 +5,13 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-02 — subfolder pattern needs each stem named
+
+### Updated
+- **`scripts/check-skill-structure.sh`**: a subfolder pattern such as `references/commands/[command].md` now covers a file only when SKILL.md also names its stem in backticks (`analyze`). A stray file in the folder flags.
+- **`skills-librarian`** 2.4.0 → 2.4.1. The one-level rule in `SKILL.md` and `audit.md` states the pattern and the stem check. **Rules** (`CLAUDE.md` in this folder) say the same.
+- Why: the entry below lets a pattern name every file in its folder, so any file dropped there passes unchecked. The owner chose the pattern with a stem check. Detail in the root `CHANGELOG.md`.
+
 ## 2026-11-02 — structure check covers reference subfolders
 
 ### Updated

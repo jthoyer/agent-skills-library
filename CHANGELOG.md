@@ -70,6 +70,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-02 — library — portfolio: subfolder pattern needs each stem named
+- Decision: in `scripts/check-skill-structure.sh`, a subfolder pattern such as `references/commands/[command].md` covers a file only when `SKILL.md` also names its stem in backticks (`analyze`, `apply [company]`). Builds on PR #85, which added the recursive walk and the pattern rule.
+- Evidence: `watchdog` on the "Add interview-coach skill" PR found the command files unchecked. With the pattern alone, any file dropped into `references/commands/` passes. All 25 interview-coach stems are already named in `SKILL.md`, so nothing new flags.
+- Owner's choice: pattern plus stem check, asked in this session. Rejected: naming all 25 files (23 new mentions of files `SKILL.md` already routes to). PR #85, from a parallel session, merged the pattern alone first; this adds the check on top.
+- Tested: in a scratch copy, a stray command file, one stem removed, the pattern line removed (23 findings) and a top-level orphan each flag. All four checks pass.
+- Changed: the script; `.claude/skills/CLAUDE.md`; `skills-librarian` 2.4.1 (`SKILL.md`, `audit.md`); one comment line in `cpo/references/portfolio.md`.
+- Reverses if: Claude skips a command file the pattern and stem route to, or a second skill needs a stem the check rejects.
+- Next audit targets: `interview-coach` (owner-written `mock` test), `resume-builder` (overlap with `interview-coach resume`), plus the queue above.
+
 ## 2026-11-02 — library — portfolio: `interview-coach` admitted
 - Decision (reduced independence: the cpo skill wrote the fixture, key and grader brief): add `interview-coach` (noamseg/interview-coach-skill at `634a8dd`, MIT). The owner asked for it via `/rewrite` and chose "run the test, add only if it passes".
 - Evidence: admission test `work-samples/admission-interview-coach-2026-11-02/`. Transcript analysis, skill against no skill, two runs each, sealed key, blind dispatched grader. Skill 10/10 twice, no skill 8/10 twice. The grader ranked both skill runs first and second. The skill won on linking two answers to one root cause and on naming one first move.
