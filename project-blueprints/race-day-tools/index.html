@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Race-Day Tools Service Blueprint</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Outfit:wght@600;700&amp;display=swap">
+<style>/* Layout: a classic service blueprint, as in the Balance Bolt and race-app blueprints. Swimlanes down, stages across, dashed lines between lanes, lane labels stuck to the left. Adds a Ships-in row and a Measure lane, so it doubles as the build plan and the weekly-review guide. */
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --ink: #182542;
+  --muted: #566177;
+  --line: #d9dfe8;
+  --member: #f8c44f;
+  --member-bg: #fff6df;
+  --member-ink: #6b4d00;
+  --front: #0070a8;
+  --front-bg: #eaf7fc;
+  --back: #182542;
+  --back-bg: #eef2fb;
+  --support: #566177;
+  --support-bg: #f1f3f6;
+  --measure: #116b43;
+  --measure-bg: #e8f6ee;
+  --risk: #9a3412;
+  --risk-bg: #fdeee6;
+  --phase-bg: #182542;
+  --phase-ink: #ffffff;
+  --gate: #6b4d00;
+  --gate-bg: #fff6df;
+  --display: "Outfit", "DM Sans", system-ui, sans-serif;
+  --body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --lane: 112px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1626; --surface: #172036; --ink: #e8edf7; --muted: #a3aec4; --line: #2b3754;
+    --member: #f8c44f; --member-bg: #3a3017; --member-ink: #f8d77f;
+    --front: #5cc6f0; --front-bg: #12324a;
+    --back: #c9d4ee; --back-bg: #222d48;
+    --support: #a3aec4; --support-bg: #1d2740;
+    --measure: #6fd3a0; --measure-bg: #123326;
+    --risk: #f4a37a; --risk-bg: #3a2016;
+    --phase-bg: #2b3a5c; --phase-ink: #e8edf7;
+    --gate: #f8d77f; --gate-bg: #3a3017;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1626; --surface: #172036; --ink: #e8edf7; --muted: #a3aec4; --line: #2b3754;
+  --member: #f8c44f; --member-bg: #3a3017; --member-ink: #f8d77f;
+  --front: #5cc6f0; --front-bg: #12324a;
+  --back: #c9d4ee; --back-bg: #222d48;
+  --support: #a3aec4; --support-bg: #1d2740;
+  --measure: #6fd3a0; --measure-bg: #123326;
+  --risk: #f4a37a; --risk-bg: #3a2016;
+  --phase-bg: #2b3a5c; --phase-ink: #e8edf7;
+  --gate: #f8d77f; --gate-bg: #3a3017;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 48px;
+}
+.page { margin: 0 auto; display: grid; gap: 20px; min-width: 0; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4.4vw, 38px); line-height: 1.1; }
+h2 { font-size: 17px; }
+p { margin: 0; }
+header { display: grid; gap: 10px; }
+.eyebrow { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--front); }
+.lede { color: var(--muted); max-width: 72ch; }
+.legend { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.sw-member { background: var(--member); }
+.sw-front { background: var(--front); }
+.sw-back { background: var(--back); }
+.sw-support { background: var(--support); }
+.sw-measure { background: var(--measure); }
+.sw-risk { background: var(--risk); }
+.hint { font-size: 12px; color: var(--muted); }
+
+.scroller { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); min-width: 0; }
+.scroller:focus-visible { outline: 2px solid var(--front); outline-offset: 2px; }
+.grid { display: grid; width: 100%; min-width: 1320px; }
+.cell { padding: 8px; border-right: 1px solid var(--line); min-width: 0; display: grid; gap: 6px; align-content: start; }
+.lanehead { position: sticky; left: 0; z-index: 2; background: var(--surface); border-right: 1px solid var(--line); box-shadow: 4px 0 8px -6px rgba(24, 37, 66, .25); }
+.lanehead strong { font-family: var(--display); font-size: 14px; }
+.lanehead span { font-size: 12px; color: var(--muted); }
+.corner span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.phase { background: var(--phase-bg); color: var(--phase-ink); border-right: 2px solid var(--surface); }
+.phase strong { font-family: var(--display); font-size: 16px; }
+.phase span { font-size: 12px; opacity: .85; }
+.stage { font-family: var(--display); font-weight: 600; font-size: 13px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
+.num { width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--surface); display: inline-grid; place-items: center; font-size: 12px; font-weight: 700; flex: none; font-variant-numeric: tabular-nums; }
+.buildcell { border-bottom: 1px solid var(--line); align-content: center; }
+.build { justify-self: start; padding: 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 700; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.build.b1 { background: var(--measure-bg); border-color: var(--measure); color: var(--measure); }
+.build.b2 { background: var(--member-bg); border-color: var(--member); color: var(--member-ink); }
+.build.b3 { background: var(--front-bg); border-color: var(--front); color: var(--front); }
+.build.b4 { background: var(--back-bg); border-color: var(--back); color: var(--back); }
+
+.card { margin: 0; padding: 6px 8px; border-radius: 6px; font-size: 12px; overflow-wrap: anywhere; line-height: 1.4; }
+.k-evidence { background: var(--surface); border: 1px dashed var(--line); color: var(--ink); }
+.k-member { background: var(--member-bg); color: var(--member-ink); border-left: 3px solid var(--member); }
+.k-front { background: var(--front-bg); color: var(--ink); border-left: 3px solid var(--front); }
+.k-back { background: var(--back-bg); color: var(--ink); border-left: 3px solid var(--back); }
+.k-support { background: var(--support-bg); color: var(--ink); border-left: 3px solid var(--support); font-size: 11.5px; }
+.k-measure { background: var(--measure-bg); color: var(--ink); border-left: 3px solid var(--measure); }
+.k-risk { background: var(--risk-bg); color: var(--ink); border-left: 3px solid var(--risk); }
+.l-member strong { color: var(--member-ink); }
+.l-front strong { color: var(--front); }
+.l-measure strong { color: var(--measure); }
+.l-risk strong { color: var(--risk); }
+.empty { background: repeating-linear-gradient(135deg, transparent 0 8px, var(--bg) 8px 9px); }
+
+.line { position: relative; height: 22px; border-top: 2px dashed var(--line); }
+.line span { position: sticky; left: 10px; display: inline-block; margin-top: 2px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); background: var(--surface); padding: 0 6px; }
+
+.plan { display: grid; gap: 12px; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.step { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; gap: 4px; align-content: start; min-width: 0; }
+.step strong { font-family: var(--display); font-size: 15px; }
+.step p { font-size: 13px; }
+.s-b1 strong { color: var(--measure); }
+.s-b2 strong { color: var(--member-ink); }
+.s-b3 strong { color: var(--front); }
+.s-b4 strong { color: var(--back); }
+.s-gate { background: var(--gate-bg); border: 1px dashed var(--gate); }
+.s-gate strong { color: var(--gate); }
+.stepkeys { color: var(--muted); }
+
+.notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.notes > div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.notes ul, .notes ol { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--ink); }
+.small { font-size: 13px; color: var(--muted); }
+footer { font-size: 12px; color: var(--muted); max-width: 90ch; }
+code { font-size: 12px; }
+@media (min-width: 1360px) { .hint { display: none; } }
+@media (min-width: 1700px) { .card { font-size: 13px; } .k-support { font-size: 12px; } }
+.key { display: block; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 10px; font-weight: 600; letter-spacing: .02em; color: var(--muted); margin-bottom: 2px; font-variant-numeric: tabular-nums; }
+.lanehead .key { display: inline; font-size: 11px; margin: 0; }
+.stage .sname { display: grid; line-height: 1.2; }
+.stage .key { margin: 1px 0 0; }
+.keynote { font-size: 12.5px; color: var(--muted); max-width: 90ch; }
+.keynote code { font-size: 12px; color: var(--ink); }
+.card:target, .stage:target { outline: 2px solid var(--front); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+<p class="eyebrow">Race-day tool suite · Plan</p>
+<h1>From a search to the next race</h1>
+<p class="lede">How the race-day tool suite should work, from a first search to the next race. It is a plan: nothing is built yet. Each stage says which build brings it. The Measure lane says what to count, so the weekly review can pick the next change. Sources: the Notion page “Strategy: Race-day tool suite” and its four tool pages (26 October 2026), and the three design options (2 November 2026).</p>
+<ul class="legend" aria-label="Lanes">
+<li><i class="sw sw-member"></i>Athlete</li>
+<li><i class="sw sw-front"></i>App</li>
+<li><i class="sw sw-back"></i>Owner</li>
+<li><i class="sw sw-support"></i>Systems</li>
+<li><i class="sw sw-measure"></i>Measure</li>
+<li><i class="sw sw-risk"></i>Watch for</li>
+</ul>
+<p class="keynote"><strong>Keys.</strong> Every card has a permanent key: <code>RD-05-A1</code> is stage 5, lane A (App), card 1. Lanes: E Evidence, T Athlete, A App, O Owner, S Systems, M Measure, W Watch for. Keys are never renumbered or reused; a new card takes the next free number. Cite a key in every change you log.</p>
+</header>
+<p class="hint">On a narrower screen, scroll sideways to follow the 9 stages →</p>
+<div class="scroller" tabindex="0" role="region" aria-label="Service blueprint, 9 stages">
+<div class="grid" style="grid-template-columns: var(--lane) repeat(9, minmax(0, 1fr));">
+<div class="cell lanehead corner"><span>Stage</span></div><div class="cell phase" style="grid-column: span 3"><strong>Find</strong><span>From a search to a saved plan</span></div><div class="cell phase" style="grid-column: span 3"><strong>Pay and plan</strong><span>From a paid tool to a full race plan</span></div><div class="cell phase" style="grid-column: span 3"><strong>Race and learn</strong><span>From race morning to the next race</span></div>
+<div class="cell lanehead corner"></div><div class="cell stage" id="RD-01"><span class="num">1</span><span class="sname">Discover<small class="key">RD-01</small></span></div><div class="cell stage" id="RD-02"><span class="num">2</span><span class="sname">Try a tool<small class="key">RD-02</small></span></div><div class="cell stage" id="RD-03"><span class="num">3</span><span class="sname">Keep in touch<small class="key">RD-03</small></span></div><div class="cell stage" id="RD-04"><span class="num">4</span><span class="sname">Unlock<small class="key">RD-04</small></span></div><div class="cell stage" id="RD-05"><span class="num">5</span><span class="sname">Plan the race<small class="key">RD-05</small></span></div><div class="cell stage" id="RD-06"><span class="num">6</span><span class="sname">Countdown<small class="key">RD-06</small></span></div><div class="cell stage" id="RD-07"><span class="num">7</span><span class="sname">Race day<small class="key">RD-07</small></span></div><div class="cell stage" id="RD-08"><span class="num">8</span><span class="sname">Debrief<small class="key">RD-08</small></span></div><div class="cell stage" id="RD-09"><span class="num">9</span><span class="sname">Next race<small class="key">RD-09</small></span></div>
+<div class="cell lanehead"><strong>Ships in</strong><span>Which build</span></div><div class="cell buildcell"><span class="build b1">Build 1</span></div><div class="cell buildcell"><span class="build b1">Build 1</span></div><div class="cell buildcell"><span class="build b1">Build 1</span></div><div class="cell buildcell"><span class="build b2">Build 2</span></div><div class="cell buildcell"><span class="build b3">Build 3</span></div><div class="cell buildcell"><span class="build b3">Build 3</span></div><div class="cell buildcell"><span class="build b1">Build 1 · 3</span></div><div class="cell buildcell"><span class="build b4">Build 4</span></div><div class="cell buildcell"><span class="build b4">Build 4</span></div>
+<div class="cell lanehead l-evidence"><strong>Evidence <small class="key">E</small></strong><span>What people see</span></div><div class="cell c-evidence"><p class="card k-evidence" id="RD-01-E1"><span class="key">RD-01-E1</span>A guide answers one question, such as “How many gels for a 70.3?”</p><p class="card k-evidence" id="RD-01-E2"><span class="key">RD-01-E2</span>A Substack post links to the matching tool</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RD-02-E1"><span class="key">RD-02-E1</span>Fuel tool in the guide, pre-filled for the guide’s case</p><p class="card k-evidence" id="RD-02-E2"><span class="key">RD-02-E2</span>A timed plan per leg, a carry list and an aid-station routine</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RD-03-E1"><span class="key">RD-03-E1</span>“Email me this plan”</p><p class="card k-evidence" id="RD-03-E2"><span class="key">RD-03-E2</span>Welcome email with the plan and the next guide</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RD-04-E1"><span class="key">RD-04-E1</span>Prices: Free, Lifetime ~US$49, Annual ~US$29</p><p class="card k-evidence" id="RD-04-E2"><span class="key">RD-04-E2</span>Gut-training ladder: the first paid feature</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RD-05-E1"><span class="key">RD-05-E1</span>Pace targets per leg and a finish-time range</p><p class="card k-evidence" id="RD-05-E2"><span class="key">RD-05-E2</span>Option C: pace and fuel on one race card</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RD-06-E1"><span class="key">RD-06-E1</span>A 14-day plan worked back from race date</p><p class="card k-evidence" id="RD-06-E2"><span class="key">RD-06-E2</span>Race-morning timeline from the start gun</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RD-07-E1"><span class="key">RD-07-E1</span>Printed top-tube card</p><p class="card k-evidence" id="RD-07-E2"><span class="key">RD-07-E2</span>Phone view that works with no signal</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RD-08-E1"><span class="key">RD-08-E1</span>Plan against race, leg by leg</p><p class="card k-evidence" id="RD-08-E2"><span class="key">RD-08-E2</span>One change for next time</p></div><div class="cell c-evidence"><p class="card k-evidence" id="RD-09-E1"><span class="key">RD-09-E1</span>Next race card, pre-filled with details and the change</p><p class="card k-evidence" id="RD-09-E2"><span class="key">RD-09-E2</span>Annual renewal email</p></div>
+<div class="cell lanehead l-member"><strong>Athlete <small class="key">T</small></strong><span>What they do</span></div><div class="cell c-member"><p class="card k-member" id="RD-01-T1"><span class="key">RD-01-T1</span>Searches a race-day question</p><p class="card k-member" id="RD-01-T2"><span class="key">RD-01-T2</span>Reads the guide</p></div><div class="cell c-member"><p class="card k-member" id="RD-02-T1"><span class="key">RD-02-T1</span>Enters race, splits, weight, heat and gut tolerance</p><p class="card k-member" id="RD-02-T2"><span class="key">RD-02-T2</span>Gets a plan with no sign-up</p></div><div class="cell c-member"><p class="card k-member" id="RD-03-T1"><span class="key">RD-03-T1</span>Leaves an email to keep the plan</p></div><div class="cell c-member"><p class="card k-member" id="RD-04-T1"><span class="key">RD-04-T1</span>Reaches a paid tool or the ladder</p><p class="card k-member" id="RD-04-T2"><span class="key">RD-04-T2</span>Pays once, or yearly</p></div><div class="cell c-member"><p class="card k-member" id="RD-05-T1"><span class="key">RD-05-T1</span>Enters FTP, CSS and run threshold, or picks heart rate or RPE</p><p class="card k-member" id="RD-05-T2"><span class="key">RD-05-T2</span>Sends splits to the fuel plan</p></div><div class="cell c-member"><p class="card k-member" id="RD-06-T1"><span class="key">RD-06-T1</span>Enters race date, distance and start time</p><p class="card k-member" id="RD-06-T2"><span class="key">RD-06-T2</span>Ticks off each day</p></div><div class="cell c-member"><p class="card k-member" id="RD-07-T1"><span class="key">RD-07-T1</span>Prints the card and packs to the list</p><p class="card k-member" id="RD-07-T2"><span class="key">RD-07-T2</span>Follows the race-morning timeline</p></div><div class="cell c-member"><p class="card k-member" id="RD-08-T1"><span class="key">RD-08-T1</span>Answers five questions after the race</p></div><div class="cell c-member"><p class="card k-member" id="RD-09-T1"><span class="key">RD-09-T1</span>Plans the next race in minutes</p><p class="card k-member" id="RD-09-T2"><span class="key">RD-09-T2</span>Renews the annual plan</p></div>
+<div class="line" style="grid-column: 1 / span 10"><span>Line of interaction</span></div>
+<div class="cell lanehead l-front"><strong>App <small class="key">A</small></strong><span>What the app does</span></div><div class="cell c-front"><p class="card k-front" id="RD-01-A1"><span class="key">RD-01-A1</span>The tool sits inside the guide: no app-store hop</p></div><div class="cell c-front"><p class="card k-front" id="RD-02-A1"><span class="key">RD-02-A1</span>Caps carbs at the gut tolerance entered</p><p class="card k-front" id="RD-02-A2"><span class="key">RD-02-A2</span>Shows “not medical advice” beside every plan</p><p class="card k-front" id="RD-02-A3"><span class="key">RD-02-A3</span>Lets people enter their own gels and drinks</p></div><div class="cell c-front"><p class="card k-front" id="RD-03-A1"><span class="key">RD-03-A1</span>Saves details on this phone for next time</p><p class="card k-front" id="RD-03-A2"><span class="key">RD-03-A2</span>Emails the plan only when asked</p></div><div class="cell c-front"><p class="card k-front" id="RD-04-A1"><span class="key">RD-04-A1</span>Unlocks all four tools on this device</p><p class="card k-front" id="RD-04-A2"><span class="key">RD-04-A2</span>Restores a purchase on a new phone [method to decide]</p></div><div class="cell c-front"><p class="card k-front" id="RD-05-A1"><span class="key">RD-05-A1</span>Pace sets the splits; the splits set the fuel</p><p class="card k-front" id="RD-05-A2"><span class="key">RD-05-A2</span>Shows a finish range, never one time</p><p class="card k-front" id="RD-05-A3"><span class="key">RD-05-A3</span>Fills every tool from saved details</p></div><div class="cell c-front"><p class="card k-front" id="RD-06-A1"><span class="key">RD-06-A1</span>Builds taper, race week, bike check and kit pack</p><p class="card k-front" id="RD-06-A2"><span class="key">RD-06-A2</span>Adds the contingency tree: flat, gut trouble, missed gel</p></div><div class="cell c-front"><p class="card k-front" id="RD-07-A1"><span class="key">RD-07-A1</span>Works offline once loaded</p><p class="card k-front" id="RD-07-A2"><span class="key">RD-07-A2</span>Prints a card sized for the top tube</p></div><div class="cell c-front"><p class="card k-front" id="RD-08-A1"><span class="key">RD-08-A1</span>Pre-fills the plan from the other tools</p><p class="card k-front" id="RD-08-A2"><span class="key">RD-08-A2</span>Picks one change and writes it into the next plan</p></div><div class="cell c-front"><p class="card k-front" id="RD-09-A1"><span class="key">RD-09-A1</span>Carries the change into fuel and pace</p></div>
+<div class="line" style="grid-column: 1 / span 10"><span>Line of visibility</span></div>
+<div class="cell lanehead l-back"><strong>Owner <small class="key">O</small></strong><span>What you do</span></div><div class="cell c-back"><p class="card k-back" id="RD-01-O1"><span class="key">RD-01-O1</span>Reviews and publishes one guide a day (~5 hrs a week)</p><p class="card k-back" id="RD-01-O2"><span class="key">RD-01-O2</span>Checks every number against current sources first</p></div><div class="cell c-back empty" aria-label="nothing at this stage"></div><div class="cell c-back"><p class="card k-back" id="RD-03-O1"><span class="key">RD-03-O1</span>Writes the welcome emails</p><p class="card k-back" id="RD-03-O2"><span class="key">RD-03-O2</span>Answers replies (~2 hrs a week)</p></div><div class="cell c-back"><p class="card k-back" id="RD-04-O1"><span class="key">RD-04-O1</span>Sets up Stripe</p><p class="card k-back" id="RD-04-O2"><span class="key">RD-04-O2</span>Handles refunds</p></div><div class="cell c-back"><p class="card k-back" id="RD-05-O1"><span class="key">RD-05-O1</span>Checks intensity-factor ranges before launch</p></div><div class="cell c-back"><p class="card k-back" id="RD-06-O1"><span class="key">RD-06-O1</span>Keeps checklists in line with race rules</p></div><div class="cell c-back"><p class="card k-back" id="RD-07-O1"><span class="key">RD-07-O1</span>Answers race-week emails the same day</p></div><div class="cell c-back"><p class="card k-back" id="RD-08-O1"><span class="key">RD-08-O1</span>Reads opt-in feedback for patterns</p></div><div class="cell c-back"><p class="card k-back" id="RD-09-O1"><span class="key">RD-09-O1</span>Runs the weekly review (~1 hr)</p></div>
+<div class="line" style="grid-column: 1 / span 10"><span>Line of internal interaction</span></div>
+<div class="cell lanehead l-support"><strong>Systems <small class="key">S</small></strong><span>What sits behind</span></div><div class="cell c-support"><p class="card k-support" id="RD-01-S1"><span class="key">RD-01-S1</span>A daily script lists queries with impressions but no clicks (Search Console)</p><p class="card k-support" id="RD-01-S2"><span class="key">RD-01-S2</span>An agent drafts one guide from the ontology’s 70 topics</p></div><div class="cell c-support"><p class="card k-support" id="RD-02-S1"><span class="key">RD-02-S1</span>Runs on the device: no server, no accounts, no health data held</p></div><div class="cell c-support"><p class="card k-support" id="RD-03-S1"><span class="key">RD-03-S1</span>Email tool [to choose]</p><p class="card k-support" id="RD-03-S2"><span class="key">RD-03-S2</span>Details in browser storage</p></div><div class="cell c-support"><p class="card k-support" id="RD-04-S1"><span class="key">RD-04-S1</span>Stripe checkout (~3% fees)</p><p class="card k-support" id="RD-04-S2"><span class="key">RD-04-S2</span>A licence that needs no account [to design]</p></div><div class="cell c-support"><p class="card k-support" id="RD-05-S1"><span class="key">RD-05-S1</span>One details store shared by every tool</p></div><div class="cell c-support"><p class="card k-support" id="RD-06-S1"><span class="key">RD-06-S1</span>Built on the device from the date</p></div><div class="cell c-support"><p class="card k-support" id="RD-07-S1"><span class="key">RD-07-S1</span>Offline copy of the plan [to design]</p></div><div class="cell c-support"><p class="card k-support" id="RD-08-S1"><span class="key">RD-08-S1</span>Debrief kept on the device</p></div><div class="cell c-support"><p class="card k-support" id="RD-09-S1"><span class="key">RD-09-S1</span>Annual billing in Stripe</p></div>
+<div class="cell lanehead l-measure"><strong>Measure <small class="key">M</small></strong><span>What to count</span></div><div class="cell c-measure"><p class="card k-measure" id="RD-01-M1"><span class="key">RD-01-M1</span>Impressions, clicks and click rate per guide</p><p class="card k-measure" id="RD-01-M2"><span class="key">RD-01-M2</span>Monthly visitors. Gate 1: ~1,000</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-02-M1"><span class="key">RD-02-M1</span>Readers who open the tool. Assumed ~25%</p><p class="card k-measure" id="RD-02-M2"><span class="key">RD-02-M2</span>Tool users who finish a plan</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-03-M1"><span class="key">RD-03-M1</span>Email sign-ups a month. Gate 1: ~100 by week 11</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-04-M1"><span class="key">RD-04-M1</span>Tool users who pay. Assumed ~4%; Gate 2: ≥3%</p><p class="card k-measure" id="RD-04-M2"><span class="key">RD-04-M2</span>Lifetime against annual mix</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-05-M1"><span class="key">RD-05-M1</span>Buyers who use two or more tools</p><p class="card k-measure" id="RD-05-M2"><span class="key">RD-05-M2</span>Plans saved per race</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-06-M1"><span class="key">RD-06-M1</span>Return visits in race week</p><p class="card k-measure" id="RD-06-M2"><span class="key">RD-06-M2</span>Countdown users who later buy</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-07-M1"><span class="key">RD-07-M1</span>Cards printed</p><p class="card k-measure" id="RD-07-M2"><span class="key">RD-07-M2</span>Race-week support emails</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-08-M1"><span class="key">RD-08-M1</span>Debriefs per race planned</p></div><div class="cell c-measure"><p class="card k-measure" id="RD-09-M1"><span class="key">RD-09-M1</span>Second race plans per buyer</p><p class="card k-measure" id="RD-09-M2"><span class="key">RD-09-M2</span>Annual renewal rate</p></div>
+<div class="cell lanehead l-risk"><strong>Watch for <small class="key">W</small></strong><span>What can go wrong</span></div><div class="cell c-risk"><p class="card k-risk" id="RD-01-W1"><span class="key">RD-01-W1</span>AI-spam penalty: one reviewed guide a day, no more</p><p class="card k-risk" id="RD-01-W2"><span class="key">RD-01-W2</span>The ontology’s ranges are unchecked</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-02-W1"><span class="key">RD-02-W1</span>Hyponatraemia: fluid and sodium advice needs care</p><p class="card k-risk" id="RD-02-W2"><span class="key">RD-02-W2</span>Product specs change: people’s own entries beat a built-in list</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-03-W1"><span class="key">RD-03-W1</span>Clearing the browser loses saved details</p><p class="card k-risk" id="RD-03-W2"><span class="key">RD-03-W2</span>The email address is the only personal data: keep it that way</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-04-W1"><span class="key">RD-04-W1</span>No accounts makes restoring a purchase hard</p><p class="card k-risk" id="RD-04-W2"><span class="key">RD-04-W2</span>The niche may cap revenue below target</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-05-W1"><span class="key">RD-05-W1</span>The finish prediction will be wrong for some</p><p class="card k-risk" id="RD-05-W2"><span class="key">RD-05-W2</span>Free brand calculators exist: win on the joined-up loop</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-06-W1"><span class="key">RD-06-W1</span>People pay little for checklists: free or bundled, never sold alone</p><p class="card k-risk" id="RD-06-W2"><span class="key">RD-06-W2</span>Contingency advice must stay general</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-07-W1"><span class="key">RD-07-W1</span>Many venues have no signal</p><p class="card k-risk" id="RD-07-W2"><span class="key">RD-07-W2</span>Printing from a phone is fiddly</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-08-W1"><span class="key">RD-08-W1</span>A Fatigue Check would lift weekly use but edges toward health advice: parked</p><p class="card k-risk" id="RD-08-W2"><span class="key">RD-08-W2</span>Feedback must be opt-in</p></div><div class="cell c-risk"><p class="card k-risk" id="RD-09-W1"><span class="key">RD-09-W1</span>The loop is the reason to stay annual: few debriefs means weak renewals</p></div>
+</div></div>
+<section class="plan" aria-labelledby="plan-h">
+<h2 id="plan-h">The plan: four builds, two gates</h2>
+<ol class="steps">
+<li class="step s-b1"><strong>Build 1 · weeks 1–3</strong><p>Free fuel tool inside the guide, the top-tube card, “Email me this plan”, and 10 fuelling guides.</p><p class="stepkeys">Cards: <code>RD-01 to RD-03, RD-07-A2</code></p></li>
+<li class="step s-gate"><strong>Gate 1 · week 11</strong><p>~1,000 monthly visitors and ~100 email sign-ups. Missed? Change the angle before changing the product.</p><p class="stepkeys">Cards: <code>RD-01-M2, RD-03-M1</code></p></li>
+<li class="step s-b2"><strong>Build 2</strong><p>Gut-training ladder and payments: Lifetime and Annual.</p><p class="stepkeys">Cards: <code>RD-04</code></p></li>
+<li class="step s-b3"><strong>Build 3</strong><p>Pacing, then Countdown as the free sign-up tool, then the offline race-day view.</p><p class="stepkeys">Cards: <code>RD-05 to RD-07</code></p></li>
+<li class="step s-gate"><strong>Gate 2</strong><p>Paid conversion at or above ~3% of tool users. Missed? Fix the Unlock stage before adding tools.</p><p class="stepkeys">Cards: <code>RD-04-M1</code></p></li>
+<li class="step s-b4"><strong>Build 4</strong><p>Debrief and the annual plan, which close the loop.</p><p class="stepkeys">Cards: <code>RD-08, RD-09</code></p></li>
+</ol>
+</section>
+<section class="notes">
+<div><h2>The weekly review</h2><p class="small">One hour a week, from the time budget. This is how the blueprint stays the guide.</p><ol>
+<li>Read the Measure lane for every live stage.</li>
+<li>Pick the one stage furthest from its target.</li>
+<li>Name the card to change by its key, such as <code>RD-02-A1</code>.</li>
+<li>Make one change. Log the date, key, change and expected effect in <code>NOTES.md</code>.</li>
+<li>Next week, check that effect before you pick the next change.</li>
+</ol></div>
+<div><h2>Three things that hold it together</h2><ul>
+<li><strong>Enter details once.</strong> Every tool after the first fills itself in.</li>
+<li><strong>One loop.</strong> Pace sets the splits, the splits set the fuel, and the debrief changes the next race.</li>
+<li><strong>On the device.</strong> No accounts and no health data held. Near-zero running costs.</li>
+</ul></div>
+<div><h2>Open decisions</h2><ul>
+<li><strong>D1 Design direction.</strong> A, B or C from the design options. Recommended: B’s toolbox, with C’s race card as what every tool saves to. Changes <code>RD-02-E1</code> and <code>RD-05-E2</code>.</li>
+<li><strong>D2 Restoring a purchase</strong> with no accounts. <code>RD-04-A2</code>, <code>RD-04-W1</code>.</li>
+<li><strong>D3 Counting without tracking.</strong> Analytics that give the Measure lane its numbers without collecting health data.</li>
+<li><strong>D4 Tools to choose:</strong> email, offline copy, hosting. <code>RD-03-S1</code>, <code>RD-07-S1</code>.</li>
+<li><strong>D5 Name, and fit with TRI Momentum:</strong> its wedge, or a separate business.</li>
+</ul></div>
+</section>
+<footer>Sources: Notion “Strategy: Race-day tool suite” and the Race Fuel Planner, Race Pacing Planner, Race Countdown and Race Debrief pages, 26 October 2026; the design options canvas, 2 November 2026. All numbers are the strategy’s unvalidated assumptions. Separate from the Balance Tri Club race calendar; it shares only the look.</footer>
+</div>
+</body>
+</html>
