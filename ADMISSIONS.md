@@ -47,7 +47,7 @@ Adding a row: one line per part, kept in alphabetical order within its table. Ev
 | customer-insight | grandfathered | Not tested |
 | deep-research | grandfathered | Not tested |
 | discovery-loop | grandfathered | Not tested |
-| editor | grandfathered | Not tested |
+| editor | grandfathered | Not tested against no skill. The 1.1.0 procedures section beat 1.0.0 on a blind A/B, 21/21 against 17/21 twice (work-samples/editor-upgrade-2026-11-02/) |
 | etf-investing-advisor | grandfathered | Not tested |
 | etf-investing-coach | grandfathered | Not tested |
 | first-principles | grandfathered | Not tested |

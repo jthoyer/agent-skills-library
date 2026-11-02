@@ -1,0 +1,4 @@
+A = arm-c1
+B = arm-c2
+C = arm-o2
+D = arm-o1
