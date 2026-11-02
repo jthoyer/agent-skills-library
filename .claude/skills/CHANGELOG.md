@@ -5,6 +5,12 @@ skills-librarian standard: Added / Merged / Updated / Retired per entry.
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-02 — `cpo` briefs for existing products
+
+### Updated
+- **`cpo`** 2.1.0 → 2.1.1. Step 3 gains a rule for briefs on a product that already exists: name the files to read first, say to copy its tokens and fonts, and state what the product lacks in plain words. `routing.md`'s `ux-designer` row points at it.
+- Why: the `ux-designer` mock for the BalanceTRI-app admin console added a dark theme the app does not have, after the brief said "dark-mode-safe". The agent's own fixes landed in the same change; detail in the root `CHANGELOG.md` entry for 2026-11-02.
+
 ## 2026-11-02 — structure check covers reference subfolders
 
 ### Updated

@@ -63,18 +63,26 @@ Counts are entries whose **heading names** the agent — which includes creation
 | `source-scout` | `changelog/2026-09-2.md`×2 | — |
 | `strategy-challenger` | `changelog/2026-09-2.md`×2 | — |
 | `strategy-juror` | `changelog/2026-09-2.md`×2 | — |
-| `ux-designer` | `changelog/2026-10.md`×4 | `CHANGELOG-ARCHIVE.md` |
+| `ux-designer` | `CHANGELOG.md`, `changelog/2026-10.md`×4 | `CHANGELOG-ARCHIVE.md` |
 | `watchdog` | `changelog/2026-10.md`×3, `changelog/2026-09-1.md`×2 | `changelog/2026-08.md`×3, `CHANGELOG-ARCHIVE.md`×3 |
 
 ---
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-02 — ux-designer
+- Verdict: good at producing distinct options, not fit to mock a live product. The mock skipped the product's style guide, loaded no fonts, added a dark theme the app lacks and invented a "Sign out" button. The user had to ask for a restyle.
+- Scores: Mandate Strong · Triggers Adequate · Tools Strong · Model Adequate · Instructions Weak · Observed Weak · Boundary Adequate
+- Changed: applied all 5 fixes to `.claude/agents/ux-designer.md` on the user's sign-off, same day. Step 1 gains a read-before-you-draw rule; step 6 gains a markup checklist (head and fonts, colours and modes, invented controls, landmarks, motion, focus ring, static layout) built from the 10-28 and 10-30 findings; two avoid-lines; the Summary names files read and elements invented; the description gains a trigger.
+- Why: step 1 says to look for a styleguide but never requires reading it before drawing, and nothing covers fonts, invented elements or adding a mode. The brief already said "read style-guide.html" and "reuse its tokens", so the brief alone did not stop it. The brief's "dark-mode-safe" invited the dark theme; that wording is a `cpo` brief defect, separate from the definition. The 10-28 derived-mock checklist would have caught this but never landed in `ux-designer.md`.
+- Expected effect: next mock of an existing product loads the live fonts, uses only live tokens, lists what it invented, and names any file it skipped at the top of its report. Check by grepping the delivered file for the font link and for `prefers-color-scheme` when the product has none.
+- Follow-up: the earlier unsigned items are applied too, same day, on the user's sign-off: step 7 "not shippable" with a port list (10-28), the ratio-method note in step 6 and "checks owed to a tool" in the Summary (10-29), and "rule out intent; label confirmed or suspected" and "blocked is a note" in the defects section (10-30). Still open: `cpo` routing "porting a mock is a build" (10-28 MED). The `cpo` brief gap is fixed too: `cpo` 2.1.1, step 3 now says how to brief work on an existing product (the "dark-mode-safe" phrase was the main thread's own, not in `cpo`; `cpo` had no rule against it). Fixes as applied: (1) HIGH, step 1: read every file the brief lists, the live stylesheet and font links first; a skipped file goes at the top of the report. (2) HIGH: avoid adding a mode, theme or control the product lacks; list every invented element. (3) HIGH: apply the 10-28 checklist and 10-30 layout checks to step 6, plus "fonts load, no unsourced colours". (4) MED: summary adds "files read / skipped; elements invented". (5) LOW: description trigger "mock up changes to this existing screen". Sample: `work-samples/ux-designer-2026-11-02.md`. Same run, `cody` built the tabs and two independent reviewers then found a z-index clash and a focus gap it missed; no `cody` review owed beyond the queue. Next audit targets: `ux-designer` (sign off the fixes above and the 10-28 to 10-30 ones), `cody` (next UI score: principle named?), plus the queue above.
+
 ## 2026-11-02 — library — ledger: October rolled out
 - Changed: all 34 October entries (2026-10-03 to 2026-10-30) moved verbatim to `changelog/2026-10.md`. At 54 KB the month fits a single read, so it is not split. Checked byte for byte against the previous commit; the only difference is one trailing blank line.
 - Index: "Where each agent's history lives" recounted from October's headings. It had drifted during October. Seven agents had October entries the table didn't show: `CPO`, `cos`, `mc-integrator`, `mc-orchestrator`, `mc-verifier`, `security-auditor`, and `cody` (×7, not ×1). Four counts were off: `mc-planner` ×2, `mc-reviewer` ×3, `ux-designer` ×4, `watchdog` ×3.
 - Follow-up: nothing updates the index when an entry is written. Recount it at each month's roll-out.
-- Next audit targets: unchanged, see `changelog/2026-10.md` (latest: `ux-designer`, `cody`).
+- Next audit targets: unchanged; the latest line is in the `ux-designer` entry above.
 
 ## 2026-11-02 — library — portfolio: `interview-coach` admitted
 - Decision (reduced independence: the cpo skill wrote the fixture, key and grader brief): add `interview-coach` (noamseg/interview-coach-skill at `634a8dd`, MIT). The owner asked for it via `/rewrite` and chose "run the test, add only if it passes".

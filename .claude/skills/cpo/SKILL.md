@@ -2,7 +2,7 @@
 name: cpo
 description: The library's one front door. Frames a request, picks the right executor (do it directly, a skill, a conducting skill, specialist agents, or cos), dispatches real agents from the main thread, and reviews the work after so the library improves. Use for "launch CPO", "run CPO", "rewrite this prompt and run it", "refine then run", "kick off this project", "who should work on this", any multi-part request with no executor named, and portfolio questions ("should this agent exist", "are these two doing the same job", "retire this agent", "what should we improve next"). /rewrite launches it. Never dispatch it as a subagent.
 metadata:
-  version: 2.1.0
+  version: 2.1.1
 ---
 
 # cpo — the front door
@@ -63,6 +63,14 @@ Every brief carries:
 - the frame from step 1,
 - constraints (what not to touch, what already failed),
 - the return format and a word budget.
+
+**A brief for work on a product that already exists** (a mock, a redesign, a restyle) adds
+three lines. Say which files to read first, by absolute path: the style guide, the live
+stylesheet, the page's font links. Say to copy the product's tokens, fonts and components,
+not to invent new ones. Say what the product does not have, in plain words: "the app is
+light only; add no dark theme". Never use a loose term the agent can stretch, such as
+"dark-mode-safe". On 2026-11-02 that phrase, written into a `ux-designer` brief, produced a
+dark theme the app lacks, and the user had to ask for a restyle.
 
 Run independent dispatches in one turn. `mc-reviewer` and `mc-verifier` are the one
 concurrent pair; dispatch both from here with the same spec path. Continue a live agent
