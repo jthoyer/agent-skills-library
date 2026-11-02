@@ -14,6 +14,8 @@ Every card has a permanent key, `RD-<stage>-<lane><number>`. For example, `RD-05
 - A removed card's key is retired.
 - A new stage takes the next free stage number, wherever it sits.
 
+**Set-up flow keys.** Below the main grid, a second grid zooms into stage 5 (Plan the race): adding details and setting pace targets, one step per screen on the design canvas (F1 to F7). Its keys are `RP-<step>-<lane><number>`, for example `RP-05-A1`. Same lane letters and the same rules. It has no Owner lane.
+
 ## Using it
 
 This is the plan and the improvement guide. Once a week (about an hour, from the time budget):
@@ -39,11 +41,13 @@ Edit `index.html` directly and follow the key rules. It started from a generator
 - D3 Analytics that count without collecting health data.
 - D4 Email tool, offline copy, hosting.
 - D5 Name, and fit with TRI Momentum.
+- D6 The paywall in pace set-up: lock the leg targets only, or the whole step, for a free user.
 
 ## History
 
 - 2026-11-02: first version, 108 cards, drawn from the strategy and tool pages and the three design options.
 - 2026-11-02: owner chose Option A plus C's race card (D1). Rewrote RD-05-E2 for the race card. Added RD-02-A4 (a guide opens one step on its own; saving it starts a race plan) and RD-02-W3 (A is weakest for guide visitors), so A's weak spot has a card to measure against.
+- 2026-11-02: added the set-up flow (RP-01 to RP-07, 74 cards) from the canvas screens F1 to F7. Added RD-05-A4 (points to the flow), RD-05-W3 and decision D6 (paywall). The worked example's finish range is now 5:15–5:30, so the legs add up; the canvas boards that said 5:05–5:25 were corrected to match.
 
 ## Changes
 
