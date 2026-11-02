@@ -55,6 +55,9 @@ __MACOSX/	the junk directory a zip command is told to exclude
 iteration/	created at run time by the upgrade gauntlet, per its own instructions
 .claude/skills/verify/SKILL.md	an app's saved verify recipe — target repo; mc-orchestrator Stage 4 creates it (2026-10-25)
 sealed/	created at run time by the upgrade gauntlet, per its own instructions
+coaching_state.md	interview-coach's per-candidate state file, created at run time outside any repo (its SKILL.md says where)
+job-search/	interview-coach's folder for a candidate's application drafts, written at run time outside any repo (its SKILL.md says where), not a path in this library
+materials/	interview-coach's folder for a candidate's resume and transcripts, kept outside any repo (its SKILL.md says where), not a path in this library
 
 # --- Third-party endpoints. -------------------------------------------------
 search.json	Reddit's search endpoint, named by recent-pulse — an API path, not a file

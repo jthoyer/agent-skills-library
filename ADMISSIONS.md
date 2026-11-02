@@ -53,6 +53,7 @@ Adding a row: one line per part, kept in alphabetical order within its table. Ev
 | first-principles | grandfathered | Not tested |
 | high-output-management | grandfathered | Not tested |
 | humanizer | grandfathered | Not tested |
+| interview-coach | passed | work-samples/admission-interview-coach-2026-11-02/ |
 | issue-tree | grandfathered | Not tested |
 | job-scan | grandfathered | Not tested |
 | justin-voice | grandfathered | Not tested |
