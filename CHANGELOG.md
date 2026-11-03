@@ -70,6 +70,16 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-03 — cody
+- Verdict: fit and honest, but it lists reachable paths as "not verified" instead of running them (independent: `agent-improver`, separate context).
+- Scores: 1 A · 2 A · 3 S · 4 A · 5 A · 6 A · 7 S
+- Work sample: `work-samples/cody-2026-11-03.md` (a summary, not verbatim); fixes on disk at `race-day-tools/public/js/app.js:875-877`, `public/css/app.css:968`.
+- Changed: no edits; 4 fixes proposed, awaiting sign-off. (H) `cody.md:119`: a reachable path is not a `Not verified:` item, so run it; (H) `cody.md:21`: failure states include older saved data (each read field absent in turn) and a long unbroken string at the narrowest width. (M) avoid-line "listing an edge untested when one seed and one reload would test it"; (L) `cpo`: one shared stored-data-drift reference with mc-reviewer's saved-keys fix.
+- Why: `cody.md:119` accepts "reasoned about but did not exercise", so naming an edge passes for reporting it. `cody.md:21` omits old saved data and hostile strings, where D1 and D2 sat.
+- Expected effect: next `Not verified:` holds only unreachable paths, and seeds include an old-shape record and a long name.
+- Follow-up: the 10-30 check (score names a principle?) is unscorable from a summary; save the next sample verbatim.
+- Next audit targets: `mc-verifier` (baseline sign-off, SHAs), `mc-reviewer` (saved keys), `editor` (no-skill arm), `ux-designer` (fix sign-off), `cody` (H sign-off; verbatim sample).
+
 ## 2026-11-03 — mc-reviewer, mc-verifier (2 agents reviewed)
 - Run: `cpo` via `/rewrite`, building the first two race-day tools in `jthoyer/race-day-tools` (PR #1). The main thread embodied Planner and Implementer, so its own review is reduced-independence. Both agents were delegated and dispatched together on `docs/spec.md`. Reviewed by `agent-improver`, a separate context. Samples: `work-samples/mc-reviewer-2026-11-03.md`, `work-samples/mc-verifier-2026-11-03.md`.
 - **mc-reviewer.** Verdict: strong. 12 findings, 4 Blockers, all real, no false positives; two broke the gut or sweat safety cap. Scores: Mandate S · Triggers S · Tools S · Model S · Instructions A · Observed A · Boundary S. Missed one readable defect: `blank()` in `store.js` had no `solo` key, so a fuel-only plan was dropped on reload. The "find every site" rule covers callers and content fields, not the keys of saved state. No Handoff Note: the main thread's brief set a different return shape.
