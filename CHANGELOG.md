@@ -70,6 +70,15 @@ Counts are entries whose **heading names** the agent — which includes creation
 
 <!-- New entries below this line, newest first -->
 
+## 2026-11-06 — watchdog (1 agent reviewed)
+- Run: `cpo` via `/rewrite`, rebuilding Level 1 of the Race-day blueprint (artifact `Nb8ouNL2t6EYt8T5W8wa5n`) as five tabs, one per team. The main thread wrote the page (embodied). `watchdog` was delegated on the finished page, since leadership reads it. Sample: `work-samples/watchdog-2026-11-06.md`.
+- **watchdog.** Verdict: strong. 8 findings, all real, no false positives. It checked the page against the original and against the cloned repo, and its one High caught a premise the main thread had taken from the README ("not published") that the repo's own workflow contradicts. It confirmed what was right with evidence, and said it could not check the live site. Not scored against the full rubric: `agent-improver` was not run, since a reviewer needs one only when a finding proved wrong.
+- Changed: no agent edits. The page took all 8 fixes and went out as version 9.
+- Why: nothing to fix in the agent. A self-review would have kept "not published".
+- Expected effect: none to test. Next sample: does it still check claims against a cloned source repo when the brief names one?
+- Follow-up: the owner should confirm whether the GitHub Pages site for `race-day-tools` is live. A concurrent publish by another session hit the artifact mid-run; the publish tool refused it and the main thread merged. No routing change needed.
+- Next audit targets: `mc-verifier` and `mc-reviewer` (still open from 2026-11-03), plus `editor`, `ux-designer`, `cody` from the queue above.
+
 ## 2026-11-03 — mc-reviewer, mc-verifier (2 agents reviewed)
 - Run: `cpo` via `/rewrite`, building the first two race-day tools in `jthoyer/race-day-tools` (PR #1). The main thread embodied Planner and Implementer, so its own review is reduced-independence. Both agents were delegated and dispatched together on `docs/spec.md`. Reviewed by `agent-improver`, a separate context. Samples: `work-samples/mc-reviewer-2026-11-03.md`, `work-samples/mc-verifier-2026-11-03.md`.
 - **mc-reviewer.** Verdict: strong. 12 findings, 4 Blockers, all real, no false positives; two broke the gut or sweat safety cap. Scores: Mandate S · Triggers S · Tools S · Model S · Instructions A · Observed A · Boundary S. Missed one readable defect: `blank()` in `store.js` had no `solo` key, so a fuel-only plan was dropped on reload. The "find every site" rule covers callers and content fields, not the keys of saved state. No Handoff Note: the main thread's brief set a different return shape.
